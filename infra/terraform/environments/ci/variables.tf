@@ -1,26 +1,13 @@
 # Variables for CI environment
-# These map to Terraform Cloud workspace variables (UPPERCASE)
+# CI only uses auth0 and circleci modules
 
-# DigitalOcean
-variable "DIGITALOCEAN_ACCESS_TOKEN" {
+# Web configuration
+variable "NEXT_PUBLIC_WEB_HOST" {
   type        = string
-  description = "DigitalOcean API access token"
-  sensitive   = true
+  description = "Web application host URL"
 }
 
-variable "DIGITALOCEAN_API_TOKEN" {
-  type        = string
-  description = "DigitalOcean API token"
-  sensitive   = true
-}
-
-variable "DIGITALOCEAN_DROPLET_NAME" {
-  type        = string
-  description = "Base name for droplets"
-  default     = "codelab"
-}
-
-# Auth0
+# Auth0 configuration
 variable "AUTH0_DOMAIN" {
   type        = string
   description = "Auth0 domain"
@@ -54,37 +41,7 @@ variable "AUTH0_SECRET" {
   sensitive   = true
 }
 
-# Docker
-variable "DOCKER_TAG_VERSION" {
-  type        = string
-  description = "Docker image tag"
-}
-
-variable "DOCKERHUB_USERNAME" {
-  type        = string
-  description = "Docker Hub username"
-}
-
-variable "DOCKERHUB_ACCESS_TOKEN" {
-  type        = string
-  description = "Docker Hub access token"
-  sensitive   = true
-}
-
-# Neo4j
-variable "NEO4J_USER" {
-  type        = string
-  description = "Neo4j username"
-  default     = "neo4j"
-}
-
-variable "NEO4J_PASSWORD" {
-  type        = string
-  description = "Neo4j password"
-  sensitive   = true
-}
-
-# API
+# API configuration (for CircleCI)
 variable "NEXT_PUBLIC_API_HOSTNAME" {
   type        = string
   description = "API hostname"
@@ -114,39 +71,7 @@ variable "DEBUG" {
   default     = false
 }
 
-# Web
-variable "NEXT_PUBLIC_WEB_HOST" {
-  type        = string
-  description = "Web host URL"
-}
-
-# Monitoring
-variable "LOKI_URL" {
-  type        = string
-  description = "Loki URL"
-  default     = ""
-}
-
-variable "PROMETHEUS_WRITE_URL" {
-  type        = string
-  description = "Prometheus write URL"
-  default     = ""
-}
-
-variable "PROMETHEUS_USERNAME" {
-  type        = string
-  description = "Prometheus username"
-  default     = ""
-}
-
-variable "PROMETHEUS_PASSWORD" {
-  type        = string
-  description = "Prometheus password"
-  sensitive   = true
-  default     = ""
-}
-
-# CI/CD
+# CircleCI
 variable "CIRCLECI_TOKEN" {
   type        = string
   description = "CircleCI token"
@@ -165,6 +90,30 @@ variable "SLACK_DEFAULT_CHANNEL" {
   description = "Slack default channel"
 }
 
+# Terraform Cloud
+variable "TERRAFORM_USER_TOKEN" {
+  type        = string
+  description = "Terraform Cloud user token"
+  sensitive   = true
+}
+
+variable "TERRAFORM_ORGANIZATION_TOKEN" {
+  type        = string
+  description = "Terraform Cloud organization token"
+  sensitive   = true
+}
+
+# Supabase
+variable "NEXT_PUBLIC_SUPABASE_URL" {
+  type        = string
+  description = "Supabase URL"
+}
+
+variable "NEXT_PUBLIC_SUPABASE_KEY" {
+  type        = string
+  description = "Supabase anon key"
+}
+
 # NX Cloud
 variable "NX_CLOUD_ACCESS_TOKEN" {
   type        = string
@@ -172,45 +121,45 @@ variable "NX_CLOUD_ACCESS_TOKEN" {
   sensitive   = true
 }
 
-# Sentry
+# Docker (for CircleCI)
+variable "DOCKERHUB_USERNAME" {
+  type        = string
+  description = "Docker Hub username"
+}
+
+variable "DOCKERHUB_ACCESS_TOKEN" {
+  type        = string
+  description = "Docker Hub access token"
+  sensitive   = true
+}
+
+# DigitalOcean (for CircleCI)
+variable "DIGITALOCEAN_ACCESS_TOKEN" {
+  type        = string
+  description = "DigitalOcean API access token"
+  sensitive   = true
+}
+
+variable "DIGITALOCEAN_API_TOKEN" {
+  type        = string
+  description = "DigitalOcean API token"
+  sensitive   = true
+}
+
+variable "DIGITALOCEAN_DROPLET_NAME" {
+  type        = string
+  description = "Base name for droplets"
+  default     = "codelab"
+}
+
+variable "DOCKER_TAG_VERSION" {
+  type        = string
+  description = "Docker image tag"
+}
+
+# Sentry (for CircleCI)
 variable "SENTRY_AUTH_TOKEN" {
   type        = string
   description = "Sentry authentication token"
   sensitive   = true
-  default     = ""
-}
-
-# Supabase
-variable "NEXT_PUBLIC_SUPABASE_URL" {
-  type        = string
-  description = "Supabase URL"
-  default     = ""
-}
-
-variable "NEXT_PUBLIC_SUPABASE_KEY" {
-  type        = string
-  description = "Supabase anon key"
-  default     = ""
-}
-
-# Terraform Cloud
-variable "TERRAFORM_USER_TOKEN" {
-  type        = string
-  description = "Terraform Cloud user token"
-  sensitive   = true
-  default     = ""
-}
-
-variable "TERRAFORM_ORGANIZATION_TOKEN" {
-  type        = string
-  description = "Terraform Cloud organization token"
-  sensitive   = true
-  default     = ""
-}
-
-# Default region (not from Terraform Cloud)
-variable "digitalocean_region" {
-  type        = string
-  description = "DigitalOcean region"
-  default     = "nyc3"
 }
