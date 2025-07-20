@@ -344,6 +344,85 @@ jobs:
           command: pnpm cli tasks graphql-codegen --stage ci
           name: Check GraphQL Codegen
       - run:
+          command: |
+            echo "=== Checking dist/libs/tools/workspace structure ==="
+            ls -la dist/libs/tools/workspace/ || echo "Directory not found"
+            echo ""
+            echo "=== Checking generators.json ==="
+            cat dist/libs/tools/workspace/generators.json || echo "generators.json not found"
+            echo ""
+            echo "=== Checking src/generators directory ==="
+            ls -la dist/libs/tools/workspace/src/generators/ || echo "Generators directory not found"
+            echo ""
+            echo "=== Checking nx-project-config generator files ==="
+            ls -la dist/libs/tools/workspace/src/generators/nx-project-config/ || echo "nx-project-config directory not found"
+            echo ""
+            echo "=== Checking if JavaScript files exist ==="
+            test -f dist/libs/tools/workspace/src/generators/nx-project-config/nx-project-config.js && echo "nx-project-config.js EXISTS" || echo "nx-project-config.js NOT FOUND"
+          name: 'Debug: Check dist folder structure'
+      - run:
+          command: |
+            echo "=== Checking pnpm list for @codelab/tools-workspace ==="
+            pnpm list @codelab/tools-workspace || echo "Package not listed"
+            echo ""
+            echo "=== Checking node_modules/.pnpm for workspace package ==="
+            ls -la node_modules/.pnpm/ | grep "@codelab+tools-workspace" || echo "Not found in .pnpm"
+            echo ""
+            echo "=== Checking actual installed location ==="
+            find node_modules/.pnpm -name "tools-workspace" -type d 2>/dev/null | head -5
+            echo ""
+            echo "=== Checking symlink in node_modules ==="
+            ls -la node_modules/@codelab/tools-workspace || echo "Symlink not found"
+            echo ""
+            echo "=== Checking if pnpm installed workspace packages correctly ==="
+            pnpm list --depth=0 | grep "file:dist" || echo "No file: protocol packages found"
+          name: 'Debug: Check pnpm workspace protocol linking'
+      - run:
+          command: |
+            echo "=== Finding the actual @codelab/tools-workspace in node_modules ==="
+            WORKSPACE_PATH=$(find node_modules/.pnpm -path "*/@codelab/tools-workspace" -type d 2>/dev/null | head -1)
+            if [ -n "$WORKSPACE_PATH" ]; then
+              echo "Found at: $WORKSPACE_PATH"
+              echo ""
+              echo "=== Contents of installed workspace package ==="
+              ls -la "$WORKSPACE_PATH"
+              echo ""
+              echo "=== Checking generators in installed location ==="
+              ls -la "$WORKSPACE_PATH/src/generators/nx-project-config/" || echo "Generators not found in installed location"
+            else
+              echo "Could not find @codelab/tools-workspace in node_modules"
+            fi
+          name: 'Debug: Verify workspace package contents'
+      - run:
+          command: |
+            echo "=== Current working directory ==="
+            pwd
+            echo ""
+            echo "=== Checking pnpm-workspace.yaml ==="
+            cat pnpm-workspace.yaml || echo "pnpm-workspace.yaml not found"
+            echo ""
+            echo "=== Checking package.json devDependencies for file: protocol ==="
+            cat package.json | jq '.devDependencies | to_entries[] | select(.value | startswith("file:"))' || echo "Failed to parse package.json"
+            echo ""
+            echo "=== Checking if pnpm install was run ==="
+            test -f pnpm-lock.yaml && echo "pnpm-lock.yaml EXISTS" || echo "pnpm-lock.yaml NOT FOUND"
+            echo ""
+            echo "=== Checking Node.js and pnpm versions ==="
+            node --version
+            pnpm --version
+            echo ""
+            echo "=== Re-installing @codelab/tools-workspace specifically ==="
+            pnpm install @codelab/tools-workspace --force || echo "Failed to reinstall"
+          name: 'Debug: Check pnpm workspace and file protocol'
+      - run:
+          command: |
+            echo "=== Attempting to run generator directly with more verbose output ==="
+            pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive --verbose || true
+            echo ""
+            echo "=== Checking nx.json for generator configuration ==="
+            cat nx.json | jq '.generators' || echo "No generators config in nx.json"
+          name: 'Debug: Try running the generator directly'
+      - run:
           command: pnpm cli tasks workspace-codegen --stage ci
           name: Check Generate Workspace
   docker-api:
