@@ -1,1 +1,5 @@
 *.zip
+*.symlink.tf
+symlink.sh
+MIGRATION_NEEDED.md
+vars.tf.backup

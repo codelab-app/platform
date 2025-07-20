@@ -1,1 +1,0 @@
-../loki/shared/vars-loki-url.tf

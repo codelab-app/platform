@@ -26,9 +26,3 @@ resource "digitalocean_droplet" "neo4j" {
   # Optional: Enable the DigitalOcean agent
   droplet_agent = true
 }
-
-output "neo4j_uri" {
-  # https://stackoverflow.com/questions/62357682/routing-issue-in-neo4j-4-0-with-multiple-databases
-  value = "bolt://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
-  # value = "bolt+s://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
-}
