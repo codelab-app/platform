@@ -13,6 +13,10 @@ import { ExpressionSelectField } from './ExpressionSelectField'
 import { ExpressionTextField } from './ExpressionTextField'
 
 export const ExpressionAutoField = createAutoField((props) => {
+  if (props.component) {
+    return props.component
+  }
+
   if (props.options) {
     return props.checkboxes && props.fieldType !== Array
       ? ExpressionRadioField

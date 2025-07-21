@@ -2,10 +2,16 @@
 
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
-import type { ListFieldProps } from 'uniforms-antd'
 
+import { isArray } from 'radash'
 import { Children, cloneElement, isValidElement } from 'react'
 import { connectField } from 'uniforms'
+import {
+  AutoField,
+  ListAddField,
+  type ListFieldProps,
+  ListItemField,
+} from 'uniforms-antd'
 
 import type { WithExpressionFieldProps } from './ToggleExpression'
 
@@ -16,25 +22,60 @@ export type WrappedListFieldProps = WithExpressionFieldProps<
   ListFieldProps
 >
 
-const WrappedListField = (props: WrappedListFieldProps) => (
-  <ToggleExpressionWrapper<Array<unknown>> {...props}>
-    {Boolean(props.error && props.showInlineError) && (
-      <div>{props.errorMessage}</div>
-    )}
-    {props.value?.map((item, itemIndex) =>
-      Children.map(props.children, (child, childIndex) =>
-        isValidElement<ObjectLike>(child)
-          ? cloneElement(child as ReactElement<ObjectLike>, {
-              key: `${itemIndex}-${childIndex}`,
-              labelCol: props.labelCol,
-              name: child.props.name?.replace('$', String(itemIndex)),
-              wrapperCol: props.wrapperCol,
-              ...(props.itemProps ?? []),
-            })
-          : child,
-      ),
-    )}
-  </ToggleExpressionWrapper>
-)
+const defaultStyle = {
+  marginBottom: '5px',
+  marginTop: '5px',
+  padding: '10px',
+}
+
+const errorStyle = { borderColor: 'rgb(255, 85, 0)' }
+
+const WrappedListField = (props: WrappedListFieldProps) => {
+  const {
+    children = (
+      <ListItemField name="$">
+        <AutoField label="" name="" />
+      </ListItemField>
+    ),
+    error,
+    errorMessage,
+    itemProps,
+    labelCol,
+    showInlineError,
+    style = defaultStyle,
+    value,
+    wrapperCol,
+  } = props
+
+  const wrapperStyle = error ? { ...errorStyle, ...style } : style
+
+  return (
+    <ToggleExpressionWrapper<Array<unknown>> {...props} style={wrapperStyle}>
+      {Boolean(error && showInlineError) && <div>{errorMessage}</div>}
+      {isArray(value) &&
+        value.map((item, itemIndex) => {
+          return Children.map(children, (child, childIndex) => {
+            return isValidElement<{ name?: string }>(child)
+              ? cloneElement(
+                  child as ReactElement<{
+                    name?: string
+                    labelCol?: ObjectLike
+                    wrapperCol?: ObjectLike
+                  }>,
+                  {
+                    key: `${itemIndex}-${childIndex}`,
+                    labelCol,
+                    name: child.props.name?.replace('$', String(itemIndex)),
+                    wrapperCol,
+                    ...itemProps,
+                  },
+                )
+              : child
+          })
+        })}
+      <ListAddField name="$" />
+    </ToggleExpressionWrapper>
+  )
+}
 
 export const ExpressionListField = connectField(WrappedListField)
