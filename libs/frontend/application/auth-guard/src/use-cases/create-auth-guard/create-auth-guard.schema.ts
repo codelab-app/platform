@@ -94,14 +94,15 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
       type: 'object',
     },
     resource: {
-      properties: {
-        id: {
-          type: 'string',
-          label: '',
-        },
-      },
-      required: ['id'],
       type: 'object',
+      properties: {
+        ...idSchema({
+          disabled: false,
+          label: 'Resource',
+        }),
+      },
+      label: '',
+      required: ['id'],
     },
     responseTransformer: {
       type: 'string',

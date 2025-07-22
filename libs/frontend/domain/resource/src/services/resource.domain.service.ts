@@ -4,6 +4,7 @@ import type {
 } from '@codelab/frontend-abstract-domain'
 import type { IResourceDto } from '@codelab/shared-abstract-core'
 
+import { SelectOption } from '@codelab/frontend-abstract-types'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -19,6 +20,13 @@ export class ResourceDomainService
   @computed
   get resourceList() {
     return [...this.resources.values()]
+  }
+
+  getSelectOption(): Array<SelectOption> {
+    return this.resourceList.map((resource) => ({
+      label: resource.name,
+      value: resource.id,
+    }))
   }
 
   @modelAction
