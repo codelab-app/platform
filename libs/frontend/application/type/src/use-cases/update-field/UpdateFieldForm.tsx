@@ -56,9 +56,6 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
             : null,
           validationRules: field.validationRules,
         }}
-        onChange={(key, value) => {
-          console.log(key, value)
-        }}
         onSubmit={async (data) => {
           onSubmit(data ?? field.toJson)
         }}
