@@ -8,7 +8,6 @@ import {
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IAtomType } from '@codelab/shared-abstract-core'
-import { SelectField } from 'uniforms-antd'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {
@@ -50,7 +49,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       type: 'array',
     },
     type: {
-      allowedValues: Object.values(IAtomType).filter(filterNotHookType),
+      enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
       type: 'string',
     },
@@ -75,9 +74,6 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
           ...idSchema(),
         },
         required: ['id'],
-      },
-      uniforms: {
-        component: SelectField,
       },
       nullable: true,
       showSearch: true,

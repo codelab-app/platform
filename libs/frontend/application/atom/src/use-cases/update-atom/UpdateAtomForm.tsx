@@ -16,7 +16,7 @@ import { DisplayIf } from '@codelab/frontend-presentation-view/components/condit
 import { IAtomType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
-import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 
 import { useAtomService } from '../../services'
 import { updateAtomSchema } from './update-atom.schema'
@@ -36,7 +36,7 @@ const omitFields = [
 
 export const UpdateAtomForm = observer<UpdateAtomFormProps>(
   ({ atom, onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { tagDomainService } = useDomainStore()
+    const { atomDomainService, tagDomainService } = useDomainStore()
     const atomService = useAtomService()
     const tagListOption = tagDomainService.tagsSelectOptions
 
@@ -89,8 +89,16 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
           options={tagListOption}
           showSearch={true}
         />
-        <AutoField label="Suggested Children" name="suggestedChildren" />
-        <AutoField label="Required Parents" name="requiredParents" />
+        <SelectField
+          label="Suggested Children"
+          name="suggestedChildren"
+          options={atomDomainService.getSelectOptions()}
+        />
+        <SelectField
+          label="Required Parents"
+          name="requiredParents"
+          options={atomDomainService.getSelectOptions()}
+        />
 
         <DisplayIf condition={showFormControl}>
           <FormController submitLabel="Update Atom" />

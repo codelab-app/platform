@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAtomService } from '../../services'
@@ -20,6 +20,7 @@ export const CreateAtomForm = observer<IFormController>(
   ({ onSubmitSuccess, submitRef }) => {
     const { tagDomainService } = useDomainStore()
     const atomService = useAtomService()
+    const { atomDomainService } = useDomainStore()
     const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
     return (
@@ -55,7 +56,11 @@ export const CreateAtomForm = observer<IFormController>(
           <TextField name="externalJsSource" required />
           <TextField name="externalSourceType" required />
         </DisplayIfField>
-        <AutoField label="Required Parents" name="requiredParents" />
+        <SelectField
+          label="Required Parents"
+          name="requiredParents"
+          options={atomDomainService.getSelectOptions()}
+        />
         <SelectField
           label="Connect Tag"
           mode="multiple"

@@ -16,7 +16,6 @@ import {
 import { HttpMethod, HttpResponseType } from '@codelab/shared-abstract-core'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { keys } from 'remeda'
-import { SelectField } from 'uniforms-antd'
 
 export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
   properties: {
@@ -99,9 +98,6 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
         id: {
           type: 'string',
           label: '',
-          uniforms: {
-            component: SelectField,
-          },
         },
       },
       required: ['id'],

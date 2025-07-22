@@ -9,7 +9,6 @@ import {
   refSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IAtomType } from '@codelab/shared-abstract-core'
-import { SelectField } from 'uniforms-antd'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
   properties: {
@@ -21,9 +20,6 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       },
       nullable: true,
       showSearch: true,
-      uniforms: {
-        component: SelectField,
-      },
       type: 'array',
     },
     ...idSchema(),
@@ -53,7 +49,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
     //   },
     // },
     type: {
-      allowedValues: Object.values(IAtomType).filter(filterNotHookType),
+      enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
       type: 'string',
     },
@@ -76,9 +72,6 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
         type: 'object',
         properties: idSchema(),
         required: ['id'],
-      },
-      uniforms: {
-        component: SelectField,
       },
       nullable: true,
       showSearch: true,
