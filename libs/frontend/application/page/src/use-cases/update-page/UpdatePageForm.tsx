@@ -2,7 +2,6 @@
 
 import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
-import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import {
@@ -12,7 +11,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { usePageService } from '../../services'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
@@ -47,7 +46,14 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
         submitRef={submitRef}
         uiKey={UiKey.PageFormUpdate}
       >
-        <AutoFields />
+        <AutoFields omitFields={['pageContentContainer']} />
+        <AutoField
+          name="pageContentContainer.id"
+          options={page.elements.map((element) => ({
+            label: element.label,
+            value: element.id,
+          }))}
+        />
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Update Page" />
         </DisplayIf>

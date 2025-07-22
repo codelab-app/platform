@@ -3,7 +3,6 @@ import type { JSONSchemaType } from 'ajv'
 
 import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { IRedirectTargetType } from '@codelab/shared-abstract-core'
-import { SelectField } from 'uniforms-antd'
 
 export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
   properties: {
@@ -28,17 +27,13 @@ export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
         id: {
           type: 'string',
           label: 'Auth Guard',
-          uniforms: {
-            component: SelectField,
-            // TODO: pass auth guards as options
-          },
         },
       },
       required: ['id'],
     },
     targetType: {
       type: 'string',
-      allowedValues: Object.values(IRedirectTargetType),
+      enum: Object.values(IRedirectTargetType),
     },
     targetPage: {
       type: 'object',
@@ -48,10 +43,6 @@ export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
         id: {
           type: 'string',
           label: 'Target Page',
-          uniforms: {
-            component: SelectField,
-            // TODO: pass pages as options
-          },
         },
       },
       required: ['id'],

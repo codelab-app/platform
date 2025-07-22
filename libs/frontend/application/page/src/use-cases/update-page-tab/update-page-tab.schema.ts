@@ -8,7 +8,6 @@ import {
 import { IPageKind } from '@codelab/shared-abstract-core'
 
 import { UrlPatternField } from '../../components'
-import { SelectField } from 'uniforms-antd'
 
 // pageContentContainer is not required in interface, but is required for _app page
 export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
@@ -23,8 +22,6 @@ export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
         properties: {
           ...idSchema({
             label: 'Page Content Container',
-            component: SelectField,
-            // TODO: pass elements as options
           }),
         },
         required: ['id'],

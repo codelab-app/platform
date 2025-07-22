@@ -14,7 +14,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { HttpMethod, IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useActionService } from '../../services'
@@ -33,10 +33,14 @@ const CODE_ACTION = `function run() {
 export const CreateActionForm = observer<CreateActionFormProps>(
   ({ onSubmitSuccess, showFormControl = true, storeId, submitRef }) => {
     const actionService = useActionService()
-    const { storeDomainService } = useDomainStore()
+
+    const { actionDomainService, resourceDomainService, storeDomainService } =
+      useDomainStore()
+
     const actionSchema = useActionSchema(createActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
+    const store = selectedNode?.runtimeStore.store.current
     const onSubmit = actionService.create
 
     const model = {
@@ -93,9 +97,18 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <AutoField name="resource.id" />
-          <AutoField name="successAction" options={[]} />
-          <AutoField name="errorAction" options={[]} />
+          <SelectField
+            name="resource.id"
+            options={resourceDomainService.getSelectOption()}
+          />
+          <SelectField
+            name="successAction"
+            options={actionDomainService.getSelectActionOptions(store!)}
+          />
+          <SelectField
+            name="errorAction"
+            options={actionDomainService.getSelectActionOptions(store!)}
+          />
           <ResourceFetchConfigField />
         </DisplayIfField>
 
