@@ -1,18 +1,21 @@
 'use client'
 
-import type { IRuntimeModel } from '@codelab/frontend-abstract-application'
 import type { IFormController } from '@codelab/frontend-abstract-types'
 import type { IElementDto } from '@codelab/shared-abstract-core'
 
+import { isRuntimeElement } from '@codelab/frontend-abstract-application'
+import { isPage } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx-context'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import {
-  SelectActionsField,
-  SelectElementField,
-} from '@codelab/frontend-presentation-components-interface-form'
-import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+  IElementRenderTypeKind,
+  IElementTypeKind,
+} from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -25,36 +28,43 @@ import { useElementService } from '../../services/element.service'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
 import { createElementSchema } from './create-element.schema'
 
-interface CreateElementFormProps extends IFormController {
-  // Prevent builder circular dep
-  selectedNode?: IRuntimeModel
-}
-
 /**
  * The `observer` here is causing the form to re-render when we create new element. It's odd at first since why would the parent change if we're using siblings to represent the children.
  *
  * Turns out newly added are inserted as first child, which is changing the parent's properties, and causing the observability to re-render. Instead, we add the element as next sibling of the last child.
  */
-export const CreateElementForm = observer<CreateElementFormProps>((props) => {
+export const CreateElementForm = observer<IFormController>((props) => {
   // Destructure to pass into tracker hooks
-  const { onSubmitSuccess, selectedNode, submitRef } = props
-  const { atomDomainService, elementDomainService } = useDomainStore()
+  const { onSubmitSuccess, submitRef } = props
+
+  const { actionDomainService, atomDomainService, elementDomainService } =
+    useDomainStore()
+
+  const { builderService } = useApplicationStore()
+  const elementService = useElementService()
   const user = useUser()
   const { validateParentForCreate } = useRequiredParentValidator()
+
   /**
    * Accessing `treeViewNode` is causing the form to re-render, but we don't see it because we're accessing the element id, which is not changing.
    */
-  const selectedElementId = selectedNode?.treeViewNodePreview.element?.id
-  const elementService = useElementService()
+  const selectedRuntimeElement =
+    builderService.selectedNode?.current &&
+    isRuntimeElement(builderService.selectedNode.current)
+      ? builderService.selectedNode.current
+      : undefined
 
-  // If we rely on the parentElement object for state, let's track it too
-  const selectedElement = elementDomainService.elements.get(
-    selectedElementId ?? '',
-  )
+  const selectedElement = selectedRuntimeElement?.element.current
 
   if (!selectedElement) {
     return null
   }
+
+  const store = selectedElement.closestContainerNode.store.current
+
+  const providerStore = isPage(selectedElement.closestContainerNode)
+    ? selectedElement.closestContainerNode.providerPage?.store.current
+    : undefined
 
   const onSubmit = (data: IElementDto) => {
     const isValidParent = validateParentForCreate(
@@ -80,6 +90,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       id: selectedElement.closestContainerNode.id,
     },
     id: v4(),
+    name: '',
     owner: {
       id: user.id,
     },
@@ -114,7 +125,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
           'parentElement',
           'style',
           'propsData',
-          'prevSibling',
           'preRenderActions',
           'postRenderActions',
           'renderType',
@@ -125,19 +135,32 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       />
       <AutoField name="props.data" />
       <AutoField
-        component={SelectElementField}
-        help={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
+        extra={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
         name="parentElement.id"
+        options={elementDomainService.getSelectOptions(
+          selectedElement,
+          IElementTypeKind.AllElements,
+          [model.id],
+        )}
       />
       <RenderTypeField
         name="renderType"
         parentComponent={selectedElement.closestContainerComponent}
         parentElement={selectedElement}
       />
-      <SelectActionsField name="preRenderActions" selectedNode={selectedNode} />
-      <SelectActionsField
+      <AutoField
+        name="preRenderActions"
+        options={actionDomainService.getSelectActionOptions(
+          store,
+          providerStore,
+        )}
+      />
+      <AutoField
         name="postRenderActions"
-        selectedNode={selectedNode}
+        options={actionDomainService.getSelectActionOptions(
+          store,
+          providerStore,
+        )}
       />
       <AutoComputedElementNameField label="Name" name="name" />
     </Form>

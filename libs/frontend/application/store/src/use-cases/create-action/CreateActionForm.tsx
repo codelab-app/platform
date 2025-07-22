@@ -11,14 +11,10 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import {
-  SelectActionField,
-  SelectResource,
-} from '@codelab/frontend-presentation-components-interface-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { HttpMethod, IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useActionService } from '../../services'
@@ -37,10 +33,14 @@ const CODE_ACTION = `function run() {
 export const CreateActionForm = observer<CreateActionFormProps>(
   ({ onSubmitSuccess, showFormControl = true, storeId, submitRef }) => {
     const actionService = useActionService()
-    const { storeDomainService } = useDomainStore()
+
+    const { actionDomainService, resourceDomainService, storeDomainService } =
+      useDomainStore()
+
     const actionSchema = useActionSchema(createActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
+    const store = selectedNode?.runtimeStore.store.current
     const onSubmit = actionService.create
 
     const model = {
@@ -58,8 +58,13 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         id: v4(),
       },
       id: v4(),
+      name: '',
+      resource: {
+        id: v4(),
+      },
       store: storeDomainService.stores.get(storeId),
-    }
+      type: IActionKind.CodeAction,
+    } as ICreateActionData
 
     return (
       <Form<ICreateActionData>
@@ -92,9 +97,18 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <SelectResource name="resource.id" />
-          <SelectActionField name="successAction" selectedNode={selectedNode} />
-          <SelectActionField name="errorAction" selectedNode={selectedNode} />
+          <SelectField
+            name="resource.id"
+            options={resourceDomainService.getSelectOption()}
+          />
+          <SelectField
+            name="successAction"
+            options={actionDomainService.getSelectActionOptions(store!)}
+          />
+          <SelectField
+            name="errorAction"
+            options={actionDomainService.getSelectActionOptions(store!)}
+          />
           <ResourceFetchConfigField />
         </DisplayIfField>
 

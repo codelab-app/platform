@@ -10,14 +10,10 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import {
-  SelectActionField,
-  SelectResource,
-} from '@codelab/frontend-presentation-components-interface-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 
 import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
@@ -30,10 +26,9 @@ interface UpdateActionFormProps extends IFormController {
 export const UpdateActionForm = observer<UpdateActionFormProps>(
   ({ actionId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const actionService = useActionService()
-    const { actionDomainService } = useDomainStore()
+    const { actionDomainService, resourceDomainService } = useDomainStore()
     const actionSchema = useActionSchema(updateActionSchema)
     const { builderService } = useApplicationStore()
-    const selectedNode = builderService.selectedNode?.maybeCurrent
     const actionToUpdate = actionDomainService.actions.get(actionId)
 
     const baseModel = {
@@ -63,7 +58,7 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
     return (
       <Form<IUpdateActionData>
         errorMessage="Error while updating action"
-        model={model}
+        model={model as unknown as IUpdateActionData}
         onSubmit={actionService.update}
         onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}
@@ -77,9 +72,22 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
         </DisplayIf>
 
         <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
-          <SelectResource name="resource.id" />
-          <SelectActionField name="successAction" selectedNode={selectedNode} />
-          <SelectActionField name="errorAction" selectedNode={selectedNode} />
+          <SelectField
+            name="resource.id"
+            options={resourceDomainService.getSelectOption()}
+          />
+          <SelectField
+            name="successAction"
+            options={actionDomainService.getSelectActionOptions(
+              actionToUpdate!.store.current,
+            )}
+          />
+          <SelectField
+            name="errorAction"
+            options={actionDomainService.getSelectActionOptions(
+              actionToUpdate!.store.current,
+            )}
+          />
           <ResourceFetchConfigField />
         </DisplayIf>
 

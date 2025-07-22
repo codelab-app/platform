@@ -1,5 +1,6 @@
 import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { Maybe } from '@codelab/shared-abstract-types'
+import type { Completion } from '@codemirror/autocomplete'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
@@ -46,6 +47,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * to generate correct compositeKey for children too
    */
   propKey?: string
+  propKeyAutoCompleteOptions: Array<Completion>
   propsHaveErrors: boolean
   renderedChildren: ArrayOrSingle<ReactNode>
   /**

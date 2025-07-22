@@ -1,16 +1,14 @@
 import type { IRef } from '../model'
 import type { IResourceFetchConfig } from '../resource'
-import type { IActionKind } from './action-kind.enum'
+import type { IActionDto } from './action.dto.interface'
 
 /**
  * Base
  */
-export interface IBaseActionCreateFormData {
-  id: string
-  name: string
-  store: IRef
-  type: IActionKind
-}
+export type IBaseActionCreateFormData = Pick<
+  IActionDto,
+  'id' | 'name' | 'store' | 'type'
+>
 
 export interface IApiActionCreateFormData extends IBaseActionCreateFormData {
   config: {

@@ -64,7 +64,7 @@ export class ArrayType
     return {
       items: this.itemType?.isValid
         ? this.itemType.current.toJsonSchema({
-            defaultValues,
+            // Don't pass default values here, as they are for array
             depth,
             fieldName,
             uniformSchema,

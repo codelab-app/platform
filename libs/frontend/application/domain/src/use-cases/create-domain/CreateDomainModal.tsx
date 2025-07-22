@@ -34,7 +34,8 @@ export const CreateDomainModal = observer<CreateDomainModalProps>(
       app: { id: appId },
       auth0Id: userDomainService.currentUser.auth0Id,
       id: v4(),
-    }
+      name: '',
+    } as ICreateDomainData
 
     const onSubmit = (data: ICreateDomainData) => {
       return domainService.create(data)

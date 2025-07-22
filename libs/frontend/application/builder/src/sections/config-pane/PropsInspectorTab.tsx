@@ -11,7 +11,7 @@ import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-code
 import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { usePropsInspector } from '../../hooks'
 
@@ -28,6 +28,10 @@ export const PropsInspectorTab = observer<{
   const initialProps = node.props.jsonString
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
+
+  useEffect(() => {
+    setEditedProp(initialProps)
+  }, [initialProps])
 
   return (
     <div className="w-full">

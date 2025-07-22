@@ -7,11 +7,11 @@ export const fieldMapper = {
   mapDataToDto: (fieldData: IFieldCreateData) => {
     return {
       ...fieldData,
-      api: { id: fieldData.interfaceTypeId },
+      api: fieldData.api,
       defaultValues: isDefined(fieldData.defaultValues)
         ? JSON.stringify(fieldData.defaultValues)
         : null,
-      fieldType: { id: fieldData.fieldType },
+      fieldType: fieldData.fieldType,
       validationRules: fieldData.validationRules
         ? JSON.stringify(fieldData.validationRules)
         : null,

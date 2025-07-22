@@ -6,7 +6,10 @@ import type { FormProps, SubmitRef } from '@codelab/frontend-abstract-types'
 import type { IPropData } from '@codelab/shared-abstract-core'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 
-import { type SetIsLoading } from '@codelab/frontend-presentation-components-form'
+import {
+  ExpressionAutoFields,
+  type SetIsLoading,
+} from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 
 import { InterfaceForm } from '../interface-form'
@@ -65,7 +68,9 @@ export const PropsForm = observer<PropsFormProps>(
           setIsLoading={setIsLoading}
           submitField={submitField}
           submitRef={submitRef}
-        />
+        >
+          <ExpressionAutoFields />
+        </InterfaceForm>
       </div>
     )
   },
