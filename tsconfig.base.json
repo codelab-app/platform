@@ -459,6 +459,9 @@
       "@codelab/frontend-application-lambda/views": [
         "libs/frontend/application/lambda/src/views/index.ts"
       ],
+      "@codelab/frontend-application-page/components": [
+        "libs/frontend/application/page/src/components/index.ts"
+      ],
       "@codelab/frontend-application-page/services": [
         "libs/frontend/application/page/src/services/index.ts"
       ],
@@ -482,9 +485,6 @@
       ],
       "@codelab/frontend-application-page/use-cases/update-page-tab": [
         "libs/frontend/application/page/src/use-cases/update-page-tab/index.ts"
-      ],
-      "@codelab/frontend-application-page/components": [
-        "libs/frontend/application/page/src/components/index.ts"
       ],
       "@codelab/frontend-application-preference/services": [
         "libs/frontend/application/preference/src/services/index.ts"
