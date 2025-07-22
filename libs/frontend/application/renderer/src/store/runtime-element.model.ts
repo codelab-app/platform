@@ -33,6 +33,9 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend-abstract-domain'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import { createValidator } from '@codelab/frontend-shared-utils'
 import {
   evaluateExpression,
   evaluateObject,
@@ -52,9 +55,6 @@ import { createElement, type ReactElement, type ReactNode } from 'react'
 import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
-import { createValidator } from '@codelab/frontend-shared-utils'
-import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
-import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 
 const compositeKey = (
   element: IElementModel,

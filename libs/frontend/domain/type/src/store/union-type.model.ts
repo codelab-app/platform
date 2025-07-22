@@ -9,12 +9,12 @@ import type { Ref } from 'mobx-keystone'
 
 import { PropKind, typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
 import { typedPropSchema } from '../shared'
 import { createBaseType } from './base-type.model'
-import { titleCase } from '@codelab/shared-utils'
 
 const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)

@@ -5,6 +5,7 @@ import type { MoveData } from '@codelab/frontend-abstract-domain'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import { AutoField } from 'uniforms-antd'
@@ -12,7 +13,6 @@ import { AutoField } from 'uniforms-antd'
 import { useElementService } from '../../services'
 import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
-import { IElementTypeKind } from '@codelab/shared-abstract-core'
 
 export interface MoveElementFormProps {
   runtimeElement: IRuntimeElementModel

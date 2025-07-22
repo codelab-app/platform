@@ -1,12 +1,11 @@
 import {
-  PropKind,
   type ITypeModel,
   type ITypeTransformContext,
   type JsonSchema,
+  PropKind,
 } from '@codelab/frontend-abstract-domain'
 import { GeneralValidationRules } from '@codelab/shared-abstract-core'
 import { titleCase } from '@codelab/shared-utils'
-
 import { HiddenField } from 'uniforms-antd'
 
 export const typedPropSchema = (

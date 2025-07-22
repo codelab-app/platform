@@ -1,19 +1,19 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
+import { ExpressionAutoCompleteField } from '@codelab/frontend-presentation-components-form'
 import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
-import { SelectField } from 'uniforms-antd'
 import {
   minLengthMsg,
   requiredMsg,
   titleCasePatternMsg,
 } from '@codelab/frontend-shared-utils'
-import { ExpressionAutoCompleteField } from '@codelab/frontend-presentation-components-form'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { SelectField } from 'uniforms-antd'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {

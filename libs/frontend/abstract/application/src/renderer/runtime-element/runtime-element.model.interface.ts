@@ -1,5 +1,6 @@
 import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { Maybe } from '@codelab/shared-abstract-types'
+import type { Completion } from '@codemirror/autocomplete'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
@@ -13,7 +14,6 @@ import type {
 } from '../runtime.model.interface'
 import type { IRuntimeElementStyleModel } from './runtime-element-style.model.interface'
 import type { IRuntimeElementDto } from './runtime-element.dto'
-import { Completion } from '@codemirror/autocomplete'
 
 /**
  * This model is the runtime model for IElementModel
