@@ -35,6 +35,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateFormData> = {
     },
     api: {
       type: 'object',
+      label: '',
       properties: {
         ...idSchema({
           component: HiddenField,

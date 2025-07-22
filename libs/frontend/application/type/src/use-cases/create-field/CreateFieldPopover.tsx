@@ -97,6 +97,7 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
 
       {formStep === FieldFormStep.DefaultValueFormStep && formState && (
         <FieldDefaultValueForm
+          errorMessage="Error while creating field"
           fieldType={formState.fieldType}
           onSubmit={async (data) => {
             await fieldService.create({
@@ -106,6 +107,7 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
             closePopover()
           }}
           submitRef={defaultValueFormSubmitRef}
+          successMessage="Field created successfully"
           validationRules={formState.validationRules}
         />
       )}

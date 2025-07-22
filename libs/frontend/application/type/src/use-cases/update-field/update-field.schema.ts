@@ -47,6 +47,7 @@ export const updateFieldSchema: JSONSchemaType<IFieldUpdateFormData> = {
     },
     api: {
       type: 'object',
+      label: '',
       properties: {
         ...idSchema({
           component: HiddenField,

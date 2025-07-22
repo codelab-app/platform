@@ -91,12 +91,13 @@ export const UpdateFieldPopover = ({
           setFormState(data)
           setFormStep(FieldFormStep.DefaultValueFormStep)
         }}
-        onSubmitSuccess={() => null}
         submitRef={updateFieldFormSubmitRef}
       />
       {formStep === FieldFormStep.DefaultValueFormStep && formState && (
         <FieldDefaultValueForm
+          errorMessage="Error while updating field"
           fieldType={formState.fieldType}
+          model={{ defaultValues: field.defaultValues }}
           onSubmit={async (data) => {
             await fieldService.update({
               ...formState,
@@ -105,6 +106,7 @@ export const UpdateFieldPopover = ({
             closePopover()
           }}
           submitRef={defaultValueFormSubmitRef}
+          successMessage="Field updated successfully"
           validationRules={formState.validationRules}
         />
       )}

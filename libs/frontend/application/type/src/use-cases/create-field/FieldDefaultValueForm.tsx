@@ -26,18 +26,22 @@ import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { useMemo } from 'react'
 
 interface FieldDefaultValueFormProps extends IFormController {
+  errorMessage?: string
   fieldType: IRef
   model?: ObjectLike
+  successMessage?: string
   validationRules?: Nullish<IValidationRules>
   onSubmit(data: IFieldDefaultValueFormData): Promise<unknown>
 }
 
 export const FieldDefaultValueForm = ({
+  errorMessage,
   fieldType,
   model,
   onSubmit,
   onSubmitSuccess,
   submitRef,
+  successMessage,
   validationRules,
 }: FieldDefaultValueFormProps) => {
   const { typeDomainService } = useDomainStore()
@@ -96,13 +100,13 @@ export const FieldDefaultValueForm = ({
 
   return (
     <Form<IFieldDefaultValueFormData>
-      errorMessage="Error while creating field"
+      errorMessage={errorMessage}
       model={model ?? {}}
       onSubmit={onSubmit}
       onSubmitSuccess={onSubmitSuccess}
       schema={schema}
       submitRef={submitRef}
-      successMessage="Field created successfully"
+      successMessage={successMessage}
       uiKey={UiKey.FieldFormSelectDefaultValue}
     >
       <ExpressionAutoField name="defaultValues" />
