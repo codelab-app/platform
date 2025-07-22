@@ -4,5 +4,7 @@ import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-
 export const primitiveTypeUniformSchema: ITypeModelUniformSchemaBuilder<
   IPrimitiveTypeModel
 > = (type, autocomplete) => {
-  return {}
+  return {
+    uniforms: {},
+  }
 }
