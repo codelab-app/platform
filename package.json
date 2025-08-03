@@ -43,12 +43,12 @@
     "knip": "knip",
     "aider": "node scripts/aider/run.js",
     "nx:clean-cache": "rimraf .nx/cache && mkdir -p .nx/cache",
-    "browser-tools": "npx @agentdeskai/browser-tools-server@1.2.0"
+    "browser-tools": "npx @agentdeskai/browser-tools-server@latest"
   },
   "private": true,
   "validate-branch-name": {
-    "pattern": "^(feat|fix|refactor|test)\\/[0-9]+-[a-z0-9-]+$|^(master|main|dev|staging|nx-upgrade)$|^(stag|prod)-(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
-    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, staging, nx-upgrade, or release tags (stag-x.x.x, prod-x.x.x)"
+    "pattern": "^(feat|fix|refactor|test)\\/[0-9]+-[a-z0-9-]+$|^(master|main|dev|staging|nx-upgrade)$|^(stag|prod)-(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$|^release\\/(staging|prod)$",
+    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, staging, nx-upgrade, release/staging, release/prod, or release tags (stag-x.x.x, prod-x.x.x)"
   },
   "dependencies": {
     "@ant-design/cssinjs": "1.23.0",
@@ -261,7 +261,6 @@
     "react-stickynode": "4.1.0",
     "react-syntax-highlighter": "15.5.0",
     "react-use": "17.6.0",
-    "recoil": "0.7.7",
     "reflect-metadata": "0.1.13",
     "remeda": "2.17.4",
     "require-in-the-middle": "7.5.0",
