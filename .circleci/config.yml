@@ -714,6 +714,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           max_old_space_size: 6144
           resource_class: large
       - hold-deploy:
@@ -721,6 +723,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - setup-workspace
           type: approval
@@ -747,6 +751,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - hold-deploy
       - docker-web:
@@ -756,6 +762,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - setup-infra-workspace
       - docker-api:
@@ -765,6 +773,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - setup-infra-workspace
       - docker-sites:
@@ -774,6 +784,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - setup-infra-workspace
       - docker-landing:
@@ -783,6 +795,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - setup-infra-workspace
       - tf-plan:
@@ -790,6 +804,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - docker-web
             - docker-api
@@ -801,6 +817,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - tf-plan
           type: approval
@@ -809,6 +827,8 @@ workflows:
             branches:
               only:
                 - master
+                - release/prod
+                - release/staging
           requires:
             - hold-apply
           stage: prod

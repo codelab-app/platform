@@ -6,6 +6,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
   # Will increment docker tag in tf cloud
   - hold-deploy:
       # resource_class: medium
@@ -13,6 +15,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       type: approval
       requires:
         - setup-workspace
@@ -41,6 +45,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       requires:
         - hold-deploy
   - docker-web:
@@ -49,6 +55,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       context:
         - prod
       requires:
@@ -59,6 +67,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       context:
         - prod
       requires:
@@ -69,6 +79,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       context:
         - prod
       requires:
@@ -79,6 +91,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       context:
         - prod
       requires:
@@ -88,6 +102,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       stage: prod
       requires:
         - docker-web
@@ -99,6 +115,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       type: approval
       requires:
         - tf-plan
@@ -107,6 +125,8 @@ jobs:
         branches:
           only:
             - master
+            - release/prod
+            - release/staging
       stage: prod
       requires:
         - hold-apply
