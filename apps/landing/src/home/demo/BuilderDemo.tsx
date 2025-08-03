@@ -1,6 +1,7 @@
 import { Col, Row, Tabs } from 'antd'
 
 import { ButtonPropsForm } from './ButtonDemoProps'
+import { DemoProvider } from './demo-context'
 import { DemoShoppingCard } from './DemoShoppingCard'
 import { DOMTree } from './DomTree'
 import { DOMTreeCode } from './DomTreeCode'
@@ -58,63 +59,65 @@ export const BuilderDemo = () => {
   ]
 
   return (
-    <Row
-      className={`
-        flex w-full flex-col-reverse
-        md:container
-        xl:flex-row
-      `}
-    >
-      <Col
+    <DemoProvider>
+      <Row
         className={`
-          z-20 mt-20 px-0
-          sm:mt-40
-          md:z-0 md:px-12
-          lg:mt-60 lg:px-0
-          xl:mt-0
+          flex w-full flex-col-reverse
+          md:container
+          xl:flex-row
         `}
-        md={24}
-        span={24}
-        xl={16}
       >
-        <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange}></Tabs>
-      </Col>
-      <Col md={24} span={24} xl={8}>
-        <div
+        <Col
           className={`
-            flex justify-center
-            md:h-full md:justify-center
-            xl:justify-end
+            z-20 mt-20 px-0
+            sm:mt-40
+            md:z-0 md:px-12
+            lg:mt-60 lg:px-0
+            xl:mt-0
           `}
+          md={24}
+          span={24}
+          xl={16}
         >
+          <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange}></Tabs>
+        </Col>
+        <Col md={24} span={24} xl={8}>
           <div
             className={`
-              relative m-0 w-full
-              sm:w-full
-              md:w-3/5
-              lg:m-auto
-              xl:m-0 xl:w-full
+              flex justify-center
+              md:h-full md:justify-center
+              xl:justify-end
             `}
           >
-            <img
-              alt="/Browser/Safari (Big Sur)"
-              className={`
-                absolute z-10 max-h-80 w-full rounded-xl border border-solid border-gray-200
-                object-contain
-                sm:max-h-[520px]
-                md:max-h-fit
-              `}
-              src="/Browser/Safari (Big Sur) - Light.png"
-            />
             <div
-              className="relative z-20"
-              style={{ margin: '0 auto', top: '21%', width: '90%' }}
+              className={`
+                relative m-0 w-full
+                sm:w-full
+                md:w-3/5
+                lg:m-auto
+                xl:m-0 xl:w-full
+              `}
             >
-              <DemoShoppingCard />
+              <img
+                alt="/Browser/Safari (Big Sur)"
+                className={`
+                  absolute z-10 max-h-80 w-full rounded-xl border border-solid border-gray-200
+                  object-contain
+                  sm:max-h-[520px]
+                  md:max-h-fit
+                `}
+                src="/Browser/Safari (Big Sur) - Light.png"
+              />
+              <div
+                className="relative z-20"
+                style={{ margin: '0 auto', top: '21%', width: '90%' }}
+              >
+                <DemoShoppingCard />
+              </div>
             </div>
           </div>
-        </div>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </DemoProvider>
   )
 }

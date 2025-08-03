@@ -2,14 +2,13 @@ import ShopOutlined from '@ant-design/icons/ShopOutlined'
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Button, Card, Typography } from 'antd'
-import { useRecoilValue } from 'recoil'
 
-import { demoCardPropState } from './ButtonDemoProps'
+import { useDemoState } from './demo-context'
 
 const { Text } = Typography
 
 export const DemoShoppingCard = () => {
-  const demoCardProp = useRecoilValue(demoCardPropState)
+  const { demoCardProp } = useDemoState()
 
   const cardIcon = (icon: string) => {
     if (icon === 'shopping-outlined') {

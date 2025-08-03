@@ -2,11 +2,10 @@ import type { PropsWithChildren, ReactElement } from 'react'
 
 import { breakpoints } from '@codelab/shared-config-builder'
 import { useMediaQuery } from 'react-responsive'
-import { useRecoilValue } from 'recoil'
 
 import { Footer } from '../footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
-import { menuState } from './menu/menu-state'
+import { useMenuState } from './menu/menu-context'
 import { CodelabMenuContainer } from './menu/MenuContainer'
 import { MenuMobile } from './menu/MobileMenu'
 
@@ -19,7 +18,7 @@ const Header = ({ children }: PropsWithChildren) => {
 }
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const isMenuOpen = useRecoilValue(menuState)
+  const { isMenuOpen } = useMenuState()
 
   return (
     <div className={isMenuOpen ? 'backdrop-blur' : ''} id="home">
