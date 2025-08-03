@@ -632,9 +632,6 @@ importers:
       react-use:
         specifier: 17.6.0
         version: 17.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      recoil:
-        specifier: 0.7.7
-        version: 0.7.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       reflect-metadata:
         specifier: 0.1.13
         version: 0.1.13
@@ -11574,9 +11571,6 @@ packages:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
     engines: {node: '>=10'}
 
-  hamt_plus@1.0.2:
-    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
-
   handle-thing@2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
 
@@ -15378,18 +15372,6 @@ packages:
   recast@0.23.9:
     resolution: {integrity: sha512-Hx/BGIbwj+Des3+xy5uAtAbdCyqK9y9wbBcDFDYanLS9JnMqf7OeF87HQwUimE87OEc72mr6tkKUKMBBL+hF9Q==}
     engines: {node: '>= 4'}
-
-  recoil@0.7.7:
-    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
 
   redent@3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
@@ -31880,8 +31862,6 @@ snapshots:
     dependencies:
       duplexer: 0.1.2
 
-  hamt_plus@1.0.2: {}
-
   handle-thing@2.0.1: {}
 
   hard-rejection@2.1.0: {}
@@ -36624,13 +36604,6 @@ snapshots:
       source-map: 0.6.1
       tiny-invariant: 1.3.3
       tslib: 2.3.1
-
-  recoil@0.7.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 19.1.0
-    optionalDependencies:
-      react-dom: 19.1.0(react@19.1.0)
 
   redent@3.0.0:
     dependencies:
