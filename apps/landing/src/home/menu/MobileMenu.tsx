@@ -5,7 +5,7 @@ import {
   faTwitter,
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons'
-import { faArrowLeft, faBars } from '@fortawesome/pro-regular-svg-icons'
+import { faArrowLeft } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import Image from 'next/image'
@@ -16,6 +16,7 @@ import { useOutsideClick } from 'rooks'
 import styled from 'styled-components'
 
 import { Logo } from '../logo/Logo'
+import { HamburgerIcon } from './HamburgerIcon'
 import { useMenuState } from './menu-context'
 
 const SpaceEvenly = styled.div.attrs({
@@ -28,9 +29,10 @@ const SpaceEvenly = styled.div.attrs({
 
 interface BackdropProps {
   active: boolean
+  onClick: () => void
 }
 
-const Backdrop = ({ active }: BackdropProps) => {
+const Backdrop = ({ active, onClick }: BackdropProps) => {
   const body = document.querySelector('body')
 
   if (!body) {
@@ -40,10 +42,13 @@ const Backdrop = ({ active }: BackdropProps) => {
   return createPortal(
     <div
       className={classNames(
-        'fixed top-0',
-        active && 'backdrop-blur-sm bg-white/5 w-screen h-screen',
+        'fixed top-0 left-0 z-40 transition-all duration-500 ease-out',
+        active 
+          ? 'backdrop-blur-sm bg-black/20 w-screen h-screen opacity-100' 
+          : 'opacity-0 pointer-events-none',
       )}
       id="backdrop"
+      onClick={onClick}
     />,
     body,
   )
@@ -64,39 +69,47 @@ export const MenuMobile = () => {
   }
 
   return (
-    <nav ref={ref}>
-      <Backdrop active={isMenuOpen} />
-      <SpaceEvenly>
+    <>
+      <Backdrop active={isMenuOpen} onClick={toggleMenu} />
+      <nav ref={ref}>
+        <SpaceEvenly>
         <Logo />
         <button
-          className={`
-            border-0 bg-white
-            hover:cursor-pointer
-          `}
+          className="border-0 bg-white hover:cursor-pointer p-2"
           onClick={toggleMenu}
         >
-          <FontAwesomeIcon className="text-xl" icon={faBars} />
+          <HamburgerIcon isOpen={isMenuOpen} />
         </button>
       </SpaceEvenly>
       <menu
         className={classNames(
-          isMenuOpen && '-translate-x-full',
-          'transition fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-300 shadow-lg border-r-2',
+          !isMenuOpen && '-translate-x-full',
+          'transition-transform fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-500 ease-[cubic-bezier(0.4,0.0,0.2,1)] shadow-lg left-0 z-50',
         )}
       >
         <div className="h-full p-10">
           <div className="flex items-center justify-between">
             <Logo />
-            <FontAwesomeIcon className="text-xl" icon={faArrowLeft} />
+            <button
+              className="border-0 bg-transparent hover:cursor-pointer p-2"
+              onClick={toggleMenu}
+            >
+              <HamburgerIcon isOpen={true} />
+            </button>
           </div>
           <ul className="flex flex-col p-0 pt-4">
             {menuItems.map((items, index) => (
               <li
-                className={`
-                  laptop:flex
-                  hidden pt-8 text-base
-                `}
+                className={classNames(
+                  "pt-8 text-base list-none transition-all duration-500 ease-out",
+                  isMenuOpen 
+                    ? "opacity-100 translate-x-0" 
+                    : "opacity-0 -translate-x-8"
+                )}
                 key={index}
+                style={{
+                  transitionDelay: isMenuOpen ? `${index * 75}ms` : '0ms'
+                }}
               >
                 <Link
                   className={`
@@ -117,36 +130,38 @@ export const MenuMobile = () => {
             ))}
           </ul>
           <ul className="mt-10 flex items-center justify-between p-0">
-            <li className="list-none text-2xl">
-              <FontAwesomeIcon icon={faTwitter} />
-            </li>
-            <li className="list-none text-2xl">
-              <FontAwesomeIcon icon={faFacebook} />
-            </li>
-            <li className="list-none text-2xl">
-              <FontAwesomeIcon icon={faGithub} />
-            </li>
-            <li className="list-none text-2xl">
-              <FontAwesomeIcon icon={faYoutube} />
-            </li>
-            <li className="list-none text-2xl">
-              <FontAwesomeIcon icon={faDiscord} />
-            </li>
+            {[faTwitter, faFacebook, faGithub, faYoutube, faDiscord].map((icon, index) => (
+              <li 
+                key={index}
+                className={classNames(
+                  "list-none text-2xl transition-all duration-500 ease-out",
+                  isMenuOpen 
+                    ? "opacity-100 translate-y-0" 
+                    : "opacity-0 translate-y-4"
+                )}
+                style={{
+                  transitionDelay: isMenuOpen ? `${(menuItems.length + index) * 75}ms` : '0ms'
+                }}
+              >
+                <FontAwesomeIcon icon={icon} />
+              </li>
+            ))}
           </ul>
         </div>
       </menu>
     </nav>
+    </>
   )
 }
 
 const menuItems = [
   {
-    href: '/',
+    href: '/features',
     icon: '/features.svg',
     title: 'Features',
   },
   {
-    href: '/',
+    href: '/docs',
     icon: '/docs.svg',
     title: 'Docs',
   },

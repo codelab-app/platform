@@ -39,7 +39,7 @@ export const DemoShoppingCard = () => {
             xl:m-auto xl:w-64
             2xl:w-full
           `}
-          src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg"
+          src="/hero_13__d1tfa5zby7e6_large_2x.jpeg"
         />
       }
     >

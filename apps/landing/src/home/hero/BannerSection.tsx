@@ -7,6 +7,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 import { BuilderDemo } from '../demo/BuilderDemo'
+import { BuilderDemoGif } from '../demo/BuilderDemoGif'
 import { CurveAccent } from './CurveAccent'
 
 const words = ['Ant Design', 'Material UI', 'Semantic UI', 'HTML tags']
