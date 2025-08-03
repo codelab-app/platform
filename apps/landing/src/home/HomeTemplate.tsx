@@ -18,10 +18,8 @@ const Header = ({ children }: PropsWithChildren) => {
 }
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const { isMenuOpen } = useMenuState()
-
   return (
-    <div className={isMenuOpen ? 'backdrop-blur' : ''} id="home">
+    <div id="home">
       {children}
     </div>
   )
