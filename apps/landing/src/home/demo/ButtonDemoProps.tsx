@@ -1,30 +1,14 @@
-import type { ButtonProps } from 'antd'
-
 import ShopOutlined from '@ant-design/icons/ShopOutlined'
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Descriptions, Radio, Select, Space, Switch } from 'antd'
-import { atom, useRecoilState } from 'recoil'
 
-interface DemoCardProps {
-  block: boolean
-  icon: string
-  type: ButtonProps['type']
-}
-
-export const demoCardPropState = atom<DemoCardProps>({
-  default: {
-    block: true,
-    icon: 'shopping-outlined',
-    type: 'primary',
-  },
-  key: 'DemoCardProp',
-})
+import { useDemoState } from './demo-context'
 
 const { Option } = Select
 
 export const ButtonPropsForm = () => {
-  const [demoCardProp, setDemoCardProp] = useRecoilState(demoCardPropState)
+  const { demoCardProp, setDemoCardProp } = useDemoState()
 
   const onBlockToggle = (checked: boolean) => {
     setDemoCardProp({
@@ -45,7 +29,7 @@ export const ButtonPropsForm = () => {
             onChange={(event) => {
               setDemoCardProp({
                 ...demoCardProp,
-                type: event.target.value as ButtonProps['type'],
+                type: event.target.value as any,
               })
             }}
             size="middle"

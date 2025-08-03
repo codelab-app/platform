@@ -12,12 +12,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
 import styled from 'styled-components'
 
 import { Logo } from '../logo/Logo'
-import { menuState } from './menu-state'
+import { useMenuState } from './menu-context'
 
 const SpaceEvenly = styled.div.attrs({
   className: 'flex flex-row justify-between items-center flex-grow py-6 px-12',
@@ -51,7 +50,7 @@ const Backdrop = ({ active }: BackdropProps) => {
 }
 
 export const MenuMobile = () => {
-  const [isMenuOpen, setMenu] = useRecoilState(menuState)
+  const { isMenuOpen, setMenuOpen } = useMenuState()
   const ref = useRef(null)
 
   useOutsideClick(ref, () => {
@@ -61,7 +60,7 @@ export const MenuMobile = () => {
   })
 
   const toggleMenu = () => {
-    setMenu(!isMenuOpen)
+    setMenuOpen(!isMenuOpen)
   }
 
   return (

@@ -4,10 +4,10 @@ import type { FunctionComponent, PropsWithChildren } from 'react'
 
 import { Auth0Provider } from '@auth0/nextjs-auth0'
 import { App as AntdApp, ConfigProvider } from 'antd'
-import { RecoilRoot } from 'recoil'
 
 import { GoogleAnalytics } from '../src/home/GoogleAnalytics'
 import { Intercom } from '../src/home/Intercom'
+import { MenuProvider } from '../src/home/menu/menu-context'
 import { useHotjar } from '../src/hooks/useHotjar.hook'
 import '../styles/app.css'
 // import { slickCssFix } from '../src/styles/slick/Slick'
@@ -26,7 +26,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
     <>
       <GoogleAnalytics />
       <Intercom />
-      <RecoilRoot>
+      <MenuProvider>
         <Auth0Provider>
           <ConfigProvider
             theme={{
@@ -46,7 +46,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
             </Layout>
           </ConfigProvider>
         </Auth0Provider>
-      </RecoilRoot>
+      </MenuProvider>
     </>
   )
 }
