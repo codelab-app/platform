@@ -26,7 +26,7 @@ export type WrapperProps = Override<
   }
 >
 
-export interface FieldWrapperProps extends WrapperProps, ToggleProps {}
+export interface FieldWrapperProps extends ToggleProps, WrapperProps {}
 
 const StyledFormItem = styled(Form.Item)`
   .ant-form-item-label {

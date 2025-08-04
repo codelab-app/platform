@@ -1,5 +1,5 @@
 import type { SubmitRef } from '@codelab/frontend-abstract-types'
-import { ObjectLike } from '@codelab/shared-abstract-types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { MouseEvent } from 'react'
 
 import { loadingAtom } from '@codelab/frontend-application-shared-services/loading'
