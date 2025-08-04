@@ -15,6 +15,43 @@
         "outputPath": "dist/apps/web",
         "postcssConfig": "apps/web/postcss.config.js"
       },
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "env": "NEXT_PUBLIC_API_HOSTNAME"
+        },
+        {
+          "env": "NEXT_PUBLIC_API_PORT"
+        },
+        {
+          "env": "NEXT_PUBLIC_WEB_HOST"
+        },
+        {
+          "env": "NEXT_PUBLIC_BASE_API_PATH"
+        },
+        {
+          "env": "NEXT_PUBLIC_GOOGLE_ANALYTICS"
+        },
+        {
+          "env": "NEXT_PUBLIC_HOTJAR_ID"
+        },
+        {
+          "env": "NEXT_PUBLIC_HOTJAR_VERSION"
+        },
+        {
+          "env": "NEXT_PUBLIC_INTERCOM_APP_ID"
+        },
+        {
+          "env": "NEXT_PUBLIC_SUPABASE_KEY"
+        },
+        {
+          "env": "NEXT_PUBLIC_SUPABASE_URL"
+        },
+        {
+          "env": "NODE_ENV"
+        }
+      ],
       "configurations": {
         "dev": {},
         "ci": {},
