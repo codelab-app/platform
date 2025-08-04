@@ -16,4 +16,8 @@ resource "digitalocean_droplet" "codelab_web" {
   user_data = data.cloudinit_config.web.rendered
 
   droplet_agent = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }

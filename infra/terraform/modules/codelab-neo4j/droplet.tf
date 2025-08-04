@@ -17,7 +17,7 @@ resource "digitalocean_droplet" "neo4j" {
   user_data = data.cloudinit_config.neo4j.rendered
 
   lifecycle {
-    # ignore_changes = [user_data]
+    create_before_destroy = true
   }
 
   # Tags for easier management

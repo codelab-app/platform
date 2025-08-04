@@ -73,7 +73,7 @@ WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN pnpm nx build landing --verbose --skip-nx-cache
+RUN pnpm nx build landing --verbose
 
 #
 # (2) Prod

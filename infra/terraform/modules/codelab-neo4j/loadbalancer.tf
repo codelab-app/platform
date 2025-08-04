@@ -35,4 +35,9 @@ resource "digitalocean_loadbalancer" "neo4j" {
     port     = 22
     protocol = "tcp"
   }
+
+  # Force load balancer to update when droplet changes
+  lifecycle {
+    replace_triggered_by = [digitalocean_droplet.neo4j.id]
+  }
 }
