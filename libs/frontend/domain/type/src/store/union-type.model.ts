@@ -56,7 +56,7 @@ export class UnionType
       .map((type) => {
         const typedSchema = type.current.toJsonSchema(context)
         const valueSchema = typedSchema.properties?.__isTypedProp
-          ? typedSchema.properties?.value
+          ? typedSchema.properties.value
           : typedSchema
 
         return valueSchema
