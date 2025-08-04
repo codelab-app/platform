@@ -7,7 +7,7 @@ import type {
 import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
-import { PropKind, typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { unique } from 'radash'
@@ -78,15 +78,14 @@ export class UnionType
 
     return {
       properties: {
+        __isTypedProp: {
+          default: true,
+          type: 'boolean',
+          uniforms: { component: HiddenField },
+        },
         kind: {
           default: firstType.kind,
           enum: unique(this.typesOfUnionType.map((type) => type.current.kind)),
-          type: 'string',
-          uniforms: { component: HiddenField },
-        },
-        propKind: {
-          default: PropKind.UnionTypeProp,
-          enum: [PropKind.UnionTypeProp],
           type: 'string',
           uniforms: { component: HiddenField },
         },

@@ -3,11 +3,6 @@ import type { Maybe } from '@codelab/shared-abstract-types'
 
 import { isPlainObject, isString } from 'remeda'
 
-export enum PropKind {
-  TypedProp = 'typedProp',
-  UnionTypeProp = 'unionTypeProp',
-}
-
 /**
  * Used to represent a value that has a specific type.
  * Useful for handling the same value in a different way
@@ -17,49 +12,29 @@ export enum PropKind {
  * an element id, but they are hydrated in different ways in the render pipeline.
  */
 export interface TypedProp {
+  // serves as a discriminator, as some atoms may have the same attributes `kind` `type` and `value`
+  __isTypedProp: true
   // sometimes we need to know the kind without having to load the type
   kind: ITypeKind
-  propKind: PropKind.TypedProp
   type: string
   // required for nested types
-  value?: string | PropObject
+  value?: string
 }
 
-type UnionTypePropValue = {
-  [key in ITypeKind]: string | PropObject
-}
-
-export interface UnionTypeProp extends UnionTypePropValue {
-  // sometimes we need to know the kind without having to load the type
+export const typedProp = (input: {
   kind: ITypeKind
-  propKind: PropKind.UnionTypeProp
   type: string
-}
-
-export type PropObject = TypedProp | UnionTypeProp
+  value?: string
+}): TypedProp => ({
+  ...input,
+  __isTypedProp: true,
+})
 
 /**
  * Tells us whether this JSON data is representing a `TypedProp`
  */
 export const isTypedProp = (prop: IPropData): prop is TypedProp =>
-  isPlainObject(prop) && prop.propKind === PropKind.TypedProp
-
-export const isUnionTypeProp = (prop: IPropData): prop is UnionTypeProp =>
-  isPlainObject(prop) && prop.propKind === PropKind.UnionTypeProp
-
-export const isPropObject = (
-  prop: IPropData,
-): prop is TypedProp | UnionTypeProp =>
-  isTypedProp(prop) || isUnionTypeProp(prop)
-
-export const mapUnionTypePropToTypedProp = (
-  prop: UnionTypeProp,
-): TypedProp => ({
-  kind: prop.kind,
-  propKind: PropKind.TypedProp,
-  type: prop.type,
-  value: prop[prop.kind],
-})
+  isPlainObject(prop) && prop.__isTypedProp
 
 export const extractTypedPropValue = (prop: TypedProp): Maybe<string> => {
   if (!prop.value) {
@@ -68,10 +43,6 @@ export const extractTypedPropValue = (prop: TypedProp): Maybe<string> => {
 
   if (isString(prop.value)) {
     return prop.value
-  }
-
-  if (isUnionTypeProp(prop.value)) {
-    return extractTypedPropValue(mapUnionTypePropToTypedProp(prop.value))
   }
 
   return extractTypedPropValue(prop.value)

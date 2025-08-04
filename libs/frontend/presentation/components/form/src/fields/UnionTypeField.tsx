@@ -8,7 +8,7 @@ import type { ITypeKind } from '@codelab/shared-abstract-core'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { GuaranteedProps } from 'uniforms'
 
-import { PropKind } from '@codelab/frontend-abstract-domain'
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { Form } from 'antd'
 import { joinName, useField } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
@@ -22,7 +22,7 @@ export const UnionTypeField = (props: UnionTypeFieldProps) => {
   const typeFieldName = joinName(name, 'type')
   const kindFieldName = joinName(name, 'kind')
   const [field, context] = useField<UnionTypeFieldProps, ITypeKind>(name, props)
-  const [typeField] = useField<ObjectLike, ITypeKind>(typeFieldName, {})
+  const [typeField] = useField<ObjectLike, string>(typeFieldName, {})
   const [kindField] = useField<ObjectLike, ITypeKind>(kindFieldName, {})
   const activeValueFieldName = joinName(name, typeField.value)
   const unionType = field.unionType
@@ -32,17 +32,36 @@ export const UnionTypeField = (props: UnionTypeFieldProps) => {
     .reduce((all, current) => ({ ...all, ...current }), {})
 
   const onTypeChange = (value: string) => {
-    context.onChange(name, {
-      kind: typeToKind[value],
-      propKind: PropKind.UnionTypeProp,
-      type: value,
-    })
+    context.onChange(
+      name,
+      typedProp({
+        kind: typeToKind[value]!,
+        type: value,
+        value: undefined,
+      }),
+    )
   }
 
   return (
     <Form.Item label={field.label}>
       <AutoField name={typeFieldName} onChange={onTypeChange} />
-      {kindField.value && <AutoField name={activeValueFieldName} />}
+      {kindField.value && (
+        <AutoField
+          name={activeValueFieldName}
+          onChange={(value: string) => {
+            context.onChange(
+              name,
+              typedProp({
+                kind: kindField.value!,
+                type: typeField.value!,
+                value: value,
+                // it is important to keep the value and avoid additinal mapping
+                [typeField.value!]: value,
+              }),
+            )
+          }}
+        />
+      )}
     </Form.Item>
   )
 }

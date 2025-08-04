@@ -5,7 +5,7 @@ import type {
   IPageCreateFormData,
 } from '@codelab/shared-abstract-core'
 
-import { PropKind } from '@codelab/frontend-abstract-domain'
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { findOrFail } from '@codelab/shared-utils'
 import { type APIRequestContext } from '@playwright/test'
@@ -25,12 +25,11 @@ export const providerPageLinkElement: ICreateElementData = {
   id: v4(),
   name: 'Test Page Link',
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
-      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'go to test page',
-    },
+    }),
     href: '/test-page',
   },
 }
@@ -39,12 +38,11 @@ export const staticPageTextElement: ICreateElementData = {
   id: v4(),
   name: 'Test Page Content',
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
-      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'this is the test page',
-    },
+    }),
   },
 }
 export const staticPageLinkElement: ICreateElementData = {
@@ -53,12 +51,11 @@ export const staticPageLinkElement: ICreateElementData = {
   name: 'Dynamic Page Link',
   prevSibling: { id: staticPageTextElement.id },
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
-      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'go to dynamic page',
-    },
+    }),
     href: `/tests/${testUrlProps.testId}/subtests/${testUrlProps.subtestId}`,
   },
 }
@@ -67,13 +64,12 @@ export const dynamicPageTextElement: ICreateElementData = {
   id: v4(),
   name: 'Dynamic Page Content',
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
-      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value:
         'testId: "{{urlProps.testId}}", subtestId: "{{urlProps.subtestId}}"',
-    },
+    }),
   },
 }
 

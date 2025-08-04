@@ -33,7 +33,7 @@ import type { IUnionTypeModel } from './union-type.model.interface'
 export interface JsonSchema extends JSONSchema7 {
   autocomplete?: IPropData
   help?: Nullable<string>
-  isTypedProp?: boolean
+  isPropComponent?: boolean
   label?: string
   properties?:
     | {

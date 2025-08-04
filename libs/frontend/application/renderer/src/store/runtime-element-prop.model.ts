@@ -19,9 +19,7 @@ import {
   isAtom,
   isAtomRef,
   isComponentRef,
-  isPropObject,
   isTypedProp,
-  mapUnionTypePropToTypedProp,
 } from '@codelab/frontend-abstract-domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { type IPropData, ITypeKind } from '@codelab/shared-abstract-core'
@@ -201,7 +199,7 @@ export class RuntimeElementPropsModel
 
     const isCodeMirrorType =
       childrenProp &&
-      isPropObject(childrenProp) &&
+      isTypedProp(childrenProp) &&
       childrenProp.kind === ITypeKind.CodeMirrorType
 
     const Wrapper = isCodeMirrorType
@@ -288,26 +286,22 @@ export class RuntimeElementPropsModel
   @modelAction
   renderTypedProps() {
     const renderedProps = mapDeep(this.props, (value, key) => {
-      if (!isPropObject(value)) {
+      if (!isTypedProp(value)) {
         return value
       }
 
-      const propObject = isTypedProp(value)
-        ? value
-        : mapUnionTypePropToTypedProp(value)
-
-      if (!propObject.value) {
+      if (!value.value) {
         return undefined
       }
 
       const transformer = this.renderer.typedPropTransformers.get(value.kind)
 
       if (!transformer) {
-        return propObject.value
+        return value.value
       }
 
       return transformer.transform(
-        propObject,
+        value,
         key.toString(),
         this.runtimeElement.current,
       )

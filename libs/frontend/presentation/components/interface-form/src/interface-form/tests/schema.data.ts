@@ -1,6 +1,5 @@
 /// <reference types='jest'/>
 
-import { PropKind } from '@codelab/frontend-abstract-domain'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
@@ -85,10 +84,9 @@ export const unionTypeExpectedSchema = {
       type: 'string',
       uniforms: { component: HiddenField },
     },
-    propKind: {
-      default: PropKind.UnionTypeProp,
-      enum: [PropKind.UnionTypeProp],
-      type: 'string',
+    __isTypedProp: {
+      default: true,
+      type: 'boolean',
       uniforms: { component: HiddenField },
     },
     type: {

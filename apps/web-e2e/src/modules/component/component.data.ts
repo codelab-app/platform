@@ -1,6 +1,6 @@
 import type { ICreateElementSeedData } from '@codelab/shared-abstract-core'
 
-import { PropKind } from '@codelab/frontend-abstract-domain'
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { IAtomType, ITypeKind } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 
@@ -18,12 +18,11 @@ export const componentTextElement: ICreateElementSeedData = {
   name: 'Component Text',
   parentElement: 'New Component Root',
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
-      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'text {{componentProps.component_prop}}',
-    },
+    }),
   },
 }
 
@@ -32,11 +31,10 @@ export const componentInstanceChild = {
   name: 'Component Instance Child',
   parentElement: componentInstance.name,
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
-      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: COMPONENT_INSTANCE_TEXT,
-    },
+    }),
   },
 }

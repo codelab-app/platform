@@ -2,7 +2,6 @@ import {
   type ITypeModel,
   type ITypeTransformContext,
   type JsonSchema,
-  PropKind,
 } from '@codelab/frontend-abstract-domain'
 import { GeneralValidationRules } from '@codelab/shared-abstract-core'
 import { titleCase } from '@codelab/shared-utils'
@@ -22,15 +21,14 @@ export const typedPropSchema = (
   return {
     isTypedProp: true,
     properties: {
+      __isTypedProp: {
+        default: true,
+        type: 'boolean',
+        uniforms: { component: HiddenField },
+      },
       kind: {
         default: kind,
         enum: [kind],
-        type: 'string',
-        uniforms: { component: HiddenField },
-      },
-      propKind: {
-        default: PropKind.TypedProp,
-        enum: [PropKind.TypedProp],
         type: 'string',
         uniforms: { component: HiddenField },
       },

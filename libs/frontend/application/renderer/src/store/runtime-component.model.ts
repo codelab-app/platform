@@ -136,7 +136,6 @@ export class RuntimeComponentModel
       childMapperIndex: this.childMapperIndex ?? undefined,
       component: this.component.current,
       compositeKey: this.compositeKey,
-      isTypedProp: this.isTypedProp ?? undefined,
       runtimeParent: this.runtimeParent,
       runtimeRootElement: this.runtimeRootElement.current,
     }

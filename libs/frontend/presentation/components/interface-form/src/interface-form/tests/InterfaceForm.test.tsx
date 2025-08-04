@@ -1,4 +1,3 @@
-import { PropKind } from '@codelab/frontend-abstract-domain'
 import { ExpressionAutoFields } from '@codelab/frontend-presentation-components-form'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { render, waitFor } from '@testing-library/react'
@@ -117,7 +116,6 @@ describe('InterfaceForm', () => {
 
     expect(mockSubmit).toHaveBeenCalledWith('unionField', {
       kind: intType.kind,
-      propKind: PropKind.UnionTypeProp,
       type: intType.id,
     })
 
@@ -157,7 +155,6 @@ describe('InterfaceForm', () => {
     expect(mockSubmit).toHaveBeenCalledWith('unionField', {
       kind: 'PrimitiveType',
       type: stringType.id,
-      propKind: PropKind.UnionTypeProp,
     })
   })
 })
