@@ -1,3 +1,4 @@
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import { HiddenField } from 'uniforms-antd'
 
 export const createTypedPropTypeExpectedSchema = (
@@ -13,6 +14,12 @@ export const createTypedPropTypeExpectedSchema = (
       type: 'string',
       uniforms: { component: HiddenField },
     },
+    propKind: {
+      default: PropKind.TypedProp,
+      enum: [PropKind.TypedProp],
+      type: 'string',
+      uniforms: { component: HiddenField },
+    },
     type: {
       default: id,
       enum: [id],
@@ -21,8 +28,9 @@ export const createTypedPropTypeExpectedSchema = (
     },
     value: {
       label: '',
+      type: 'string',
     },
   },
-  required: ['type', 'kind'],
+  required: ['type', 'kind', 'value'],
   type: 'object',
 })

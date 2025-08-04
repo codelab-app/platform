@@ -22,8 +22,9 @@ export const UnionTypeField = (props: UnionTypeFieldProps) => {
   const typeFieldName = joinName(name, 'type')
   const kindFieldName = joinName(name, 'kind')
   const [field, context] = useField<UnionTypeFieldProps, ITypeKind>(name, props)
+  const [typeField] = useField<ObjectLike, ITypeKind>(typeFieldName, {})
   const [kindField] = useField<ObjectLike, ITypeKind>(kindFieldName, {})
-  const activeValueFieldName = joinName(name, kindField.value)
+  const activeValueFieldName = joinName(name, typeField.value)
   const unionType = field.unionType
 
   const typeToKind = unionType.typesOfUnionType

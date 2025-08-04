@@ -200,7 +200,7 @@ const unionField = new Field({
   api: typeRef(emptyInterface),
   id: v4(),
   key: 'unionField',
-  name: 'union field',
+  name: 'Union field',
   type: typeRef(unionType),
 })
 

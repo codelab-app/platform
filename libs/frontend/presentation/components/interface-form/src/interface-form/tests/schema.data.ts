@@ -1,5 +1,8 @@
 /// <reference types='jest'/>
-import { mergeDeep } from 'remeda'
+
+import { PropKind } from '@codelab/frontend-abstract-domain'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { HiddenField, SelectField } from 'uniforms-antd'
 
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
@@ -75,22 +78,42 @@ export const arrayTypeExpectedSchema = {
 }
 
 export const unionTypeExpectedSchema = {
-  oneOf: [
-    mergeDeep(
-      {
-        ...createTypedPropTypeExpectedSchema(stringType.kind, stringType.id),
-        typeName: stringType.name,
+  properties: {
+    kind: {
+      default: stringType.kind,
+      enum: [ITypeKind.PrimitiveType],
+      type: 'string',
+      uniforms: { component: HiddenField },
+    },
+    propKind: {
+      default: PropKind.UnionTypeProp,
+      enum: [PropKind.UnionTypeProp],
+      type: 'string',
+      uniforms: { component: HiddenField },
+    },
+    type: {
+      default: stringType.id,
+      label: '',
+      type: 'string',
+      uniforms: {
+        component: SelectField,
+        options: [stringType, intType].map((type) => ({
+          label: type.name,
+          value: type.id,
+        })),
       },
-      { properties: { value: stringTypeExpectedSchema } },
-    ),
-    mergeDeep(
-      {
-        ...createTypedPropTypeExpectedSchema(intType.kind, intType.id),
-        typeName: intType.name,
-      },
-      { properties: { value: intTypeExpectedSchema } },
-    ),
-  ],
+    },
+    [stringType.id]: {
+      ...stringTypeExpectedSchema,
+      label: '',
+    },
+    [intType.id]: {
+      ...intTypeExpectedSchema,
+      label: '',
+    },
+  },
+  required: ['kind', 'type'],
+  type: 'object',
 }
 
 export const interfaceWithUnionExpectedSchema = {
@@ -101,7 +124,7 @@ export const interfaceWithUnionExpectedSchema = {
     },
     unionField: {
       ...unionTypeExpectedSchema,
-      label: 'union field',
+      label: 'Union field',
     },
   },
   required: [],

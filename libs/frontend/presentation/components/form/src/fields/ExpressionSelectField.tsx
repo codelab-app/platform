@@ -2,7 +2,7 @@
 
 import type { SelectFieldProps } from 'uniforms-antd'
 
-import Select from 'antd/lib/select'
+import Select from 'antd/es/select'
 import { connectField, filterDOMProps } from 'uniforms'
 
 import type { WithExpressionFieldProps } from './ToggleExpression'
@@ -16,9 +16,11 @@ type WrappedSelectProps = WithExpressionFieldProps<
 
 const WrappedSelect = (props: WrappedSelectProps) => {
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <ToggleExpressionWrapper<string | Array<string>> {...props}>
       <Select<string | Array<string>>
         allowClear={!props.required}
+        getPopupContainer={(trigger) => trigger.parentElement}
         id={props.id}
         mode={props.fieldType === Array ? 'multiple' : undefined}
         onChange={(value: string | Array<string>) => {
@@ -27,6 +29,7 @@ const WrappedSelect = (props: WrappedSelectProps) => {
           }
         }}
         value={props.value}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...filterDOMProps(props)}
       />
     </ToggleExpressionWrapper>

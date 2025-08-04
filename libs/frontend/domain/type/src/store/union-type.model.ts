@@ -9,11 +9,10 @@ import type { Ref } from 'mobx-keystone'
 
 import { PropKind, typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
-import { titleCase } from '@codelab/shared-utils'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { unique } from 'radash'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
-import { typedPropSchema } from '../shared'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDto) => {
@@ -55,12 +54,14 @@ export class UnionType
 
     const valueSchemas = this.typesOfUnionType
       .map((type) => {
-        const typedSchema = typedPropSchema(type.current, context)
-        const valueSchema = typedSchema.properties?.value
+        const typedSchema = type.current.toJsonSchema(context)
+        const valueSchema = typedSchema.isTypedProp
+          ? typedSchema.properties?.value
+          : typedSchema
 
-        return valueSchema && valueSchema.uniforms
+        return valueSchema
           ? {
-              [type.current.kind]: {
+              [type.current.id]: {
                 ...(valueSchema as JsonSchema),
                 label: '',
               },
@@ -76,11 +77,10 @@ export class UnionType
     }
 
     return {
-      label: titleCase(context.fieldName ? context.fieldName : this.name),
       properties: {
         kind: {
           default: firstType.kind,
-          enum: this.typesOfUnionType.map((type) => type.current.kind),
+          enum: unique(this.typesOfUnionType.map((type) => type.current.kind)),
           type: 'string',
           uniforms: { component: HiddenField },
         },
