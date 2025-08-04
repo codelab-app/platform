@@ -116,6 +116,7 @@ export class RuntimeComponentModel
     return createElement(ContainerNodeWrapper, {
       children: this.runtimeRootElement.current.rendered,
       runtimeContainerNode: this,
+      key: this.compositeKey,
     })
   }
 
