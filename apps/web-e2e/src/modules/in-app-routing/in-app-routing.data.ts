@@ -5,6 +5,7 @@ import type {
   IPageCreateFormData,
 } from '@codelab/shared-abstract-core'
 
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { findOrFail } from '@codelab/shared-utils'
 import { type APIRequestContext } from '@playwright/test'
@@ -26,6 +27,7 @@ export const providerPageLinkElement: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
+      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'go to test page',
     },
@@ -39,6 +41,7 @@ export const staticPageTextElement: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
+      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'this is the test page',
     },
@@ -52,6 +55,7 @@ export const staticPageLinkElement: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
+      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'go to dynamic page',
     },
@@ -65,6 +69,7 @@ export const dynamicPageTextElement: ICreateElementData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
+      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value:
         'testId: "{{urlProps.testId}}", subtestId: "{{urlProps.subtestId}}"',

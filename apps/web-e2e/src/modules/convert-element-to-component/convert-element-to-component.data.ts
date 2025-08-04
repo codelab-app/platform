@@ -5,6 +5,7 @@ import type {
 } from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { findOrFail } from '@codelab/shared-utils'
 import { v4 } from 'uuid'
@@ -43,6 +44,7 @@ export const elementTextCreateData = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
+      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: textContent,
     },

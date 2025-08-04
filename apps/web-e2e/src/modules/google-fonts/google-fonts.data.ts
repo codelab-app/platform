@@ -1,3 +1,4 @@
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import {
   IAtomType,
   IComponentType,
@@ -28,6 +29,7 @@ export const typographyElement = {
   propsData: {
     children: {
       kind: ITypeKind.RichTextType,
+      propKind: PropKind.UnionTypeProp,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'Testing fonts',
     },

@@ -1,4 +1,5 @@
 import { RendererType } from '@codelab/frontend-abstract-application'
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
 import {
   createTestStore,
@@ -49,6 +50,7 @@ describe('Runtime Element', () => {
     rootElement.props.set('children', {
       kind: richTextType.kind,
       type: richTextType.id,
+      propKind: PropKind.TypedProp,
       value: 'text',
     })
 

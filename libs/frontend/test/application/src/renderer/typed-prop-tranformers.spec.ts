@@ -1,3 +1,4 @@
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import {
   createTestStore,
   RootStoreProvider,
@@ -34,6 +35,7 @@ describe('TypedPropTransformers', () => {
 
     rootElement.props.set(propKey, {
       kind: integerType.kind,
+      propKind: PropKind.TypedProp,
       type: integerType.id,
       value: propValue,
     })
@@ -57,6 +59,7 @@ describe('TypedPropTransformers', () => {
 
     rootElement.props.set(propKey, {
       kind: reactNodeType.kind,
+      propKind: PropKind.TypedProp,
       type: reactNodeType.id,
       value: component.id,
     })
@@ -84,6 +87,7 @@ describe('TypedPropTransformers', () => {
 
     rootElement.props.set(propKey, {
       kind: reactNodeType.kind,
+      propKind: PropKind.TypedProp,
       type: reactNodeType.id,
       value: `{{<span>${content}</span>}}`,
     })
@@ -110,6 +114,7 @@ describe('TypedPropTransformers', () => {
 
     rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
+      propKind: PropKind.TypedProp,
       type: renderPropsType.id,
       value: component.id,
     })
@@ -143,6 +148,7 @@ describe('TypedPropTransformers', () => {
 
     rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
+      propKind: PropKind.TypedProp,
       type: renderPropsType.id,
       value: `{{function Render() { return <span>${content}</span> }}}`,
     })
@@ -197,6 +203,7 @@ describe('TypedPropTransformers', () => {
 
     childElement.props.set('children', {
       kind: codeMirrorType.kind,
+      propKind: PropKind.TypedProp,
       type: codeMirrorType.id,
       value: childrenExpression,
     })
@@ -205,6 +212,7 @@ describe('TypedPropTransformers', () => {
 
     rootElement.props.set(propKey, {
       kind: renderPropsType.kind,
+      propKind: PropKind.TypedProp,
       type: renderPropsType.id,
       value: component.id,
     })
