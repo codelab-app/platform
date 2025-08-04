@@ -1,4 +1,5 @@
 import type { IRef } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { Context } from 'uniforms'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
@@ -6,7 +7,6 @@ import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import { IResourceType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField } from 'uniforms-antd'
-import { ObjectLike } from '@codelab/shared-abstract-types'
 
 interface WithResourceRef extends ObjectLike {
   resource: IRef
