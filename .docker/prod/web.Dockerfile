@@ -19,7 +19,7 @@ WORKDIR /usr/src/codelab
 RUN apk update && \
   apk add --no-cache libc6-compat python3 py3-pip make g++ && \
   corepack enable && \
-  corepack prepare pnpm@8.15.0 --activate
+  corepack prepare pnpm@9.15.5 --activate
 
 
 FROM base AS install
@@ -71,7 +71,7 @@ WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN pnpm nx build web --verbose --skip-nx-cache
+RUN pnpm nx build web --verbose
 
 #
 # (2) Prod
