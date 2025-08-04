@@ -11,7 +11,7 @@ interface DemoCardProps {
 
 interface DemoContextType {
   demoCardProp: DemoCardProps
-  setDemoCardProp: (props: DemoCardProps) => void
+  setDemoCardProp(props: DemoCardProps): void
 }
 
 const DemoContext = createContext<DemoContextType | undefined>(undefined)

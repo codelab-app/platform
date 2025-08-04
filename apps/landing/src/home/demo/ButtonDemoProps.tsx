@@ -1,9 +1,11 @@
+import type { ButtonProps } from 'antd'
+
 import ShopOutlined from '@ant-design/icons/ShopOutlined'
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Descriptions, Radio, Select, Space, Switch } from 'antd'
 
-import { useDemoState } from './demo-context'
+import { useDemoState } from './DemoContext'
 
 const { Option } = Select
 
@@ -29,7 +31,7 @@ export const ButtonPropsForm = () => {
             onChange={(event) => {
               setDemoCardProp({
                 ...demoCardProp,
-                type: event.target.value as any,
+                type: event.target.value as ButtonProps['type'],
               })
             }}
             size="middle"

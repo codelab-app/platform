@@ -7,7 +7,7 @@ import { App as AntdApp, ConfigProvider } from 'antd'
 
 import { GoogleAnalytics } from '../src/home/GoogleAnalytics'
 import { Intercom } from '../src/home/Intercom'
-import { MenuProvider } from '../src/home/menu/menu-context'
+import { MenuProvider } from '../src/home/menu/MenuContext'
 import { useHotjar } from '../src/hooks/useHotjar.hook'
 import '../styles/app.css'
 // import { slickCssFix } from '../src/styles/slick/Slick'
@@ -38,10 +38,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
           >
             <Layout>
               <AntdApp>
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
-                />
+                <Component {...pageProps} />
               </AntdApp>
             </Layout>
           </ConfigProvider>

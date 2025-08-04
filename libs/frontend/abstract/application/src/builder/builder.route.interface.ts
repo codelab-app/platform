@@ -11,12 +11,12 @@ import type {
 import type { IPageBuilderRoute, PageContextParams } from '../page'
 import type { IRouteType } from '../shared'
 
-export type BuilderContextParams<T extends ObjectLike = UnknownObjectLike> =
+export type BuilderContextParams<T extends UnknownObjectLike = UnknownObjectLike> =
   ComponentContextParams & PageContextParams<T>
 
 /**
  * Used by base components shared by page/component builder
  */
-export type IBuilderRoute<T extends ObjectLike = UnknownObjectLike> =
+export type IBuilderRoute<T extends UnknownObjectLike = UnknownObjectLike> =
   | IComponentBuilderRoute
   | IPageBuilderRoute

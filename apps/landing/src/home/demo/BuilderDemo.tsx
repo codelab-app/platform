@@ -1,7 +1,7 @@
 import { Col, Row, Tabs } from 'antd'
 
 import { ButtonPropsForm } from './ButtonDemoProps'
-import { DemoProvider } from './demo-context'
+import { DemoProvider } from './DemoContext'
 import { DemoShoppingCard } from './DemoShoppingCard'
 import { DOMTree } from './DomTree'
 import { DOMTreeCode } from './DomTreeCode'
@@ -79,7 +79,11 @@ export const BuilderDemo = () => {
           span={24}
           xl={16}
         >
-          <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange}></Tabs>
+          <Tabs
+            defaultActiveKey="1"
+            items={tabItems}
+            onChange={onChange}
+          ></Tabs>
         </Col>
         <Col md={24} span={24} xl={8}>
           <div
