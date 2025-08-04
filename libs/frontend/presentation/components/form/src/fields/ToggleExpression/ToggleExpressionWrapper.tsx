@@ -6,6 +6,7 @@ import type { FieldProps } from 'uniforms'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { hasExpression } from '@codelab/shared-infra-eval'
+import { isString } from 'radash'
 import { useEffect, useState } from 'react'
 
 import type { WrapperProps } from './FieldWrapper'
@@ -72,10 +73,12 @@ export const ToggleExpressionWrapper = <Value,>({
     <FieldWrapper
       isExpression={isExpression}
       toggle={() => setIsExpression(!isExpression)}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       {isExpression ? (
         <CodeMirrorEditor
+          label={isString(props.label) ? props.label : props.name}
           language={ICodeMirrorLanguage.Typescript}
           onChange={(expression) => onChange(expression)}
           value={expressionValue}
