@@ -32,6 +32,13 @@ export const UnionTypeField = (props: UnionTypeFieldProps) => {
     .reduce((all, current) => ({ ...all, ...current }), {})
 
   const onTypeChange = (value: string) => {
+    console.log(
+      typedProp({
+        kind: typeToKind[value]!,
+        type: value,
+        value: undefined,
+      }),
+    )
     context.onChange(
       name,
       typedProp({

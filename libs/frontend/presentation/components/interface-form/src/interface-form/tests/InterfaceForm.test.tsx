@@ -1,4 +1,6 @@
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { ExpressionAutoFields } from '@codelab/frontend-presentation-components-form'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -68,7 +70,7 @@ describe('InterfaceForm', () => {
   test('interface form select union type of string and number', async () => {
     const mockSubmit = jest.fn()
 
-    const { container, getByTestId } = render(
+    const { container } = render(
       <InterfaceForm
         interfaceType={interfaceWithUnionField}
         model={{}}
@@ -114,10 +116,10 @@ describe('InterfaceForm', () => {
       container.querySelector('.ant-select-selection-item'),
     ).toHaveTextContent(intType.name)
 
-    expect(mockSubmit).toHaveBeenCalledWith('unionField', {
-      kind: intType.kind,
-      type: intType.id,
-    })
+    expect(mockSubmit).toHaveBeenCalledWith(
+      'unionField',
+      typedProp({ kind: intType.kind, type: intType.id }),
+    )
 
     // Update value field
     const valueField = container.querySelector(
@@ -152,9 +154,12 @@ describe('InterfaceForm', () => {
       container.querySelector('.ant-select-selection-item'),
     ).toHaveTextContent(stringType.name)
 
-    expect(mockSubmit).toHaveBeenCalledWith('unionField', {
-      kind: 'PrimitiveType',
-      type: stringType.id,
-    })
+    expect(mockSubmit).toHaveBeenCalledWith(
+      'unionField',
+      typedProp({
+        kind: ITypeKind.PrimitiveType,
+        type: stringType.id,
+      }),
+    )
   })
 })

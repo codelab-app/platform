@@ -19,7 +19,6 @@ export const typedPropSchema = (
   const { id, kind } = type
 
   return {
-    isTypedProp: true,
     properties: {
       __isTypedProp: {
         default: true,

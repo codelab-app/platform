@@ -4,10 +4,9 @@ export const createTypedPropTypeExpectedSchema = (
   kind: string,
   id: string,
 ) => ({
-  isTypedProp: true,
   label: '',
   properties: {
-    __isTypedProo: {
+    __isTypedProp: {
       default: true,
       type: 'boolean',
       uniforms: { component: HiddenField },

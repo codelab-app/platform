@@ -154,11 +154,14 @@ describe('TypedPropTransformers', () => {
     const content = 'Expression node content'
     const renderPropsType = testStore.addRenderPropsType({})
 
-    rootElement.props.set(propKey, {
-      kind: renderPropsType.kind,
-      type: renderPropsType.id,
-      value: `{{function Render() { return <span>${content}</span> }}}`,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: renderPropsType.kind,
+        type: renderPropsType.id,
+        value: `{{function Render() { return <span>${content}</span> }}}`,
+      }),
+    )
 
     renderer.render()
 
@@ -208,11 +211,14 @@ describe('TypedPropTransformers', () => {
       renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
-    childElement.props.set('children', {
-      kind: codeMirrorType.kind,
-      type: codeMirrorType.id,
-      value: childrenExpression,
-    })
+    childElement.props.set(
+      'children',
+      typedProp({
+        kind: codeMirrorType.kind,
+        type: codeMirrorType.id,
+        value: childrenExpression,
+      }),
+    )
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
