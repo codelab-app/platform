@@ -3,7 +3,7 @@ import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Button, Card, Typography } from 'antd'
 
-import { useDemoState } from './demo-context'
+import { useDemoState } from './DemoContext'
 
 const { Text } = Typography
 

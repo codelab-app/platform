@@ -19,7 +19,7 @@ export interface IPageBuilderRoute {
  * These are all required because we are in context where these have been validated and needed
  */
 
-export type PageContextParams<T extends ObjectLike = UnknownObjectLike> = Pick<
+export type PageContextParams<T extends UnknownObjectLike = UnknownObjectLike> = Pick<
   UrlParams,
   'appId' | 'pageId'
 > &

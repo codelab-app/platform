@@ -5,8 +5,8 @@ import { useMediaQuery } from 'react-responsive'
 
 import { Footer } from '../footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
-import { useMenuState } from './menu/menu-context'
 import { CodelabMenuContainer } from './menu/MenuContainer'
+import { useMenuState } from './menu/MenuContext'
 import { MenuMobile } from './menu/MobileMenu'
 
 export interface HomeTemplateProps {
@@ -18,11 +18,7 @@ const Header = ({ children }: PropsWithChildren) => {
 }
 
 const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <div id="home">
-      {children}
-    </div>
-  )
+  return <div id="home">{children}</div>
 }
 
 const Content = ({ children }: PropsWithChildren) => {

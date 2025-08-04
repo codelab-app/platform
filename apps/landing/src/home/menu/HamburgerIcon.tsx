@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 
 interface HamburgerIconProps {
-  isOpen: boolean
   className?: string
+  isOpen: boolean
 }
 
-export const HamburgerIcon = ({ isOpen, className }: HamburgerIconProps) => {
+export const HamburgerIcon = ({ className, isOpen }: HamburgerIconProps) => {
   return (
     <div className={classNames('relative w-6 h-5', className)}>
       <span
