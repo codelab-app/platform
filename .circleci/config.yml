@@ -924,11 +924,15 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       - tf-plan:
           filters:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-plan-ci
           requires:
             - setup-infra-workspace
@@ -938,6 +942,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-apply-ci
           requires:
             - tf-plan-ci
@@ -949,6 +955,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - docker-api:
@@ -958,6 +966,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - docker-sites:
@@ -967,6 +977,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - docker-landing:
@@ -976,6 +988,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - tf-plan:
@@ -983,6 +997,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - docker-web
             - docker-api
@@ -994,6 +1010,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - tf-plan
           type: approval
@@ -1002,102 +1020,6 @@ workflows:
             branches:
               only:
                 - staging
-          requires:
-            - hold-apply
-          stage: prod
-  infra-pr-tag:
-    jobs:
-      - setup-infra-workspace:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-      - tf-plan:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          name: tf-plan-ci
-          requires:
-            - setup-infra-workspace
-          stage: ci
-      - tf-apply:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          name: tf-apply-ci
-          requires:
-            - tf-plan-ci
-          stage: ci
-      - docker-web:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - docker-api:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - docker-sites:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - docker-landing:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - tf-plan:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - docker-web
-            - docker-api
-            - docker-sites
-            - docker-landing
-          stage: prod
-      - hold-apply:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - tf-plan
-          type: approval
-      - tf-apply:
-          filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
