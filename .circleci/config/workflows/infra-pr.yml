@@ -56,7 +56,6 @@ jobs:
           only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
-        - build
       requires:
         - setup-infra-workspace
   - docker-api:
@@ -68,7 +67,6 @@ jobs:
           only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
-        - build
       requires:
         - setup-infra-workspace
   - docker-sites:
@@ -80,7 +78,6 @@ jobs:
           only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
-        - build
       requires:
         - setup-infra-workspace
   - docker-landing:
@@ -92,7 +89,6 @@ jobs:
           only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
-        - build
       requires:
         - setup-infra-workspace
   - tf-plan:

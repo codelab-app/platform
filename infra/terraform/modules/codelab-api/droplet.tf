@@ -30,5 +30,8 @@ locals {
 }
 
 output "codelab_api_hostname" {
-  value = "${local.api_protocol}://${digitalocean_droplet.codelab_api.ipv4_address_private}"
+  # Use droplet name instead of IP address to avoid hardcoding IPs in Docker builds.
+  # DigitalOcean provides automatic DNS resolution for droplet names within the same VPC,
+  # allowing infrastructure changes without rebuilding Docker images.
+  value = "${local.api_protocol}://${digitalocean_droplet.codelab_api.name}"
 }
