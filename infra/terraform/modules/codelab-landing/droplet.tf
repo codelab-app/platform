@@ -17,5 +17,9 @@ resource "digitalocean_droplet" "codelab_landing" {
   user_data = data.cloudinit_config.landing.rendered
 
   droplet_agent = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
