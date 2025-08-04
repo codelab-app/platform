@@ -4,6 +4,7 @@ import type { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import type { Completion } from '@codemirror/autocomplete'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
+import { isString } from 'antd/lib/button'
 import { connectField } from 'uniforms'
 import { type TextFieldProps, wrapField } from 'uniforms-antd'
 
@@ -17,10 +18,12 @@ export const CodeMirrorField = connectField<CodeMirrorFieldProps>(
     return wrapField(
       props,
       <CodeMirrorEditor
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         height="auto"
+        label={isString(props.label) ? props.label : props.name}
         maxHeight="150px"
-        title={props.label?.toString()}
+        title={isString(props.label) ? props.label : props.name}
         width="100%"
       />,
     )

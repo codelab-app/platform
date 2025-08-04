@@ -13,6 +13,7 @@ import { history } from '@codemirror/commands'
 import { bracketMatching } from '@codemirror/language'
 import { lineNumbers } from '@codemirror/view'
 import { Form, Spin } from 'antd'
+import { isString } from 'radash'
 import { useAsyncFn, useMount } from 'react-use'
 import { connectField, useForm } from 'uniforms'
 
@@ -43,9 +44,11 @@ export const CodeMirrorGraphqlField = connectField<ICodeMirrorGraphqlProps>(
           <Spin />
         ) : (
           <CodeMirrorEditor
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...props}
             extensions={extension}
             height="150px"
+            label={isString(props.label) ? props.label : props.name}
             overrideExtensions
             width="100%"
           />
