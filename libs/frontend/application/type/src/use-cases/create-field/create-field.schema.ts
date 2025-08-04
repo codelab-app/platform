@@ -28,7 +28,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateFormData> = {
         ...idSchema({
           component: SelectField,
           disabled: false,
-          label: 'Field Type',
+          label: 'Type',
         }),
       },
       required: ['id'],
