@@ -11,8 +11,9 @@ import type {
 import type { IPageBuilderRoute, PageContextParams } from '../page'
 import type { IRouteType } from '../shared'
 
-export type BuilderContextParams<T extends UnknownObjectLike = UnknownObjectLike> =
-  ComponentContextParams & PageContextParams<T>
+export type BuilderContextParams<
+  T extends UnknownObjectLike = UnknownObjectLike,
+> = ComponentContextParams & PageContextParams<T>
 
 /**
  * Used by base components shared by page/component builder
