@@ -31,7 +31,7 @@ interface UpdateAuthGuardFormProps extends IFormController {
 export const UpdateAuthGuardForm = observer<UpdateAuthGuardFormProps>(
   ({ authGuard, onSubmitSuccess, showFormControl = false, submitRef }) => {
     const authGuardService = useAuthGuardService()
-    const { resourceDomainService } = useDomainStore()
+    const { resourceDomainService, userDomainService } = useDomainStore()
 
     const model = {
       config: {
@@ -40,7 +40,8 @@ export const UpdateAuthGuardForm = observer<UpdateAuthGuardFormProps>(
       },
       id: authGuard.id,
       name: authGuard.name,
-      resource: authGuard.resource,
+      resource: { id: authGuard.resource.id },
+      owner: { id: userDomainService.currentUser.id },
       responseTransformer: authGuard.responseTransformer,
     } as IAuthGuardUpdateFormData
 
