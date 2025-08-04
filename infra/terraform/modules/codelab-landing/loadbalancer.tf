@@ -27,8 +27,5 @@ resource "digitalocean_loadbalancer" "landing" {
     protocol = "tcp"
   }
 
-  # Force load balancer to update when droplet changes
-  lifecycle {
-    replace_triggered_by = [digitalocean_droplet.codelab_landing.id]
-  }
+  # No need to replace load balancer when droplet changes since we use hostnames
 }
