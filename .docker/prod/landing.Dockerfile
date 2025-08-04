@@ -20,7 +20,7 @@ WORKDIR /usr/src/codelab
 RUN apk update && \
   apk add --no-cache libc6-compat python3 py3-pip make g++ && \
   corepack enable && \
-  corepack prepare pnpm@8.15.0 --activate
+  corepack prepare pnpm@9.15.5 --activate
 
 
 FROM base AS install
