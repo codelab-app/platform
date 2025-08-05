@@ -2,7 +2,6 @@
 
 import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
-import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import {
@@ -13,6 +12,8 @@ import { DisplayIf } from '@codelab/frontend-presentation-view/components/condit
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
+
+import type { UpdatePageSchema } from './update-page.schema'
 
 import { usePageService } from '../../services'
 import { updatePageSchema } from './update-page.schema'
@@ -38,7 +39,7 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
     }
 
     return (
-      <Form<IPageUpdateFormData>
+      <Form<UpdatePageSchema>
         errorMessage="Error while creating page"
         model={model}
         onSubmit={pageService.update}

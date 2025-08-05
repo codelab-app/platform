@@ -2,7 +2,7 @@ import type { IPageDto } from './page.dto.interface'
 
 export type IPageUpdateFormData = Pick<
   IPageDto,
-  'app' | 'id' | 'name' | 'urlPattern'
+  'app' | 'id' | 'name' | 'pageContentContainer' | 'urlPattern'
 >
 
 /**
