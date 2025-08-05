@@ -17,7 +17,7 @@ WORKDIR /usr/src/codelab
 # Combine commands to reduce the number of layers in your Docker image, which can reduce the overhead when running containers.
 # No cache reduces bundle size
 RUN apk update && \
-  apk add --no-cache libc6-compat python3 py3-pip make g++ && \
+  apk add --no-cache libc6-compat python3 py3-pip make g++ jq && \
   corepack enable && \
   corepack prepare pnpm@9.15.5 --activate
 
@@ -71,11 +71,36 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Enable Nx Cloud for caching
 ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
 
+# Enable Nx debug logging to diagnose cache issues
+ENV NX_VERBOSE_LOGGING=true
+ENV NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT=0
+ENV NX_DAEMON=false
+# Add more detailed cache debugging
+ENV NX_CACHE_DIRECTORY=/usr/src/codelab/.nx/cache
+ENV NX_CLOUD_DEBUG=true
+
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN pnpm nx build web --verbose
+
+# Run with additional debugging flags
+# First, let's see what Nx thinks the inputs are
+RUN echo "=== Environment Variables ===" && \
+    env | grep -E "^(NEXT_PUBLIC_|NODE_ENV|NX_)" | sort && \
+    echo "=== Checking Nx inputs ===" && \
+    pnpm nx show project web --json | jq '.targets.build.inputs' && \
+    echo "=== Computing hash for web:build ===" && \
+    pnpm nx hash web:build --verbose && \
+    echo "=== Checking cache status ===" && \
+    pnpm nx print-affected --target=build --select=projects --verbose && \
+    echo "=== Running build with cache debugging ===" && \
+    pnpm nx build web --verbose --skip-nx-cache=false || \
+    (echo "Build failed, checking Nx report..." && \
+     cat node_modules/.cache/nx/d/daemon.log 2>/dev/null || true && \
+     cat .nx/report.json 2>/dev/null || true && \
+     ls -la .nx/cache 2>/dev/null || true && \
+     exit 1)
 
 #
 # (2) Prod
