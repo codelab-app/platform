@@ -12,6 +12,7 @@ import codegenConfig from './scripts/eslint/codegen.eslint.mjs'
 import reactConfig from './scripts/eslint/react.eslint.mjs'
 import baseConfig from './scripts/eslint/base.eslint.mjs'
 import tailwindConfig from './scripts/eslint/recommended/tailwind.eslint.mjs'
+import unusedConfig from './scripts/eslint/recommended/unused.eslint.mjs'
 
 export default [
   ...typescriptConfig,
@@ -27,6 +28,7 @@ export default [
   ...codegenConfig,
   ...reactConfig,
   ...tailwindConfig,
+  ...unusedConfig,
   ...baseConfig,
   {
     ignores: [
@@ -40,7 +42,7 @@ export default [
       '**/.nx/**',
       '**/coverage/**',
       '**/.cache/**',
-      
+
       // Other ignores
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
@@ -54,6 +56,7 @@ export default [
       '**/*.gen.ts',
       '**/jest.config.ts',
       '**/graphql.ts',
+      '.lintstagedrc.cjs',
     ],
   },
   {
