@@ -43,7 +43,13 @@ COPY libs ./libs
 COPY types ./types
 COPY scripts/eslint ./scripts/eslint
 
+# Build args
+ARG NX_CLOUD_ACCESS_TOKEN
+
 WORKDIR /usr/src/codelab
+
+# Enable Nx Cloud for caching
+ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=4096"

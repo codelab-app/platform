@@ -9,4 +9,5 @@ set -x
 docker buildx build \
   -f ${PWD}/.docker/prod/api.Dockerfile \
   -t registry.digitalocean.com/codelabapp/api:${DOCKER_TAG_VERSION} \
+  --build-arg NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN} \
   --no-cache-filter=build .

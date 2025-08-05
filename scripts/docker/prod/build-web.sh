@@ -25,4 +25,5 @@ docker buildx build \
   --build-arg AUTH0_DOMAIN=${AUTH0_DOMAIN} \
   --build-arg AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID} \
   --build-arg AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET} \
+  --build-arg NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN} \
   --no-cache-filter=build .
