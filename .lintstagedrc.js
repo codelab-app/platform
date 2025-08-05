@@ -20,7 +20,7 @@ module.exports = {
 
     // Force ESLint to use flat config
     const cmds = [
-      `cross-env ESLINT_USE_FLAT_CONFIG=true eslint --cache --fix --quiet ${stagedFiles} ${rules}`,
+      `cross-env eslint --cache --fix --quiet ${stagedFiles} ${rules}`,
     ]
 
     console.info(`Running: ${cmds}`)
