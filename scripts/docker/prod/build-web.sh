@@ -10,7 +10,10 @@ set -x
 # # Returns `web` if affected, otherwise `""`
 # NO_CACHE_FILTER=$(pnpm nx show projects --affected --type app --base=$CIRCLE_PREV_SHA | grep -qw "web" && echo "--no-cache-filter build" || echo "")
 
-# `--no-cache-filter` works only with `docker build`
+# `--no-cache-filter` works only with `docker buildx`
+# Without --no-cache-filter=build, Docker layer cache would skip the Nx build step entirely
+# when files change. This would use stale build artifacts since Nx's cache lives inside
+# the container and isn't accessible to Docker's layer caching decisions.
 docker buildx build \
   -f ${PWD}/.docker/prod/web.Dockerfile \
   -t registry.digitalocean.com/codelabapp/web:${DOCKER_TAG_VERSION} \
