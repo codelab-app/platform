@@ -5,7 +5,6 @@ import {
   faTwitter,
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons'
-import { faArrowLeft } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import Image from 'next/image'
@@ -87,7 +86,7 @@ export const MenuMobile = () => {
         <menu
           className={classNames(
             !isMenuOpen && '-translate-x-full',
-            'transition-transform fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-500 ease-[cubic-bezier(0.4,0.0,0.2,1)] shadow-lg left-0 z-50',
+            'transition-transform fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-500 ease-in-out shadow-lg left-0 z-50',
           )}
         >
           <div className="h-full p-10">

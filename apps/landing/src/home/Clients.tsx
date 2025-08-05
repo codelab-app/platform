@@ -1,3 +1,5 @@
+'use client'
+
 import { TestimonialSection } from './TestimonialSection'
 
 export const Clients = () => {

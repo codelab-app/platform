@@ -14,6 +14,9 @@
       },
       "inputs": [
         {
+          "env": "NEXT_PUBLIC_WEB_HOST"
+        },
+        {
           "env": "NEXT_PUBLIC_GOOGLE_ANALYTICS"
         },
         {
