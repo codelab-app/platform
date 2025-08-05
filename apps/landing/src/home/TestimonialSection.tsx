@@ -1,3 +1,5 @@
+'use client'
+
 import type { Settings } from 'react-slick'
 
 import { initials } from '@codelab/shared-utils'
@@ -176,11 +178,18 @@ export const TestimonialSection = () => {
         Loved by startups
       </h1>
       <Slider
-        {...settings}
+        appendDots={settings.appendDots}
+        centerMode={settings.centerMode}
         className={`
           z-10 my-2 mt-8 pb-0
           sm:my-8 sm:pb-8
         `}
+        dots={settings.dots}
+        infinite={settings.infinite}
+        responsive={settings.responsive}
+        slidesToScroll={settings.slidesToScroll}
+        slidesToShow={settings.slidesToShow}
+        speed={settings.speed}
       >
         {testimonialItems.map((item, index) => (
           <TestimonialItem

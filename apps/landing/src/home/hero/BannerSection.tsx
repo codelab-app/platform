@@ -1,13 +1,16 @@
+'use client'
+
 import { Fancybox } from '@codelab/frontend-presentation-components-fancybox'
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animated, useSpring } from '@react-spring/web'
 import { Button, Col, Row, Space } from 'antd'
+import Link from 'next/link'
 import { useState } from 'react'
 import styled from 'styled-components'
 
+import { useAuthUrl } from '../auth/use-auth-url'
 import { BuilderDemo } from '../demo/BuilderDemo'
-import { BuilderDemoGif } from '../demo/BuilderDemoGif'
 import { CurveAccent } from './CurveAccent'
 
 const words = ['Ant Design', 'Material UI', 'Semantic UI', 'HTML tags']
@@ -17,6 +20,7 @@ const AnimatedDiv = styled(animated.div!)<any>``
 
 export const BannerSection = () => {
   const [index, setIndex] = useState(0)
+  const { loginUrl } = useAuthUrl()
 
   const props = useSpring({
     config: { duration: 3000 },
@@ -140,28 +144,30 @@ export const BannerSection = () => {
                     Watch Tutorial
                   </Button>
                 </Fancybox>
-                <Button
-                  className={`
-                    h-10 w-36 rounded-lg text-sm
-                    sm:h-12 sm:w-48 sm:text-lg
-                    md:h-14
-                  `}
-                  ghost
-                  icon={
-                    <FontAwesomeIcon
-                      className={`
-                        mr-2 text-sm
-                        sm:text-lg
-                        md:text-xl
-                      `}
-                      icon={faArrowRight}
-                    />
-                  }
-                  size="large"
-                  type="primary"
-                >
-                  Log In
-                </Button>
+                <Link href={loginUrl}>
+                  <Button
+                    className={`
+                      h-10 w-36 rounded-lg text-sm
+                      sm:h-12 sm:w-48 sm:text-lg
+                      md:h-14
+                    `}
+                    ghost
+                    icon={
+                      <FontAwesomeIcon
+                        className={`
+                          mr-2 text-sm
+                          sm:text-lg
+                          md:text-xl
+                        `}
+                        icon={faArrowRight}
+                      />
+                    }
+                    size="large"
+                    type="primary"
+                  >
+                    Log In
+                  </Button>
+                </Link>
               </Space>
             </Col>
             {/* <WatchTutorial /> */}

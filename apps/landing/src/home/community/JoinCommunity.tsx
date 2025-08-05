@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, notification } from 'antd'
 import axios from 'axios'
 import { useState } from 'react'

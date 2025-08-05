@@ -1,3 +1,5 @@
+'use client'
+
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined'
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'

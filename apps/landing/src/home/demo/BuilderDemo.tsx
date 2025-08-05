@@ -1,3 +1,5 @@
+'use client'
+
 import { Col, Row, Tabs } from 'antd'
 
 import { ButtonPropsForm } from './ButtonDemoProps'

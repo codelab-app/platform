@@ -1,3 +1,5 @@
+'use client'
+
 import type { PropsWithChildren, ReactElement } from 'react'
 
 import { breakpoints } from '@codelab/shared-config-builder'
@@ -6,7 +8,6 @@ import { useMediaQuery } from 'react-responsive'
 import { Footer } from '../footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
 import { CodelabMenuContainer } from './menu/MenuContainer'
-import { useMenuState } from './menu/MenuContext'
 import { MenuMobile } from './menu/MobileMenu'
 
 export interface HomeTemplateProps {

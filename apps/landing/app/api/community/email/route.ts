@@ -1,19 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextRequest } from 'next/server'
 
 import { getEnv } from '@codelab/shared-config-env'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { lists, setConfig } from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
+import { NextResponse } from 'next/server'
 
 const EmailSchema = Type.Object({
-  email: Type.String().email(),
+  email: Type.String({ format: 'email' }),
 })
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const POST = async (request: NextRequest) => {
   const { apiKey, listId, serverPrefix } = getEnv().mailchimp
 
   try {
-    const { email } = Validator.parse(EmailSchema, req.body)
+    const body = await request.json()
+    const { email } = Validator.parse(EmailSchema, body)
 
     setConfig({
       apiKey,
@@ -25,14 +27,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       status: 'subscribed',
     })
 
-    res.status(200).json(response)
-
-    return
+    return NextResponse.json(response)
   } catch (error) {
-    res.status(500).json({ error: 'invalid or already added email' })
-
-    return
+    return NextResponse.json(
+      { error: 'invalid or already added email' },
+      { status: 500 },
+    )
   }
 }
-
-export default handler

@@ -1,3 +1,5 @@
+'use client'
+
 import type { ButtonProps } from 'antd'
 import type { PropsWithChildren } from 'react'
 
