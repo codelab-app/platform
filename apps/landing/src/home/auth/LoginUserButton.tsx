@@ -1,6 +1,9 @@
 import { Button } from 'antd'
+import { useAuthUrl } from './use-auth-url'
 
 export const LoginUserButton = () => {
+  const { loginUrl } = useAuthUrl()
+  
   return (
     <Button
       className={`
@@ -8,7 +11,7 @@ export const LoginUserButton = () => {
         hover:!bg-purple-400 hover:!text-white
       `}
       ghost
-      href="/auth/login"
+      href={loginUrl}
       type="primary"
     >
       Login

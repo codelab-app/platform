@@ -1,11 +1,13 @@
 import { Button } from 'antd'
 import Link from 'next/link'
 
+import { useAuthUrl } from '../auth/use-auth-url'
 import { Logo } from '../logo/Logo'
 import { menuItems } from './MenuContainer'
 
 export const MenuDesktop = () => {
   const user = false
+  const { loginUrl } = useAuthUrl()
 
   return (
     <nav>
@@ -59,7 +61,7 @@ export const MenuDesktop = () => {
               <Link
                 // eslint-disable-next-line tailwindcss/no-custom-classname
                 className="btn-primary flex items-center"
-                href="/auth/login"
+                href={loginUrl}
               >
                 Logout
               </Link>
@@ -80,7 +82,7 @@ export const MenuDesktop = () => {
                       laptop:flex
                       hidden items-center text-base font-semibold
                     `}
-                    href="/auth/login"
+                    href={loginUrl}
                   >
                     Log in
                   </Link>
@@ -100,7 +102,7 @@ export const MenuDesktop = () => {
                       laptop:flex
                       hidden items-center text-base font-semibold
                     `}
-                    href="/auth/logout"
+                    href={loginUrl}
                   >
                     Sign up
                   </Link>
