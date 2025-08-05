@@ -12,6 +12,26 @@
       "options": {
         "outputPath": "dist/apps/landing"
       },
+      "inputs": [
+        {
+          "env": "NEXT_PUBLIC_GOOGLE_ANALYTICS"
+        },
+        {
+          "env": "NEXT_PUBLIC_HOTJAR_ID"
+        },
+        {
+          "env": "NEXT_PUBLIC_HOTJAR_VERSION"
+        },
+        {
+          "env": "NEXT_PUBLIC_INTERCOM_APP_ID"
+        },
+        {
+          "env": "NEXT_PUBLIC_SUPABASE_KEY"
+        },
+        {
+          "env": "NEXT_PUBLIC_SUPABASE_URL"
+        }
+      ],
       "configurations": {
         "dev": {
           "outputPath": "apps/landing"

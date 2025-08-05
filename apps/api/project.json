@@ -18,6 +18,7 @@
           "outputPath": "dist/apps/api-test"
         }
       },
+      "inputs": [],
       "defaultConfiguration": "prod",
       "executor": "@nx/webpack:webpack",
       "options": {
