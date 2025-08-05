@@ -2,6 +2,7 @@
 
 import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import {
@@ -11,10 +12,10 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 
 import { usePageService } from '../../services'
-import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
+import { updatePageSchema } from './update-page.schema'
 
 export interface UpdatePageFormProps extends IFormController {
   appId: string
@@ -37,7 +38,7 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
     }
 
     return (
-      <Form<UpdatePageSchema>
+      <Form<IPageUpdateFormData>
         errorMessage="Error while creating page"
         model={model}
         onSubmit={pageService.update}
@@ -46,14 +47,7 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
         submitRef={submitRef}
         uiKey={UiKey.PageFormUpdate}
       >
-        <AutoFields omitFields={['pageContentContainer']} />
-        <AutoField
-          name="pageContentContainer.id"
-          options={page.elements.map((element) => ({
-            label: element.label,
-            value: element.id,
-          }))}
-        />
+        <AutoFields />
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Update Page" />
         </DisplayIf>
