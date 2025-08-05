@@ -52,6 +52,7 @@ ARG AUTH0_SECRET
 ARG AUTH0_DOMAIN
 ARG AUTH0_CLIENT_ID
 ARG AUTH0_CLIENT_SECRET
+ARG NX_CLOUD_ACCESS_TOKEN
 
 # Then pass from ARG to ENV
 #
@@ -69,6 +70,9 @@ ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 # ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /usr/src/codelab
+
+# Enable Nx Cloud for caching
+ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=4096"

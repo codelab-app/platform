@@ -4,7 +4,8 @@ locals {
   })
 
   docker_compose = templatefile("${path.module}/tftpl/docker-compose.tftpl.yaml", {
-    docker_tag_version = var.docker_tag_version
+    docker_tag_version = var.docker_tag_version,
+    next_public_web_host = var.next_public_web_host
   })
 
   start_docker_image = templatefile("${path.module}/tftpl/start-docker-image.tftpl.sh", {
