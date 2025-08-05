@@ -1,15 +1,16 @@
+import { env } from '../env'
+
 export interface ISupabaseEnvVars {
   key: string
   url: string
 }
 
 export class SupabaseEnvVars implements ISupabaseEnvVars {
-  readonly key: string
+  get key(): string {
+    return env.get('NEXT_PUBLIC_SUPABASE_KEY').default('').asString()
+  }
 
-  readonly url: string
-
-  constructor() {
-    this.key = process.env['NEXT_PUBLIC_SUPABASE_KEY'] || ''
-    this.url = process.env['NEXT_PUBLIC_SUPABASE_URL'] || ''
+  get url(): string {
+    return env.get('NEXT_PUBLIC_SUPABASE_URL').default('').asString()
   }
 }
