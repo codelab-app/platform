@@ -12,7 +12,6 @@ import codegenConfig from './scripts/eslint/codegen.eslint.mjs'
 import reactConfig from './scripts/eslint/react.eslint.mjs'
 import baseConfig from './scripts/eslint/base.eslint.mjs'
 import tailwindConfig from './scripts/eslint/recommended/tailwind.eslint.mjs'
-import unusedConfig from './scripts/eslint/recommended/unused.eslint.mjs'
 
 export default [
   ...typescriptConfig,
@@ -28,7 +27,6 @@ export default [
   ...codegenConfig,
   ...reactConfig,
   ...tailwindConfig,
-  ...unusedConfig,
   ...baseConfig,
   {
     ignores: [
