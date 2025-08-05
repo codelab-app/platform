@@ -1,7 +1,7 @@
-import { config } from '@codelab/shared-config-env'
+import { getEnv } from '@codelab/shared-config-env'
 
 export const useAuthUrl = () => {
-  const webHost = config.endpoint.webHost
+  const webHost = getEnv().endpoint.webHost
 
   return {
     loginUrl: `${webHost}/auth/login`,
