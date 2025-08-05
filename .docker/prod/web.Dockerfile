@@ -71,13 +71,16 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Enable Nx Cloud for caching
 ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
 
-# Enable Nx debug logging to diagnose cache issues
+# Enable maximum Nx debug logging to diagnose cache issues
+# This will show computation hash, cache miss reasons, and inputs changed
 ENV NX_VERBOSE_LOGGING=true
 ENV NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT=0
 ENV NX_DAEMON=false
 # Add more detailed cache debugging
 ENV NX_CACHE_DIRECTORY=/usr/src/codelab/.nx/cache
 ENV NX_CLOUD_DEBUG=true
+# This helps show what's being included in the hash computation
+ENV NX_PERF_LOGGING=true
 
 WORKDIR /usr/src/codelab
 
@@ -92,14 +95,17 @@ RUN echo "=== Environment Variables ===" && \
     pnpm nx show project web --json | jq '.targets.build.inputs' && \
     echo "=== Computing hash for web:build ===" && \
     pnpm nx hash web:build --verbose && \
-    echo "=== Checking cache status ===" && \
-    pnpm nx print-affected --target=build --select=projects --verbose && \
-    echo "=== Running build with cache debugging ===" && \
-    pnpm nx build web --verbose --skip-nx-cache=false || \
+    echo "=== Checking affected projects ===" && \
+    pnpm nx affected:graph --target=build --verbose && \
+    echo "=== Running build with maximum cache debugging ===" && \
+    pnpm nx build web --verbose --skip-nx-cache=false 2>&1 | tee build.log && \
+    echo "=== Extracting cache miss information ===" && \
+    grep -E "computation hash|cache miss|inputs changed|Hash mismatch|File changed|Cache key|NX Cloud" build.log || true && \
+    echo "=== Checking local cache entries ===" && \
+    ls -la .nx/cache 2>/dev/null | head -20 || true || \
     (echo "Build failed, checking Nx report..." && \
      cat node_modules/.cache/nx/d/daemon.log 2>/dev/null || true && \
      cat .nx/report.json 2>/dev/null || true && \
-     ls -la .nx/cache 2>/dev/null || true && \
      exit 1)
 
 #
