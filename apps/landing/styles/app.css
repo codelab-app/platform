@@ -10,3 +10,26 @@
  - set box-sizing, remove outlines, etc
  */
 @import 'antd/dist/reset.css';
+
+/* Fix for Ant Design icons in Next.js App Router */
+.anticon {
+  display: inline-flex !important;
+  align-items: center;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon > * {
+  line-height: 1;
+}
+
+.anticon svg {
+  display: inline-block;
+}

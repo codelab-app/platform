@@ -5,7 +5,7 @@ import HomeTemplate from '../../src/home/HomeTemplate'
 const TermsOfServiceClient = () => {
   return (
     <HomeTemplate>
-      {/* Terms of service content will be added here */}
+      <div>Terms of Service</div>
     </HomeTemplate>
   )
 }
