@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren, ReactElement } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 
 import { breakpoints } from '@codelab/shared-config-builder'
 import { useMediaQuery } from 'react-responsive'
@@ -11,7 +11,7 @@ import { CodelabMenuContainer } from './menu/MenuContainer'
 import { MenuMobile } from './menu/MobileMenu'
 
 export interface HomeTemplateProps {
-  children: ReactElement<unknown>
+  children: Array<ReactNode> | ReactNode
 }
 
 const Header = ({ children }: PropsWithChildren) => {
@@ -36,7 +36,7 @@ const HomeTemplate = ({ children }: HomeTemplateProps) => {
           <>{isMobileOrTablet ? <MenuMobile /> : <MenuDesktop />}</>
         </CodelabMenuContainer>
       </Header>
-      <Content>{children}</Content>
+      <Content>{Array.isArray(children) ? <>{children}</> : children}</Content>
       <Footer></Footer>
     </Layout>
   )
