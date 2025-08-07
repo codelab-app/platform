@@ -72,31 +72,14 @@ export const BestPractices = () => {
           sm:py-0
         `}
       >
-        <CuiText
-          align="center"
-          className={`
-            mb-2 mt-4
-            sm:mb-3 sm:mt-14
-            md:mb-4 md:mt-28
-            lg:mb-5
-            xl:mb-6
-          `}
-          color="primary"
-          variant="h2"
-        >
+        <CuiText color="primary" variant="section-title">
           Build with best practices: re-use & compose
         </CuiText>
-        <p
-          className={`
-            mb-11 px-4 text-center text-sm text-slate-600
-            sm:px-0 sm:text-base
-            md:text-lg
-          `}
-        >
+        <CuiText variant="section-subtitle">
           Re-use your knowledge of coding and apply them as you would with code.
           Think like a developer, but work more productively using our
           development platform. It's like a smart IDE on steroids.
-        </p>
+        </CuiText>
         <Row
           className={`
             m-auto w-11/12 justify-center pl-0

@@ -34,17 +34,8 @@ export const HeroSection = () => {
                 <br />
                 Without Template Limitations
               </CuiText>
-              <CuiText
-                align="center"
-                className={`
-                  mb-3 mt-0 w-full px-2 text-center leading-5
-                  sm:px-12 sm:py-4
-                  md:mt-4
-                  lg:px-0
-                  xl:w-3/4
-                `}
-                variant="hero-subtitle"
-              >
+              {/* 75% width on XL screens for optimal readability - prevents text lines from becoming too long */}
+              <CuiText align="center" variant="hero-subtitle">
                 Nest components to construct the DOM tree as you would in code.
                 <br />
                 Configure props provided by UI frameworks so you can save time.
@@ -54,7 +45,7 @@ export const HeroSection = () => {
                 className={`
                   mb-6 w-full justify-center
                   md:mb-0
-                `}
+               `}
                 size="large"
               >
                 <Fancybox

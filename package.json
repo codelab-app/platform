@@ -458,7 +458,7 @@
     "json-schema": "0.4.0",
     "jsonc-eslint-parser": "2.4.0",
     "knip": "5.29.2",
-    "lint-staged": "16.1.2",
+    "lint-staged": "16.1.4",
     "minimatch": "9.0.4",
     "msw": "2.7.0",
     "msw-storybook-addon": "2.0.4",

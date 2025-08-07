@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'antd'
 import Image from 'next/image'
 
+import { CuiText } from '../../components/CuiText'
 import { Integrations } from './Integrations'
 
 const data = [
@@ -62,17 +63,17 @@ export const DataPipeline = () => {
           2xl:px-20
         `}
       >
-        <h2
+        <CuiText
           className={`
-            mt-10 px-0 text-center text-lg font-semibold text-violet-600
-            sm:text-2xl
-            md:mt-14
-            lg:px-8 lg:text-4xl
-            xl:px-0 xl:text-5xl
+            px-0
+            lg:px-8
+            xl:px-0
           `}
+          color="primary"
+          variant="section-title"
         >
           Control Your Data Pipeline
-        </h2>
+        </CuiText>
         {data.map((items, index) => (
           <div
             className={`
