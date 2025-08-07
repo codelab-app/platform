@@ -1,3 +1,13 @@
+/**
+  apply fix for common css problems:
+    - remove default padding/margin from html and body
+    - set 100% width and height for html and body
+    - set box-sizing, remove outlines, etc
+
+  https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
+*/
+@import 'antd/dist/reset.css';
+
 /* 
   we migrated to antd major version 5 before all the packages were ready.
   currently uniforms-antd is not compatible with antd 5, there is an issue

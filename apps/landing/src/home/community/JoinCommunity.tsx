@@ -70,28 +70,25 @@ export const JoinCommunity = () => {
             Talk to other users to share your use cases, or contact one of the
             admins for instant support.
           </p>
-          <Button
-            className={`
-              m-auto mb-6 flex items-center rounded-lg p-6
-              sm:mb-12
-              md:mb-24
-              lg:p-8
-              xl:p-10
-            `}
-            ghost
-            onClick={() => {
-              setShowEmailModal(true)
-            }}
-          >
-            <a
+          <div className="flex justify-center">
+            <Button
               className={`
-                text-base font-bold text-white
-                lg:text-xl
+                mb-6 h-auto rounded-full border-2 border-white bg-transparent px-12 py-10 text-xl font-bold text-white transition-all
+                hover:!border-white hover:!bg-white hover:!text-violet-700
+                sm:mb-12 sm:px-16 sm:py-12 sm:text-2xl
+                md:mb-24
+                lg:px-20 lg:py-14 lg:text-3xl
+                xl:px-24 xl:py-16 xl:text-4xl
               `}
+              ghost
+              onClick={() => {
+                setShowEmailModal(true)
+              }}
+              size="large"
             >
               Join The Community
-            </a>
-          </Button>
+            </Button>
+          </div>
         </div>
         <EmailModal
           onCancel={() => {

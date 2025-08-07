@@ -6,12 +6,11 @@ import {
   faServer,
   faSliders,
 } from '@fortawesome/pro-light-svg-icons'
-import { Col, Row, Typography } from 'antd'
+import { Col, Row } from 'antd'
 
 import { alignFullGridStyle } from '../../../styles/style'
+import { CuiText } from '../../components/CuiText'
 import { FeatureCard } from './FeatureCard'
-
-const { Title } = Typography
 
 const colProps = {
   style: {
@@ -73,29 +72,31 @@ export const BestPractices = () => {
           sm:py-0
         `}
       >
-        <Title
+        <CuiText
+          align="center"
           className={`
-            mt-4 text-center !text-lg !font-extrabold !text-violet-600
-            sm:mt-14 sm:!text-2xl
-            md:mt-28 md:!text-3xl
-            lg:!text-4xl
-            xl:!text-5xl
+            mb-2 mt-4
+            sm:mb-3 sm:mt-14
+            md:mb-4 md:mt-28
+            lg:mb-5
+            xl:mb-6
           `}
-          level={2}
+          color="primary"
+          variant="h2"
         >
           Build with best practices: re-use & compose
-        </Title>
-        <div
+        </CuiText>
+        <p
           className={`
-            mb-11 px-4 text-center text-sm text-black
+            mb-11 px-4 text-center text-sm text-slate-600
             sm:px-0 sm:text-base
             md:text-lg
           `}
         >
           Re-use your knowledge of coding and apply them as you would with code.
           Think like a developer, but work more productively using our
-          development platform. It’s like a smart IDE on steroids.
-        </div>
+          development platform. It's like a smart IDE on steroids.
+        </p>
         <Row
           className={`
             m-auto w-11/12 justify-center pl-0
@@ -114,6 +115,7 @@ export const BestPractices = () => {
               span={24}
               xl={11}
               xxl={7}
+              // eslint-disable-next-line react/jsx-props-no-spreading
               {...colProps}
             >
               <FeatureCard
