@@ -8,15 +8,36 @@ const textVariants = cva('', {
   variants: {
     variant: {
       // Hero sections
-      'hero-title':
-        'text-center text-2xl font-extrabold sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl',
-      'hero-subtitle':
-        'text-sm font-light sm:text-base sm:leading-7 md:text-lg lg:text-xl xl:text-2xl',
+      'hero-title': `
+        text-center text-2xl font-extrabold
+        sm:text-3xl
+        md:text-4xl
+        lg:text-5xl
+        xl:text-6xl
+      `,
+      'hero-subtitle': `
+        mb-3 mt-0 w-full px-2 text-center text-sm font-light leading-5
+        sm:px-12 sm:py-4 sm:text-base sm:leading-7
+        md:mt-4 md:text-lg
+        lg:px-0 lg:text-xl
+        xl:mx-auto xl:w-3/4 xl:text-2xl
+      `,
       'hero-description': '',
 
       // Headings
-      h1: 'text-xl !font-extrabold sm:text-3xl lg:text-4xl xl:!text-5xl',
-      h2: '!text-lg font-black sm:!text-2xl md:!text-3xl lg:!text-4xl xl:!text-5xl',
+      h1: `
+        text-xl !font-extrabold
+        sm:text-3xl
+        lg:text-4xl
+        xl:!text-5xl
+      `,
+      h2: `
+        !text-lg font-black
+        sm:!text-2xl
+        md:!text-3xl
+        lg:!text-4xl
+        xl:!text-5xl
+      `,
       h3: '',
       h4: '',
       h5: '',
@@ -26,6 +47,20 @@ const textVariants = cva('', {
       body: '',
       'body-large': '',
       'body-small': '',
+
+      // Section elements
+      'section-title': `
+        mb-2 mt-4 text-center !text-lg font-black
+        sm:mb-3 sm:mt-14 sm:!text-2xl
+        md:mb-4 md:mt-28 md:!text-3xl
+        lg:mb-5 lg:!text-4xl
+        xl:mb-6 xl:!text-5xl
+      `,
+      'section-subtitle': `
+        mb-11 px-4 text-center text-sm text-slate-600
+        sm:px-0 sm:text-base
+        md:text-lg
+      `,
 
       // Special text
       description: '',
@@ -79,7 +114,6 @@ const textVariants = cva('', {
   },
   defaultVariants: {
     variant: 'body',
-    align: 'left',
     italic: false,
   },
 })
@@ -118,6 +152,9 @@ export const CuiText = ({
       h4: 'h4',
       h5: 'h5',
       h6: 'h6',
+      // Section
+      'section-title': 'h2',
+      'section-subtitle': 'p',
       // Body
       body: 'p',
       'body-large': 'p',
