@@ -98,8 +98,7 @@ export const BestPractices = () => {
               span={24}
               xl={11}
               xxl={7}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...colProps}
+              {...colProps} // eslint-disable-line react/jsx-props-no-spreading
             >
               <FeatureCard
                 description={items.description}
