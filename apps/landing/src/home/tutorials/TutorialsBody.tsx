@@ -4,6 +4,7 @@ import { Button, Col, Row } from 'antd'
 import Image from 'next/image'
 
 import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
 
 export interface ITutorialsItem {
   description: string
@@ -51,16 +52,17 @@ export const TutorialsBody = ({ tutorials }: TutorialsBodyProps) => {
                 src={item.image}
               />
             </div>
-            <h5
+            <CuiText
               className={`
                 text-base
                 md:text-xl
                 lg:text-lg
                 2xl:text-2xl
               `}
+              variant="card-title"
             >
               {item.title}
-            </h5>
+            </CuiText>
             <p
               className={`
                 mb-2 text-sm

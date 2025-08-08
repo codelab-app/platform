@@ -111,25 +111,25 @@ export const PricingBody = () => {
                 {items.title}
               </p>
               <div className="mb-6 flex h-fit items-end justify-center font-extrabold">
-                <h1
+                <span
                   className={classNames(
                     items.titleColor,
-                    'text-4xl md:text-5xl mb-0 mr-2',
+                    'text-4xl md:text-5xl mb-0 mr-2 font-display font-black',
                   )}
                 >
                   {items.price}
-                </h1>
+                </span>
                 {items.price === 'Custom' ? (
                   ''
                 ) : (
-                  <h5
+                  <span
                     className={classNames(
                       items.titleColor,
-                      'text-xl md:text-2xl mb-0',
+                      'text-xl md:text-2xl mb-0 font-display font-black',
                     )}
                   >
                     /mo
-                  </h5>
+                  </span>
                 )}
               </div>
               <Button

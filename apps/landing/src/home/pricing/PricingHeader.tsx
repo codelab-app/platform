@@ -1,6 +1,7 @@
 import { Switch } from 'antd'
 
 import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
 
 export const PricingHeader = () => {
   return (
@@ -12,15 +13,7 @@ export const PricingHeader = () => {
           md:mt-20
         `}
       >
-        <h1
-          className={`
-            text-center text-2xl
-            sm:text-3xl
-            md:text-5xl
-          `}
-        >
-          Compare Pricing
-        </h1>
+        <CuiText variant="hero-title">Compare Pricing</CuiText>
         <p
           className={`
             px-8 text-center text-base text-slate-500
