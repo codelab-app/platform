@@ -1,15 +1,16 @@
 'use client'
 
-import type { Settings } from 'react-slick'
+import type { EmblaCarouselType } from 'embla-carousel-react'
 
 import { initials } from '@codelab/shared-utils'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
-import Slider from 'react-slick'
+import Autoplay from 'embla-carousel-autoplay'
+import useEmblaCarousel from 'embla-carousel-react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { CuiText } from '../components/CuiText'
-import styles from './customDots.module.css'
 
 const { Meta } = Card
 const { Text } = Typography
@@ -26,18 +27,27 @@ export const TestimonialItem = ({
   stakeholder,
 }: TestimonialItemProps) => {
   return (
-    <div className="px-2 sm:px-3">
-      <div className="h-8" />
+    <div
+      className={`
+        flex size-full flex-col px-2
+        sm:px-3
+      `}
+    >
+      <div className="h-8 shrink-0" />
       <Card
         className={`
-          max-w-[600px] rounded-lg bg-transparent p-2
+          flex max-w-[600px] flex-1 flex-col rounded-lg bg-transparent p-2
           sm:p-4
+          [&_.ant-card-body]:flex [&_.ant-card-body]:flex-1 [&_.ant-card-body]:flex-col
         `}
       >
         <div className="flex justify-center">
           <span className="relative -mt-20 flex p-4">
             <FontAwesomeIcon
-              className="h-20 w-20 [&_path]:fill-yellow-400"
+              className={`
+                size-20
+                [&_path]:fill-yellow-400
+              `}
               icon={faQuoteLeft}
               style={{ maxWidth: '80px', maxHeight: '80px' }}
             />
@@ -49,7 +59,7 @@ export const TestimonialItem = ({
             .map((_, idx) => (
               <FontAwesomeIcon
                 className={`
-                  h-5 w-5 pr-1.5
+                  size-5 pr-1.5
                   [&_path]:fill-yellow-400
                 `}
                 icon={faStar}
@@ -58,15 +68,7 @@ export const TestimonialItem = ({
               />
             ))}
         </div>
-        <div
-          className={`
-            mt-3 min-h-[120px]
-            md:min-h-[200px]
-            lg:min-h-[144px]
-            xl:min-h-[170px]
-            2xl:min-h-[140px]
-          `}
-        >
+        <div className="mt-3 grow">
           <Text
             className={`
               text-sm text-slate-300
@@ -112,52 +114,59 @@ const testimonialItems = [
   },
   {
     review:
-      "We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders.",
-    role: 'CEO @ KonvertLab',
-    stakeholder: 'Shelby Lewis',
+      'As a marketing agency, we needed to quickly prototype and deploy custom landing pages for our clients. This platform allowed us to deliver professional, interactive websites in a fraction of the time it would take with traditional development.',
+    role: 'Marketing Director @ Kea Digital',
+    stakeholder: 'Giselle Lo',
   },
 ]
 
 export const TestimonialSection = () => {
-  const settings: Settings = {
-    appendDots: (dots) => (
-      <div
-        className={`
-          ${styles['slick-dots']}
-          ${styles['slick-thumb']}
-        `}
-      >
-        {dots}
-      </div>
-    ),
-    centerMode: false,
-    centerPadding: '0px',
-    dots: true,
-    infinite: true,
-    // dotsClass: 'slick-dots slick-thumb',
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToScroll: 1,
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToScroll: 1,
-          slidesToShow: 1,
-        },
-      },
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: 'start',
+      loop: true,
+      skipSnaps: false,
+      slidesToScroll: 1,
+      containScroll: false,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 5000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
     ],
+  )
 
-    slidesToScroll: 1,
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<Array<number>>([])
 
-    slidesToShow: 3,
+  const scrollTo = useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi],
+  )
 
-    speed: 500,
-  }
+  const onSelect = useCallback((emblaInstance: EmblaCarouselType) => {
+    const index = emblaInstance.selectedScrollSnap()
+    setSelectedIndex(index)
+  }, [])
+
+  useEffect(() => {
+    if (!emblaApi) {
+      return
+    }
+
+    setScrollSnaps(emblaApi.scrollSnapList())
+    emblaApi.on('select', onSelect)
+    emblaApi.on('reInit', onSelect)
+    onSelect(emblaApi)
+
+    return () => {
+      emblaApi.off('select', onSelect)
+      emblaApi.off('reInit', onSelect)
+    }
+  }, [emblaApi, onSelect])
 
   return (
     <div
@@ -178,30 +187,56 @@ export const TestimonialSection = () => {
       >
         Loved by startups
       </CuiText>
-      <Slider
-        appendDots={settings.appendDots}
-        centerMode={settings.centerMode}
-        className={`
-          z-10 my-2 mt-8 pb-0
-          sm:my-8 sm:pb-8
-        `}
-        dots={settings.dots}
-        infinite={settings.infinite}
-        responsive={settings.responsive}
-        slidesToScroll={settings.slidesToScroll}
-        slidesToShow={settings.slidesToShow}
-        speed={settings.speed}
-      >
-        {testimonialItems.map((item, index) => (
-          <TestimonialItem
-            key={index}
-            review={item.review}
-            role={item.role}
-            stakeholder={item.stakeholder}
-          />
-        ))}
-      </Slider>
-      <div className="mt-12"></div>
+
+      {/* Embla Carousel with CSS-based responsive slides */}
+      <div className="mx-auto mt-8 max-w-6xl">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex items-stretch">
+            {testimonialItems.map((item, index) => (
+              <div
+                className={`
+                  flex min-w-0 shrink-0 grow-0 basis-full
+                  md:basis-1/2
+                  lg:basis-1/3
+                `}
+                key={index}
+              >
+                <TestimonialItem
+                  review={item.review}
+                  role={item.role}
+                  stakeholder={item.stakeholder}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Custom Dots Navigation - only show 2 dots for large screens */}
+        <div className="mt-8 flex justify-center">
+          <div className="flex gap-2">
+            {scrollSnaps
+              .slice(0, Math.min(scrollSnaps.length, 2))
+              .map((_, index) => (
+                <button
+                  aria-label={`Go to slide ${index + 1}`}
+                  className={`
+                  size-2 rounded-full transition-all duration-300
+                  ${
+                    selectedIndex % 2 === index
+                      ? 'w-8 bg-amber-600'
+                      : 'bg-gray-400'
+                  }
+                `}
+                  key={index}
+                  onClick={() => scrollTo(index)}
+                  type="button"
+                />
+              ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-12" />
     </div>
   )
 }

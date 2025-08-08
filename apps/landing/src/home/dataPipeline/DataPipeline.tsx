@@ -102,7 +102,8 @@ export const DataPipeline = () => {
             >
               <span
                 className={`
-                  w-fit rounded-[20px] bg-yellow-500 p-2 font-display text-lg font-black text-white
+                  mb-4 w-fit rounded-[20px] bg-yellow-500 p-2 font-display text-lg font-black
+                  text-white
                   sm:p-4 sm:text-3xl
                   lg:p-5 lg:text-4xl
                   xl:p-6 xl:text-5xl
