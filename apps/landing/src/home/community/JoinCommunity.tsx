@@ -4,6 +4,8 @@ import { Button, notification } from 'antd'
 import axios from 'axios'
 import { useState } from 'react'
 
+import { CuiContainer } from '../../components/CuiContainer'
+
 import { EmailModal } from './EmailModal'
 
 type NotificationType = 'error' | 'success'
@@ -41,12 +43,12 @@ export const JoinCommunity = () => {
     <>
       {contextHolder}
       <section className="bg-violet-700">
-        <div
+        <CuiContainer
           className={`
-            m-auto w-11/12 py-12
-            lg:container
+            py-12
             2xl:w-11/12
           `}
+          size="lg"
         >
           <h2
             className={`
@@ -89,7 +91,7 @@ export const JoinCommunity = () => {
               Join The Community
             </Button>
           </div>
-        </div>
+        </CuiContainer>
         <EmailModal
           onCancel={() => {
             setShowEmailModal(false)

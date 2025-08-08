@@ -1,12 +1,13 @@
 import { Switch } from 'antd'
 
+import { CuiContainer } from '../../components/CuiContainer'
+
 export const PricingHeader = () => {
   return (
     <section>
-      <div
+      <CuiContainer
         className={`
-          m-auto mt-5 w-11/12 pb-7
-          xl:container
+          mt-5 pb-7
           sm:mt-10 sm:pb-14
           md:mt-20
         `}
@@ -57,7 +58,7 @@ export const PricingHeader = () => {
             Save up to 25%
           </span>
         </div>
-      </div>
+      </CuiContainer>
     </section>
   )
 }

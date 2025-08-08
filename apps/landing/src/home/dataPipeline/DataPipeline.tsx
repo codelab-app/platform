@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'antd'
 import Image from 'next/image'
 
+import { CuiContainer } from '../../components/CuiContainer'
 import { CuiText } from '../../components/CuiText'
 import { Integrations } from './Integrations'
 
@@ -55,13 +56,13 @@ export const DataPipeline = () => {
         2xl:w-11/12 2xl:px-0
       `}
     >
-      <div
+      <CuiContainer
         className={`
-          m-auto mb-12 w-11/12 bg-white p-0
-          lg:container
+          mb-12 bg-white p-0
           md:mb-0 md:w-4/5
           2xl:px-20
         `}
+        size="lg"
       >
         <CuiText
           className={`
@@ -173,7 +174,7 @@ export const DataPipeline = () => {
           </div>
         ))}
         <Integrations />
-      </div>
+      </CuiContainer>
     </section>
   )
 }

@@ -5,6 +5,7 @@ import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { Col, Row, Space } from 'antd'
 
 import { CuiButton } from '../../components/CuiButton'
+import { CuiContainer } from '../../components/CuiContainer'
 import { CuiText } from '../../components/CuiText'
 import { useAuthUrl } from '../auth/use-auth-url'
 import { BuilderDemoImage } from '../demo/BuilderDemoImage'
@@ -21,10 +22,10 @@ export const HeroSection = () => {
           md:container
         `}
       >
-        <div
+        <CuiContainer
           className={`
-            m-auto mt-0 w-11/12 py-6
-            md:container md:mt-12 md:py-10
+            mt-0 py-6
+            md:mt-12 md:py-10
           `}
         >
           <Row className="justify-center">
@@ -78,7 +79,7 @@ export const HeroSection = () => {
               </Space>
             </Col>
           </Row>
-        </div>
+        </CuiContainer>
         <Row className="justify-center">
           <Col lg={22} md={22} sm={22} xl={22} xs={22}>
             <BuilderDemoImage />
