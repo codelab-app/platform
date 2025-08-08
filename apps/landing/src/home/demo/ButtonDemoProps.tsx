@@ -3,7 +3,8 @@ import type { ButtonProps } from 'antd'
 import ShopOutlined from '@ant-design/icons/ShopOutlined'
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
-import { Descriptions, Radio, Select, Space, Switch } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Descriptions, Radio, Select, Switch } from 'antd'
 
 import { useDemoState } from './DemoContext'
 

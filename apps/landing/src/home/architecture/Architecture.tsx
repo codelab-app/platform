@@ -1,4 +1,5 @@
-import { Button, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Button } from 'antd'
 import Image from 'next/image'
 
 import { CuiText } from '../../components/CuiText'

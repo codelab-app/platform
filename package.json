@@ -51,9 +51,9 @@
     "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, staging, nx-upgrade, release/staging, release/prod, or release tags (stag-x.x.x, prod-x.x.x)"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "1.23.0",
+    "@ant-design/cssinjs": "1.24.0",
     "@ant-design/icons": "5.6.0",
-    "@ant-design/nextjs-registry": "1.0.2",
+    "@ant-design/nextjs-registry": "1.1.0",
     "@ant-design/pro-components": "2.8.4",
     "@apollo/client": "3.12.3",
     "@apollo/server": "4.11.2",

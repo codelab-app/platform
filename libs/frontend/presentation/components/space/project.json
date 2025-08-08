@@ -1,0 +1,8 @@
+{
+  "name": "@codelab/frontend-presentation-components-space",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/presentation/components/space/src",
+  "projectType": "library",
+  "tags": ["frontend", "presentation", "component"],
+  "targets": {}
+}

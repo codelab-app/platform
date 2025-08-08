@@ -898,6 +898,9 @@
       "@codelab/frontend-presentation-components-reactquill": [
         "libs/frontend/presentation/components/reactquill/src/index.ts"
       ],
+      "@codelab/frontend-presentation-components-space": [
+        "libs/frontend/presentation/components/space/src/index.ts"
+      ],
       "@codelab/frontend-presentation-container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],

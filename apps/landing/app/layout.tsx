@@ -1,11 +1,17 @@
 import type { Metadata } from 'next'
 import type { PropsWithChildren } from 'react'
 
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
+import '../styles/app.css'
 import { GoogleAnalytics } from '../src/home/GoogleAnalytics'
 import { Intercom } from '../src/home/Intercom'
 import { HotjarProvider } from './hotjar-provider'
 import { Providers } from './providers'
-import '../styles/app.css'
+
+// Prevent FontAwesome from adding its CSS dynamically since we import it above
+config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: 'Codelab - Build Web Apps Visually',
