@@ -9,6 +9,7 @@ import {
 import { Col, Row } from 'antd'
 
 import { alignFullGridStyle } from '../../../styles/style'
+import { CuiContainer } from '../../components/CuiContainer'
 import { CuiText } from '../../components/CuiText'
 import { FeatureCard } from './FeatureCard'
 
@@ -59,10 +60,9 @@ const featureItems = [
 
 export const BestPractices = () => {
   return (
-    <section
+    <CuiContainer
       className={`
-        m-auto w-11/12 pb-0
-        xl:container
+        pb-0
         md:pb-14
       `}
     >
@@ -80,35 +80,38 @@ export const BestPractices = () => {
           Think like a developer, but work more productively using our
           development platform. It's like a smart IDE on steroids.
         </CuiText>
-        <Row
+        <CuiContainer
           className={`
-            m-auto w-11/12 justify-center pl-0
-            md:container md:pl-8
+            pl-0
+            md:pl-8
             2xl:pl-0
           `}
+          size="md"
         >
-          {featureItems.map((items, index) => (
-            <Col
-              className={`
-                mb-8 mr-0
-                md:mr-8
-              `}
-              key={index}
-              lg={11}
-              span={24}
-              xl={11}
-              xxl={7}
-              {...colProps} // eslint-disable-line react/jsx-props-no-spreading
-            >
-              <FeatureCard
-                description={items.description}
-                icon={items.icon}
-                title={items.title}
-              />
-            </Col>
-          ))}
-        </Row>
+          <Row className="justify-center">
+            {featureItems.map((items, index) => (
+              <Col
+                className={`
+                  mb-8 mr-0
+                  md:mr-8
+                `}
+                key={index}
+                lg={11}
+                span={24}
+                xl={11}
+                xxl={7}
+                {...colProps} // eslint-disable-line react/jsx-props-no-spreading
+              >
+                <FeatureCard
+                  description={items.description}
+                  icon={items.icon}
+                  title={items.title}
+                />
+              </Col>
+            ))}
+          </Row>
+        </CuiContainer>
       </div>
-    </section>
+    </CuiContainer>
   )
 }

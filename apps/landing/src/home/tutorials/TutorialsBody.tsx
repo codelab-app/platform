@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row } from 'antd'
 import Image from 'next/image'
 
+import { CuiContainer } from '../../components/CuiContainer'
+
 export interface ITutorialsItem {
   description: string
   image: string
@@ -16,12 +18,7 @@ export interface TutorialsBodyProps {
 
 export const TutorialsBody = ({ tutorials }: TutorialsBodyProps) => {
   return (
-    <section
-      className={`
-        m-auto w-11/12 pb-14
-        xl:container
-      `}
-    >
+    <CuiContainer className="pb-14">
       <Row
         className={`
           m-auto mb-0 w-3/4 pb-14
@@ -102,6 +99,6 @@ export const TutorialsBody = ({ tutorials }: TutorialsBodyProps) => {
           </Col>
         ))}
       </Row>
-    </section>
+    </CuiContainer>
   )
 }

@@ -2,6 +2,8 @@
 
 import { Col, Row, Tabs } from 'antd'
 
+import { CuiContainer } from '../../components/CuiContainer'
+
 import { ButtonPropsForm } from './ButtonDemoProps'
 import { DemoProvider } from './DemoContext'
 import { DemoShoppingCard } from './DemoShoppingCard'
@@ -62,13 +64,13 @@ export const BuilderDemo = () => {
 
   return (
     <DemoProvider>
-      <Row
-        className={`
-          flex w-full flex-col-reverse
-          md:container
-          xl:flex-row
-        `}
-      >
+      <CuiContainer className="w-full" size="md">
+        <Row
+          className={`
+            flex flex-col-reverse
+            xl:flex-row
+          `}
+        >
         <Col
           className={`
             z-20 mt-20 px-0
@@ -123,7 +125,8 @@ export const BuilderDemo = () => {
             </div>
           </div>
         </Col>
-      </Row>
+        </Row>
+      </CuiContainer>
     </DemoProvider>
   )
 }

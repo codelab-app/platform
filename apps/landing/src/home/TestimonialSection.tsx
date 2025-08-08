@@ -174,7 +174,7 @@ export const TestimonialSection = () => {
           md:mt-28
         `}
         color="white"
-        variant="h1"
+        variant="section-title"
       >
         Loved by startups
       </CuiText>
