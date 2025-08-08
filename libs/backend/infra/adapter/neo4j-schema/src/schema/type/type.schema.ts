@@ -341,5 +341,6 @@ export const typeSchema = gql`
     PageType |
     AppType |
     RichTextType |
-    CodeMirrorType
+    CodeMirrorType |
+    UnknownType
 `

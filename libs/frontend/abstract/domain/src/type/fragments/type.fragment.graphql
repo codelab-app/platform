@@ -13,4 +13,5 @@ fragment Type on IBaseType {
   ...RenderPropType
   ...RichTextType
   ...UnionType
+  ...UnknownType
 }

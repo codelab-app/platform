@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared-infra-gqlgen';
 
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
-import { DeletePrimitiveTypesDocument, DeleteArrayTypesDocument, DeleteReactNodeTypesDocument, DeleteUnionTypesDocument, DeleteInterfaceTypesDocument, DeleteElementTypesDocument, DeleteRenderPropTypesDocument, DeleteRichTextTypesDocument, DeleteEnumTypesDocument, DeleteLambdaTypesDocument, DeletePageTypesDocument, DeleteAppTypesDocument, DeleteActionTypesDocument, DeleteCodeMirrorTypesDocument } from '@codelab/shared-infra-gqlgen'
+import { DeletePrimitiveTypesDocument, DeleteArrayTypesDocument, DeleteReactNodeTypesDocument, DeleteUnionTypesDocument, DeleteInterfaceTypesDocument, DeleteElementTypesDocument, DeleteRenderPropTypesDocument, DeleteRichTextTypesDocument, DeleteEnumTypesDocument, DeleteLambdaTypesDocument, DeletePageTypesDocument, DeleteAppTypesDocument, DeleteActionTypesDocument, DeleteCodeMirrorTypesDocument, DeleteUnknownTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const DeletePrimitiveTypes = (variables: Types.DeletePrimitiveTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeletePrimitiveTypesDocument.toString(), variables, next)
 export const DeleteArrayTypes = (variables: Types.DeleteArrayTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeleteArrayTypesDocument.toString(), variables, next)
@@ -18,3 +18,4 @@ export const DeletePageTypes = (variables: Types.DeletePageTypesMutationVariable
 export const DeleteAppTypes = (variables: Types.DeleteAppTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeleteAppTypesDocument.toString(), variables, next)
 export const DeleteActionTypes = (variables: Types.DeleteActionTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeleteActionTypesDocument.toString(), variables, next)
 export const DeleteCodeMirrorTypes = (variables: Types.DeleteCodeMirrorTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeleteCodeMirrorTypesDocument.toString(), variables, next)
+export const DeleteUnknownTypes = (variables: Types.DeleteUnknownTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeleteUnknownTypesDocument.toString(), variables, next)

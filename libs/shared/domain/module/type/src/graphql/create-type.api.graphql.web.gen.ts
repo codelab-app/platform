@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared-infra-gqlgen';
 
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
-import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from '@codelab/shared-infra-gqlgen'
+import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument, CreateUnknownTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const CreatePrimitiveTypes = (variables: Types.CreatePrimitiveTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreatePrimitiveTypesDocument.toString(), variables, next)
 export const CreateArrayTypes = (variables: Types.CreateArrayTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateArrayTypesDocument.toString(), variables, next)
@@ -18,3 +18,4 @@ export const CreateAppTypes = (variables: Types.CreateAppTypesMutationVariables,
 export const CreateRichTextTypes = (variables: Types.CreateRichTextTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateRichTextTypesDocument.toString(), variables, next)
 export const CreateActionTypes = (variables: Types.CreateActionTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateActionTypesDocument.toString(), variables, next)
 export const CreateCodeMirrorTypes = (variables: Types.CreateCodeMirrorTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateCodeMirrorTypesDocument.toString(), variables, next)
+export const CreateUnknownTypes = (variables: Types.CreateUnknownTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateUnknownTypesDocument.toString(), variables, next)

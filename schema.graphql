@@ -8334,6 +8334,11 @@ type CreateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
+type CreateUnknownTypesMutationResponse {
+  info: CreateInfo!
+  unknownTypes: [UnknownType!]!
+}
+
 type CreateUsersMutationResponse {
   info: CreateInfo!
   users: [User!]!
@@ -13586,6 +13591,7 @@ input IBaseTypeCreateInput {
   RenderPropType: RenderPropTypeCreateInput
   RichTextType: RichTextTypeCreateInput
   UnionType: UnionTypeCreateInput
+  UnknownType: UnknownTypeCreateInput
 }
 
 input IBaseTypeDeleteInput {
@@ -15532,6 +15538,7 @@ type Mutation {
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(input: [TypeReferenceCreateInput!]!): CreateTypeReferencesMutationResponse!
   createUnionTypes(input: [UnionTypeCreateInput!]!): CreateUnionTypesMutationResponse!
+  createUnknownTypes(input: [UnknownTypeCreateInput!]!): CreateUnknownTypesMutationResponse!
   createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
   deleteActionTypes(delete: ActionTypeDeleteInput, where: ActionTypeWhere): DeleteInfo!
   deleteApiActions(delete: ApiActionDeleteInput, where: ApiActionWhere): DeleteInfo!
@@ -15566,6 +15573,7 @@ type Mutation {
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(delete: UnionTypeDeleteInput, where: UnionTypeWhere): DeleteInfo!
+  deleteUnknownTypes(delete: UnknownTypeDeleteInput, where: UnknownTypeWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   updateActionTypes(update: ActionTypeUpdateInput, where: ActionTypeWhere): UpdateActionTypesMutationResponse!
   updateApiActions(update: ApiActionUpdateInput, where: ApiActionWhere): UpdateApiActionsMutationResponse!
@@ -15600,6 +15608,7 @@ type Mutation {
   updateTags(update: TagUpdateInput, where: TagWhere): UpdateTagsMutationResponse!
   updateTypeReferences(update: TypeReferenceUpdateInput, where: TypeReferenceWhere): UpdateTypeReferencesMutationResponse!
   updateUnionTypes(update: UnionTypeUpdateInput, where: UnionTypeWhere): UpdateUnionTypesMutationResponse!
+  updateUnknownTypes(update: UnknownTypeUpdateInput, where: UnknownTypeWhere): UpdateUnknownTypesMutationResponse!
   updateUsers(update: UserUpdateInput, where: UserWhere): UpdateUsersMutationResponse!
 }
 
@@ -18152,6 +18161,9 @@ type Query {
   unionTypes(limit: Int, offset: Int, options: UnionTypeOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UnionTypeSort!], where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
   unionTypesConnection(after: String, first: Int, sort: [UnionTypeSort!], where: UnionTypeWhere): UnionTypesConnection!
+  unknownTypes(limit: Int, offset: Int, options: UnknownTypeOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UnknownTypeSort!], where: UnknownTypeWhere): [UnknownType!]!
+  unknownTypesAggregate(where: UnknownTypeWhere): UnknownTypeAggregateSelection!
+  unknownTypesConnection(after: String, first: Int, sort: [UnknownTypeSort!], where: UnknownTypeWhere): UnknownTypesConnection!
   users(limit: Int, offset: Int, options: UserOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UserSort!], where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
   usersConnection(after: String, first: Int, sort: [UserSort!], where: UserWhere): UsersConnection!
@@ -22054,6 +22066,7 @@ enum TypeKind {
   RenderPropType
   RichTextType
   UnionType
+  UnknownType
 }
 
 type TypeReference {
@@ -22772,6 +22785,7 @@ input UnionTypeTypesOfUnionTypeConnectInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput!]
+  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
 }
 
 type UnionTypeTypesOfUnionTypeConnection {
@@ -22812,6 +22826,7 @@ input UnionTypeTypesOfUnionTypeCreateInput {
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput
   RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeFieldInput
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeFieldInput
+  UnknownType: UnionTypeTypesOfUnionTypeUnknownTypeFieldInput
 }
 
 input UnionTypeTypesOfUnionTypeDeleteInput {
@@ -22846,6 +22861,7 @@ input UnionTypeTypesOfUnionTypeDisconnectInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput!]
+  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput!]
 }
 
 input UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput {
@@ -23293,6 +23309,38 @@ input UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere
 }
 
+input UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput {
+  connect: [UnknownTypeConnectInput!]
+  where: UnknownTypeConnectWhere
+}
+
+input UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere {
+  AND: [UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere!]
+  NOT: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
+  OR: [UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere!]
+  node: UnknownTypeWhere
+}
+
+input UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput {
+  node: UnknownTypeCreateInput!
+}
+
+input UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput {
+  disconnect: UnknownTypeDisconnectInput
+  where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeUnknownTypeFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
+  where: UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput
+}
+
+input UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput!]
+  disconnect: [UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput!]
+}
+
 input UnionTypeTypesOfUnionTypeUpdateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput!]
   AppType: [UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput!]
@@ -23308,6 +23356,7 @@ input UnionTypeTypesOfUnionTypeUpdateInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput!]
+  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput!]
 }
 
 input UnionTypeUpdateInput {
@@ -23435,6 +23484,200 @@ input UnionTypeWhere {
 
 type UnionTypesConnection {
   edges: [UnionTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UnknownType implements IBaseType {
+  fieldRefs(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: FieldOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [FieldSort!], where: FieldWhere): [Field!]!
+  fieldRefsAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: FieldWhere): UnknownTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeFieldRefsConnectionSort!], where: IBaseTypeFieldRefsConnectionWhere): IBaseTypeFieldRefsConnection!
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: UserOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UserSort!], where: UserWhere): User!
+  ownerAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: UserWhere): UnknownTypeUserOwnerAggregationSelection
+  ownerConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeOwnerConnectionSort!], where: IBaseTypeOwnerConnectionWhere): IBaseTypeOwnerConnection!
+}
+
+type UnknownTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+}
+
+input UnknownTypeConnectInput {
+  fieldRefs: [UnknownTypeFieldRefsConnectFieldInput!]
+  owner: UnknownTypeOwnerConnectFieldInput
+}
+
+input UnknownTypeConnectWhere {
+  AND: [UnknownTypeConnectWhere!]
+  NOT: UnknownTypeConnectWhere
+  OR: [UnknownTypeConnectWhere!]
+  owner: UserWhere
+}
+
+input UnknownTypeCreateInput {
+  fieldRefs: UnknownTypeFieldRefsFieldInput
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner: UnknownTypeOwnerFieldInput
+}
+
+input UnknownTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
+  owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+input UnknownTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  owner: IBaseTypeOwnerDisconnectFieldInput
+}
+
+type UnknownTypeEdge {
+  cursor: String!
+  node: UnknownType!
+}
+
+type UnknownTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: UnknownTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type UnknownTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input UnknownTypeFieldRefsAggregateInput {
+  AND: [UnknownTypeFieldRefsAggregateInput!]
+  NOT: UnknownTypeFieldRefsAggregateInput
+  OR: [UnknownTypeFieldRefsAggregateInput!]
+  count: Int @deprecated(reason: "Please use the explicit _EQ version")
+  count_EQ: Int
+}
+
+input UnknownTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true @deprecated(reason: "The overwrite argument is deprecated and will be removed")
+  where: FieldConnectWhere
+}
+
+input UnknownTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input UnknownTypeFieldRefsFieldInput {
+  connect: [UnknownTypeFieldRefsConnectFieldInput!]
+  create: [UnknownTypeFieldRefsCreateFieldInput!]
+}
+
+input UnknownTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input UnknownTypeFieldRefsUpdateFieldInput {
+  connect: [UnknownTypeFieldRefsConnectFieldInput!]
+  create: [UnknownTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: UnknownTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
+}
+
+input UnknownTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more UnknownTypeSort objects to sort UnknownTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [UnknownTypeSort!]
+}
+
+input UnknownTypeOwnerConnectFieldInput {
+  connect: [UserConnectInput!]
+  where: UserConnectWhere
+}
+
+input UnknownTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input UnknownTypeOwnerFieldInput {
+  connect: UnknownTypeOwnerConnectFieldInput
+  where: UnknownTypeOwnerCreateFieldInput
+}
+
+input UnknownTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input UnknownTypeOwnerUpdateFieldInput {
+  connect: UnknownTypeOwnerConnectFieldInput
+  create: UnknownTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: UnknownTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
+input UnknownTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+}
+
+input UnknownTypeUpdateInput {
+  fieldRefs: [UnknownTypeFieldRefsUpdateFieldInput!]
+  id: ID @deprecated(reason: "Please use the explicit _SET field")
+  id_SET: ID
+  kind: TypeKind @deprecated(reason: "Please use the explicit _SET field")
+  kind_SET: TypeKind
+  name: String @deprecated(reason: "Please use the explicit _SET field")
+  name_SET: String
+  owner: UnknownTypeOwnerUpdateFieldInput
+}
+
+type UnknownTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: UnknownTypeUserOwnerNodeAggregateSelection
+}
+
+type UnknownTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
+  username: StringAggregateSelection!
+}
+
+input UnknownTypeWhere {
+  AND: [UnknownTypeWhere!]
+  NOT: UnknownTypeWhere
+  OR: [UnknownTypeWhere!]
+  fieldRefsAggregate: UnknownTypeFieldRefsAggregateInput
+  id: ID @deprecated(reason: "Please use the explicit _EQ version")
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_EQ: ID
+  id_IN: [ID!]
+  id_STARTS_WITH: ID
+}
+
+type UnknownTypesConnection {
+  edges: [UnknownTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -23612,6 +23855,11 @@ type UpdateTypeReferencesMutationResponse {
 type UpdateUnionTypesMutationResponse {
   info: UpdateInfo!
   unionTypes: [UnionType!]!
+}
+
+type UpdateUnknownTypesMutationResponse {
+  info: UpdateInfo!
+  unknownTypes: [UnknownType!]!
 }
 
 type UpdateUsersMutationResponse {

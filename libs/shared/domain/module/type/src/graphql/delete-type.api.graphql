@@ -131,3 +131,13 @@ mutation DeleteCodeMirrorTypes(
     relationshipsDeleted
   }
 }
+
+mutation DeleteUnknownTypes(
+  $delete: UnknownTypeDeleteInput
+  $where: UnknownTypeWhere
+) {
+  deleteUnknownTypes(delete: $delete, where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}

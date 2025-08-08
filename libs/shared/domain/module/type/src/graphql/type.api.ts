@@ -1,10 +1,21 @@
 import type { IRef } from '@codelab/shared-abstract-core'
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
+  ActionTypeCreateInput,
+  AppTypeCreateInput,
+  ArrayTypeCreateInput,
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
+  EnumTypeCreateInput,
+  InterfaceTypeCreateInput,
+  LambdaTypeCreateInput,
+  PageTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
+  RenderPropTypeCreateInput,
+  RichTextTypeCreateInput,
+  UnionTypeCreateInput,
+  UnknownTypeCreateInput,
 } from '@codelab/shared-infra-gqlgen'
 import type { ArrayOrSingle } from 'ts-essentials'
 
@@ -30,6 +41,7 @@ import {
   CreateRenderPropTypes,
   CreateRichTextTypes,
   CreateUnionTypes,
+  CreateUnknownTypes,
 } from './create-type.api.graphql.web.gen'
 import { getSdk as getDeleteSdk } from './delete-type.api.graphql.api.gen'
 import {
@@ -47,6 +59,7 @@ import {
   DeleteRenderPropTypes,
   DeleteRichTextTypes,
   DeleteUnionTypes,
+  DeleteUnknownTypes,
 } from './delete-type.api.graphql.web.gen'
 import { getSdk as getFindSdk } from './get-type.api.graphql.api.gen'
 import {
@@ -74,6 +87,7 @@ import {
   UpdateRenderPropTypes,
   UpdateRichTextTypes,
   UpdateUnionTypes,
+  UpdateUnknownTypes,
 } from './update-type.api.graphql.web.gen'
 
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
@@ -89,16 +103,23 @@ type CreateTypes = Record<
 
 export const createTypeServerActions: CreateTypes = {
   [ITypeKind.ActionType]: (input, next) =>
-    CreateActionTypes({ input }, next).then(({ types }) => types.types),
+    CreateActionTypes(
+      { input: input as ArrayOrSingle<ActionTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.AppType]: (input, next) =>
-    CreateAppTypes({ input }, next).then(({ types }) => types.types),
+    CreateAppTypes(
+      { input: input as ArrayOrSingle<AppTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.ArrayType]: (input, next) =>
-    CreateArrayTypes({ input }, next).then(({ types }) => types.types),
+    CreateArrayTypes(
+      { input: input as ArrayOrSingle<ArrayTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.CodeMirrorType]: (input, next) =>
     CreateCodeMirrorTypes(
-      {
-        input: input as ArrayOrSingle<CodeMirrorTypeCreateInput>,
-      },
+      { input: input as ArrayOrSingle<CodeMirrorTypeCreateInput> },
       next,
     ).then(({ types }) => types.types),
   [ITypeKind.ElementType]: (input, next) =>
@@ -109,13 +130,25 @@ export const createTypeServerActions: CreateTypes = {
       next,
     ).then(({ types }) => types.types),
   [ITypeKind.EnumType]: (input, next) =>
-    CreateEnumTypes({ input }, next).then(({ types }) => types.types),
+    CreateEnumTypes(
+      { input: input as ArrayOrSingle<EnumTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.InterfaceType]: (input, next) =>
-    CreateInterfaceTypes({ input }, next).then(({ types }) => types.types),
+    CreateInterfaceTypes(
+      { input: input as ArrayOrSingle<InterfaceTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.LambdaType]: (input, next) =>
-    CreateLambdaTypes({ input }, next).then(({ types }) => types.types),
+    CreateLambdaTypes(
+      { input: input as ArrayOrSingle<LambdaTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.PageType]: (input, next) =>
-    CreatePageTypes({ input }, next).then(({ types }) => types.types),
+    CreatePageTypes(
+      { input: input as ArrayOrSingle<PageTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.PrimitiveType]: (input, next) =>
     CreatePrimitiveTypes(
       {
@@ -131,11 +164,25 @@ export const createTypeServerActions: CreateTypes = {
       next,
     ).then(({ types }) => types.types),
   [ITypeKind.RenderPropType]: (input, next) =>
-    CreateRenderPropTypes({ input }, next).then(({ types }) => types.types),
+    CreateRenderPropTypes(
+      { input: input as ArrayOrSingle<RenderPropTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.RichTextType]: (input, next) =>
-    CreateRichTextTypes({ input }, next).then(({ types }) => types.types),
+    CreateRichTextTypes(
+      { input: input as ArrayOrSingle<RichTextTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.UnionType]: (input, next) =>
-    CreateUnionTypes({ input }, next).then(({ types }) => types.types),
+    CreateUnionTypes(
+      { input: input as ArrayOrSingle<UnionTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
+  [ITypeKind.UnknownType]: (input, next) =>
+    CreateUnknownTypes(
+      { input: input as ArrayOrSingle<UnknownTypeCreateInput> },
+      next,
+    ).then(({ types }) => types.types),
 }
 
 export const findTypeServerActions = {
@@ -201,33 +248,75 @@ type UpdateTypesRecord = Record<
 
 export const updateTypeServerActions: UpdateTypesRecord = {
   [ITypeKind.ActionType]: (vars, next) =>
-    UpdateActionTypes(vars, next).then(({ types }) => types.types),
+    UpdateActionTypes(
+      vars as Parameters<typeof UpdateActionTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.AppType]: (vars, next) =>
-    UpdateAppTypes(vars, next).then(({ types }) => types.types),
+    UpdateAppTypes(vars as Parameters<typeof UpdateAppTypes>[0], next).then(
+      ({ types }) => types.types,
+    ),
   [ITypeKind.ArrayType]: (vars, next) =>
-    UpdateArrayTypes(vars, next).then(({ types }) => types.types),
+    UpdateArrayTypes(vars as Parameters<typeof UpdateArrayTypes>[0], next).then(
+      ({ types }) => types.types,
+    ),
   [ITypeKind.CodeMirrorType]: (vars, next) =>
-    UpdateCodeMirrorTypes(vars, next).then(({ types }) => types.types),
+    UpdateCodeMirrorTypes(
+      vars as Parameters<typeof UpdateCodeMirrorTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.ElementType]: (vars, next) =>
-    UpdateElementTypes(vars, next).then(({ types }) => types.types),
+    UpdateElementTypes(
+      vars as Parameters<typeof UpdateElementTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.EnumType]: (vars, next) =>
-    UpdateEnumTypes(vars, next).then(({ types }) => types.types),
+    UpdateEnumTypes(vars as Parameters<typeof UpdateEnumTypes>[0], next).then(
+      ({ types }) => types.types,
+    ),
   [ITypeKind.InterfaceType]: (vars, next) =>
-    UpdateInterfaceTypes(vars, next).then(({ types }) => types.types),
+    UpdateInterfaceTypes(
+      vars as Parameters<typeof UpdateInterfaceTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.LambdaType]: (vars, next) =>
-    UpdateLambdaTypes(vars, next).then(({ types }) => types.types),
+    UpdateLambdaTypes(
+      vars as Parameters<typeof UpdateLambdaTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.PageType]: (vars, next) =>
-    UpdatePageTypes(vars, next).then(({ types }) => types.types),
+    UpdatePageTypes(vars as Parameters<typeof UpdatePageTypes>[0], next).then(
+      ({ types }) => types.types,
+    ),
   [ITypeKind.PrimitiveType]: (vars, next) =>
-    UpdatePrimitiveTypes(vars, next).then(({ types }) => types.types),
+    UpdatePrimitiveTypes(
+      vars as Parameters<typeof UpdatePrimitiveTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (vars, next) =>
-    UpdateReactNodeTypes(vars, next).then(({ types }) => types.types),
+    UpdateReactNodeTypes(
+      vars as Parameters<typeof UpdateReactNodeTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.RenderPropType]: (vars, next) =>
-    UpdateRenderPropTypes(vars, next).then(({ types }) => types.types),
+    UpdateRenderPropTypes(
+      vars as Parameters<typeof UpdateRenderPropTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.RichTextType]: (vars, next) =>
-    UpdateRichTextTypes(vars, next).then(({ types }) => types.types),
+    UpdateRichTextTypes(
+      vars as Parameters<typeof UpdateRichTextTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
   [ITypeKind.UnionType]: (vars, next) =>
-    UpdateUnionTypes(vars, next).then(({ types }) => types.types),
+    UpdateUnionTypes(vars as Parameters<typeof UpdateUnionTypes>[0], next).then(
+      ({ types }) => types.types,
+    ),
+  [ITypeKind.UnknownType]: (vars, next) =>
+    UpdateUnknownTypes(
+      vars as Parameters<typeof UpdateUnknownTypes>[0],
+      next,
+    ).then(({ types }) => types.types),
 }
 
 //
@@ -287,6 +376,10 @@ export const deleteTypeServerActions: DeleteTypesRecord = {
     ),
   [ITypeKind.UnionType]: (vars, next) =>
     DeleteUnionTypes(vars, next).then((results) => results.deleteUnionTypes),
+  [ITypeKind.UnknownType]: (vars, next) =>
+    DeleteUnknownTypes(vars, next).then(
+      (results) => results.deleteUnknownTypes,
+    ),
 }
 
 export const createTypeApi = () => getCreateSdk(graphqlClient)

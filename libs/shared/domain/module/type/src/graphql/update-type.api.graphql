@@ -156,3 +156,15 @@ mutation UpdateCodeMirrorTypes(
     }
   }
 }
+
+mutation UpdateUnknownTypes(
+  $update: UnknownTypeUpdateInput
+  $where: UnknownTypeWhere
+) {
+  types: updateUnknownTypes(update: $update, where: $where) {
+    types: unknownTypes {
+      __typename
+      id
+    }
+  }
+}
