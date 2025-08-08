@@ -1,4 +1,5 @@
 import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
 
 export const TutorialsHeader = () => {
   return (
@@ -10,15 +11,7 @@ export const TutorialsHeader = () => {
           md:mt-20
         `}
       >
-        <h1
-          className={`
-            text-center text-2xl
-            sm:text-3xl
-            md:text-5xl
-          `}
-        >
-          Learn To Build
-        </h1>
+        <CuiText variant="hero-title">Learn To Build</CuiText>
         <p
           className={`
             m-auto w-full px-8 text-center text-base text-slate-500

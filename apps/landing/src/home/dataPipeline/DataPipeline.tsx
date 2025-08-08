@@ -100,16 +100,16 @@ export const DataPipeline = () => {
                 lg:w-2/5
               `}
             >
-              <h1
+              <span
                 className={`
-                  w-fit rounded-[20px] bg-yellow-500 p-2 text-lg font-semibold text-white
+                  w-fit rounded-[20px] bg-yellow-500 p-2 font-display text-lg font-black text-white
                   sm:p-4 sm:text-3xl
                   lg:p-5 lg:text-4xl
                   xl:p-6 xl:text-5xl
                 `}
               >
                 {items.id}
-              </h1>
+              </span>
               <div
                 className={`
                   mb-2 flex items-center
@@ -122,15 +122,15 @@ export const DataPipeline = () => {
                   src={items.icon}
                   width={24}
                 />
-                <h4
+                <span
                   className={`
-                    m-0 ml-2 p-0 text-base
+                    m-0 ml-2 p-0 text-base font-bold
                     sm:text-lg
                     xl:text-xl
                   `}
                 >
                   {items.title}
-                </h4>
+                </span>
               </div>
               <p
                 className={`

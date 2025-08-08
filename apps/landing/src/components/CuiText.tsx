@@ -69,7 +69,9 @@ const textVariants = cva('', {
       quote: '',
 
       // Card elements
-      'card-title': '',
+      'card-title': `
+        font-display font-bold
+      `,
       'card-description': '',
 
       // Navigation

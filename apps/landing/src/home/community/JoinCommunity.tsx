@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useState } from 'react'
 
 import { CuiContainer } from '../../components/CuiContainer'
-
+import { CuiText } from '../../components/CuiText'
 import { EmailModal } from './EmailModal'
 
 type NotificationType = 'error' | 'success'
@@ -50,17 +50,17 @@ export const JoinCommunity = () => {
           `}
           size="lg"
         >
-          <h2
+          <CuiText
             className={`
-              pt-7 text-center text-xl font-semibold leading-snug text-white
-              sm:pt-14 sm:text-2xl
-              md:pt-28 md:text-3xl
-              lg:text-4xl
-              xl:text-5xl
+              pt-7 leading-snug
+              sm:pt-14
+              md:pt-28
             `}
+            color="white"
+            variant="section-title"
           >
             Join the Codelab community and help improve our product
-          </h2>
+          </CuiText>
           <p
             className={`
               mb-10 pt-5 text-center text-base text-white
