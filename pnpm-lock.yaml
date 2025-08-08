@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@ant-design/cssinjs':
-        specifier: 1.23.0
-        version: 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 1.24.0
+        version: 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/icons':
         specifier: 5.6.0
         version: 5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/nextjs-registry':
         specifier: 1.1.0
-        version: 1.1.0(@ant-design/cssinjs@1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.4(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.85.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 1.1.0(@ant-design/cssinjs@1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.4(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.85.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-components':
         specifier: 2.8.4
         version: 2.8.4(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(rc-field-form@2.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -431,6 +431,12 @@ importers:
       dots-wrapper:
         specifier: 3.11.8
         version: 3.11.8
+      embla-carousel:
+        specifier: ^8.6.0
+        version: 8.6.0
+      embla-carousel-autoplay:
+        specifier: ^8.6.0
+        version: 8.6.0(embla-carousel@8.6.0)
       embla-carousel-react:
         specifier: 8.1.6
         version: 8.1.6(react@19.1.0)
@@ -623,9 +629,6 @@ importers:
       react-responsive:
         specifier: 9.0.0-beta.10
         version: 9.0.0-beta.10(react@19.1.0)
-      react-slick:
-        specifier: 0.29.0
-        version: 0.29.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-sticky-box:
         specifier: 2.0.0
         version: 2.0.0(react@19.1.0)
@@ -1017,9 +1020,6 @@ importers:
       '@types/react-responsive':
         specifier: 8.0.5
         version: 8.0.5
-      '@types/react-slick':
-        specifier: 0.23.10
-        version: 0.23.10
       '@types/react-stickynode':
         specifier: 4.0.0
         version: 4.0.0
@@ -1377,8 +1377,8 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  '@ant-design/cssinjs@1.23.0':
-    resolution: {integrity: sha512-7GAg9bD/iC9ikWatU9ym+P9ugJhi/WbsTWzcKN6T4gU0aehsprtke1UAaaSxxkjjmkJb3llet/rbUSLPgwlY4w==}
+  '@ant-design/cssinjs@1.24.0':
+    resolution: {integrity: sha512-K4cYrJBsgvL+IoozUXYjbT6LHHNt+19a9zkvpBPxLjFHas1UpPM2A5MlhROb0BT8N8WoavM5VsP9MeSeNK/3mg==}
     peerDependencies:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
@@ -7613,9 +7613,6 @@ packages:
   '@types/react-responsive@8.0.5':
     resolution: {integrity: sha512-k3gQJgI87oP5IrVZe//3LKJFnAeFaqqWmmtl5eoYL2H3HqFcIhUaE30kRK1CsW3DHdojZxcVj4ZNc2ClsEu2PA==}
 
-  '@types/react-slick@0.23.10':
-    resolution: {integrity: sha512-ZiqdencANDZy6sWOWJ54LDvebuXFEhDlHtXU9FFipQR2BcYU2QJxZhvJPW6YK7cocibUiNn+YvDTbt1HtCIBVA==}
-
   '@types/react-stickynode@4.0.0':
     resolution: {integrity: sha512-PKkmOzF6WCNuyIKrvhidGeUPLfe8htPwfEljKnQBF4bA5v74ADvXtwkjavOH8i6aCSw9J14AyDDl1Ul0VNQJUg==}
 
@@ -10225,6 +10222,11 @@ packages:
   elliptic@6.6.1:
     resolution: {integrity: sha512-RaddvvMatK2LJHqFJ+YA4WysVN5Ita9E35botqIYspQ4TkRAlCicdzKOjlyv/1Za5RyTNn7di//eEV0uTAfe3g==}
 
+  embla-carousel-autoplay@8.6.0:
+    resolution: {integrity: sha512-OBu5G3nwaSXkZCo1A6LTaFMZ8EpkYbwIaH+bPqdBnDGQ2fh4+NbzjXjs2SktoPNKCtflfVMc75njaDHOYXcrsA==}
+    peerDependencies:
+      embla-carousel: 8.6.0
+
   embla-carousel-react@8.1.6:
     resolution: {integrity: sha512-DHxwFzF63yVrU95Eo58E9Xr5b6Y9ul6TTsqb/rtwMi+jXudAmIqN1i9iBxQ73i8jKuUVxll/ziNYMmnWvrdQJQ==}
     peerDependencies:
@@ -10237,6 +10239,9 @@ packages:
 
   embla-carousel@8.1.6:
     resolution: {integrity: sha512-9n7FVsbPAs1KD+JmO84DnEDOZMXPBQbLujjMQqvsBRN2CDWwgZ9hRSNapztdPnyJfzOIxowGmj0BUQ8ACYAPkA==}
+
+  embla-carousel@8.6.0:
+    resolution: {integrity: sha512-SjWyZBHJPbqxHOzckOfo8lHisEaJWmwd23XppYFYVh10bU66/Pn5tkVkbkCMZVdbUE5eTCI2nD8OyIP4Z+uwkA==}
 
   emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
@@ -10289,9 +10294,6 @@ packages:
   enhanced-resolve@5.18.1:
     resolution: {integrity: sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==}
     engines: {node: '>=10.13.0'}
-
-  enquire.js@2.1.6:
-    resolution: {integrity: sha512-/KujNpO+PT63F7Hlpu4h3pE3TokKRHN26JYmQpPyjkRD/N57R7bPDNojMXdi7uveAKjYB7yQnartCxZnFWr0Xw==}
 
   enquirer@2.3.6:
     resolution: {integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==}
@@ -15380,12 +15382,6 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
 
-  react-slick@0.29.0:
-    resolution: {integrity: sha512-TGdOKE+ZkJHHeC4aaoH85m8RnFyWqdqRfAGkhd6dirmATXMZWAxOpTLmw2Ll/jPTQ3eEG7ercFr/sbzdeYCJXA==}
-    peerDependencies:
-      react: ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
-
   react-sticky-box@2.0.0:
     resolution: {integrity: sha512-xTy/46lG6GlfdkGL7DoevLj+p3lqjvULZvGkN36/2oM8FrijvFq/zzfAtK0ZSnDxM9Ct6KOr5ZVuejVdDFqEcw==}
     peerDependencies:
@@ -18201,13 +18197,13 @@ snapshots:
 
   '@ant-design/cssinjs-utils@1.1.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@babel/runtime': 7.26.7
       rc-util: 5.44.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@ant-design/cssinjs@1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@ant-design/cssinjs@1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.26.7
       '@emotion/hash': 0.8.0
@@ -18245,17 +18241,17 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@ant-design/nextjs-registry@1.1.0(@ant-design/cssinjs@1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.4(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.85.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@ant-design/nextjs-registry@1.1.0(@ant-design/cssinjs@1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.4(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.85.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      antd: 5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      antd: 5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next: 15.3.4(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.85.1)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
   '@ant-design/pro-card@2.9.4(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/icons': 5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-provider': 2.15.3(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-utils': 2.16.3(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -18343,7 +18339,7 @@ snapshots:
 
   '@ant-design/pro-layout@7.22.1(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/icons': 5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-provider': 2.15.3(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-utils': 2.16.3(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -18364,7 +18360,7 @@ snapshots:
 
   '@ant-design/pro-list@2.6.4(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(rc-field-form@2.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/icons': 5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-card': 2.9.4(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-field': 3.0.1(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -18383,7 +18379,7 @@ snapshots:
 
   '@ant-design/pro-provider@2.15.3(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@babel/runtime': 7.26.7
       '@ctrl/tinycolor': 3.6.1
       antd: 5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -18402,7 +18398,7 @@ snapshots:
 
   '@ant-design/pro-table@3.18.4(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(rc-field-form@2.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/icons': 5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-card': 2.9.4(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/pro-field': 3.0.1(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -26997,10 +26993,6 @@ snapshots:
     dependencies:
       '@types/react': 19.0.12
 
-  '@types/react-slick@0.23.10':
-    dependencies:
-      '@types/react': 19.0.12
-
   '@types/react-stickynode@4.0.0':
     dependencies:
       '@types/react': 19.0.12
@@ -27838,7 +27830,7 @@ snapshots:
 
   antd-style@3.7.1(@types/react@19.0.12)(antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@babel/runtime': 7.26.7
       '@emotion/cache': 11.14.0
       '@emotion/css': 11.13.5
@@ -27855,8 +27847,8 @@ snapshots:
 
   antd@5.25.3(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@ant-design/colors': 7.2.1
-      '@ant-design/cssinjs': 1.23.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@ant-design/colors': 7.2.0
+      '@ant-design/cssinjs': 1.24.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/cssinjs-utils': 1.1.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@ant-design/fast-color': 2.0.6
       '@ant-design/icons': 5.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -30138,6 +30130,10 @@ snapshots:
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
 
+  embla-carousel-autoplay@8.6.0(embla-carousel@8.6.0):
+    dependencies:
+      embla-carousel: 8.6.0
+
   embla-carousel-react@8.1.6(react@19.1.0):
     dependencies:
       embla-carousel: 8.1.6
@@ -30149,6 +30145,8 @@ snapshots:
       embla-carousel: 8.1.6
 
   embla-carousel@8.1.6: {}
+
+  embla-carousel@8.6.0: {}
 
   emittery@0.13.1: {}
 
@@ -30214,8 +30212,6 @@ snapshots:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.2.1
-
-  enquire.js@2.1.6: {}
 
   enquirer@2.3.6:
     dependencies:
@@ -36716,16 +36712,6 @@ snapshots:
       prop-types: 15.8.1
       react: 19.1.0
       shallow-equal: 1.2.1
-
-  react-slick@0.29.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      classnames: 2.3.2
-      enquire.js: 2.1.6
-      json2mq: 0.2.0
-      lodash.debounce: 4.0.8
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      resize-observer-polyfill: 1.5.1
 
   react-sticky-box@2.0.0(react@19.1.0):
     dependencies:
