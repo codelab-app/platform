@@ -1,7 +1,8 @@
 'use client'
 
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
-import { Avatar, Divider, Menu, Popover, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Avatar, Divider, Menu, Popover } from 'antd'
 
 import { useUser } from '../services'
 

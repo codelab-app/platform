@@ -2,7 +2,7 @@
 
 import { Fancybox } from '@codelab/frontend-presentation-components-fancybox'
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
-import { Col, Row, Space } from 'antd'
+import { Col, Row } from 'antd'
 
 import { CuiButton } from '../../components/CuiButton'
 import { CuiContainer } from '../../components/CuiContainer'
@@ -41,14 +41,7 @@ export const HeroSection = () => {
                 <br />
                 Configure props provided by UI frameworks so you can save time.
               </CuiText>
-              <Space
-                align="center"
-                className={`
-                  mb-6 w-full justify-center
-                  md:mb-0
-               `}
-                size="large"
-              >
+              <div className="mb-6 flex w-full items-center justify-center gap-4 md:mb-0">
                 <Fancybox
                   options={{
                     closeButton: 'outside',
@@ -76,7 +69,7 @@ export const HeroSection = () => {
                 >
                   Login
                 </CuiButton>
-              </Space>
+              </div>
             </Col>
           </Row>
         </CuiContainer>

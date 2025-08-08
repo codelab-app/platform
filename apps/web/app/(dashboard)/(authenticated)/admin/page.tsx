@@ -5,8 +5,8 @@ import { ImportAdminDataButton } from '@codelab/frontend-application-admin/use-c
 import { ResetDataButtons } from '@codelab/frontend-application-admin/use-cases/reset-data'
 import { UsersTable } from '@codelab/frontend-application-user/use-cases/user-list'
 import { userRepository } from '@codelab/frontend-domain-user/repositories'
+import { Space } from '@codelab/frontend-presentation-components-space'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import { Space } from 'antd'
 
 export const metadata: Metadata = {
   title: 'Admin | Codelab',

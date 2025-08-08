@@ -1,5 +1,6 @@
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { Col, Row, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Col, Row } from 'antd'
 
 interface CuiHeaderProps {
   centralArea?: React.ReactElement<unknown> | null

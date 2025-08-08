@@ -6,9 +6,10 @@ import type { FieldProps } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
+import { Space } from '@codelab/frontend-presentation-components-space'
 import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { hasExpression } from '@codelab/shared-infra-eval'
-import { Button, Space, Tooltip } from 'antd'
+import { Button, Tooltip } from 'antd'
 import { useState } from 'react'
 import { isNullish } from 'remeda'
 import { connectField } from 'uniforms'
@@ -53,18 +54,22 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
 
   switch (fieldProps.field.type) {
     case 'array':
+      // eslint-disable-next-line react/jsx-props-no-spreading
       return <WrappedListField {...(props as ListFieldProps)} />
     case 'boolean':
+      // eslint-disable-next-line react/jsx-props-no-spreading
       return <BoolField {...(props as FieldProps<boolean, InnerProps>)} />
     case 'integer':
     case 'number':
       return (
         <NumField
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...(props as FieldProps<number, InnerProps>)}
           decimal={fieldProps.field.type === 'number'}
         />
       )
     case 'string':
+      // eslint-disable-next-line react/jsx-props-no-spreading
       return <SelectField {...(props as SelectFieldProps)} />
     default:
       return null
@@ -122,6 +127,7 @@ const ToggleExpression = ({
           customOptions={mainProps.autocomplete || []}
           language={ICodeMirrorLanguage.Javascript}
           title={fieldProps.field.label}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...fieldProps}
           value={value}
         />

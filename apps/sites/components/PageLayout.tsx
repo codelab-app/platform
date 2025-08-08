@@ -1,6 +1,7 @@
 'use client'
 
-import { Empty, Space, Typography } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Empty, Typography } from 'antd'
 
 import { AppCard, AppsSummary } from '.'
 

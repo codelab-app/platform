@@ -11,8 +11,8 @@ import { StyledComponentsRegistry } from './styled-components-registry'
 
 export const Providers = ({ children }: PropsWithChildren) => {
   return (
-    <StyledComponentsRegistry>
-      <AntdRegistry>
+    <AntdRegistry>
+      <StyledComponentsRegistry>
         <MenuProvider>
           <Auth0Provider>
             <ConfigProvider
@@ -27,7 +27,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
             </ConfigProvider>
           </Auth0Provider>
         </MenuProvider>
-      </AntdRegistry>
-    </StyledComponentsRegistry>
+      </StyledComponentsRegistry>
+    </AntdRegistry>
   )
 }

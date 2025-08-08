@@ -4,7 +4,8 @@ import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
-import { Select, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Select } from 'antd'
 import { useState } from 'react'
 
 import {
