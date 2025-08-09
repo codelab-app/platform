@@ -1,6 +1,6 @@
 'use client'
 
-import type { EmblaCarouselType } from 'embla-carousel-react'
+import type { UseEmblaCarouselType } from 'embla-carousel-react'
 
 import { initials } from '@codelab/shared-utils'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
@@ -11,6 +11,8 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { useCallback, useEffect, useState } from 'react'
 
 import { CuiText } from '../components/CuiText'
+
+type EmblaCarouselType = UseEmblaCarouselType[1]
 
 const { Meta } = Card
 const { Text } = Typography
@@ -148,6 +150,10 @@ export const TestimonialSection = () => {
   )
 
   const onSelect = useCallback((emblaInstance: EmblaCarouselType) => {
+    if (!emblaInstance) {
+      return
+    }
+
     const index = emblaInstance.selectedScrollSnap()
     setSelectedIndex(index)
   }, [])
@@ -220,13 +226,13 @@ export const TestimonialSection = () => {
                 <button
                   aria-label={`Go to slide ${index + 1}`}
                   className={`
-                  size-2 rounded-full transition-all duration-300
-                  ${
-                    selectedIndex % 2 === index
-                      ? 'w-8 bg-amber-600'
-                      : 'bg-gray-400'
-                  }
-                `}
+                    size-2 rounded-full transition-all duration-300
+                    ${
+                      selectedIndex % 2 === index
+                        ? 'w-8 bg-amber-600'
+                        : 'bg-gray-400'
+                    }
+                  `}
                   key={index}
                   onClick={() => scrollTo(index)}
                   type="button"

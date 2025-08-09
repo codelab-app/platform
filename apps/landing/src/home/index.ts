@@ -1,5 +1,4 @@
 export * from './Clients'
-export * from './Concept'
 export * from './Features'
 export * from './hero/HeroSection'
 export * from './HomeTemplateNoSsr'
