@@ -3,6 +3,13 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/presentation/components/space/src",
   "projectType": "library",
-  "tags": ["frontend", "presentation", "component"],
+  "tags": [
+    "projectName:@codelab/frontend-presentation-components-space",
+    "layer:presentation",
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend"
+  ],
+  "// targets": "to see all targets run: nx show project @codelab/frontend-presentation-components-space --web",
   "targets": {}
 }
