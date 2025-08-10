@@ -73,9 +73,14 @@ WORKDIR /usr/src/codelab
 
 # Enable Nx Cloud for caching
 ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
+ENV NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT=0
+ENV NX_DAEMON=false
+ENV NX_CACHE_DIRECTORY=/usr/src/codelab/.nx/cache
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # NX cache doesn't take into account environment variables
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NODE_OPTIONS="--max-old-space-size=8192"
+
 RUN pnpm nx build sites --verbose
 
 #
