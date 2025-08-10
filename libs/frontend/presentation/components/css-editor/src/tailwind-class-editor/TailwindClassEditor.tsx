@@ -107,12 +107,14 @@ export const TailwindClassEditor = ({
               label={option.label}
               value={option.value}
             >
-              <Space onMouseMove={previewClassName}>
-                <span aria-label={option.label} role="img">
-                  <ColorBox color={option.value} />
-                </span>
-                {option.label}
-              </Space>
+              <div onMouseMove={previewClassName}>
+                <Space>
+                  <span aria-label={option.label} role="img">
+                    <ColorBox color={option.value} />
+                  </span>
+                  {option.label}
+                </Space>
+              </div>
             </Select.Option>
           )
         })}

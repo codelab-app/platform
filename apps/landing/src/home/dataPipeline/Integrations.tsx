@@ -41,12 +41,22 @@ export const Integrations = () => {
         Integrations
       </p>
       <div className="mx-auto max-w-6xl px-4">
-        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        <div
+          className={`
+            grid grid-cols-3 gap-4
+            sm:grid-cols-4
+            md:grid-cols-5
+            lg:grid-cols-6
+          `}
+        >
           {listItem.map(({ alt, src }, index) => (
             <div className="flex items-center justify-center p-4" key={index}>
               <Image
                 alt={alt}
-                className="h-auto w-full max-w-[120px] opacity-70 transition-opacity hover:opacity-100"
+                className={`
+                  h-auto w-full max-w-[120px] opacity-70 transition-opacity
+                  hover:opacity-100
+                `}
                 height={45}
                 src={src}
                 width={120}

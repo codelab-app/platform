@@ -69,9 +69,7 @@ const textVariants = cva('', {
       quote: '',
 
       // Card elements
-      'card-title': `
-        font-display font-bold
-      `,
+      'card-title': 'font-display font-bold',
       'card-description': '',
 
       // Navigation
@@ -137,7 +135,6 @@ export const CuiText = ({
   onClick,
   variant = 'body',
   weight,
-  ...props
 }: TextProps) => {
   // Auto-select semantic HTML tag based on variant if not specified
   const Component =
@@ -185,8 +182,6 @@ export const CuiText = ({
         className,
       )}
       onClick={onClick}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
     >
       {children}
     </Component>

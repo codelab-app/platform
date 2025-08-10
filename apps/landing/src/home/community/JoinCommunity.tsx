@@ -75,7 +75,8 @@ export const JoinCommunity = () => {
           <div className="flex justify-center">
             <Button
               className={`
-                mb-6 h-auto rounded-full border-2 border-white bg-transparent px-12 py-10 text-xl font-bold text-white transition-all
+                mb-6 h-auto rounded-full border-2 border-white bg-transparent px-12 py-10 text-xl
+                font-bold text-white transition-all
                 hover:!border-white hover:!bg-white hover:!text-violet-700
                 sm:mb-12 sm:px-16 sm:py-12 sm:text-2xl
                 md:mb-24
