@@ -6,13 +6,7 @@ export const LoginUserButton = () => {
   const { loginUrl } = useAuthUrl()
 
   return (
-    <Button
-      className={`
-        rounded-2xl
-      `}
-      href={loginUrl}
-      type="primary"
-    >
+    <Button className="rounded-2xl" href={loginUrl} type="primary">
       Login
     </Button>
   )

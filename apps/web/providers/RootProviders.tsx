@@ -22,7 +22,7 @@ export const RootProviders = ({
     store.rootStore.setUser(user)
 
     return store
-  }, [user.id])
+  }, [user])
 
   return (
     <Auth0Provider>

@@ -12,9 +12,14 @@ const buttonVariants = cva('', {
   variants: {
     variant: {
       // Hero buttons
-      heroPrimary: 'bg-blue-500 text-white hover:bg-blue-600',
-      heroSecondary:
-        'border border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50',
+      heroPrimary: `
+        bg-blue-500 text-white
+        hover:bg-blue-600
+      `,
+      heroSecondary: `
+        border border-gray-300 bg-transparent text-gray-700
+        hover:bg-gray-50
+      `,
 
       // Primary buttons
       primary: '',
@@ -41,7 +46,11 @@ const buttonVariants = cva('', {
       xl: 'h-14 px-8 text-xl',
 
       // Custom sizes for specific use cases
-      hero: 'h-10 w-36 text-sm sm:h-12 sm:w-48 sm:text-lg md:h-14',
+      hero: `
+        h-10 w-36 text-sm
+        sm:h-12 sm:w-48 sm:text-lg
+        md:h-14
+      `,
     },
     rounded: {
       none: 'rounded-none',

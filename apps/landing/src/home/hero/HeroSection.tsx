@@ -41,7 +41,12 @@ export const HeroSection = () => {
                 <br />
                 Configure props provided by UI frameworks so you can save time.
               </CuiText>
-              <div className="mb-6 flex w-full items-center justify-center gap-4 md:mb-0">
+              <div
+                className={`
+                  mb-6 flex w-full items-center justify-center gap-4
+                  md:mb-0
+                `}
+              >
                 <Fancybox
                   options={{
                     closeButton: 'outside',

@@ -12,7 +12,7 @@ import {
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import React from 'react'
 
-import '../styles/main.css'
+import '../styles/app.css'
 // import twindConfig from '../twind.config'
 
 /*
