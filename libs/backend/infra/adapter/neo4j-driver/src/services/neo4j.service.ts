@@ -5,7 +5,6 @@ import { Inject, Injectable } from '@nestjs/common'
 import neo4j from 'neo4j-driver'
 
 import { neo4jConfig } from '../neo4j.config'
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Neo4jTrackingService } from './neo4j-tracking.service'
 
 type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
