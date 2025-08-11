@@ -87,26 +87,8 @@ WORKDIR /usr/src/codelab
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
-# Run with additional debugging flags
-# First, let's see what Nx thinks the inputs are
-RUN echo "=== Environment Variables ===" && \
-    env | grep -E "^(NEXT_PUBLIC_|NODE_ENV|NX_)" | sort && \
-    echo "=== Checking Nx inputs ===" && \
-    pnpm nx show project web --json | jq '.targets.build.inputs' && \
-    echo "=== Computing hash for web:build ===" && \
-    pnpm nx hash web:build --verbose && \
-    echo "=== Checking affected projects ===" && \
-    pnpm nx affected:graph --target=build --verbose && \
-    echo "=== Running build with maximum cache debugging ===" && \
-    pnpm nx build web --verbose --skip-nx-cache=false 2>&1 | tee build.log && \
-    echo "=== Extracting cache miss information ===" && \
-    grep -E "computation hash|cache miss|inputs changed|Hash mismatch|File changed|Cache key|NX Cloud" build.log || true && \
-    echo "=== Checking local cache entries ===" && \
-    ls -la .nx/cache 2>/dev/null | head -20 || true || \
-    (echo "Build failed, checking Nx report..." && \
-     cat node_modules/.cache/nx/d/daemon.log 2>/dev/null || true && \
-     cat .nx/report.json 2>/dev/null || true && \
-     exit 1)
+# Build the web app
+RUN pnpm nx build web --verbose
 
 #
 # (2) Prod
