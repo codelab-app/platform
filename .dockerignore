@@ -26,6 +26,7 @@
 !/apps/api/
 !/apps/sites/
 !/apps/landing/
+!/dist/apps/
 !/dist/libs/tools/
 !/dist/libs/external/
 !/libs/
