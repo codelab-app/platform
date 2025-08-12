@@ -6,10 +6,10 @@ import type {
 } from '@codelab/frontend-abstract-domain'
 import type { ITypeKind } from '@codelab/shared-abstract-core'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
-import type { GuaranteedProps, joinName, useField } from 'uniforms'
 
 import { typedProp } from '@codelab/frontend-abstract-domain'
 import { Form } from 'antd'
+import { type GuaranteedProps, joinName, useField } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
 
 type UnionTypeFieldProps = GuaranteedProps<TypedProp> & {

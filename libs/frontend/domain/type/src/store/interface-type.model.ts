@@ -127,7 +127,6 @@ export class InterfaceType
             defaultValues: field.defaultValues,
             depth: currentDepth + 1,
             fieldName: field.key,
-            uniformSchema: context.uniformSchema,
             validationRules: field.validationRules,
           }),
         }),

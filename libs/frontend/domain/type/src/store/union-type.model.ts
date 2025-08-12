@@ -87,12 +87,13 @@ export class UnionType
       oneOf: this.typesOfUnionType.map((type) => {
         const valueSchema = type.current.toJsonSchema({ fieldName: 'value' })
 
+        const value = valueSchema.properties?.__isTypedProp
+          ? valueSchema.properties.value
+          : valueSchema
         return {
           properties: {
             type: { const: type.id },
-            value: valueSchema.properties?.__isTypedProp
-              ? valueSchema.properties.value
-              : valueSchema,
+            value: value ?? {},
           },
         }
       }),

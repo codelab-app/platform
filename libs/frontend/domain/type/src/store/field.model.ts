@@ -161,7 +161,6 @@ export class Field
         ...context,
         defaultValues: this.defaultValues,
         fieldName: this.key,
-        uniformSchema: context.uniformSchema,
         validationRules: this.validationRules,
       }),
     }
