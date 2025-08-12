@@ -44,6 +44,14 @@ export const typographyElement = {
   id: v4(),
   name: typographyElementName,
   parentElement: { id: spaceElementId },
+  propsData: {
+    children: typedProp({
+      // integer type id in seed data
+      type: 'b2e640a0-8ae2-477a-9ba0-67c81e538a54',
+      kind: ITypeKind.CodeMirrorType,
+      value: '',
+    }),
+  },
 }
 
 export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({

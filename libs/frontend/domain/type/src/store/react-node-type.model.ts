@@ -71,7 +71,7 @@ export class ReactNodeType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    const currentComponent = this.renderer?.runtimeComponent?.component.current
+    const currentComponent = this.renderer.runtimeComponent?.component.current
 
     return typedPropSchema(
       this,
