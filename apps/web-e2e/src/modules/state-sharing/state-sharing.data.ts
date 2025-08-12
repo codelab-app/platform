@@ -29,14 +29,6 @@ export const spaceElement = (rootElement: IRef): ICreateElementData => ({
   id: spaceElementId,
   name: spaceElementName,
   parentElement: { id: rootElement.id },
-  propsData: {
-    size: typedProp({
-      // integer type id in seed data
-      type: 'db9e646e-22fe-4fe3-ae31-a2a86b64d885',
-      kind: ITypeKind.PrimitiveType,
-      value: 20,
-    }),
-  },
 })
 
 export const typographyElement = {
@@ -47,9 +39,9 @@ export const typographyElement = {
   propsData: {
     children: typedProp({
       // integer type id in seed data
-      type: 'b2e640a0-8ae2-477a-9ba0-67c81e538a54',
+      type: '010c4f5a-434b-4c3e-a0ed-01eb1f78172a',
       kind: ITypeKind.CodeMirrorType,
-      value: '',
+      value: undefined,
     }),
   },
 }

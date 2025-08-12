@@ -65,14 +65,13 @@ export const ToggleExpressionWrapper = <Value,>({
     }
   }, [value])
 
-  useEffect(() => {
-    onChange(isExpression ? expressionValue : staticValue)
-  }, [isExpression])
-
   return (
     <FieldWrapper
       isExpression={isExpression}
-      toggle={() => setIsExpression(!isExpression)}
+      toggle={() => {
+        setIsExpression(!isExpression)
+        onChange(isExpression ? expressionValue : staticValue)
+      }}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
