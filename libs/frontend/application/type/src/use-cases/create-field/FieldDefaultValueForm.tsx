@@ -1,10 +1,6 @@
 'use client'
 
-import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
-import type {
-  IPrimitiveTypeModel,
-  ITypeModel,
-} from '@codelab/frontend-abstract-domain'
+import type { IPrimitiveTypeModel } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
 import type {
   IFieldDefaultValueFormData,
@@ -20,7 +16,6 @@ import {
   ExpressionAutoField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { uniformSchemaFactory } from '@codelab/frontend-presentation-components-interface-form'
 import { GeneralValidationRules } from '@codelab/shared-abstract-core'
 import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { useMemo } from 'react'
@@ -66,20 +61,6 @@ export const FieldDefaultValueForm = ({
   //   },
   // },
 
-  const uniforms = (typeToTransform: ITypeModel) =>
-    uniformSchemaFactory(typeToTransform, {
-      actions: {},
-      args: {},
-      componentProps: {},
-      props: {},
-      refs: {},
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: {},
-      urlProps: {},
-    } as IRuntimeContext)
-
   // @ts-expect-error maybe we can solve this using union
   const schema: JSONSchemaType<IFieldDefaultValueFormData> = useMemo(
     () => ({
@@ -87,7 +68,6 @@ export const FieldDefaultValueForm = ({
       properties: {
         defaultValues: type.toJsonSchema({
           fieldName: 'defaultValues',
-          uniformSchema: uniforms,
           validationRules: validationRules,
         }),
       },

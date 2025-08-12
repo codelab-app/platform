@@ -2,7 +2,7 @@
 
 import type { SelectFieldProps } from 'uniforms-antd'
 
-import Select from 'antd/es/select'
+import Select from 'antd/lib/select'
 import { connectField, filterDOMProps } from 'uniforms'
 
 import type { WithExpressionFieldProps } from './ToggleExpression'

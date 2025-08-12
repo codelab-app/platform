@@ -1,8 +1,9 @@
 'use client'
 
+import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
 import type {
   IInterfaceTypeModel,
-  ITypeModel,
+  ITypeTransformContext,
 } from '@codelab/frontend-abstract-domain'
 import type { SetIsLoading } from '@codelab/frontend-presentation-components-form'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
@@ -22,10 +23,9 @@ import {
 import { useMemo } from 'react'
 import { mergeDeep } from 'remeda'
 
-import {
-  type InterfaceFormContext,
-  uniformSchemaFactory,
-} from './uniform-schema'
+export type InterfaceFormContext = ITypeTransformContext & {
+  autocomplete?: IRuntimeContext
+}
 
 export type InterfaceFormProps<
   TData extends ObjectLike,
@@ -63,14 +63,10 @@ export const InterfaceForm = <TData extends ObjectLike, TResponse>({
 }: InterfaceFormProps<TData, TResponse>) => {
   const asyncHandler = useAsyncHandler<TData, TResponse>(setIsLoading)
 
-  const uniforms = (type: ITypeModel) =>
-    uniformSchemaFactory(type, context?.autocomplete)
-
   const formSchema = useMemo(() => {
     const jsonSchema = interfaceType.toJsonSchema({
       defaultValues: context?.defaultValues,
       fieldName: context?.fieldName,
-      uniformSchema: uniforms,
       validationRules: context?.validationRules,
     })
 

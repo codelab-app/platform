@@ -153,6 +153,7 @@
     "@sentry/profiling-node": "8.54.0",
     "@sinclair/typebox": "0.34.33",
     "@sotaproject/strikethrough": "1.0.1",
+    "@storybook/react": "^9.1.1",
     "@supabase/supabase-js": "2.1.1",
     "@svgr/webpack": "^8.1.0",
     "@swc/helpers": "0.5.15",

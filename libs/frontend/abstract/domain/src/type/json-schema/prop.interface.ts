@@ -1,7 +1,7 @@
 import type { IPropData, ITypeKind } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 
-import { isPlainObject, isString } from 'remeda'
+import { isPlainObject } from 'remeda'
 
 /**
  * Used to represent a value that has a specific type.
@@ -18,13 +18,13 @@ export interface TypedProp {
   kind: ITypeKind
   type: string
   // required for nested types
-  value?: string
+  value?: unknown | TypedProp
 }
 
 export const typedProp = (input: {
   kind: ITypeKind
   type: string
-  value?: string
+  value?: number | string
 }): TypedProp => ({
   ...input,
   __isTypedProp: true,
@@ -36,14 +36,7 @@ export const typedProp = (input: {
 export const isTypedProp = (prop: IPropData): prop is TypedProp =>
   isPlainObject(prop) && prop.__isTypedProp
 
-export const extractTypedPropValue = (prop: TypedProp): Maybe<string> => {
-  if (!prop.value) {
-    return undefined
-  }
-
-  if (isString(prop.value)) {
-    return prop.value
-  }
-
-  return extractTypedPropValue(prop.value)
-}
+export const extractTypedPropValue = (prop: TypedProp): Maybe<unknown> =>
+  prop.value && isTypedProp(prop.value)
+    ? extractTypedPropValue(prop.value)
+    : prop.value

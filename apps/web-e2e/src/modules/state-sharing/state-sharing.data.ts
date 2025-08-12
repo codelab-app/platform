@@ -9,7 +9,8 @@ import type {
 } from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
+import { typedProp } from '@codelab/frontend-abstract-domain'
+import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 import { v4 } from 'uuid'
 
@@ -28,6 +29,14 @@ export const spaceElement = (rootElement: IRef): ICreateElementData => ({
   id: spaceElementId,
   name: spaceElementName,
   parentElement: { id: rootElement.id },
+  propsData: {
+    size: typedProp({
+      // integer type id in seed data
+      type: 'db9e646e-22fe-4fe3-ae31-a2a86b64d885',
+      kind: ITypeKind.PrimitiveType,
+      value: 20,
+    }),
+  },
 })
 
 export const typographyElement = {

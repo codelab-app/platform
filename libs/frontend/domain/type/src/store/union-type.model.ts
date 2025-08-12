@@ -8,9 +8,9 @@ import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { UnionTypeField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { unique } from 'radash'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
 import { createBaseType } from './base-type.model'
@@ -50,33 +50,11 @@ export class UnionType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    const uniformSchema = context.uniformSchema?.(this)
-
-    const valueSchemas = this.typesOfUnionType
-      .map((type) => {
-        const typedSchema = type.current.toJsonSchema(context)
-        const valueSchema = typedSchema.properties?.__isTypedProp
-          ? typedSchema.properties.value
-          : typedSchema
-
-        return valueSchema
-          ? {
-              [type.current.id]: {
-                ...(valueSchema as JsonSchema),
-                label: '',
-              },
-            }
-          : null
-      })
-      .reduce((all, current) => ({ ...all, ...current }), {})
-
-    const firstType = this.typesOfUnionType[0]?.current
-
-    if (!firstType) {
-      throw new Error('UnionType must have at least one type')
-    }
-
     return {
+      discriminator: {
+        propertyName: 'type',
+      },
+      // serves as default schema for antd to avoid errors
       properties: {
         __isTypedProp: {
           default: true,
@@ -84,15 +62,15 @@ export class UnionType
           uniforms: { component: HiddenField },
         },
         kind: {
-          default: firstType.kind,
-          enum: unique(this.typesOfUnionType.map((type) => type.current.kind)),
+          default: this.typesOfUnionType[0]?.current.kind,
+          enum: this.typesOfUnionType.map((type) => type.current.kind),
           type: 'string',
           uniforms: { component: HiddenField },
         },
         type: {
-          default: firstType.id,
-          label: '',
+          default: this.typesOfUnionType[0]?.current.id,
           type: 'string',
+          label: '',
           uniforms: {
             component: SelectField,
             options: this.typesOfUnionType.map((type) => ({
@@ -101,13 +79,29 @@ export class UnionType
             })),
           },
         },
-
-        ...valueSchemas,
+        // a placeholder to avoid uniforms errors
+        value: {
+          label: '',
+        },
       },
-      required: ['kind', 'type'],
+      oneOf: this.typesOfUnionType.map((type) => {
+        const valueSchema = type.current.toJsonSchema({ fieldName: 'value' })
+
+        return {
+          properties: {
+            type: { const: type.id },
+            value: valueSchema.properties?.__isTypedProp
+              ? valueSchema.properties.value
+              : valueSchema,
+          },
+        }
+      }),
+      required: ['__isTypedProp', 'kind', 'type'],
       type: 'object',
-      ...context.validationRules,
-      ...uniformSchema,
+      uniforms: {
+        component: UnionTypeField,
+        unionType: this,
+      },
     }
   }
 

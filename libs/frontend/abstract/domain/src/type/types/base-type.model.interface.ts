@@ -44,6 +44,7 @@ export interface JsonSchema extends JSONSchema7 {
         }
       }
     | undefined
+  uniforms?: ObjectLike
 }
 
 export interface ITypeTransformContext {
@@ -51,8 +52,8 @@ export interface ITypeTransformContext {
   depth?: number
   fieldName?: string | null
   validationRules?: Nullish<IValidationRules>
-  uniformSchema?(type: ITypeModel): ObjectLike
 }
+
 export interface IBaseTypeModel<IDto extends IBaseTypeDto>
   extends IModel<IDto, IBaseTypeModel<IDto>> {
   __typename: `${ITypeKind}`

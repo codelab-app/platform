@@ -58,7 +58,6 @@ export class ArrayType
     defaultValues,
     depth,
     fieldName,
-    uniformSchema,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     return {
@@ -67,12 +66,10 @@ export class ArrayType
             // Don't pass default values here, as they are for array
             depth,
             fieldName,
-            uniformSchema,
             validationRules,
           })
         : {},
       type: 'array',
-      ...(uniformSchema?.(this) ?? {}),
       ...validationRules?.general,
       default: defaultValues,
     }

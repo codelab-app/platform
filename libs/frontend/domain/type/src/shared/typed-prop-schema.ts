@@ -1,3 +1,5 @@
+import type { ObjectLike } from '@codelab/shared-abstract-types'
+
 import {
   type ITypeModel,
   type ITypeTransformContext,
@@ -9,12 +11,8 @@ import { HiddenField } from 'uniforms-antd'
 
 export const typedPropSchema = (
   type: ITypeModel,
-  {
-    defaultValues,
-    fieldName,
-    uniformSchema,
-    validationRules,
-  }: ITypeTransformContext,
+  uniforms: ObjectLike,
+  { defaultValues, fieldName, validationRules }: ITypeTransformContext,
 ): JsonSchema => {
   const { id, kind } = type
 
@@ -39,7 +37,7 @@ export const typedPropSchema = (
       },
       value: {
         label: fieldName ? titleCase(fieldName) : '',
-        ...(uniformSchema?.(type) ?? {}),
+        uniforms,
         type: 'string',
       },
     },
