@@ -93,7 +93,7 @@ export const actionTypeMapper: IMapper<
   toUpdateInput: createOrUpdateActionType,
 }
 
-const createOrUpdateAnyType = (dto: IUnknownTypeDto) => ({
+const createOrUpdateUnknownType = (dto: IUnknownTypeDto) => ({
   id: dto.id,
   kind: dto.kind,
   name: dto.name,
@@ -106,9 +106,9 @@ export const unknownTypeMapper: IMapper<
   UnknownTypeUpdateInput,
   UnknownTypeDeleteInput
 > = {
-  toCreateInput: createOrUpdateAnyType,
+  toCreateInput: createOrUpdateUnknownType,
   toDeleteInput: () => ({}),
-  toUpdateInput: createOrUpdateAnyType,
+  toUpdateInput: createOrUpdateUnknownType,
 }
 
 const createOrUpdateAppType = (dto: IAppTypeDto) => ({

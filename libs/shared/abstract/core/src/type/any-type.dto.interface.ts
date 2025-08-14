@@ -20,8 +20,8 @@ export const TypeRefSchema = Type.Union(
     Typebox.DiscriminatedRef(`${ITypeKind.ReactNodeType}`),
     Typebox.DiscriminatedRef(`${ITypeKind.RenderPropType}`),
     Typebox.DiscriminatedRef(`${ITypeKind.RichTextType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.UnknownType}`),
     Typebox.DiscriminatedRef(`${ITypeKind.UnionType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.UnknownType}`),
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },
 )

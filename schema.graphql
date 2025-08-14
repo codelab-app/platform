@@ -505,7 +505,7 @@ input AnyActionWhere {
   CodeAction: CodeActionWhere
 }
 
-union AnyType = ActionType | AppType | ArrayType | CodeMirrorType | ElementType | EnumType | InterfaceType | LambdaType | PageType | PrimitiveType | ReactNodeType | RenderPropType | RichTextType | UnionType
+union AnyType = ActionType | AppType | ArrayType | CodeMirrorType | ElementType | EnumType | InterfaceType | LambdaType | PageType | PrimitiveType | ReactNodeType | RenderPropType | RichTextType | UnionType | UnknownType
 
 input AnyTypeWhere {
   ActionType: ActionTypeWhere
@@ -522,6 +522,7 @@ input AnyTypeWhere {
   RenderPropType: RenderPropTypeWhere
   RichTextType: RichTextTypeWhere
   UnionType: UnionTypeWhere
+  UnknownType: UnknownTypeWhere
 }
 
 type ApiAction implements BaseAction {
@@ -532,10 +533,10 @@ type ApiAction implements BaseAction {
   errorActionConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, where: ApiActionErrorActionConnectionWhere): ApiActionErrorActionConnection!
   id: ID!
   name: String!
-  postRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
+  postRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): [Element!]!
   postRenderElementAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: ElementWhere): ApiActionElementPostRenderElementAggregationSelection
   postRenderElementConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [BaseActionPostRenderElementConnectionSort!], where: BaseActionPostRenderElementConnectionWhere): BaseActionPostRenderElementConnection!
-  preRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
+  preRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): [Element!]!
   preRenderElementAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: ElementWhere): ApiActionElementPreRenderElementAggregationSelection
   preRenderElementConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [BaseActionPreRenderElementConnectionSort!], where: BaseActionPreRenderElementConnectionWhere): BaseActionPreRenderElementConnection!
 
@@ -666,8 +667,8 @@ input ApiActionConfigUpdateFieldInput {
 input ApiActionConnectInput {
   config: ApiActionConfigConnectFieldInput
   errorAction: ApiActionErrorActionConnectInput
-  postRenderElement: ApiActionPostRenderElementConnectFieldInput
-  preRenderElement: ApiActionPreRenderElementConnectFieldInput
+  postRenderElement: [ApiActionPostRenderElementConnectFieldInput!]
+  preRenderElement: [ApiActionPreRenderElementConnectFieldInput!]
   resource: ApiActionResourceConnectFieldInput
   store: ApiActionStoreConnectFieldInput
   successAction: ApiActionSuccessActionConnectInput
@@ -699,8 +700,8 @@ type ApiActionCreatedEvent {
 input ApiActionDeleteInput {
   config: ApiActionConfigDeleteFieldInput
   errorAction: ApiActionErrorActionDeleteInput
-  postRenderElement: BaseActionPostRenderElementDeleteFieldInput
-  preRenderElement: BaseActionPreRenderElementDeleteFieldInput
+  postRenderElement: [BaseActionPostRenderElementDeleteFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementDeleteFieldInput!]
   resource: ApiActionResourceDeleteFieldInput
   store: BaseActionStoreDeleteFieldInput
   successAction: ApiActionSuccessActionDeleteInput
@@ -715,8 +716,8 @@ type ApiActionDeletedEvent {
 input ApiActionDisconnectInput {
   config: ApiActionConfigDisconnectFieldInput
   errorAction: ApiActionErrorActionDisconnectInput
-  postRenderElement: BaseActionPostRenderElementDisconnectFieldInput
-  preRenderElement: BaseActionPreRenderElementDisconnectFieldInput
+  postRenderElement: [BaseActionPostRenderElementDisconnectFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementDisconnectFieldInput!]
   resource: ApiActionResourceDisconnectFieldInput
   store: BaseActionStoreDisconnectFieldInput
   successAction: ApiActionSuccessActionDisconnectInput
@@ -914,7 +915,7 @@ input ApiActionPostRenderElementAggregateInput {
 }
 
 input ApiActionPostRenderElementConnectFieldInput {
-  connect: ElementConnectInput
+  connect: [ElementConnectInput!]
 
   """
   Whether or not to overwrite any matching relationship with the new properties.
@@ -928,8 +929,8 @@ input ApiActionPostRenderElementCreateFieldInput {
 }
 
 input ApiActionPostRenderElementFieldInput {
-  connect: ApiActionPostRenderElementConnectFieldInput
-  create: ApiActionPostRenderElementCreateFieldInput
+  connect: [ApiActionPostRenderElementConnectFieldInput!]
+  create: [ApiActionPostRenderElementCreateFieldInput!]
 }
 
 input ApiActionPostRenderElementNodeAggregationWhereInput {
@@ -1028,10 +1029,10 @@ input ApiActionPostRenderElementUpdateConnectionInput {
 }
 
 input ApiActionPostRenderElementUpdateFieldInput {
-  connect: ApiActionPostRenderElementConnectFieldInput
-  create: ApiActionPostRenderElementCreateFieldInput
-  delete: BaseActionPostRenderElementDeleteFieldInput
-  disconnect: BaseActionPostRenderElementDisconnectFieldInput
+  connect: [ApiActionPostRenderElementConnectFieldInput!]
+  create: [ApiActionPostRenderElementCreateFieldInput!]
+  delete: [BaseActionPostRenderElementDeleteFieldInput!]
+  disconnect: [BaseActionPostRenderElementDisconnectFieldInput!]
   update: ApiActionPostRenderElementUpdateConnectionInput
   where: BaseActionPostRenderElementConnectionWhere
 }
@@ -1050,7 +1051,7 @@ input ApiActionPreRenderElementAggregateInput {
 }
 
 input ApiActionPreRenderElementConnectFieldInput {
-  connect: ElementConnectInput
+  connect: [ElementConnectInput!]
 
   """
   Whether or not to overwrite any matching relationship with the new properties.
@@ -1064,8 +1065,8 @@ input ApiActionPreRenderElementCreateFieldInput {
 }
 
 input ApiActionPreRenderElementFieldInput {
-  connect: ApiActionPreRenderElementConnectFieldInput
-  create: ApiActionPreRenderElementCreateFieldInput
+  connect: [ApiActionPreRenderElementConnectFieldInput!]
+  create: [ApiActionPreRenderElementCreateFieldInput!]
 }
 
 input ApiActionPreRenderElementNodeAggregationWhereInput {
@@ -1164,10 +1165,10 @@ input ApiActionPreRenderElementUpdateConnectionInput {
 }
 
 input ApiActionPreRenderElementUpdateFieldInput {
-  connect: ApiActionPreRenderElementConnectFieldInput
-  create: ApiActionPreRenderElementCreateFieldInput
-  delete: BaseActionPreRenderElementDeleteFieldInput
-  disconnect: BaseActionPreRenderElementDisconnectFieldInput
+  connect: [ApiActionPreRenderElementConnectFieldInput!]
+  create: [ApiActionPreRenderElementCreateFieldInput!]
+  delete: [BaseActionPreRenderElementDeleteFieldInput!]
+  disconnect: [BaseActionPreRenderElementDisconnectFieldInput!]
   update: ApiActionPreRenderElementUpdateConnectionInput
   where: BaseActionPreRenderElementConnectionWhere
 }
@@ -1553,8 +1554,8 @@ input ApiActionUpdateInput {
   id_SET: ID
   name: String @deprecated(reason: "Please use the explicit _SET field")
   name_SET: String
-  postRenderElement: ApiActionPostRenderElementUpdateFieldInput
-  preRenderElement: ApiActionPreRenderElementUpdateFieldInput
+  postRenderElement: [ApiActionPostRenderElementUpdateFieldInput!]
+  preRenderElement: [ApiActionPreRenderElementUpdateFieldInput!]
   resource: ApiActionResourceUpdateFieldInput
   store: ApiActionStoreUpdateFieldInput
   successAction: ApiActionSuccessActionUpdateInput
@@ -1591,12 +1592,72 @@ input ApiActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
-  postRenderElement: ElementWhere
   postRenderElementAggregate: ApiActionPostRenderElementAggregateInput
-  postRenderElementConnection: BaseActionPostRenderElementConnectionWhere
-  preRenderElement: ElementWhere
+
+  """
+  Return ApiActions where all of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_ALL: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return ApiActions where none of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_NONE: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return ApiActions where one of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_SINGLE: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return ApiActions where some of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_SOME: BaseActionPostRenderElementConnectionWhere
+
+  """Return ApiActions where all of the related Elements match this filter"""
+  postRenderElement_ALL: ElementWhere
+
+  """Return ApiActions where none of the related Elements match this filter"""
+  postRenderElement_NONE: ElementWhere
+
+  """Return ApiActions where one of the related Elements match this filter"""
+  postRenderElement_SINGLE: ElementWhere
+
+  """Return ApiActions where some of the related Elements match this filter"""
+  postRenderElement_SOME: ElementWhere
   preRenderElementAggregate: ApiActionPreRenderElementAggregateInput
-  preRenderElementConnection: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return ApiActions where all of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_ALL: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return ApiActions where none of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_NONE: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return ApiActions where one of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_SINGLE: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return ApiActions where some of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_SOME: BaseActionPreRenderElementConnectionWhere
+
+  """Return ApiActions where all of the related Elements match this filter"""
+  preRenderElement_ALL: ElementWhere
+
+  """Return ApiActions where none of the related Elements match this filter"""
+  preRenderElement_NONE: ElementWhere
+
+  """Return ApiActions where one of the related Elements match this filter"""
+  preRenderElement_SINGLE: ElementWhere
+
+  """Return ApiActions where some of the related Elements match this filter"""
+  preRenderElement_SOME: ElementWhere
   resource: ResourceWhere
   resourceAggregate: ApiActionResourceAggregateInput
   resourceConnection: ApiActionResourceConnectionWhere
@@ -5619,9 +5680,9 @@ type AuthGuardsConnection {
 interface BaseAction {
   id: ID!
   name: String!
-  postRenderElement(limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
+  postRenderElement(limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): [Element!]!
   postRenderElementConnection(after: String, first: Int, sort: [BaseActionPostRenderElementConnectionSort!], where: BaseActionPostRenderElementConnectionWhere): BaseActionPostRenderElementConnection!
-  preRenderElement(limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
+  preRenderElement(limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): [Element!]!
   preRenderElementConnection(after: String, first: Int, sort: [BaseActionPreRenderElementConnectionSort!], where: BaseActionPreRenderElementConnectionWhere): BaseActionPreRenderElementConnection!
   store(limit: Int, offset: Int, options: StoreOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [StoreSort!], where: StoreWhere): Store!
   storeConnection(after: String, first: Int, sort: [BaseActionStoreConnectionSort!], where: BaseActionStoreConnectionWhere): BaseActionStoreConnection!
@@ -5635,8 +5696,8 @@ type BaseActionAggregateSelection {
 }
 
 input BaseActionConnectInput {
-  postRenderElement: BaseActionPostRenderElementConnectFieldInput
-  preRenderElement: BaseActionPreRenderElementConnectFieldInput
+  postRenderElement: [BaseActionPostRenderElementConnectFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementConnectFieldInput!]
   store: BaseActionStoreConnectFieldInput
 }
 
@@ -5650,14 +5711,14 @@ input BaseActionCreateInput {
 }
 
 input BaseActionDeleteInput {
-  postRenderElement: BaseActionPostRenderElementDeleteFieldInput
-  preRenderElement: BaseActionPreRenderElementDeleteFieldInput
+  postRenderElement: [BaseActionPostRenderElementDeleteFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementDeleteFieldInput!]
   store: BaseActionStoreDeleteFieldInput
 }
 
 input BaseActionDisconnectInput {
-  postRenderElement: BaseActionPostRenderElementDisconnectFieldInput
-  preRenderElement: BaseActionPreRenderElementDisconnectFieldInput
+  postRenderElement: [BaseActionPostRenderElementDisconnectFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementDisconnectFieldInput!]
   store: BaseActionStoreDisconnectFieldInput
 }
 
@@ -5695,7 +5756,7 @@ input BaseActionPostRenderElementAggregateInput {
 }
 
 input BaseActionPostRenderElementConnectFieldInput {
-  connect: ElementConnectInput
+  connect: [ElementConnectInput!]
 
   """
   Whether or not to overwrite any matching relationship with the new properties.
@@ -5836,10 +5897,10 @@ input BaseActionPostRenderElementUpdateConnectionInput {
 }
 
 input BaseActionPostRenderElementUpdateFieldInput {
-  connect: BaseActionPostRenderElementConnectFieldInput
-  create: BaseActionPostRenderElementCreateFieldInput
-  delete: BaseActionPostRenderElementDeleteFieldInput
-  disconnect: BaseActionPostRenderElementDisconnectFieldInput
+  connect: [BaseActionPostRenderElementConnectFieldInput!]
+  create: [BaseActionPostRenderElementCreateFieldInput!]
+  delete: [BaseActionPostRenderElementDeleteFieldInput!]
+  disconnect: [BaseActionPostRenderElementDisconnectFieldInput!]
   update: BaseActionPostRenderElementUpdateConnectionInput
   where: BaseActionPostRenderElementConnectionWhere
 }
@@ -5858,7 +5919,7 @@ input BaseActionPreRenderElementAggregateInput {
 }
 
 input BaseActionPreRenderElementConnectFieldInput {
-  connect: ElementConnectInput
+  connect: [ElementConnectInput!]
 
   """
   Whether or not to overwrite any matching relationship with the new properties.
@@ -5999,10 +6060,10 @@ input BaseActionPreRenderElementUpdateConnectionInput {
 }
 
 input BaseActionPreRenderElementUpdateFieldInput {
-  connect: BaseActionPreRenderElementConnectFieldInput
-  create: BaseActionPreRenderElementCreateFieldInput
-  delete: BaseActionPreRenderElementDeleteFieldInput
-  disconnect: BaseActionPreRenderElementDisconnectFieldInput
+  connect: [BaseActionPreRenderElementConnectFieldInput!]
+  create: [BaseActionPreRenderElementCreateFieldInput!]
+  delete: [BaseActionPreRenderElementDeleteFieldInput!]
+  disconnect: [BaseActionPreRenderElementDisconnectFieldInput!]
   update: BaseActionPreRenderElementUpdateConnectionInput
   where: BaseActionPreRenderElementConnectionWhere
 }
@@ -6124,8 +6185,8 @@ input BaseActionUpdateInput {
   id_SET: ID
   name: String @deprecated(reason: "Please use the explicit _SET field")
   name_SET: String
-  postRenderElement: BaseActionPostRenderElementUpdateFieldInput
-  preRenderElement: BaseActionPreRenderElementUpdateFieldInput
+  postRenderElement: [BaseActionPostRenderElementUpdateFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementUpdateFieldInput!]
   store: BaseActionStoreUpdateFieldInput
 }
 
@@ -6146,12 +6207,80 @@ input BaseActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
-  postRenderElement: ElementWhere
   postRenderElementAggregate: BaseActionPostRenderElementAggregateInput
-  postRenderElementConnection: BaseActionPostRenderElementConnectionWhere
-  preRenderElement: ElementWhere
+
+  """
+  Return BaseActions where all of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_ALL: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return BaseActions where none of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_NONE: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return BaseActions where one of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_SINGLE: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return BaseActions where some of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_SOME: BaseActionPostRenderElementConnectionWhere
+
+  """Return BaseActions where all of the related Elements match this filter"""
+  postRenderElement_ALL: ElementWhere
+
+  """
+  Return BaseActions where none of the related Elements match this filter
+  """
+  postRenderElement_NONE: ElementWhere
+
+  """Return BaseActions where one of the related Elements match this filter"""
+  postRenderElement_SINGLE: ElementWhere
+
+  """
+  Return BaseActions where some of the related Elements match this filter
+  """
+  postRenderElement_SOME: ElementWhere
   preRenderElementAggregate: BaseActionPreRenderElementAggregateInput
-  preRenderElementConnection: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return BaseActions where all of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_ALL: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return BaseActions where none of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_NONE: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return BaseActions where one of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_SINGLE: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return BaseActions where some of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_SOME: BaseActionPreRenderElementConnectionWhere
+
+  """Return BaseActions where all of the related Elements match this filter"""
+  preRenderElement_ALL: ElementWhere
+
+  """
+  Return BaseActions where none of the related Elements match this filter
+  """
+  preRenderElement_NONE: ElementWhere
+
+  """Return BaseActions where one of the related Elements match this filter"""
+  preRenderElement_SINGLE: ElementWhere
+
+  """
+  Return BaseActions where some of the related Elements match this filter
+  """
+  preRenderElement_SOME: ElementWhere
   store: StoreWhere
   storeAggregate: BaseActionStoreAggregateInput
   storeConnection: BaseActionStoreConnectionWhere
@@ -6180,10 +6309,10 @@ type CodeAction implements BaseAction {
   code: String!
   id: ID!
   name: String!
-  postRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
+  postRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): [Element!]!
   postRenderElementAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: ElementWhere): CodeActionElementPostRenderElementAggregationSelection
   postRenderElementConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [BaseActionPostRenderElementConnectionSort!], where: BaseActionPostRenderElementConnectionWhere): BaseActionPostRenderElementConnection!
-  preRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
+  preRenderElement(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): [Element!]!
   preRenderElementAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: ElementWhere): CodeActionElementPreRenderElementAggregationSelection
   preRenderElementConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [BaseActionPreRenderElementConnectionSort!], where: BaseActionPreRenderElementConnectionWhere): BaseActionPreRenderElementConnection!
   store(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: StoreOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [StoreSort!], where: StoreWhere): Store!
@@ -6200,8 +6329,8 @@ type CodeActionAggregateSelection {
 }
 
 input CodeActionConnectInput {
-  postRenderElement: CodeActionPostRenderElementConnectFieldInput
-  preRenderElement: CodeActionPreRenderElementConnectFieldInput
+  postRenderElement: [CodeActionPostRenderElementConnectFieldInput!]
+  preRenderElement: [CodeActionPreRenderElementConnectFieldInput!]
   store: CodeActionStoreConnectFieldInput
 }
 
@@ -6226,8 +6355,8 @@ type CodeActionCreatedEvent {
 }
 
 input CodeActionDeleteInput {
-  postRenderElement: BaseActionPostRenderElementDeleteFieldInput
-  preRenderElement: BaseActionPreRenderElementDeleteFieldInput
+  postRenderElement: [BaseActionPostRenderElementDeleteFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementDeleteFieldInput!]
   store: BaseActionStoreDeleteFieldInput
 }
 
@@ -6238,8 +6367,8 @@ type CodeActionDeletedEvent {
 }
 
 input CodeActionDisconnectInput {
-  postRenderElement: BaseActionPostRenderElementDisconnectFieldInput
-  preRenderElement: BaseActionPreRenderElementDisconnectFieldInput
+  postRenderElement: [BaseActionPostRenderElementDisconnectFieldInput!]
+  preRenderElement: [BaseActionPreRenderElementDisconnectFieldInput!]
   store: BaseActionStoreDisconnectFieldInput
 }
 
@@ -6308,7 +6437,7 @@ input CodeActionPostRenderElementAggregateInput {
 }
 
 input CodeActionPostRenderElementConnectFieldInput {
-  connect: ElementConnectInput
+  connect: [ElementConnectInput!]
 
   """
   Whether or not to overwrite any matching relationship with the new properties.
@@ -6322,8 +6451,8 @@ input CodeActionPostRenderElementCreateFieldInput {
 }
 
 input CodeActionPostRenderElementFieldInput {
-  connect: CodeActionPostRenderElementConnectFieldInput
-  create: CodeActionPostRenderElementCreateFieldInput
+  connect: [CodeActionPostRenderElementConnectFieldInput!]
+  create: [CodeActionPostRenderElementCreateFieldInput!]
 }
 
 input CodeActionPostRenderElementNodeAggregationWhereInput {
@@ -6422,10 +6551,10 @@ input CodeActionPostRenderElementUpdateConnectionInput {
 }
 
 input CodeActionPostRenderElementUpdateFieldInput {
-  connect: CodeActionPostRenderElementConnectFieldInput
-  create: CodeActionPostRenderElementCreateFieldInput
-  delete: BaseActionPostRenderElementDeleteFieldInput
-  disconnect: BaseActionPostRenderElementDisconnectFieldInput
+  connect: [CodeActionPostRenderElementConnectFieldInput!]
+  create: [CodeActionPostRenderElementCreateFieldInput!]
+  delete: [BaseActionPostRenderElementDeleteFieldInput!]
+  disconnect: [BaseActionPostRenderElementDisconnectFieldInput!]
   update: CodeActionPostRenderElementUpdateConnectionInput
   where: BaseActionPostRenderElementConnectionWhere
 }
@@ -6444,7 +6573,7 @@ input CodeActionPreRenderElementAggregateInput {
 }
 
 input CodeActionPreRenderElementConnectFieldInput {
-  connect: ElementConnectInput
+  connect: [ElementConnectInput!]
 
   """
   Whether or not to overwrite any matching relationship with the new properties.
@@ -6458,8 +6587,8 @@ input CodeActionPreRenderElementCreateFieldInput {
 }
 
 input CodeActionPreRenderElementFieldInput {
-  connect: CodeActionPreRenderElementConnectFieldInput
-  create: CodeActionPreRenderElementCreateFieldInput
+  connect: [CodeActionPreRenderElementConnectFieldInput!]
+  create: [CodeActionPreRenderElementCreateFieldInput!]
 }
 
 input CodeActionPreRenderElementNodeAggregationWhereInput {
@@ -6558,10 +6687,10 @@ input CodeActionPreRenderElementUpdateConnectionInput {
 }
 
 input CodeActionPreRenderElementUpdateFieldInput {
-  connect: CodeActionPreRenderElementConnectFieldInput
-  create: CodeActionPreRenderElementCreateFieldInput
-  delete: BaseActionPreRenderElementDeleteFieldInput
-  disconnect: BaseActionPreRenderElementDisconnectFieldInput
+  connect: [CodeActionPreRenderElementConnectFieldInput!]
+  create: [CodeActionPreRenderElementCreateFieldInput!]
+  delete: [BaseActionPreRenderElementDeleteFieldInput!]
+  disconnect: [BaseActionPreRenderElementDisconnectFieldInput!]
   update: CodeActionPreRenderElementUpdateConnectionInput
   where: BaseActionPreRenderElementConnectionWhere
 }
@@ -6698,8 +6827,8 @@ input CodeActionUpdateInput {
   id_SET: ID
   name: String @deprecated(reason: "Please use the explicit _SET field")
   name_SET: String
-  postRenderElement: CodeActionPostRenderElementUpdateFieldInput
-  preRenderElement: CodeActionPreRenderElementUpdateFieldInput
+  postRenderElement: [CodeActionPostRenderElementUpdateFieldInput!]
+  preRenderElement: [CodeActionPreRenderElementUpdateFieldInput!]
   store: CodeActionStoreUpdateFieldInput
   type: ActionKind @deprecated(reason: "Please use the explicit _SET field")
   type_SET: ActionKind
@@ -6736,12 +6865,80 @@ input CodeActionWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
-  postRenderElement: ElementWhere
   postRenderElementAggregate: CodeActionPostRenderElementAggregateInput
-  postRenderElementConnection: BaseActionPostRenderElementConnectionWhere
-  preRenderElement: ElementWhere
+
+  """
+  Return CodeActions where all of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_ALL: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return CodeActions where none of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_NONE: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return CodeActions where one of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_SINGLE: BaseActionPostRenderElementConnectionWhere
+
+  """
+  Return CodeActions where some of the related BaseActionPostRenderElementConnections match this filter
+  """
+  postRenderElementConnection_SOME: BaseActionPostRenderElementConnectionWhere
+
+  """Return CodeActions where all of the related Elements match this filter"""
+  postRenderElement_ALL: ElementWhere
+
+  """
+  Return CodeActions where none of the related Elements match this filter
+  """
+  postRenderElement_NONE: ElementWhere
+
+  """Return CodeActions where one of the related Elements match this filter"""
+  postRenderElement_SINGLE: ElementWhere
+
+  """
+  Return CodeActions where some of the related Elements match this filter
+  """
+  postRenderElement_SOME: ElementWhere
   preRenderElementAggregate: CodeActionPreRenderElementAggregateInput
-  preRenderElementConnection: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return CodeActions where all of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_ALL: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return CodeActions where none of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_NONE: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return CodeActions where one of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_SINGLE: BaseActionPreRenderElementConnectionWhere
+
+  """
+  Return CodeActions where some of the related BaseActionPreRenderElementConnections match this filter
+  """
+  preRenderElementConnection_SOME: BaseActionPreRenderElementConnectionWhere
+
+  """Return CodeActions where all of the related Elements match this filter"""
+  preRenderElement_ALL: ElementWhere
+
+  """
+  Return CodeActions where none of the related Elements match this filter
+  """
+  preRenderElement_NONE: ElementWhere
+
+  """Return CodeActions where one of the related Elements match this filter"""
+  preRenderElement_SINGLE: ElementWhere
+
+  """
+  Return CodeActions where some of the related Elements match this filter
+  """
+  preRenderElement_SOME: ElementWhere
   store: StoreWhere
   storeAggregate: CodeActionStoreAggregateInput
   storeConnection: BaseActionStoreConnectionWhere
@@ -13787,6 +13984,7 @@ enum IBaseTypeImplementation {
   RenderPropType
   RichTextType
   UnionType
+  UnknownType
 }
 
 input IBaseTypeOptions {
@@ -21248,6 +21446,9 @@ type Subscription {
   unionTypeCreated(where: UnionTypeSubscriptionWhere): UnionTypeCreatedEvent!
   unionTypeDeleted(where: UnionTypeSubscriptionWhere): UnionTypeDeletedEvent!
   unionTypeUpdated(where: UnionTypeSubscriptionWhere): UnionTypeUpdatedEvent!
+  unknownTypeCreated(where: UnknownTypeSubscriptionWhere): UnknownTypeCreatedEvent!
+  unknownTypeDeleted(where: UnknownTypeSubscriptionWhere): UnknownTypeDeletedEvent!
+  unknownTypeUpdated(where: UnknownTypeSubscriptionWhere): UnknownTypeUpdatedEvent!
   userCreated(where: UserSubscriptionWhere): UserCreatedEvent!
   userDeleted(where: UserSubscriptionWhere): UserDeletedEvent!
   userUpdated(where: UserSubscriptionWhere): UserUpdatedEvent!
@@ -22809,6 +23010,7 @@ input UnionTypeTypesOfUnionTypeConnectionWhere {
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
   RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere
+  UnknownType: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypeCreateInput {
@@ -22844,6 +23046,7 @@ input UnionTypeTypesOfUnionTypeDeleteInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput!]
+  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput!]
 }
 
 input UnionTypeTypesOfUnionTypeDisconnectInput {
@@ -23325,6 +23528,11 @@ input UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput {
   node: UnknownTypeCreateInput!
 }
 
+input UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput {
+  delete: UnknownTypeDeleteInput
+  where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
+}
+
 input UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput {
   disconnect: UnknownTypeDisconnectInput
   where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
@@ -23332,13 +23540,20 @@ input UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeUnknownTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
-  where: UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput
+  create: [UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeUnknownTypeUpdateConnectionInput {
+  node: UnknownTypeUpdateInput
 }
 
 input UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
   create: [UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput!]
+  delete: [UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput!]
+  update: UnionTypeTypesOfUnionTypeUnknownTypeUpdateConnectionInput
+  where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypeUpdateInput {
@@ -23488,6 +23703,9 @@ type UnionTypesConnection {
   totalCount: Int!
 }
 
+"""
+Represents a type that can accept any value, similar to TypeScript's any type
+"""
 type UnknownType implements IBaseType {
   fieldRefs(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: FieldOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [FieldSort!], where: FieldWhere): [Field!]!
   fieldRefsAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: FieldWhere): UnknownTypeFieldFieldRefsAggregationSelection
@@ -23512,23 +23730,32 @@ input UnknownTypeConnectInput {
 }
 
 input UnknownTypeConnectWhere {
-  AND: [UnknownTypeConnectWhere!]
-  NOT: UnknownTypeConnectWhere
-  OR: [UnknownTypeConnectWhere!]
-  owner: UserWhere
+  node: UnknownTypeWhere!
 }
 
 input UnknownTypeCreateInput {
   fieldRefs: UnknownTypeFieldRefsFieldInput
   id: ID!
-  kind: TypeKind!
+  kind: TypeKind! = UnknownType
   name: String!
   owner: UnknownTypeOwnerFieldInput
+}
+
+type UnknownTypeCreatedEvent {
+  createdUnknownType: UnknownTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input UnknownTypeDeleteInput {
   fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
   owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type UnknownTypeDeletedEvent {
+  deletedUnknownType: UnknownTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
 }
 
 input UnknownTypeDisconnectInput {
@@ -23539,6 +23766,12 @@ input UnknownTypeDisconnectInput {
 type UnknownTypeEdge {
   cursor: String!
   node: UnknownType!
+}
+
+type UnknownTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
 }
 
 type UnknownTypeFieldFieldRefsAggregationSelection {
@@ -23561,6 +23794,11 @@ input UnknownTypeFieldRefsAggregateInput {
   OR: [UnknownTypeFieldRefsAggregateInput!]
   count: Int @deprecated(reason: "Please use the explicit _EQ version")
   count_EQ: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UnknownTypeFieldRefsNodeAggregationWhereInput
 }
 
 input UnknownTypeFieldRefsConnectFieldInput {
@@ -23580,6 +23818,97 @@ input UnknownTypeFieldRefsCreateFieldInput {
 input UnknownTypeFieldRefsFieldInput {
   connect: [UnknownTypeFieldRefsConnectFieldInput!]
   create: [UnknownTypeFieldRefsCreateFieldInput!]
+}
+
+input UnknownTypeFieldRefsNodeAggregationWhereInput {
+  AND: [UnknownTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: UnknownTypeFieldRefsNodeAggregationWhereInput
+  OR: [UnknownTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  id_MAX_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
 }
 
 input UnknownTypeFieldRefsUpdateConnectionInput {
@@ -23605,8 +23934,26 @@ input UnknownTypeOptions {
   sort: [UnknownTypeSort!]
 }
 
+input UnknownTypeOwnerAggregateInput {
+  AND: [UnknownTypeOwnerAggregateInput!]
+  NOT: UnknownTypeOwnerAggregateInput
+  OR: [UnknownTypeOwnerAggregateInput!]
+  count: Int @deprecated(reason: "Please use the explicit _EQ version")
+  count_EQ: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UnknownTypeOwnerNodeAggregationWhereInput
+}
+
 input UnknownTypeOwnerConnectFieldInput {
-  connect: [UserConnectInput!]
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true @deprecated(reason: "The overwrite argument is deprecated and will be removed")
   where: UserConnectWhere
 }
 
@@ -23616,7 +23963,98 @@ input UnknownTypeOwnerCreateFieldInput {
 
 input UnknownTypeOwnerFieldInput {
   connect: UnknownTypeOwnerConnectFieldInput
-  where: UnknownTypeOwnerCreateFieldInput
+  create: UnknownTypeOwnerCreateFieldInput
+}
+
+input UnknownTypeOwnerNodeAggregationWhereInput {
+  AND: [UnknownTypeOwnerNodeAggregationWhereInput!]
+  NOT: UnknownTypeOwnerNodeAggregationWhereInput
+  OR: [UnknownTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  id_MAX_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
 }
 
 input UnknownTypeOwnerUpdateConnectionInput {
@@ -23632,10 +24070,35 @@ input UnknownTypeOwnerUpdateFieldInput {
   where: IBaseTypeOwnerConnectionWhere
 }
 
+"""
+Fields to sort UnknownTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnknownTypeSort object.
+"""
 input UnknownTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
+}
+
+input UnknownTypeSubscriptionWhere {
+  AND: [UnknownTypeSubscriptionWhere!]
+  NOT: UnknownTypeSubscriptionWhere
+  OR: [UnknownTypeSubscriptionWhere!]
+  id: ID @deprecated(reason: "Please use the explicit _EQ version")
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_EQ: ID
+  id_IN: [ID!]
+  id_STARTS_WITH: ID
+  kind: TypeKind @deprecated(reason: "Please use the explicit _EQ version")
+  kind_EQ: TypeKind
+  kind_IN: [TypeKind!]
+  name: String @deprecated(reason: "Please use the explicit _EQ version")
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_EQ: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
 }
 
 input UnknownTypeUpdateInput {
@@ -23647,6 +24110,13 @@ input UnknownTypeUpdateInput {
   name: String @deprecated(reason: "Please use the explicit _SET field")
   name_SET: String
   owner: UnknownTypeOwnerUpdateFieldInput
+}
+
+type UnknownTypeUpdatedEvent {
+  event: EventType!
+  previousState: UnknownTypeEventPayload!
+  timestamp: Float!
+  updatedUnknownType: UnknownTypeEventPayload!
 }
 
 type UnknownTypeUserOwnerAggregationSelection {
@@ -23668,12 +24138,57 @@ input UnknownTypeWhere {
   NOT: UnknownTypeWhere
   OR: [UnknownTypeWhere!]
   fieldRefsAggregate: UnknownTypeFieldRefsAggregateInput
+
+  """
+  Return UnknownTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnknownTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnknownTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return UnknownTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """Return UnknownTypes where all of the related Fields match this filter"""
+  fieldRefs_ALL: FieldWhere
+
+  """Return UnknownTypes where none of the related Fields match this filter"""
+  fieldRefs_NONE: FieldWhere
+
+  """Return UnknownTypes where one of the related Fields match this filter"""
+  fieldRefs_SINGLE: FieldWhere
+
+  """Return UnknownTypes where some of the related Fields match this filter"""
+  fieldRefs_SOME: FieldWhere
   id: ID @deprecated(reason: "Please use the explicit _EQ version")
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_EQ: ID
   id_IN: [ID!]
   id_STARTS_WITH: ID
+  kind: TypeKind @deprecated(reason: "Please use the explicit _EQ version")
+  kind_EQ: TypeKind
+  kind_IN: [TypeKind!]
+  name: String @deprecated(reason: "Please use the explicit _EQ version")
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_EQ: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: UnknownTypeOwnerAggregateInput
+  ownerConnection: IBaseTypeOwnerConnectionWhere
 }
 
 type UnknownTypesConnection {
