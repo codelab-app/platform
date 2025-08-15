@@ -215,6 +215,7 @@ export const getAllTypes = async (
     renderPropTypes,
     richTextTypes,
     unionTypes,
+    unknownTypes,
   } = await GetTypes({ ids }, next)
 
   console.log(
@@ -250,6 +251,7 @@ export const getAllTypes = async (
     ...appTypes,
     ...actionTypes,
     ...codeMirrorTypes,
+    ...unknownTypes,
   ]
 }
 
