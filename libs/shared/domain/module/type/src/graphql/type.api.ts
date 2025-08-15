@@ -213,6 +213,7 @@ export const getAllTypes = async (
     renderPropTypes,
     richTextTypes,
     unionTypes,
+    unknownTypes,
   } = await GetTypes({ ids }, next)
 
   const targetEnum = enumTypes.find(
@@ -234,6 +235,7 @@ export const getAllTypes = async (
     ...appTypes,
     ...actionTypes,
     ...codeMirrorTypes,
+    ...unknownTypes,
   ]
 }
 
