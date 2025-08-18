@@ -1,6 +1,9 @@
 import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { UiKey } from '@codelab/frontend-abstract-types'
-import { IPrimitiveTypeKind } from '@codelab/shared-abstract-core'
+import {
+  IConfigPaneTab,
+  IPrimitiveTypeKind,
+} from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -113,7 +116,9 @@ export class ComponentListPage extends BuilderPage {
 
   async openComponentPropsTab() {
     return test.step('openComponentPropsTab', async () => {
-      const conponentTab = this.page.locator('[data-node-key="Component"]')
+      const conponentTab = this.page.locator(
+        `[data-node-key="${IConfigPaneTab.Component}"]`,
+      )
 
       await conponentTab.click()
 
