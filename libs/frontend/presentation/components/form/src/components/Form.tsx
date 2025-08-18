@@ -23,6 +23,8 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
   filterDOMProps.register('defaultExpression')
+  filterDOMProps.register('oneOf')
+  filterDOMProps.register('unionType')
 
   const Form = <TData extends ObjectLike, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,

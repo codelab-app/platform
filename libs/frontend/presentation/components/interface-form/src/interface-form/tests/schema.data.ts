@@ -7,6 +7,7 @@ import {
 import {
   CodeMirrorField,
   ExpressionBoolField,
+  ExpressionListField,
   ExpressionNumField,
   ExpressionSelectField,
   ExpressionTextField,
@@ -141,6 +142,7 @@ export const enumTypeExpectedSchema = {
 
 export const arrayTypeExpectedSchema = {
   items: stringTypeExpectedSchema,
+  uniforms: { component: ExpressionListField },
   type: 'array',
 }
 
