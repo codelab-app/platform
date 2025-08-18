@@ -14,7 +14,7 @@ module "codelab_api" {
   codelab_api_key = var.CODELAB_API_KEY
   codelab_api_crt = var.CODELAB_API_CRT
 
-  auth0_domain = var.AUTH0_DOMAIN
+  auth0_domain            = var.AUTH0_DOMAIN
 
   codelab_app_vpc_id = module.codelab.codelab_app_vpc_id
 
@@ -24,4 +24,9 @@ module "codelab_api" {
 
   next_public_api_port      = var.NEXT_PUBLIC_API_PORT
   next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
+  
+  # Consul configuration
+  consul_server_ip   = module.consul.consul_server_private_ip
+  consul_datacenter  = module.consul.consul_datacenter
+  consul_encryption_key = var.CONSUL_ENCRYPT_KEY
 }

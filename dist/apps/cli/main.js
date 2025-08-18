@@ -715,6 +715,219 @@ const execCommand = (command) => {
     }
 };
 
+;// ../../libs/backend/infra/adapter/cli/src/commands/packer/packer.service.ts
+
+
+
+
+let PackerService = class PackerService {
+    constructor() {
+        Object.defineProperty(this, "command", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'packer'
+        });
+        Object.defineProperty(this, "describe", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'Packer commands for building machine images'
+        });
+        this.builder = this.builder.bind(this);
+    }
+    builder(yargv) {
+        return yargv
+            .command('build [image]', 'Build a Packer image', (argv) => argv
+            .positional('image', {
+            describe: 'Image to build (base, all)',
+            type: 'string',
+            default: 'base',
+        })
+            .options({
+            force: {
+                alias: 'f',
+                describe: 'Force a build even if artifacts exist',
+                type: 'boolean',
+                default: false,
+            },
+            'var-file': {
+                describe: 'Path to a variables file',
+                type: 'string',
+            },
+            debug: {
+                alias: 'd',
+                describe: 'Enable debug output',
+                type: 'boolean',
+                default: false,
+            },
+        }), ({ debug, force, image, varFile }) => {
+            const packerDir = 'infra/packer';
+            const forceFlag = force ? '-force' : '';
+            const varFileFlag = varFile ? `-var-file="${varFile}"` : '';
+            const debugFlag = debug ? 'PACKER_LOG=1' : '';
+            // Get DigitalOcean token with validation
+            const digitalOceanToken = external_env_var_namespaceObject.get('DIGITALOCEAN_API_TOKEN')
+                .required()
+                .asString();
+            switch (image) {
+                case 'all':
+                    console.log('Building all images...');
+                    // Build app base image
+                    console.log('Building app base image...');
+                    execCommand(`cd ${packerDir}/app && packer init .`);
+                    execCommand(`cd ${packerDir}/app && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`);
+                    // Build neo4j base image
+                    console.log('Building neo4j base image...');
+                    execCommand(`cd ${packerDir}/neo4j && packer init .`);
+                    execCommand(`cd ${packerDir}/neo4j && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`);
+                    break;
+                case 'app':
+                    console.log('Building app base image...');
+                    execCommand(`cd ${packerDir}/app && packer init .`);
+                    execCommand(`cd ${packerDir}/app && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`);
+                    break;
+                case 'neo4j':
+                    console.log('Building neo4j base image...');
+                    execCommand(`cd ${packerDir}/neo4j && packer init .`);
+                    execCommand(`cd ${packerDir}/neo4j && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`);
+                    break;
+                case 'base':
+                    // Legacy alias for app
+                    console.log('Building app base image...');
+                    execCommand(`cd ${packerDir}/app && packer init .`);
+                    execCommand(`cd ${packerDir}/app && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`);
+                    break;
+                default:
+                    console.error(`Unknown image: ${image}`);
+                    console.log('Available images: app, neo4j, all (or base for legacy)');
+                    process.exit(1);
+            }
+            console.log('Build completed successfully!');
+        })
+            .command('validate [image]', 'Validate a Packer template', (argv) => argv
+            .positional('image', {
+            describe: 'Image to validate (base, all)',
+            type: 'string',
+            default: 'base',
+        })
+            .options({
+            'var-file': {
+                describe: 'Path to a variables file',
+                type: 'string',
+            },
+        }), ({ image, varFile }) => {
+            const packerDir = 'infra/packer';
+            const varFileFlag = varFile ? `-var-file="${varFile}"` : '';
+            // Get DigitalOcean token with validation
+            const digitalOceanToken = external_env_var_namespaceObject.get('DIGITALOCEAN_API_TOKEN')
+                .required()
+                .asString();
+            switch (image) {
+                case 'all':
+                    console.log('Validating all image templates...');
+                    execCommand(`cd ${packerDir}/app && packer init .`);
+                    execCommand(`cd ${packerDir}/app && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`);
+                    execCommand(`cd ${packerDir}/neo4j && packer init .`);
+                    execCommand(`cd ${packerDir}/neo4j && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`);
+                    break;
+                case 'app':
+                    console.log('Validating app image template...');
+                    execCommand(`cd ${packerDir}/app && packer init .`);
+                    execCommand(`cd ${packerDir}/app && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`);
+                    break;
+                case 'neo4j':
+                    console.log('Validating neo4j image template...');
+                    execCommand(`cd ${packerDir}/neo4j && packer init .`);
+                    execCommand(`cd ${packerDir}/neo4j && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`);
+                    break;
+                case 'base':
+                    // Legacy alias for app
+                    console.log('Validating app image template...');
+                    execCommand(`cd ${packerDir}/app && packer init .`);
+                    execCommand(`cd ${packerDir}/app && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`);
+                    break;
+                default:
+                    console.error(`Unknown image: ${image}`);
+                    console.log('Available images: app, neo4j, all (or base for legacy)');
+                    process.exit(1);
+            }
+            console.log('Validation successful!');
+        })
+            .command('list-images', 'List Packer-built images in DigitalOcean', (argv) => argv, () => {
+            console.log('Listing Packer-built images...');
+            execCommand('doctl compute image list --public=false | grep "codelab-base"');
+        })
+            .command('clean-images', 'Remove old Packer-built images (keeps latest 3)', (argv) => argv.options({
+            'dry-run': {
+                describe: 'Show what would be deleted without deleting',
+                type: 'boolean',
+                default: false,
+            },
+        }), ({ 'dry-run': dryRun }) => {
+            console.log('Finding old Packer images to clean...');
+            if (dryRun) {
+                console.log('DRY RUN - No images will be deleted');
+                execCommand(`
+                doctl compute image list --public=false --format ID,Name,Created --no-header |
+                grep "codelab-base" |
+                sort -k3 -r |
+                tail -n +4 |
+                awk '{print "Would delete: " $2 " (ID: " $1 ", Created: " $3 ")"}'
+              `);
+            }
+            else {
+                console.log('Deleting old images (keeping latest 3)...');
+                execCommand(`
+                doctl compute image list --public=false --format ID --no-header |
+                grep -E "^[0-9]+" |
+                while read id; do
+                  name=$(doctl compute image get $id --format Name --no-header)
+                  if [[ $name == codelab-base* ]]; then
+                    echo "Found: $name (ID: $id)"
+                  fi
+                done |
+                sort -r |
+                tail -n +4 |
+                awk '{print $3}' |
+                xargs -I {} doctl compute image delete {} --force
+              `);
+            }
+        })
+            .command('init', 'Initialize Packer configuration', (argv) => argv, () => {
+            console.log('Initializing Packer configuration...');
+            const packerDir = 'infra/packer';
+            // Initialize all Packer directories
+            execCommand(`cd ${packerDir}/base && packer init .`);
+            console.log('Packer initialization completed');
+        })
+            .command('fmt', 'Format Packer configuration files', (argv) => argv.options({
+            check: {
+                describe: 'Check if files are formatted (exit 1 if not)',
+                type: 'boolean',
+                default: false,
+            },
+        }), ({ check }) => {
+            const packerDir = 'infra/packer';
+            const checkFlag = check ? '-check' : '';
+            console.log('Formatting Packer files...');
+            execCommand(`packer fmt ${checkFlag} ${packerDir}`);
+            if (!check) {
+                console.log('Packer files formatted');
+            }
+        })
+            .demandCommand(1, 'Please provide a command');
+    }
+    handler(args) {
+        // Handler implementation if needed
+    }
+};
+PackerService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
+], PackerService);
+
+
 ;// ../../libs/shared/config/env/src/env.ts
 
 /**
@@ -1542,17 +1755,23 @@ var external_yargs_default = /*#__PURE__*/__webpack_require__.n(external_yargs_n
 ;// external "yargs/helpers"
 const helpers_namespaceObject = require("yargs/helpers");
 ;// ./src/commands/command.service.ts
-var command_service_a, command_service_b;
+var command_service_a, command_service_b, _c;
 
 
 
 
 
 let CommandService = class CommandService {
-    constructor(
+    constructor(packerService, 
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     terraformService, taskService) {
+        Object.defineProperty(this, "packerService", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: packerService
+        });
         Object.defineProperty(this, "terraformService", {
             enumerable: true,
             configurable: true,
@@ -1589,6 +1808,10 @@ let CommandService = class CommandService {
             //   argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
             // )
             /**
+             * Packer - Machine image builder
+             */
+            .command(this.packerService)
+            /**
              * Terraform
              */
             .command(this.terraformService)
@@ -1599,7 +1822,7 @@ let CommandService = class CommandService {
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof PackerService !== "undefined" && PackerService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_b : Object, typeof (_c = typeof TaskService !== "undefined" && TaskService) === "function" ? _c : Object])
 ], CommandService);
 
 
@@ -1628,6 +1851,7 @@ CommandModule = (0,external_tslib_namespaceObject.__decorate)([
         imports: [],
         providers: [
             CommandService,
+            PackerService,
             // SeedService,
             // ScrapeAntdService,
             // ScrapeHtmlService,

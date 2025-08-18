@@ -14,12 +14,16 @@ module "codelab_sites" {
   next_public_api_port      = var.NEXT_PUBLIC_API_PORT
   next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
 
-  # auth0_domain            = var.AUTH0_DOMAIN
-  # auth0_secret            = var.AUTH0_SECRET
-  # auth0_web_client_id     = module.auth0.web_client.id
-  # auth0_web_client_secret = module.auth0.web_client.client_secret
+  auth0_domain            = var.AUTH0_DOMAIN
+  auth0_m2m_client_id     = var.AUTH0_M2M_CLIENT_ID
+  auth0_m2m_client_secret = var.AUTH0_M2M_CLIENT_SECRET
 
   codelab_app_certificate_id = module.codelab.codelab_app_certificate_id
   codelab_app_vpc_id         = module.codelab.codelab_app_vpc_id
   codelab_app_domain_id      = module.codelab.codelab_app_domain_id
+  
+  # Consul configuration
+  consul_server_ip      = module.consul.consul_server_private_ip
+  consul_datacenter     = module.consul.consul_datacenter
+  consul_encryption_key = var.CONSUL_ENCRYPT_KEY
 }

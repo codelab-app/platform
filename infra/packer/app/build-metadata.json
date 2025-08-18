@@ -1,0 +1,30 @@
+{
+  "description": "Build metadata for tracking Packer image versions",
+  "images": {
+    "app-base": {
+      "version": "1.0.0",
+      "last_built": null,
+      "snapshot_id": null,
+      "snapshot_name": null,
+      "dependencies": {
+        "docker_compose_version": "2.24.0",
+        "doctl_version": "1.104.0",
+        "consul_version": "latest",
+        "consul_template_version": "latest"
+      },
+      "source_files": [
+        "codelab-app-base.pkr.hcl",
+        "../scripts/install-docker.sh",
+        "../scripts/install-consul.sh",
+        "../scripts/install-doctl.sh",
+        "../files/daemon.json",
+        "../files/consul-final.hcl",
+        "../files/consul-template.hcl",
+        "../files/consul.service",
+        "../files/consul-template.service",
+        "../files/docker-login.service",
+        "../templates/docker-compose.ctmpl"
+      ]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import type { OnModuleInit } from '@nestjs/common'
 
 import {
+  PackerService,
   // ScrapeAntdService,
   // ScrapeHtmlService,
   // SeedService,
@@ -16,6 +17,7 @@ import { CommandService } from './command.service'
   imports: [],
   providers: [
     CommandService,
+    PackerService,
     // SeedService,
     // ScrapeAntdService,
     // ScrapeHtmlService,

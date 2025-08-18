@@ -1,9 +1,11 @@
-import {
+import type {
+  PackerService,
   // ScrapeAntdService,
   // ScrapeHtmlService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
+
 import { Injectable } from '@nestjs/common'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -11,6 +13,7 @@ import { hideBin } from 'yargs/helpers'
 @Injectable()
 export class CommandService {
   constructor(
+    private readonly packerService: PackerService,
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     private readonly terraformService: TerraformService,
@@ -41,6 +44,10 @@ export class CommandService {
       // .command('scrape', 'Antd / Html', (argv) =>
       //   argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
       // )
+      /**
+       * Packer - Machine image builder
+       */
+      .command(this.packerService)
       /**
        * Terraform
        */
