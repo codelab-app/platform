@@ -2,7 +2,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "types": ["jest", "node", "@testing-library/jest-dom"],
+    "types": [
+      "jest",
+      "node",
+      "@testing-library/jest-dom",
+      "styled-components",
+      "uniforms"
+    ],
     "noPropertyAccessFromIndexSignature": false,
     "outDir": "../../../../dist/out-tsc",
     "jsx": "react-jsx",
