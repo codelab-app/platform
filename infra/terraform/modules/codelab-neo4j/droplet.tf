@@ -1,6 +1,13 @@
-# Create a new Web Droplet in the nyc2 region
+# Find the latest Packer-built neo4j base image
+data "digitalocean_image" "codelab_neo4j_base" {
+  name_regex  = "^codelab-neo4j-base-.*"
+  region      = var.digitalocean_region
+  most_recent = true
+}
+
+# Create a new Neo4j Droplet
 resource "digitalocean_droplet" "neo4j" {
-  image  = "docker-20-04"
+  image  = data.digitalocean_image.codelab_neo4j_base.id
   name   = "neo4j"
   region = var.digitalocean_region
   size   = "s-1vcpu-2gb-intel"
@@ -13,11 +20,11 @@ resource "digitalocean_droplet" "neo4j" {
   # SSH keys
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
-  # Run once only
-  user_data = data.cloudinit_config.neo4j.rendered
+  # No user_data - everything is baked into the image
 
   lifecycle {
     create_before_destroy = true
+    ignore_changes = []
   }
 
   # Tags for easier management

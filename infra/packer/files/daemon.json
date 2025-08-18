@@ -1,0 +1,19 @@
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m",
+    "max-file": "3"
+  },
+  "storage-driver": "overlay2",
+  "registry-mirrors": [],
+  "insecure-registries": [],
+  "live-restore": true,
+  "userland-proxy": false,
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 64000,
+      "Soft": 64000
+    }
+  }
+}

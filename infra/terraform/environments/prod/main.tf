@@ -20,6 +20,11 @@ terraform {
     tfe = {
       version = "~> 0.54.0"
     }
+
+    consul = {
+      source  = "hashicorp/consul"
+      version = "~> 2.20.0"
+    }
   }
 
   cloud {
