@@ -28,8 +28,17 @@ export class CommandService {
 
     // const args = hideBin(process.argv)[0]?.split(' ')
 
-    void yargs(args)
+    yargs(args)
       .scriptName('cli')
+      // Add global stage option that's required
+      .option('stage', {
+        alias: 's',
+        describe: 'Deployment stage',
+        type: 'string',
+        choices: ['dev', 'test', 'ci', 'prod'],
+        demandOption: true,
+        global: true,
+      })
       /**
        * These scripts could act on different deployment environment, so we group under `data`
        */
@@ -54,6 +63,9 @@ export class CommandService {
       .command(this.terraformService)
       .demandCommand(1)
       // Must add this to throw error for unknown arguments
-      .strict().argv
+      .strict()
+      .showHelpOnFail(true)
+      .exitProcess(true) // Ensure yargs exits the process
+      .parseSync()
   }
 }

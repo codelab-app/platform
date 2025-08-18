@@ -28,10 +28,24 @@ terraform {
  * Data source to find the latest Packer-built Codelab app base image
  * The Consul server can use the app base image since it doesn't need database tools
  */
-data "digitalocean_image" "codelab_app_base" {
-  name_regex = "^codelab-app-base-.*"
-  region     = var.digitalocean_region
-  most_recent = true
+data "digitalocean_images" "codelab_app_base" {
+  filter {
+    key    = "name"
+    values = ["codelab-app-base"]
+    match_by = "substring"
+  }
+  filter {
+    key    = "regions"
+    values = [var.digitalocean_region]
+  }
+  filter {
+    key    = "private"
+    values = ["true"]
+  }
+  sort {
+    key       = "created"
+    direction = "desc"
+  }
 }
 
 /**
@@ -41,7 +55,7 @@ data "digitalocean_image" "codelab_app_base" {
  * The user_data script configures Consul server mode and starts the service.
  */
 resource "digitalocean_droplet" "consul_server" {
-  image  = data.digitalocean_image.codelab_app_base.id
+  image  = data.digitalocean_images.codelab_app_base.images[0].id
   name   = "consul-server"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb"
@@ -65,18 +79,3 @@ resource "digitalocean_droplet" "consul_server" {
   droplet_agent = true
 }
 
-/**
- * Spaces bucket for Consul backups
- */
-resource "digitalocean_spaces_bucket" "consul_backups" {
-  name   = "codelab-consul-backups"
-  region = var.digitalocean_region
-  acl    = "private"
-  
-  lifecycle_rule {
-    enabled = true
-    expiration {
-      days = 30
-    }
-  }
-}
