@@ -38,22 +38,22 @@ export const PropsInspectorTab = observer<{
       <h3 className="text-gray-700">Current props</h3>
       <CodeMirrorEditor
         height="150px"
+        label="Current props"
         language={ICodeMirrorLanguage.Json}
         onChange={() => undefined}
         readOnly
-        title="Current props"
         value={propSafeStringify(lastRenderedProp)}
       />
 
       <h3 className="text-gray-700">{nodeLabel} props</h3>
       <CodeMirrorEditor
         height="150px"
+        label={`${nodeLabel} props`}
         language={ICodeMirrorLanguage.Json}
         onChange={(value) => {
           setEditedProp(value)
         }}
         onSave={(value) => save(value)}
-        title={`${nodeLabel} props`}
         value={editedProp}
       />
       <Button

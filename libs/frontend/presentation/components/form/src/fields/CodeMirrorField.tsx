@@ -23,7 +23,6 @@ export const CodeMirrorField = connectField<CodeMirrorFieldProps>(
         height="auto"
         label={isString(props.label) ? props.label : props.name}
         maxHeight="150px"
-        title={isString(props.label) ? props.label : props.name}
         width="100%"
       />,
     )

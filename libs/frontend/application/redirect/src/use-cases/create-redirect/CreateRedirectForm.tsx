@@ -50,7 +50,7 @@ export const CreateRedirectForm = observer<
       <AutoFields omitFields={['targetPage', 'targetUrl', 'authGuard']} />
       <SelectField
         name="targetPage"
-        options={pageDomainService.getSelectOption()}
+        options={pageDomainService.getSelectOptions()}
       />
       <SelectField
         name="authGuard.id"

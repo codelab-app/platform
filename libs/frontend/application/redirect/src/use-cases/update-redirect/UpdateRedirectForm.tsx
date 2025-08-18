@@ -62,7 +62,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
 
           <SelectField
             name="targetPage"
-            options={pageDomainService.getSelectOption()}
+            options={pageDomainService.getSelectOptions()}
           />
           <SelectField
             name="authGuard.id"
