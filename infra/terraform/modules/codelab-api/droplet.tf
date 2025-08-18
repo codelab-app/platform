@@ -3,14 +3,28 @@
  */
 
 # Find the latest Packer-built API-specific base image
-data "digitalocean_image" "codelab_api_base" {
-  name_regex  = "^codelab-api-base-.*"
-  region      = var.digitalocean_region
-  most_recent = true
+data "digitalocean_images" "codelab_api_base" {
+  filter {
+    key    = "name"
+    values = ["codelab-api-base"]
+    match_by = "substring"
+  }
+  filter {
+    key    = "regions"
+    values = [var.digitalocean_region]
+  }
+  filter {
+    key    = "private"
+    values = ["true"]
+  }
+  sort {
+    key       = "created"
+    direction = "desc"
+  }
 }
 
 resource "digitalocean_droplet" "codelab_api" {
-  image  = data.digitalocean_image.codelab_api_base.id
+  image  = data.digitalocean_images.codelab_api_base.images[0].id
   name   = "api"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb-intel"

@@ -1,5 +1,6 @@
 import type { IAuth0EnvVars } from './services/auth0'
 import type { ICircleCIEnvVars } from './services/circleci'
+import type { IDigitalOceanEnvVars } from './services/digitalocean'
 import type { IEndpointEnvVars } from './services/endpoint'
 import type { IGoogleAnalyticsEnvVars } from './services/google-analytics'
 import type { IHotjarEnvVars } from './services/hotjar'
@@ -11,6 +12,7 @@ import type { ISupabaseEnvVars } from './services/supabase'
 
 import { Auth0EnvVars } from './services/auth0'
 import { CircleCIEnvVars } from './services/circleci'
+import { DigitalOceanEnvVars } from './services/digitalocean'
 import { EndpointEnvVars } from './services/endpoint'
 import { GoogleAnalyticsEnvVars } from './services/google-analytics'
 import { HotjarEnvVars } from './services/hotjar'
@@ -23,6 +25,7 @@ import { SupabaseEnvVars } from './services/supabase'
 export interface IEnvironmentVariables {
   auth0: IAuth0EnvVars
   circleci: ICircleCIEnvVars
+  digitalocean: IDigitalOceanEnvVars
   endpoint: IEndpointEnvVars
   googleAnalytics: IGoogleAnalyticsEnvVars
   hotjar: IHotjarEnvVars
@@ -51,56 +54,17 @@ class EnvironmentVariables implements IEnvironmentVariables {
   }
 
   // Create endpoint first as auth0 depends on it
-  private readonly _endpoint = new EndpointEnvVars()
-  private readonly _auth0 = new Auth0EnvVars(this._endpoint)
-  private readonly _circleci = new CircleCIEnvVars()
-  private readonly _googleAnalytics = new GoogleAnalyticsEnvVars()
-  private readonly _hotjar = new HotjarEnvVars()
-  private readonly _intercom = new IntercomEnvVars()
-  private readonly _mailchimp = new MailchimpEnvVars()
-  private readonly _neo4j = new Neo4jEnvVars()
-  private readonly _node = new NodeEnvVars()
-  private readonly _supabase = new SupabaseEnvVars()
-
-  public get auth0() {
-    return this._auth0
-  }
-
-  public get circleci() {
-    return this._circleci
-  }
-
-  public get endpoint() {
-    return this._endpoint
-  }
-
-  public get googleAnalytics() {
-    return this._googleAnalytics
-  }
-
-  public get hotjar() {
-    return this._hotjar
-  }
-
-  public get intercom() {
-    return this._intercom
-  }
-
-  public get mailchimp() {
-    return this._mailchimp
-  }
-
-  public get neo4j() {
-    return this._neo4j
-  }
-
-  public get node() {
-    return this._node
-  }
-
-  public get supabase() {
-    return this._supabase
-  }
+  public readonly endpoint = new EndpointEnvVars()
+  public readonly auth0 = new Auth0EnvVars(this.endpoint)
+  public readonly circleci = new CircleCIEnvVars()
+  public readonly digitalocean = new DigitalOceanEnvVars()
+  public readonly googleAnalytics = new GoogleAnalyticsEnvVars()
+  public readonly hotjar = new HotjarEnvVars()
+  public readonly intercom = new IntercomEnvVars()
+  public readonly mailchimp = new MailchimpEnvVars()
+  public readonly neo4j = new Neo4jEnvVars()
+  public readonly node = new NodeEnvVars()
+  public readonly supabase = new SupabaseEnvVars()
 
   private static instance?: EnvironmentVariables
 }

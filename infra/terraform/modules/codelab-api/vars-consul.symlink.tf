@@ -1,0 +1,1 @@
+../consul/shared/vars-consul.tf

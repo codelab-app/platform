@@ -1,13 +1,26 @@
 # Find the latest Packer-built neo4j base image
-data "digitalocean_image" "codelab_neo4j_base" {
-  name_regex  = "^codelab-neo4j-base-.*"
-  region      = var.digitalocean_region
-  most_recent = true
+data "digitalocean_images" "codelab_neo4j_base" {
+  filter {
+    key    = "name"
+    values = ["codelab-neo4j-base"]
+    match_by = "substring"
+  }
+  filter {
+    key    = "regions"
+    values = [var.digitalocean_region]
+  }
+  filter {
+    key    = "private"
+    values = ["true"]
+  }
+  sort {
+    key       = "created"
+    direction = "desc"
+  }
 }
 
-# Create a new Neo4j Droplet
 resource "digitalocean_droplet" "neo4j" {
-  image  = data.digitalocean_image.codelab_neo4j_base.id
+  image  = data.digitalocean_images.codelab_neo4j_base.images[0].id
   name   = "neo4j"
   region = var.digitalocean_region
   size   = "s-1vcpu-2gb-intel"
@@ -23,7 +36,7 @@ resource "digitalocean_droplet" "neo4j" {
   # No user_data - everything is baked into the image
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
     ignore_changes = []
   }
 

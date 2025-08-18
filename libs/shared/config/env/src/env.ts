@@ -17,6 +17,7 @@ export const env = from({
   AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
   CI: process.env['CI'],
   CIRCLE: process.env['CIRCLE'],
+  DIGITALOCEAN_API_TOKEN: process.env['DIGITALOCEAN_API_TOKEN'],
   E2E: process.env['E2E'],
   MAILCHIMP_API_KEY: process.env['MAILCHIMP_API_KEY'],
   MAILCHIMP_LIST_ID: process.env['MAILCHIMP_LIST_ID'],

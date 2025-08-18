@@ -2,7 +2,8 @@ import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 
 import { execCommand } from '@codelab/backend-infra-adapter-shell'
 import { Injectable } from '@nestjs/common'
-import { get } from 'env-var'
+import { existsSync } from 'fs'
+import { join } from 'path'
 
 interface PackerBuildOptions {
   debug?: boolean
@@ -14,6 +15,12 @@ interface PackerBuildOptions {
 interface PackerValidateOptions {
   image?: string
   varFile?: string
+}
+
+interface ImageConfig {
+  dir: string
+  name: string
+  template: string
 }
 
 @Injectable()
@@ -34,14 +41,14 @@ export class PackerService implements CommandModule<unknown, unknown> {
         (argv) =>
           argv
             .positional('image', {
-              describe: 'Image to build (base, all)',
+              describe: 'Image to build (app, services, all)',
               type: 'string',
-              default: 'base',
+              default: 'app',
             })
             .options({
               force: {
                 alias: 'f',
-                describe: 'Force a build even if artifacts exist',
+                describe: 'Force rebuild even if image exists',
                 type: 'boolean',
                 default: false,
               },
@@ -57,67 +64,70 @@ export class PackerService implements CommandModule<unknown, unknown> {
               },
             }),
         ({ debug, force, image, varFile }) => {
-          const packerDir = 'infra/packer'
-          const forceFlag = force ? '-force' : ''
-          const varFileFlag = varFile ? `-var-file="${varFile}"` : ''
-          const debugFlag = debug ? 'PACKER_LOG=1' : ''
+          // Get DigitalOcean token from environment - access directly from process.env
+          // since getEnv() is initialized before ConfigModule loads the .env file
+          const digitalOceanToken = process.env['DIGITALOCEAN_API_TOKEN']
 
-          // Get DigitalOcean token with validation
-          const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
-            .required()
-            .asString()
+          if (!digitalOceanToken) {
+            console.error(
+              '❌ Error: DIGITALOCEAN_API_TOKEN is not set or empty',
+            )
+            console.error(
+              'Please add your DigitalOcean API token to apps/cli/.env:',
+            )
+            console.error('  DIGITALOCEAN_API_TOKEN=your_actual_token_here')
+            console.error(
+              '\nYou can get a token from: https://cloud.digitalocean.com/account/api/tokens',
+            )
+            process.exit(1)
+          }
+
+          const buildOptions = {
+            debug,
+            digitalOceanToken,
+            force,
+            varFile,
+          }
 
           switch (image) {
             case 'all':
-              console.log('Building all images...')
-              // Build app base image
-              console.log('Building app base image...')
-              execCommand(`cd ${packerDir}/app && packer init .`)
-              execCommand(
-                `cd ${packerDir}/app && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`,
-              )
-              // Build neo4j base image
-              console.log('Building neo4j base image...')
-              execCommand(`cd ${packerDir}/neo4j && packer init .`)
-              execCommand(
-                `cd ${packerDir}/neo4j && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`,
-              )
+              console.log('Building all images...\n')
+
+              // Build app first (base image)
+              console.log('Step 1: Building base image...')
+              this.buildImage(this.imageConfigs.app, buildOptions)
+              console.log('')
+
+              // Then build services (which depend on app)
+              console.log('Step 2: Building service images...')
+              this.buildImage(this.imageConfigs.services, buildOptions)
+              console.log('')
+
               break
 
-            case 'app':
-              console.log('Building app base image...')
-              execCommand(`cd ${packerDir}/app && packer init .`)
-              execCommand(
-                `cd ${packerDir}/app && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`,
-              )
+            case 'base': // Legacy alias for app
+              this.buildImage(this.imageConfigs.app, buildOptions)
               break
 
-            case 'base':
-              // Legacy alias for app
-              console.log('Building app base image...')
-              execCommand(`cd ${packerDir}/app && packer init .`)
-              execCommand(
-                `cd ${packerDir}/app && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`,
-              )
-              break
-
-            case 'neo4j':
-              console.log('Building neo4j base image...')
-              execCommand(`cd ${packerDir}/neo4j && packer init .`)
-              execCommand(
-                `cd ${packerDir}/neo4j && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`,
-              )
+            case 'services':
+              this.buildImage(this.imageConfigs.services, buildOptions)
               break
 
             default:
-              console.error(`Unknown image: ${image}`)
-              console.log(
-                'Available images: app, neo4j, all (or base for legacy)',
-              )
-              process.exit(1)
+              if (image && image in this.imageConfigs) {
+                const config =
+                  this.imageConfigs[image as keyof typeof this.imageConfigs]
+                this.buildImage(config, buildOptions)
+              } else {
+                console.error(`Unknown image: ${image}`)
+                console.log(
+                  'Available images: app, services, all (or base for legacy)',
+                )
+                process.exit(1)
+              }
           }
 
-          console.log('Build completed successfully!')
+          console.log('\nBuild process completed!')
         },
       )
       .command<PackerValidateOptions>(
@@ -126,9 +136,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
         (argv) =>
           argv
             .positional('image', {
-              describe: 'Image to validate (base, all)',
+              describe: 'Image to validate (app, services, all)',
               type: 'string',
-              default: 'base',
+              default: 'app',
             })
             .options({
               'var-file': {
@@ -137,58 +147,55 @@ export class PackerService implements CommandModule<unknown, unknown> {
               },
             }),
         ({ image, varFile }) => {
-          const packerDir = 'infra/packer'
+          const digitalOceanToken = process.env['DIGITALOCEAN_API_TOKEN']
+
           const varFileFlag = varFile ? `-var-file="${varFile}"` : ''
 
-          // Get DigitalOcean token with validation
-          const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
-            .required()
-            .asString()
+          const validateImage = (config: ImageConfig) => {
+            console.log(`Validating ${config.name} image template...`)
+            const imageDir = join(this.packerDir, config.dir)
+            execCommand(`cd ${imageDir} && packer init .`)
+            execCommand(
+              `cd ${imageDir} && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" ${config.template}`,
+            )
+          }
 
           switch (image) {
             case 'all':
               console.log('Validating all image templates...')
-              execCommand(`cd ${packerDir}/app && packer init .`)
-              execCommand(
-                `cd ${packerDir}/app && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`,
-              )
-              execCommand(`cd ${packerDir}/neo4j && packer init .`)
-              execCommand(
-                `cd ${packerDir}/neo4j && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`,
-              )
+
+              // Validate app first
+              console.log('Step 1: Validating base image...')
+              validateImage(this.imageConfigs.app)
+
+              // Then validate services
+              console.log('Step 2: Validating service images...')
+              validateImage(this.imageConfigs.services)
+
               break
 
             case 'app':
-              console.log('Validating app image template...')
-              execCommand(`cd ${packerDir}/app && packer init .`)
-              execCommand(
-                `cd ${packerDir}/app && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`,
-              )
+              validateImage(this.imageConfigs.app)
               break
 
-            case 'base':
-              // Legacy alias for app
-              console.log('Validating app image template...')
-              execCommand(`cd ${packerDir}/app && packer init .`)
-              execCommand(
-                `cd ${packerDir}/app && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-app-base.pkr.hcl`,
-              )
+            case 'base': // Legacy alias
+              validateImage(this.imageConfigs.app)
               break
 
-            case 'neo4j':
-              console.log('Validating neo4j image template...')
-              execCommand(`cd ${packerDir}/neo4j && packer init .`)
-              execCommand(
-                `cd ${packerDir}/neo4j && packer validate ${varFileFlag} -var "do_token=${digitalOceanToken}" codelab-neo4j-base.pkr.hcl`,
-              )
+            case 'services':
+              validateImage(this.imageConfigs.services)
               break
 
             default:
-              console.error(`Unknown image: ${image}`)
-              console.log(
-                'Available images: app, neo4j, all (or base for legacy)',
-              )
-              process.exit(1)
+              if (image && image in this.imageConfigs) {
+                const config =
+                  this.imageConfigs[image as keyof typeof this.imageConfigs]
+                validateImage(config)
+              } else {
+                console.error(`Unknown image: ${image}`)
+                console.log('Available images: app, services, all')
+                process.exit(1)
+              }
           }
 
           console.log('Validation successful!')
@@ -201,7 +208,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
         () => {
           console.log('Listing Packer-built images...')
           execCommand(
-            'doctl compute image list --public=false | grep "codelab-base"',
+            'doctl compute image list --public=false | grep "codelab-.*-base"',
           )
         },
       )
@@ -222,28 +229,28 @@ export class PackerService implements CommandModule<unknown, unknown> {
           if (dryRun) {
             console.log('DRY RUN - No images will be deleted')
             execCommand(`
-                doctl compute image list --public=false --format ID,Name,Created --no-header |
-                grep "codelab-base" |
-                sort -k3 -r |
-                tail -n +4 |
-                awk '{print "Would delete: " $2 " (ID: " $1 ", Created: " $3 ")"}'
-              `)
+              doctl compute image list --public=false --format ID,Name,Created --no-header |
+              grep "codelab-.*-base" |
+              sort -k3 -r |
+              tail -n +4 |
+              awk '{print "Would delete: " $2 " (ID: " $1 ", Created: " $3 ")"}'
+            `)
           } else {
             console.log('Deleting old images (keeping latest 3)...')
             execCommand(`
-                doctl compute image list --public=false --format ID --no-header |
-                grep -E "^[0-9]+" |
-                while read id; do
-                  name=$(doctl compute image get $id --format Name --no-header)
-                  if [[ $name == codelab-base* ]]; then
-                    echo "Found: $name (ID: $id)"
-                  fi
-                done |
-                sort -r |
-                tail -n +4 |
-                awk '{print $3}' |
-                xargs -I {} doctl compute image delete {} --force
-              `)
+              doctl compute image list --public=false --format ID --no-header |
+              grep -E "^[0-9]+" |
+              while read id; do
+                name=$(doctl compute image get $id --format Name --no-header)
+                if [[ $name == codelab-*-base* ]]; then
+                  echo "Found: $name (ID: $id)"
+                fi
+              done |
+              sort -r |
+              tail -n +4 |
+              awk '{print $3}' |
+              xargs -I {} doctl compute image delete {} --force
+            `)
           }
         },
       )
@@ -253,10 +260,16 @@ export class PackerService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         () => {
           console.log('Initializing Packer configuration...')
-          const packerDir = 'infra/packer'
 
           // Initialize all Packer directories
-          execCommand(`cd ${packerDir}/base && packer init .`)
+          for (const config of Object.values(this.imageConfigs)) {
+            const imageDir = join(this.packerDir, config.dir)
+
+            if (existsSync(imageDir)) {
+              console.log(`Initializing ${config.name}...`)
+              execCommand(`cd ${imageDir} && packer init .`)
+            }
+          }
 
           console.log('Packer initialization completed')
         },
@@ -273,11 +286,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
             },
           }),
         ({ check }) => {
-          const packerDir = 'infra/packer'
           const checkFlag = check ? '-check' : ''
 
           console.log('Formatting Packer files...')
-          execCommand(`packer fmt ${checkFlag} ${packerDir}`)
+          execCommand(`packer fmt ${checkFlag} ${this.packerDir}`)
 
           if (!check) {
             console.log('Packer files formatted')
@@ -287,7 +299,67 @@ export class PackerService implements CommandModule<unknown, unknown> {
       .demandCommand(1, 'Please provide a command')
   }
 
-  handler(args: ArgumentsCamelCase) {
+  handler(_args: ArgumentsCamelCase) {
     // Handler implementation if needed
   }
+
+  /**
+   * Build a single image
+   */
+  private buildImage(
+    imageConfig: ImageConfig,
+    options: {
+      debug?: boolean
+      digitalOceanToken: string
+      force?: boolean
+      varFile?: string
+    },
+  ): void {
+    const { debug, digitalOceanToken, force, varFile } = options
+
+    const forceFlag = force ? '-force' : ''
+    const varFileFlag = varFile ? `-var-file="${varFile}"` : ''
+    const debugFlag = debug ? 'PACKER_LOG=1' : ''
+
+    console.log(`\n📦 Building ${imageConfig.name} image...`)
+    console.log(`  Directory: ${imageConfig.dir}`)
+    console.log(`  Template: ${imageConfig.template}`)
+    if (debug) {
+      console.log('  Debug mode: enabled')
+    }
+    if (force) {
+      console.log('  Force rebuild: enabled')
+    }
+    if (varFile) {
+      console.log(`  Variables file: ${varFile}`)
+    }
+
+    const imageDir = join(this.packerDir, imageConfig.dir)
+
+    // Initialize Packer
+    console.log(`\n🔧 Initializing Packer in ${imageDir}...`)
+    execCommand(`cd ${imageDir} && packer init .`)
+
+    // Build the image
+    console.log('\n🚀 Building image with Packer...')
+    execCommand(
+      `cd ${imageDir} && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" ${imageConfig.template}`,
+    )
+
+    console.log(`\n✅ ${imageConfig.name} image built successfully`)
+  }
+  private readonly imageConfigs = {
+    app: {
+      name: 'app',
+      dir: 'app',
+      template: 'codelab-app-base.pkr.hcl',
+    },
+    services: {
+      name: 'services',
+      dir: 'services',
+      template: 'codelab-services.pkr.hcl',
+    },
+  } as const satisfies Record<string, ImageConfig>
+
+  private readonly packerDir = 'infra/packer'
 }

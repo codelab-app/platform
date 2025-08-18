@@ -1,12 +1,26 @@
-# Find the latest Packer-built app base image
-data "digitalocean_image" "codelab_app_base" {
-  name_regex  = "^codelab-app-base-.*"
-  region      = var.digitalocean_region
-  most_recent = true
+# Find the latest Packer-built landing base image
+data "digitalocean_images" "codelab_landing_base" {
+  filter {
+    key    = "name"
+    values = ["codelab-landing-base"]
+    match_by = "substring"
+  }
+  filter {
+    key    = "regions"
+    values = [var.digitalocean_region]
+  }
+  filter {
+    key    = "private"
+    values = ["true"]
+  }
+  sort {
+    key       = "created"
+    direction = "desc"
+  }
 }
 
 resource "digitalocean_droplet" "codelab_landing" {
-  image  = data.digitalocean_image.codelab_app_base.id
+  image  = data.digitalocean_images.codelab_landing_base.images[0].id
   name   = "landing"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb-intel"
@@ -25,7 +39,7 @@ resource "digitalocean_droplet" "codelab_landing" {
   droplet_agent = true
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
     ignore_changes = []
   }
 }
