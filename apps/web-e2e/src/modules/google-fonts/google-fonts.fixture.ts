@@ -1,3 +1,4 @@
+import { IConfigPaneTab } from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -42,7 +43,9 @@ export class GoogleFontsPage extends CssBuilderPage {
 
   async openPropsTab() {
     return test.step('openPropsTab', async () => {
-      const cssTab = this.page.locator('[data-node-key="Props"]')
+      const cssTab = this.page.locator(
+        `[data-node-key="${IConfigPaneTab.Props}"]`,
+      )
 
       await cssTab.click()
 

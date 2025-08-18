@@ -1,9 +1,11 @@
-import type { ICreateElementSeedData } from '@codelab/shared-abstract-core'
-
 import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
+import {
+  IConfigPaneTab,
+  type ICreateElementSeedData,
+} from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 import { expect } from '@playwright/test'
 
@@ -265,7 +267,9 @@ export class BuilderPage extends BasePage {
 
   async openPropsTab() {
     return test.step('openPropsTab', async () => {
-      const cssTab = this.page.locator('[data-node-key="Props"]')
+      const cssTab = this.page.locator(
+        `[data-node-key="${IConfigPaneTab.Props}"]`,
+      )
 
       await cssTab.click()
 
