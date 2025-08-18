@@ -9,8 +9,7 @@ import type {
 } from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { typedProp } from '@codelab/frontend-abstract-domain'
-import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 import { v4 } from 'uuid'
 
@@ -36,14 +35,6 @@ export const typographyElement = {
   id: v4(),
   name: typographyElementName,
   parentElement: { id: spaceElementId },
-  propsData: {
-    children: typedProp({
-      // integer type id in seed data
-      type: '010c4f5a-434b-4c3e-a0ed-01eb1f78172a',
-      kind: ITypeKind.CodeMirrorType,
-      value: undefined,
-    }),
-  },
 }
 
 export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({

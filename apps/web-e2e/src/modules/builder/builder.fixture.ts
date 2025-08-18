@@ -1,6 +1,7 @@
 import type { ICreateElementSeedData } from '@codelab/shared-abstract-core'
 
 import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
@@ -171,7 +172,7 @@ export class BuilderPage extends BasePage {
   }
 
   getBuilderRenderContainer() {
-    return this.page.locator('#render-root')
+    return this.page.locator(`#${ROOT_RENDER_CONTAINER_ID}`)
   }
 
   getConfigPane() {

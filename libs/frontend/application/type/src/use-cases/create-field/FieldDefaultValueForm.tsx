@@ -71,7 +71,7 @@ export const FieldDefaultValueForm = ({
           validationRules: validationRules,
         }),
       },
-      required: ['defaultValues'],
+      required: isRequired ? ['defaultValues'] : [],
       type: 'object',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps

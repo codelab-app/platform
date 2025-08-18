@@ -18,14 +18,16 @@ export class ComponentListPage extends BuilderPage {
 
       await form.fillInputText({ label: 'Key' }, this.componentPropName)
       await form.fillInputSelect({ label: 'Type' }, IPrimitiveTypeKind.String)
-      await this.page
-        .locator('[name="validationRules.general.nullable"]')
-        .click()
+      await form.fillInputCheckbox({ label: 'Nullable' }, true)
 
       await this.getPopover(UiKey.FieldPopoverCreate)
         .getButton({
-          text: 'Create',
+          text: 'Next',
         })
+        .click()
+
+      await this.getPopover(UiKey.FieldPopoverCreate)
+        .getButton({ text: 'Create' })
         .click()
 
       await this.expectGlobalProgressBarToBeHidden()
@@ -139,9 +141,12 @@ export class ComponentListPage extends BuilderPage {
 
   async setComponentPropValue() {
     return test.step('setComponentPropValue', async () => {
-      await this.page
-        .locator('.ant-form-item-control-input [contenteditable]')
-        .type(COMPONENT_PROP_VALUE)
+      const form = await this.getForm(UiKey.FormInterface)
+
+      await form.fillInputText(
+        { label: 'Component Prop' },
+        COMPONENT_PROP_VALUE,
+      )
 
       await this.expectGlobalProgressBarToBeHidden()
     })
