@@ -13,7 +13,10 @@ import type {
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import type { Ref } from 'mobx-keystone'
 
+import type { IComponentModel } from '../../component'
+import type { IElementModel } from '../../element'
 import type { IModel } from '../../shared'
+import type { IStoreModel } from '../../store'
 import type { IUserModel } from '../../user'
 import type { IActionTypeModel } from './action-type.model.interface'
 import type { IAppTypeModel } from './app-type.model.interface'
@@ -50,9 +53,13 @@ export interface JsonSchema extends JSONSchema7 {
 }
 
 export interface ITypeTransformContext {
+  component?: IComponentModel
   defaultValues?: Nullish<IFieldDefaultValue>
   depth?: number
+  element?: IElementModel
   fieldName?: string | null
+  providerStore?: IStoreModel
+  store?: IStoreModel
   validationRules?: Nullish<IValidationRules>
 }
 

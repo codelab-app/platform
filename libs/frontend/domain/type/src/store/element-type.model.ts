@@ -4,10 +4,6 @@ import type {
 } from '@codelab/shared-abstract-core'
 
 import {
-  getBuilderService,
-  isRuntimeElement,
-} from '@codelab/frontend-abstract-application'
-import {
   getElementDomainService,
   type IElementTypeModel,
   type ITypeTransformContext,
@@ -44,11 +40,6 @@ export class ElementType
   public static create = create
 
   @computed
-  get builderService() {
-    return getBuilderService(this)
-  }
-
-  @computed
   get elementDomainService() {
     return getElementDomainService(this)
   }
@@ -65,19 +56,16 @@ export class ElementType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    const selectedNode = this.builderService.selectedNode?.current
+    const { element } = context
+    const options = element
+      ? this.elementDomainService.getSelectOptions(element, this.elementKind)
+      : []
 
     return typedPropSchema(
       this,
       {
         component: ExpressionSelectField,
-        options:
-          selectedNode && isRuntimeElement(selectedNode)
-            ? this.elementDomainService.getSelectOptions(
-                selectedNode.element.current,
-                this.elementKind,
-              )
-            : [],
+        options,
       },
       context,
     )

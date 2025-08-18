@@ -1,16 +1,16 @@
 'use client'
 
-import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
-import type {
-  IInterfaceTypeModel,
-  ITypeTransformContext,
-} from '@codelab/frontend-abstract-domain'
 import type { SetIsLoading } from '@codelab/frontend-presentation-components-form'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { JSONSchemaType } from 'ajv'
 import type { PropsWithChildren } from 'react'
 import type { Assign } from 'utility-types'
 
+import { type IRuntimeContext } from '@codelab/frontend-abstract-application'
+import {
+  type IInterfaceTypeModel,
+  type ITypeTransformContext,
+} from '@codelab/frontend-abstract-domain'
 import {
   type FormProps,
   type SubmitRef,
@@ -64,11 +64,7 @@ export const InterfaceForm = <TData extends ObjectLike, TResponse>({
   const asyncHandler = useAsyncHandler<TData, TResponse>(setIsLoading)
 
   const formSchema = useMemo(() => {
-    const jsonSchema = interfaceType.toJsonSchema({
-      defaultValues: context?.defaultValues,
-      fieldName: context?.fieldName,
-      validationRules: context?.validationRules,
-    })
+    const jsonSchema = interfaceType.toJsonSchema(context ?? {})
 
     return mergeDeep(initialSchema ?? {}, jsonSchema as ObjectLike)
   }, [interfaceType, interfaceType.fields, initialSchema])

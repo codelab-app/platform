@@ -1,6 +1,5 @@
 import type { IReactNodeTypeDto } from '@codelab/shared-abstract-core'
 
-import { getRendererService } from '@codelab/frontend-abstract-application'
 import {
   getComponentDomainService,
   type IReactNodeTypeModel,
@@ -54,30 +53,14 @@ export class ReactNodeType
     return getComponentDomainService(this)
   }
 
-  @computed
-  get renderer() {
-    const activeRenderer = this.rendererService.activeRenderer?.current
-
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
-    }
-
-    return activeRenderer
-  }
-
-  @computed
-  get rendererService() {
-    return getRendererService(this)
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    const currentComponent = this.renderer.runtimeComponent?.component.current
-
     return typedPropSchema(
       this,
       {
         component: ExpressionSelectField,
-        options: this.componentDomainService.getSelectOptions(currentComponent),
+        options: this.componentDomainService.getSelectOptions(
+          context.component,
+        ),
         defaultExpression: COMPONENT_TEMPLATE,
       },
       context,

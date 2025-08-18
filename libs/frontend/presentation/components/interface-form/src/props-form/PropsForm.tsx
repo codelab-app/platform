@@ -1,11 +1,15 @@
 'use client'
 
 import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
-import type { IInterfaceTypeModel } from '@codelab/frontend-abstract-domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend-abstract-types'
 import type { IPropData } from '@codelab/shared-abstract-core'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 
+import {
+  type IInterfaceTypeModel,
+  isPage,
+} from '@codelab/frontend-abstract-domain'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import {
   ExpressionAutoFields,
   type SetIsLoading,
@@ -49,15 +53,26 @@ export const PropsForm = observer<PropsFormProps>(
     submitField,
     submitRef,
   }) => {
-    if (!interfaceType) {
-      return null
+    const { builderService } = useApplicationStore()
+
+    const containerNode = builderService.activeContainer?.current
+
+    const context = {
+      autocomplete,
+      component: builderService.activeComponent?.component.current,
+      store: containerNode?.store.current,
+      providerStore:
+        containerNode && isPage(containerNode)
+          ? containerNode.providerPage?.store.current
+          : undefined,
+      element: builderService.activeElement?.element.current,
     }
 
-    return (
+    return interfaceType ? (
       <div css={cssString}>
         <InterfaceForm
           autosave={autosave}
-          context={{ autocomplete }}
+          context={context}
           initialSchema={initialSchema}
           interfaceType={interfaceType}
           model={model || {}}
@@ -72,6 +87,6 @@ export const PropsForm = observer<PropsFormProps>(
           <ExpressionAutoFields />
         </InterfaceForm>
       </div>
-    )
+    ) : null
   },
 )

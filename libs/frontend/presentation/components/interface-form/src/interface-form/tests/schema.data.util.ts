@@ -1,7 +1,10 @@
+import type { ObjectLike } from '@codelab/shared-abstract-types'
+
 import { HiddenField } from 'uniforms-antd'
 
 export const createTypedPropTypeExpectedSchema = (
   kind: string,
+  uniforms: ObjectLike,
   id: string,
 ) => ({
   label: '',
@@ -26,6 +29,7 @@ export const createTypedPropTypeExpectedSchema = (
     value: {
       label: '',
       type: 'string',
+      uniforms,
     },
   },
   required: ['type', 'kind', 'value'],

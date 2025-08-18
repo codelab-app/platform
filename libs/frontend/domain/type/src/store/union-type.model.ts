@@ -11,6 +11,7 @@ import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { UnionTypeField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { unique } from 'remeda'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
 import { createBaseType } from './base-type.model'
@@ -63,12 +64,13 @@ export class UnionType
         },
         kind: {
           default: this.typesOfUnionType[0]?.current.kind,
-          enum: this.typesOfUnionType.map((type) => type.current.kind),
+          enum: unique(this.typesOfUnionType.map((type) => type.current.kind)),
           type: 'string',
           uniforms: { component: HiddenField },
         },
         type: {
           default: this.typesOfUnionType[0]?.current.id,
+          enum: unique(this.typesOfUnionType.map((type) => type.current.id)),
           type: 'string',
           label: '',
           uniforms: {

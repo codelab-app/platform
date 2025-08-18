@@ -83,8 +83,9 @@ describe('InterfaceForm', () => {
       </InterfaceForm>,
     )
 
-    // Check unionField is rendered
-    expect(container.querySelector('[title="Union field"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[name="unionField.type"]'),
+    ).toBeInTheDocument()
 
     const selectUnionTypeElement = container.querySelector(
       '[name="unionField.type"] .ant-select-selector',
@@ -121,12 +122,7 @@ describe('InterfaceForm', () => {
       typedProp({ kind: intType.kind, type: intType.id }),
     )
 
-    // Update value field
-    const valueField = container.querySelector(
-      `[name="unionField.${intType.id}"]`,
-    )
-
-    // const valueField = getByTestId('unionField.value')
+    const valueField = container.querySelector('[name="unionField.value"]')
 
     Validator.assertsDefined(valueField)
 

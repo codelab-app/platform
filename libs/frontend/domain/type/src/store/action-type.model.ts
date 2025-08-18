@@ -1,6 +1,5 @@
 import type { IActionTypeDto } from '@codelab/shared-abstract-core'
 
-import { getRendererService } from '@codelab/frontend-abstract-application'
 import {
   getActionDomainService,
   type IActionTypeModel,
@@ -23,7 +22,7 @@ const create = ({ id, kind, name, owner }: IActionTypeDto) => {
   return new ActionType({ id, kind, name, owner: userRef(owner.id) })
 }
 
-const ACTION_TEMPLATE = `{{
+export const ACTION_TEMPLATE = `{{
   function(event) {
     // To access component props use component.[prop-name]
     /* your code here */
@@ -42,35 +41,17 @@ export class ActionType
     return getActionDomainService(this)
   }
 
-  @computed
-  get renderer() {
-    const activeRenderer = this.rendererService.activeRenderer?.current
-
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
-    }
-
-    return activeRenderer
-  }
-
-  @computed
-  get rendererService() {
-    return getRendererService(this)
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    const { runtimeContainerNode, runtimeRootContainerNode } = this.renderer
-    const runtimeStore = runtimeContainerNode.runtimeStore
-    const runtimeProviderStore = runtimeRootContainerNode.current.runtimeStore
+    const { providerStore, store } = context
+    const options = store
+      ? this.actionDomainService.getSelectActionOptions(store, providerStore)
+      : []
 
     return typedPropSchema(
       this,
       {
         component: ExpressionSelectField,
-        options: this.actionDomainService.getSelectActionOptions(
-          runtimeStore.store.current,
-          runtimeProviderStore.store.current,
-        ),
+        options,
         defaultExpression: ACTION_TEMPLATE,
       },
       context,
