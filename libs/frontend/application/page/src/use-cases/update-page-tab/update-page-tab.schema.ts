@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -6,11 +7,15 @@ import {
   idSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IPageKind } from '@codelab/shared-abstract-core'
+import { HiddenField, SelectField } from 'uniforms-antd'
 
 import { UrlPatternField } from '../../components'
 
 // pageContentContainer is not required in interface, but is required for _app page
-export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
+export const schema = (
+  kind: IPageKind,
+  elements: Array<SelectOption>,
+): JSONSchemaType<IPageUpdateFormData> =>
   ({
     properties: {
       ...idSchema(),
@@ -20,9 +25,15 @@ export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
         label: '',
         nullable: true,
         properties: {
-          ...idSchema({
+          id: {
             label: 'Page Content Container',
-          }),
+            type: 'string',
+            uniforms: {
+              component:
+                kind === IPageKind.Provider ? SelectField : HiddenField,
+              options: elements,
+            },
+          },
         },
         required: ['id'],
         type: 'object',

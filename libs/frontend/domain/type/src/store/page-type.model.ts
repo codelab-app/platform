@@ -38,7 +38,7 @@ export class PageType
       this,
       {
         component: ExpressionSelectField,
-        options: this.pageDomainService.getSelectOption(),
+        options: this.pageDomainService.getSelectOptions(),
       },
       context,
     )

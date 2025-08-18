@@ -2,9 +2,9 @@ import type {
   IPageDomainService,
   IPageModel,
 } from '@codelab/frontend-abstract-domain'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
 
-import { SelectOption } from '@codelab/frontend-abstract-types'
 import { type IPageDto, IPageKind } from '@codelab/shared-abstract-core'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { computed } from 'mobx'
@@ -24,7 +24,7 @@ export class PageDomainService
     return [...this.pages.values()]
   }
 
-  getSelectOption(): Array<SelectOption> {
+  getSelectOptions(): Array<SelectOption> {
     return this.pagesList
       .filter((page) => page.kind === IPageKind.Regular)
       .map((page) => ({

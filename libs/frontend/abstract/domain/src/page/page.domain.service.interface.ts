@@ -22,6 +22,6 @@ export interface IPageDomainFactory {
 export interface IPageDomainService extends IHydrateable<IPageDto, IPageModel> {
   pages: ObjectMap<IPageModel>
   pagesList: Array<IPageModel>
-  getSelectOption(): Array<SelectOption>
+  getSelectOptions(): Array<SelectOption>
   page(id: string): IPageModel
 }
