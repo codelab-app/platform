@@ -50,13 +50,6 @@ export class ComponentListPage extends BuilderPage {
     })
   }
 
-  clickModalConfirmButton() {
-    const modal = this.getDialog()
-    const button = this.getButton({ key: UiKey.ButtonConfirmation })
-
-    return modal.locator(button).click()
-  }
-
   async expectPreexistingAtoms() {
     return test.step('expectPreexistingAtoms', async () => {
       await expect(this.getCard({ name: 'ReactFragment' })).toBeVisible()
