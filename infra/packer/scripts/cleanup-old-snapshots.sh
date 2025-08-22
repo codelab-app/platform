@@ -13,7 +13,8 @@ echo "Cleaning up old Packer snapshots..."
 
 # Service names to clean up
 SERVICES=(
-  "codelab-app-base"
+  "codelab-services-base"
+  "codelab-consul-server"
   "codelab-api-base"
   "codelab-web-base"
   "codelab-landing-base"

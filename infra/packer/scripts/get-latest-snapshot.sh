@@ -9,7 +9,7 @@ PATTERN="$1"
 if [ -z "$PATTERN" ]; then
   echo "Error: Image name pattern required"
   echo "Usage: $0 <image-name-pattern>"
-  echo "Example: $0 codelab-app-base"
+  echo "Example: $0 codelab-services-base"
   exit 1
 fi
 
