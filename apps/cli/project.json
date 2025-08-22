@@ -44,6 +44,22 @@
     },
     "test": {
       "executor": "@nx/jest:jest"
+    },
+    "run": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "prod",
+      "options": {
+        "buildTarget": "cli:build",
+        "watch": false
+      },
+      "configurations": {
+        "dev": {
+          "buildTarget": "cli:build:dev"
+        },
+        "prod": {
+          "buildTarget": "cli:build:prod"
+        }
+      }
     }
   }
 }

@@ -25,13 +25,13 @@ terraform {
 }
 
 /**
- * Data source to find the latest Packer-built Codelab app base image
- * The Consul server can use the app base image since it doesn't need database tools
+ * Data source to find the latest Packer-built Consul server image
+ * This is a dedicated image with Consul server configuration baked in
  */
-data "digitalocean_images" "codelab_app_base" {
+data "digitalocean_images" "codelab_consul_server" {
   filter {
     key    = "name"
-    values = ["codelab-app-base"]
+    values = ["codelab-consul-server"]
     match_by = "substring"
   }
   filter {
@@ -55,7 +55,7 @@ data "digitalocean_images" "codelab_app_base" {
  * The user_data script configures Consul server mode and starts the service.
  */
 resource "digitalocean_droplet" "consul_server" {
-  image  = data.digitalocean_images.codelab_app_base.images[0].id
+  image  = data.digitalocean_images.codelab_consul_server.images[0].id
   name   = "consul-server"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb"
@@ -68,12 +68,12 @@ resource "digitalocean_droplet" "consul_server" {
   
   ssh_keys = var.ssh_keys
   
-  # No user_data needed - configuration is baked into the image!
-  # The Packer image already knows this is a consul-server from the hostname
+  # No user_data needed - configuration is handled by systemd based on hostname
+  # consul-config.service runs at boot and configures based on hostname
   
   lifecycle {
-    create_before_destroy = true
-    ignore_changes = []
+    create_before_destroy = false
+    ignore_changes = [user_data]
   }
   
   droplet_agent = true

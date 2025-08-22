@@ -5,7 +5,7 @@ import {
   // ScrapeAntdService,
   // ScrapeHtmlService,
   // SeedService,
-  TaskService,
+  TasksService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 import { Module } from '@nestjs/common'
@@ -22,7 +22,7 @@ import { CommandService } from './command.service'
     // ScrapeAntdService,
     // ScrapeHtmlService,
     TerraformService,
-    TaskService,
+    TasksService,
   ],
 })
 export class CommandModule implements OnModuleInit {

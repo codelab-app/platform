@@ -2,7 +2,13 @@
 
 set -x
 
-# Extract the arguments after "pnpm cli"
-args=${@#pnpm cli}
+nx build cli
 
-node dist/apps/cli/main.js $args
+# Build the nx command with each argument passed as a separate --args flag
+nx_command="nx run cli:run:prod"
+for arg in "$@"; do
+  nx_command="$nx_command --args=\"$arg\""
+done
+
+# Execute the command
+eval "$nx_command"
