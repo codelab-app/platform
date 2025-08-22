@@ -67,7 +67,6 @@ This will:
 
 The snapshots will be named:
 - Services Base: `codelab-services-base-YYYY-MM-DD-HHMM`
-- Consul Server: `codelab-consul-server-YYYY-MM-DD-HHMM`
 - API: `codelab-api-base-YYYY-MM-DD-HHMM`
 - Web: `codelab-web-base-YYYY-MM-DD-HHMM`
 - Landing: `codelab-landing-base-YYYY-MM-DD-HHMM`
@@ -188,7 +187,6 @@ Example runtime overhead:
 
 Edit the respective Packer template:
 - Services Base: `infra/packer/modules/services-base/services-base.pkr.hcl`
-- Consul Server: `infra/packer/modules/consul-server/consul-server.pkr.hcl`
 - Services: `infra/packer/modules/services/services.pkr.hcl`
 - Neo4j: `infra/packer/neo4j/codelab-neo4j-base.pkr.hcl`
 

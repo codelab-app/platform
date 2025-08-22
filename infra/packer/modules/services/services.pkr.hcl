@@ -26,7 +26,7 @@ variable "do_region" {
 # Use external data source to get the latest services base snapshot
 # The script will use DO_API_TOKEN from environment
 data "external" "latest_services_base" {
-  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../scripts/get-latest-snapshot.sh codelab-services-base"]
+  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../../scripts/get-latest-snapshot.sh codelab-services-base"]
 }
 
 locals {
@@ -147,11 +147,9 @@ build {
     inline = [
       "echo 'Service-specific image built successfully'",
       "",
-      "# Wait for any apt processes to finish gracefully",
-      "while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1 || fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do",
-      "  echo 'Waiting for apt lock to be released...'",
-      "  sleep 2",
-      "done",
+      "# Wait for apt locks to be released",
+      "while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 1; done",
+      "while fuser /var/cache/apt/archives/lock >/dev/null 2>&1; do sleep 1; done",
       "",
       "# Clean up temporary files",
       "rm -rf /tmp/* /var/tmp/*",
