@@ -66,7 +66,12 @@ This will:
 4. Destroy the temporary droplet
 
 The snapshots will be named:
-- App: `codelab-app-base-YYYY-MM-DD-HHMM`
+- Services Base: `codelab-services-base-YYYY-MM-DD-HHMM`
+- Consul Server: `codelab-consul-server-YYYY-MM-DD-HHMM`
+- API: `codelab-api-base-YYYY-MM-DD-HHMM`
+- Web: `codelab-web-base-YYYY-MM-DD-HHMM`
+- Landing: `codelab-landing-base-YYYY-MM-DD-HHMM`
+- Sites: `codelab-sites-base-YYYY-MM-DD-HHMM`
 - Neo4j: `codelab-neo4j-base-YYYY-MM-DD-HHMM`
 
 ### Additional CLI Commands
@@ -113,8 +118,8 @@ Terraform automatically finds the latest image using a data source:
 
 ```hcl
 # For app services (API, Web, Landing, Sites)
-data "digitalocean_image" "app_base" {
-  name_regex  = "^codelab-app-base-.*"
+data "digitalocean_image" "services_base" {
+  name_regex  = "^codelab-services-base-.*"
   region      = var.digitalocean_region
   most_recent = true
 }
@@ -127,7 +132,7 @@ data "digitalocean_image" "neo4j_base" {
 }
 
 resource "digitalocean_droplet" "api" {
-  image = data.digitalocean_image.app_base.id
+  image = data.digitalocean_image.services_base.id
   # ... other configuration
 }
 
@@ -182,7 +187,9 @@ Example runtime overhead:
 ### Updating Software Versions
 
 Edit the respective Packer template:
-- App: `infra/packer/app/codelab-app-base.pkr.hcl`
+- Services Base: `infra/packer/modules/services-base/services-base.pkr.hcl`
+- Consul Server: `infra/packer/modules/consul-server/consul-server.pkr.hcl`
+- Services: `infra/packer/modules/services/services.pkr.hcl`
 - Neo4j: `infra/packer/neo4j/codelab-neo4j-base.pkr.hcl`
 
 ```hcl
