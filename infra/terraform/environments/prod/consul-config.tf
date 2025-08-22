@@ -102,21 +102,3 @@ resource "consul_key_prefix" "app_config" {
   
   depends_on = [module.consul]
 }
-
-# Create a webhook token for Terraform Cloud notifications
-resource "random_password" "webhook_token" {
-  length  = 32
-  special = false
-}
-
-# Store webhook token in Consul for validation
-resource "consul_keys" "webhook" {
-  datacenter = module.consul.consul_datacenter
-  
-  key {
-    path  = "config/terraform/webhook_token"
-    value = random_password.webhook_token.result
-  }
-  
-  depends_on = [module.consul]
-}

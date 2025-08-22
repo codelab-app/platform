@@ -2,6 +2,7 @@ import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 
 import { execCommand } from '@codelab/backend-infra-adapter-shell'
 import { Injectable } from '@nestjs/common'
+import { get } from 'env-var'
 import { existsSync } from 'fs'
 import { join } from 'path'
 
@@ -41,9 +42,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
         (argv) =>
           argv
             .positional('image', {
-              describe: 'Image to build (app, services, all)',
+              describe:
+                'Image to build (services-base, consul-server, services, all)',
               type: 'string',
-              default: 'app',
+              default: 'services-base',
             })
             .options({
               force: {
@@ -64,23 +66,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
               },
             }),
         ({ debug, force, image, varFile }) => {
-          // Get DigitalOcean token from environment - access directly from process.env
-          // since getEnv() is initialized before ConfigModule loads the .env file
-          const digitalOceanToken = process.env['DIGITALOCEAN_API_TOKEN']
-
-          if (!digitalOceanToken) {
-            console.error(
-              '❌ Error: DIGITALOCEAN_API_TOKEN is not set or empty',
-            )
-            console.error(
-              'Please add your DigitalOcean API token to apps/cli/.env:',
-            )
-            console.error('  DIGITALOCEAN_API_TOKEN=your_actual_token_here')
-            console.error(
-              '\nYou can get a token from: https://cloud.digitalocean.com/account/api/tokens',
-            )
-            process.exit(1)
-          }
+          const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
+            .required()
+            .asString()
 
           const buildOptions = {
             debug,
@@ -93,20 +81,29 @@ export class PackerService implements CommandModule<unknown, unknown> {
             case 'all':
               console.log('Building all images...\n')
 
-              // Build app first (base image)
-              console.log('Step 1: Building base image...')
-              this.buildImage(this.imageConfigs.app, buildOptions)
+              // Build services-base first (base image)
+              console.log('Step 1: Building services base image...')
+              this.buildImage(this.imageConfigs['services-base'], buildOptions)
               console.log('')
 
-              // Then build services (which depend on app)
-              console.log('Step 2: Building service images...')
+              // Build consul server (depends on app)
+              console.log('Step 2: Building Consul server image...')
+              this.buildImage(this.imageConfigs['consul-server'], buildOptions)
+              console.log('')
+
+              // Then build services (which depend on services-base)
+              console.log('Step 3: Building service images...')
               this.buildImage(this.imageConfigs.services, buildOptions)
               console.log('')
 
               break
 
-            case 'base': // Legacy alias for app
-              this.buildImage(this.imageConfigs.app, buildOptions)
+            case 'base': // Legacy alias for services-base
+              this.buildImage(this.imageConfigs['services-base'], buildOptions)
+              break
+
+            case 'consul-server':
+              this.buildImage(this.imageConfigs['consul-server'], buildOptions)
               break
 
             case 'services':
@@ -121,7 +118,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
               } else {
                 console.error(`Unknown image: ${image}`)
                 console.log(
-                  'Available images: app, services, all (or base for legacy)',
+                  'Available images: services-base, consul-server, services, all (or base for legacy)',
                 )
                 process.exit(1)
               }
@@ -136,9 +133,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
         (argv) =>
           argv
             .positional('image', {
-              describe: 'Image to validate (app, services, all)',
+              describe:
+                'Image to validate (services-base, consul-server, services, all)',
               type: 'string',
-              default: 'app',
+              default: 'services-base',
             })
             .options({
               'var-file': {
@@ -147,7 +145,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
               },
             }),
         ({ image, varFile }) => {
-          const digitalOceanToken = process.env['DIGITALOCEAN_API_TOKEN']
+          const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
+            .required()
+            .asString()
 
           const varFileFlag = varFile ? `-var-file="${varFile}"` : ''
 
@@ -164,26 +164,34 @@ export class PackerService implements CommandModule<unknown, unknown> {
             case 'all':
               console.log('Validating all image templates...')
 
-              // Validate app first
-              console.log('Step 1: Validating base image...')
-              validateImage(this.imageConfigs.app)
+              // Validate services-base first
+              console.log('Step 1: Validating services base image...')
+              validateImage(this.imageConfigs['services-base'])
+
+              // Validate consul server
+              console.log('Step 2: Validating Consul server image...')
+              validateImage(this.imageConfigs['consul-server'])
 
               // Then validate services
-              console.log('Step 2: Validating service images...')
+              console.log('Step 3: Validating service images...')
               validateImage(this.imageConfigs.services)
 
               break
 
-            case 'app':
-              validateImage(this.imageConfigs.app)
+            case 'base': // Legacy alias
+              validateImage(this.imageConfigs['services-base'])
               break
 
-            case 'base': // Legacy alias
-              validateImage(this.imageConfigs.app)
+            case 'consul-server':
+              validateImage(this.imageConfigs['consul-server'])
               break
 
             case 'services':
               validateImage(this.imageConfigs.services)
+              break
+
+            case 'services-base':
+              validateImage(this.imageConfigs['services-base'])
               break
 
             default:
@@ -193,7 +201,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
                 validateImage(config)
               } else {
                 console.error(`Unknown image: ${image}`)
-                console.log('Available images: app, services, all')
+                console.log('Available images: services-base, services, all')
                 process.exit(1)
               }
           }
@@ -210,48 +218,6 @@ export class PackerService implements CommandModule<unknown, unknown> {
           execCommand(
             'doctl compute image list --public=false | grep "codelab-.*-base"',
           )
-        },
-      )
-      .command(
-        'clean-images',
-        'Remove old Packer-built images (keeps latest 3)',
-        (argv) =>
-          argv.options({
-            'dry-run': {
-              describe: 'Show what would be deleted without deleting',
-              type: 'boolean',
-              default: false,
-            },
-          }),
-        ({ 'dry-run': dryRun }) => {
-          console.log('Finding old Packer images to clean...')
-
-          if (dryRun) {
-            console.log('DRY RUN - No images will be deleted')
-            execCommand(`
-              doctl compute image list --public=false --format ID,Name,Created --no-header |
-              grep "codelab-.*-base" |
-              sort -k3 -r |
-              tail -n +4 |
-              awk '{print "Would delete: " $2 " (ID: " $1 ", Created: " $3 ")"}'
-            `)
-          } else {
-            console.log('Deleting old images (keeping latest 3)...')
-            execCommand(`
-              doctl compute image list --public=false --format ID --no-header |
-              grep -E "^[0-9]+" |
-              while read id; do
-                name=$(doctl compute image get $id --format Name --no-header)
-                if [[ $name == codelab-*-base* ]]; then
-                  echo "Found: $name (ID: $id)"
-                fi
-              done |
-              sort -r |
-              tail -n +4 |
-              awk '{print $3}' |
-              xargs -I {} doctl compute image delete {} --force
-            `)
-          }
         },
       )
       .command(
@@ -334,30 +300,74 @@ export class PackerService implements CommandModule<unknown, unknown> {
       console.log(`  Variables file: ${varFile}`)
     }
 
+    // Clean up old snapshots before building to avoid hitting DigitalOcean limits
+    console.log('\n🧹 Cleaning up old snapshots before build...')
+    try {
+      // Use the external cleanup script
+      execCommand(
+        `DO_API_TOKEN="${digitalOceanToken}" ${this.packerDir}/scripts/cleanup-old-snapshots.sh`,
+      )
+      console.log('✅ Old snapshots cleaned up (kept latest)')
+    } catch (error) {
+      console.warn('⚠️  Snapshot cleanup failed, continuing with build...')
+    }
+
     const imageDir = join(this.packerDir, imageConfig.dir)
 
-    // Initialize Packer
-    console.log(`\n🔧 Initializing Packer in ${imageDir}...`)
-    execCommand(`cd ${imageDir} && packer init .`)
+    // Set up cleanup handler for Ctrl+C
+    const cleanup = () => {
+      console.log('\n\n🧹 Cleaning up Packer build droplets...')
+      try {
+        // Delete all packer build droplets
+        execCommand(
+          'doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk \'{print $1}\' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true',
+        )
+        console.log('✅ Cleanup completed')
+      } catch (error) {
+        console.error(
+          '⚠️  Cleanup failed, please manually check DigitalOcean for stuck droplets',
+        )
+      }
+      process.exit(1)
+    }
 
-    // Build the image
-    console.log('\n🚀 Building image with Packer...')
-    execCommand(
-      `cd ${imageDir} && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" ${imageConfig.template}`,
-    )
+    // Register signal handlers
+    process.on('SIGINT', cleanup) // Ctrl+C
+    process.on('SIGTERM', cleanup) // Kill signal
 
-    console.log(`\n✅ ${imageConfig.name} image built successfully`)
+    try {
+      // Initialize Packer
+      console.log(`\n🔧 Initializing Packer in ${imageDir}...`)
+      execCommand(`cd ${imageDir} && packer init .`)
+
+      // Build the image (Packer will fetch the latest snapshot automatically via external data source)
+      console.log('\n🚀 Building image with Packer...')
+      execCommand(
+        `cd ${imageDir} && ${debugFlag} packer build ${forceFlag} ${varFileFlag} -var "do_token=${digitalOceanToken}" ${imageConfig.template}`,
+      )
+
+      console.log(`\n✅ ${imageConfig.name} image built successfully`)
+    } finally {
+      // Remove signal handlers after completion
+      process.removeListener('SIGINT', cleanup)
+      process.removeListener('SIGTERM', cleanup)
+    }
   }
   private readonly imageConfigs = {
-    app: {
-      name: 'app',
-      dir: 'app',
-      template: 'codelab-app-base.pkr.hcl',
+    'services-base': {
+      name: 'services-base',
+      dir: 'modules/services-base',
+      template: 'services-base.pkr.hcl',
+    },
+    'consul-server': {
+      name: 'consul-server',
+      dir: 'modules/consul-server',
+      template: 'consul-server.pkr.hcl',
     },
     services: {
       name: 'services',
-      dir: 'services',
-      template: 'codelab-services.pkr.hcl',
+      dir: 'modules/services',
+      template: 'services.pkr.hcl',
     },
   } as const satisfies Record<string, ImageConfig>
 

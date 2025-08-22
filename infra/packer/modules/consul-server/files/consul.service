@@ -1,9 +1,9 @@
 [Unit]
 Description=Consul
 Documentation=https://www.consul.io/
-Requires=network-online.target
-After=network-online.target
-ConditionFileNotEmpty=/etc/consul.d/consul.hcl
+Requires=network-online.target consul-config.service
+After=network-online.target consul-config.service
+ConditionFileNotEmpty=/etc/consul.d/consul-base.hcl
 
 [Service]
 Type=notify
