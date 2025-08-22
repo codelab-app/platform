@@ -10,11 +10,13 @@ interface PackerBuildOptions {
   debug?: boolean
   force?: boolean
   image?: string
+  stage?: string
   varFile?: string
 }
 
 interface PackerValidateOptions {
   image?: string
+  stage?: string
   varFile?: string
 }
 
@@ -43,9 +45,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
           argv
             .positional('image', {
               describe:
-                'Image to build (services-base, consul-server, services, all)',
+                'Image to build (services-base, consul-server, services, or leave empty to build all)',
               type: 'string',
-              default: 'services-base',
             })
             .options({
               force: {
@@ -65,7 +66,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
                 default: false,
               },
             }),
-        ({ debug, force, image, varFile }) => {
+        ({ debug, force, image, stage, varFile }) => {
           const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
             .required()
             .asString()
@@ -74,30 +75,11 @@ export class PackerService implements CommandModule<unknown, unknown> {
             debug,
             digitalOceanToken,
             force,
+            stage,
             varFile,
           }
 
           switch (image) {
-            case 'all':
-              console.log('Building all images...\n')
-
-              // Build services-base first (base image)
-              console.log('Step 1: Building services base image...')
-              this.buildImage(this.imageConfigs['services-base'], buildOptions)
-              console.log('')
-
-              // Build consul server (depends on app)
-              console.log('Step 2: Building Consul server image...')
-              this.buildImage(this.imageConfigs['consul-server'], buildOptions)
-              console.log('')
-
-              // Then build services (which depend on services-base)
-              console.log('Step 3: Building service images...')
-              this.buildImage(this.imageConfigs.services, buildOptions)
-              console.log('')
-
-              break
-
             case 'base': // Legacy alias for services-base
               this.buildImage(this.imageConfigs['services-base'], buildOptions)
               break
@@ -110,15 +92,24 @@ export class PackerService implements CommandModule<unknown, unknown> {
               this.buildImage(this.imageConfigs.services, buildOptions)
               break
 
+
             default:
-              if (image && image in this.imageConfigs) {
+              if (!image) {
+                // No image specified - build environment file for stage
+                console.log(`Building ${stage} environment...\n`)
+                this.buildImage({
+                  name: `${stage}-environment`,
+                  dir: 'environments',
+                  template: `${stage}.pkr.hcl`,
+                }, buildOptions)
+              } else if (image in this.imageConfigs) {
                 const config =
                   this.imageConfigs[image as keyof typeof this.imageConfigs]
                 this.buildImage(config, buildOptions)
               } else {
                 console.error(`Unknown image: ${image}`)
                 console.log(
-                  'Available images: services-base, consul-server, services, all (or base for legacy)',
+                  'Available images: services-base, consul-server, services',
                 )
                 process.exit(1)
               }
@@ -134,9 +125,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
           argv
             .positional('image', {
               describe:
-                'Image to validate (services-base, consul-server, services, all)',
+                'Image to validate (services-base, consul-server, services, or leave empty to validate all)',
               type: 'string',
-              default: 'services-base',
             })
             .options({
               'var-file': {
@@ -144,7 +134,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
                 type: 'string',
               },
             }),
-        ({ image, varFile }) => {
+        ({ image, stage, varFile }) => {
           const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
             .required()
             .asString()
@@ -161,23 +151,6 @@ export class PackerService implements CommandModule<unknown, unknown> {
           }
 
           switch (image) {
-            case 'all':
-              console.log('Validating all image templates...')
-
-              // Validate services-base first
-              console.log('Step 1: Validating services base image...')
-              validateImage(this.imageConfigs['services-base'])
-
-              // Validate consul server
-              console.log('Step 2: Validating Consul server image...')
-              validateImage(this.imageConfigs['consul-server'])
-
-              // Then validate services
-              console.log('Step 3: Validating service images...')
-              validateImage(this.imageConfigs.services)
-
-              break
-
             case 'base': // Legacy alias
               validateImage(this.imageConfigs['services-base'])
               break
@@ -194,14 +167,23 @@ export class PackerService implements CommandModule<unknown, unknown> {
               validateImage(this.imageConfigs['services-base'])
               break
 
+
             default:
-              if (image && image in this.imageConfigs) {
+              if (!image) {
+                // No image specified - validate environment file for stage
+                console.log(`Validating ${stage} environment configuration...`)
+                validateImage({
+                  name: `${stage}-environment`,
+                  dir: 'environments',
+                  template: `${stage}.pkr.hcl`,
+                })
+              } else if (image in this.imageConfigs) {
                 const config =
                   this.imageConfigs[image as keyof typeof this.imageConfigs]
                 validateImage(config)
               } else {
                 console.error(`Unknown image: ${image}`)
-                console.log('Available images: services-base, services, all')
+                console.log('Available images: services-base, consul-server, services')
                 process.exit(1)
               }
           }
@@ -278,6 +260,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
       debug?: boolean
       digitalOceanToken: string
       force?: boolean
+      stage?: string
       varFile?: string
     },
   ): void {
