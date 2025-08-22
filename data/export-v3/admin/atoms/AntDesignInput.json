@@ -332,11 +332,31 @@
         "id": "b9b45e23-72fc-43f7-9f8e-4827d3746856",
         "key": "variant",
         "name": "Variant",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "f7efb3c3-8758-4a41-b7d5-44c34c41ca93"
+        },
         "prevSibling": {
           "id": "cdd26028-c983-4e81-b96c-7a37d9851b8a"
         },
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "212bfad8-3333-4207-a935-044b586897cb"
+        },
+        "defaultValues": "\"Placeholder\"",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "f7efb3c3-8758-4a41-b7d5-44c34c41ca93",
+        "key": "placeholder",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": {
+          "id": "b9b45e23-72fc-43f7-9f8e-4827d3746856"
+        },
+        "validationRules": "{}"
       }
     ],
     "id": "212bfad8-3333-4207-a935-044b586897cb",

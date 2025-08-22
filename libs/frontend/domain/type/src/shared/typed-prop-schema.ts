@@ -38,7 +38,9 @@ export const typedPropSchema = (
       },
     },
     ...validationRules?.general,
-    ...(defaultValues ? { default: defaultValues } : {}),
+    ...(defaultValues
+      ? { default: defaultValues }
+      : { default: { kind, type: id } }),
     label: '',
     required: ['type', 'kind'],
     type: 'object',
