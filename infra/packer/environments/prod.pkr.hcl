@@ -50,9 +50,9 @@ variable "doctl_version" {
   default     = "1.104.0"
 }
 
-# Get latest services-base snapshot for dependent images
+# Get latest services-base or app-base snapshot for dependent images
 data "external" "latest_services_base" {
-  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../scripts/get-latest-snapshot.sh codelab-services-base"]
+  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../scripts/get-latest-base-snapshot.sh"]
 }
 
 locals {
