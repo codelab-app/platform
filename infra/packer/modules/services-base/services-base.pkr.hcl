@@ -132,7 +132,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "files/consul-base.hcl"
+    source      = "../consul-base/consul-base.hcl"
     destination = "/etc/consul.d/consul-base.hcl"
   }
 

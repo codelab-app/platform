@@ -2,7 +2,7 @@
  * Consul Server Image for Codelab Platform
  *
  * This Packer template creates a DigitalOcean snapshot specifically
- * for the Consul server node. It extends the app base image with
+ * for the Consul server node. It extends the services base image with
  * Consul server-specific configuration.
  *
  * Key differences from client nodes:
@@ -39,7 +39,7 @@ variable "region" {
 
 # Use external data source to get the latest services base snapshot
 data "external" "latest_services_base" {
-  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../scripts/get-latest-snapshot.sh codelab-services-base"]
+  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../../scripts/get-latest-snapshot.sh codelab-services-base"]
 }
 
 locals {
@@ -61,26 +61,17 @@ source "digitalocean" "consul_server" {
 build {
   sources = ["source.digitalocean.consul_server"]
 
-  # Remove client configuration and add server configuration
+  # Copy server configuration
+  provisioner "file" {
+    source      = "files/consul-server.hcl"
+    destination = "/etc/consul.d/consul-server.hcl"
+  }
+
+  # Configure as server
   provisioner "shell" {
     inline = [
       "# Remove any client configuration from base image",
       "rm -f /etc/consul.d/consul-client.hcl",
-      "",
-      "# Create Consul server configuration",
-      "cat > /etc/consul.d/consul-server.hcl << 'EOF'",
-      "# Consul server-specific configuration",
-      "server = true",
-      "bootstrap_expect = 1",
-      "",
-      "# Enable UI on server",
-      "ui_config {",
-      "  enabled = true",
-      "}",
-      "",
-      "# Listen on all interfaces for UI and API access",
-      "client_addr = \"0.0.0.0\"",
-      "EOF",
       "",
       "# Set proper permissions",
       "chown consul:consul /etc/consul.d/consul-server.hcl",

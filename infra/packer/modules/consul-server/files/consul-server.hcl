@@ -1,5 +1,5 @@
 # Consul server-specific configuration
-# This file is only used on the Consul server node
+# This file is used on the Consul server node
 
 server = true
 bootstrap_expect = 1
