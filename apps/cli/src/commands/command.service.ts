@@ -2,7 +2,7 @@ import type {
   PackerService,
   // ScrapeAntdService,
   // ScrapeHtmlService,
-  TasksService,
+  TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 
@@ -17,7 +17,7 @@ export class CommandService {
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     private readonly terraformService: TerraformService,
-    private readonly tasksService: TasksService,
+    private readonly taskService: TaskService,
   ) {}
 
   exec() {
@@ -46,7 +46,7 @@ export class CommandService {
       /**
        * These scripts don't require env to be explicitly set
        */
-      .command(this.tasksService)
+      .command(this.taskService)
       /**
        * This uses puppeteer to scrape the API documentation as CSV file
        */
