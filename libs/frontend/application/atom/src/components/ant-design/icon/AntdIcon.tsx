@@ -23,7 +23,7 @@ export const AntdIcon: React.FC<_IconProps> = ({ name, ...props }) => {
   useEffect(() => {
     const loadIcon = async () => {
       const iconImport = await import(`@ant-design/icons/lib/icons/${name}`)
-      const Component = (iconImport as { default?: unknown })?.default
+      const Component = iconImport?.default
 
       if (Component) {
         iconCache[name] = Component as React.ComponentType<IconProps>
