@@ -7,7 +7,6 @@ import { existsSync } from 'fs'
 import { join } from 'path'
 
 enum PackerImage {
-  ConsulServer = 'consul-server',
   Services = 'services',
   ServicesBase = 'services-base',
 }
@@ -248,7 +247,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
       process.removeListener('SIGTERM', cleanup)
     }
   }
-  // Order matters: services-base must be built first, then consul-server and services
+  // Build order: services-base must be built first, then services (which includes all service images)
   private readonly imageConfigs: Array<{
     image: PackerImage
     config: ImageConfig
@@ -259,14 +258,6 @@ export class PackerService implements CommandModule<unknown, unknown> {
         name: 'services-base',
         dir: 'modules/services-base',
         template: 'services-base.pkr.hcl',
-      },
-    },
-    {
-      image: PackerImage.ConsulServer,
-      config: {
-        name: 'consul-server',
-        dir: 'modules/consul-server',
-        template: 'consul-server.pkr.hcl',
       },
     },
     {
