@@ -70,13 +70,7 @@ build {
       "# Wait for cloud-init to complete",
       "cloud-init status --wait || true",
       "",
-      "# Disable automatic updates immediately to prevent conflicts",
-      "systemctl stop unattended-upgrades || true",
-      "systemctl disable unattended-upgrades || true",
-      "killall -9 apt-get || true",
-      "killall -9 dpkg || true",
-      "",
-      "# Wait for any remaining apt/dpkg processes to finish",
+      "# Wait for any apt/dpkg processes to finish",
       "while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1 || fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do",
       "  echo 'Waiting for apt/dpkg lock...'",
       "  sleep 2",
@@ -151,7 +145,6 @@ build {
     destination = "/etc/systemd/system/consul.service"
   }
 
-
   provisioner "file" {
     source      = "files/consul-template.service"
     destination = "/etc/systemd/system/consul-template.service"
@@ -167,56 +160,37 @@ build {
     destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
-  # Setup permissions and enable services
+  # Setup permissions, enable services, and optimize
   provisioner "shell" {
     inline = [
-      "",
-      "# Set permissions",
+      "# Set Consul permissions",
       "chown -R consul:consul /etc/consul.d /opt/consul /var/log/consul",
-      "",
-      "# Enable services",
-      "systemctl daemon-reload",
-      "systemctl enable docker",
-      "systemctl enable consul",
-      "systemctl enable docker-login",
-      "systemctl enable consul-template",
       "",
       "# Create static Consul encryption key",
       "echo 'kLQhfLQVzl8DSFZW7alQrPX6kZL0FovN8EdSYy5hLXE=' > /etc/consul.d/encrypt.key",
       "chmod 600 /etc/consul.d/encrypt.key",
       "chown consul:consul /etc/consul.d/encrypt.key",
       "",
-      "# Clean up",
-      "apt-get clean",
-      "rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*",
-      "truncate -s 0 /var/log/*log"
-    ]
-  }
-
-  # Final optimizations and cleanup
-  provisioner "shell" {
-    inline = [
+      "# Enable services",
+      "systemctl daemon-reload",
+      "systemctl enable docker consul docker-login consul-template",
+      "",
       "# Kernel tuning for containers",
       "echo 'vm.max_map_count=262144' >> /etc/sysctl.conf",
       "echo 'net.core.somaxconn=1024' >> /etc/sysctl.conf",
       "",
-      "# Remove package manager cache to reduce image size",
+      "# Permanently disable automatic apt updates",
+      "systemctl mask apt-daily.service apt-daily-upgrade.service unattended-upgrades.service",
+      "",
+      "# Clean up to reduce image size",
       "apt-get clean",
       "rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*",
-      "",
-      "# Remove unnecessary files",
       "rm -rf /usr/share/doc/* /usr/share/man/* /usr/share/info/*",
       "find /var/cache -type f -delete",
       "find /var/log -type f -delete",
       "",
-      "# CRITICAL: Trim filesystem to discard unused blocks",
-      "# This tells DigitalOcean which blocks are actually unused",
-      "# Without this, snapshots will be the full disk size (25-80GB)",
-      "# With this, snapshots will only be actual data size (2-3GB)",
-      "fstrim -av",
-      "",
-      "# Sync to ensure all data is written",
-      "sync"
+      "# Trim filesystem to minimize snapshot size (25GB -> 2-3GB)",
+      "fstrim -av"
     ]
   }
 }

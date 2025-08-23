@@ -147,17 +147,10 @@ build {
     inline = [
       "echo 'Service-specific image built successfully'",
       "",
-      "# Wait for apt locks to be released",
-      "while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 1; done",
-      "while fuser /var/cache/apt/archives/lock >/dev/null 2>&1; do sleep 1; done",
-      "",
-      "# Clean up temporary files",
+      "# Clean up temporary files only (no apt operations needed)",
       "rm -rf /tmp/* /var/tmp/*",
-      "apt-get clean",
-      "rm -rf /var/lib/apt/lists/*",
       "",
-      "# CRITICAL: Trim filesystem to minimize snapshot size",
-      "# Without this, snapshots are 60GB. With this, only ~2-3GB is billed",
+      "# Trim filesystem to minimize snapshot size",
       "fstrim -av"
     ]
   }
