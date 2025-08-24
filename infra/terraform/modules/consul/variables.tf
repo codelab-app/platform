@@ -20,12 +20,6 @@ variable "datacenter" {
   default     = "codelab-dc1"
 }
 
-variable "consul_encryption_key" {
-  type        = string
-  description = "Consul gossip encryption key (generate with: consul keygen)"
-  sensitive   = true
-}
-
 variable "digitalocean_access_token" {
   type        = string
   description = "DigitalOcean access token for backup operations"

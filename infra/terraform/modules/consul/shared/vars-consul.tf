@@ -12,9 +12,3 @@ variable "consul_datacenter" {
   description = "Consul datacenter name"
   default     = "dc1"
 }
-
-variable "consul_encryption_key" {
-  type        = string
-  description = "Consul gossip encryption key"
-  sensitive   = true
-}

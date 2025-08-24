@@ -17,5 +17,4 @@ module "codelab_landing" {
   # Consul configuration
   consul_server_ip      = module.consul.consul_server_private_ip
   consul_datacenter     = module.consul.consul_datacenter
-  consul_encryption_key = var.CONSUL_ENCRYPT_KEY
 }

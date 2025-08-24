@@ -50,6 +50,13 @@ variable "doctl_version" {
   default     = "1.104.0"
 }
 
+variable "consul_encrypt_key" {
+  type        = string
+  description = "Consul gossip encryption key (generate with: consul keygen) - Set via CONSUL_ENCRYPT_KEY env var"
+  sensitive   = true
+  # No default - will fail if not provided
+}
+
 source "digitalocean" "services_base" {
   api_token     = var.do_token
   droplet_name  = "packer-codelab-services-base-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
@@ -130,6 +137,15 @@ build {
     destination = "/etc/consul.d/consul-base.hcl"
   }
 
+  provisioner "shell" {
+    environment_vars = [
+      "CONSUL_ENCRYPT_KEY=${var.consul_encrypt_key}"
+    ]
+    inline = [
+      "echo \"encrypt = \\\"$CONSUL_ENCRYPT_KEY\\\"\" > /etc/consul.d/encryption.hcl"
+    ]
+  }
+
   provisioner "file" {
     source      = "files/consul-client.hcl"
     destination = "/etc/consul.d/consul-client.hcl"
@@ -165,11 +181,7 @@ build {
     inline = [
       "# Set Consul permissions",
       "chown -R consul:consul /etc/consul.d /opt/consul /var/log/consul",
-      "",
-      "# Create static Consul encryption key",
-      "echo 'kLQhfLQVzl8DSFZW7alQrPX6kZL0FovN8EdSYy5hLXE=' > /etc/consul.d/encrypt.key",
-      "chmod 600 /etc/consul.d/encrypt.key",
-      "chown consul:consul /etc/consul.d/encrypt.key",
+      "chmod 640 /etc/consul.d/encryption.hcl",
       "",
       "# Enable services",
       "systemctl daemon-reload",

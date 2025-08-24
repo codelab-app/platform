@@ -5,13 +5,11 @@ datacenter = "sgp1"
 data_dir = "/opt/consul"
 log_level = "INFO"
 
-# Use hostname as node name
-node_name = "{{ env \"HOSTNAME\" }}"
-
 # Encryption key for gossip protocol
-encrypt = "{{ file \"/etc/consul.d/encrypt.key\" }}"
+# This should be provided via environment variable or file at runtime
+# encrypt = "YOUR_ENCRYPTION_KEY_HERE"
 
-# Bind to all interfaces - Consul will figure out the best advertise address
+# Bind to all interfaces
 bind_addr = "0.0.0.0"
 
 # Enable service mesh
