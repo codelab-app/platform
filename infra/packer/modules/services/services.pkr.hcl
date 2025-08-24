@@ -95,6 +95,18 @@ source "digitalocean" "neo4j" {
   tags         = ["packer", "neo4j", "service"]
 }
 
+source "digitalocean" "consul_server" {
+  api_token    = var.do_token
+  image        = local.base_image_id
+  region       = var.do_region
+  size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
+  ssh_username = "root"
+  snapshot_name = "codelab-consul-server-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_regions = [var.do_region]
+  droplet_name = "packer-codelab-consul-server-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  tags         = ["packer", "consul", "server"]
+}
+
 # Build configuration for all services
 build {
   # Build all service images in parallel
@@ -104,7 +116,8 @@ build {
     "source.digitalocean.web",
     "source.digitalocean.landing",
     "source.digitalocean.sites",
-    "source.digitalocean.neo4j"
+    "source.digitalocean.neo4j",
+    "source.digitalocean.consul_server"
   ]
 
   # API-specific template
@@ -140,6 +153,13 @@ build {
     only        = ["digitalocean.neo4j"]
     source      = "templates/docker-compose-neo4j.ctmpl"
     destination = "/etc/consul-template/templates/docker-compose.ctmpl"
+  }
+
+  # Consul server configuration (overrides client config from base)
+  provisioner "file" {
+    only        = ["digitalocean.consul_server"]
+    source      = "files/consul-server.hcl"
+    destination = "/etc/consul.d/consul-server.hcl"
   }
 
   # Clean up and optimize snapshot size
