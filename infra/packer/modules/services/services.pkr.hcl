@@ -23,6 +23,15 @@ variable "do_region" {
   default     = "sgp1"
 }
 
+# This variable is passed by the CLI but not used in this build
+# The encryption key is already baked into the services-base image
+# We define it here only to avoid "undefined variable" errors
+variable "consul_encrypt_key" {
+  type        = string
+  description = "Consul gossip encryption key (not used - already in base image)"
+  sensitive   = true
+}
+
 # Use external data source to get the latest services base snapshot
 # The script will use DO_API_TOKEN from environment
 data "external" "latest_services_base" {
@@ -155,7 +164,37 @@ build {
     destination = "/etc/consul-template/templates/docker-compose.ctmpl"
   }
 
-  # Consul server configuration (overrides client config from base)
+  # CRITICAL: Selective Consul configuration based on node type
+  #
+  # Background: Consul loads ALL .hcl files from /etc/consul.d/ and merges them.
+  # File names like 'consul-client.hcl' are NOT special - they're just descriptive.
+  #
+  # The Original Issue (discovered during Terraform Cloud integration):
+  # 1. services-base image included consul-client.hcl for all services
+  # 2. consul-client.hcl sets client_addr = "127.0.0.1" (security: API on localhost only)
+  # 3. consul-server also inherited this file from the base image
+  # 4. consul-server.hcl sets client_addr = "0.0.0.0" (needed for external API access)
+  # 5. Both files were loaded and merged, causing conflict
+  # 6. Result: Consul server API was restricted to localhost, breaking Terraform Cloud access
+  #    Error: "dial tcp 152.42.251.206:8500: connect: connection refused"
+  #
+  # The Fix:
+  # - Remove consul-client.hcl from base image (see services-base.pkr.hcl)
+  # - Add it selectively here: only to client nodes, NOT to consul-server
+  # - This ensures proper network access for each node type
+  
+  # Add consul-client.hcl to all CLIENT services (api, web, landing, sites, neo4j)
+  # These nodes only need local API access for security
+  provisioner "file" {
+    except      = ["digitalocean.consul_server"]
+    source      = "files/consul-client.hcl"
+    destination = "/etc/consul.d/consul-client.hcl"
+  }
+
+  # Consul SERVER configuration - needs external API access for:
+  # - Terraform Cloud to write configuration via consul provider
+  # - Consul UI access from browsers
+  # - CLI access for administration
   provisioner "file" {
     only        = ["digitalocean.consul_server"]
     source      = "files/consul-server.hcl"

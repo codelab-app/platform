@@ -146,10 +146,26 @@ build {
     ]
   }
 
-  provisioner "file" {
-    source      = "files/consul-client.hcl"
-    destination = "/etc/consul.d/consul-client.hcl"
-  }
+  # IMPORTANT: consul-client.hcl is NOT copied here to the base image
+  # 
+  # Why: Consul loads ALL .hcl files from /etc/consul.d/ directory and merges them.
+  # If we included consul-client.hcl in the base image, it would be present on ALL
+  # services including the consul-server. This created a critical issue:
+  #
+  # The Problem:
+  # - consul-client.hcl sets: client_addr = "127.0.0.1" (localhost only for security)
+  # - consul-server.hcl sets: client_addr = "0.0.0.0" (all interfaces for API access)
+  # - When both files exist, Consul merges them and the client restriction wins
+  # - Result: Consul server API becomes inaccessible from outside (including Terraform Cloud)
+  #
+  # The Solution:
+  # - We moved consul-client.hcl provisioning to services.pkr.hcl
+  # - There, we selectively add it only to client nodes (api, web, neo4j, etc.)
+  # - The consul-server gets consul-server.hcl instead, avoiding the conflict
+  #
+  # This ensures:
+  # - Client nodes are secure (API on localhost only)
+  # - Server node is accessible (API on all interfaces for Terraform/UI access)
 
   provisioner "file" {
     source      = "files/consul-template.hcl"

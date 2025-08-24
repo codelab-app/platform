@@ -14,11 +14,6 @@ variable "ssh_keys" {
   default     = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 }
 
-variable "datacenter" {
-  type        = string
-  description = "Consul datacenter name"
-  default     = "codelab-dc1"
-}
 
 variable "digitalocean_access_token" {
   type        = string
