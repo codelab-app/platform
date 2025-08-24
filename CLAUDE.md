@@ -110,6 +110,7 @@ Load when needed: `Read .claude/documentation/convention/git-commit-conventions.
 - When creating tasks, DO NOT automatically lint them in an extra step
 - When analyzing codebase always use parallel tasks with subagents to speed things up
 - Make everything as concise as possible to achieve the goal, don't add extra features that are not asked for.
+- Use minimal configuration for services where possible
 
 ## Research and Information Lookup
 

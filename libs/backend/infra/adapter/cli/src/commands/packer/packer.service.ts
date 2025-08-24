@@ -13,19 +13,17 @@ enum PackerImage {
 }
 
 interface PackerBaseOptions {
-  consulEncryptKey?: string
+  consulEncryptKey: string
 }
 
 interface PackerBuildOptions extends PackerBaseOptions {
-  digitalOceanToken?: string
+  digitalOceanToken: string
   images: Array<PackerImage>
-  stage?: string
 }
 
 interface PackerValidateOptions extends PackerBaseOptions {
-  digitalOceanToken?: string
+  digitalOceanToken: string
   images: Array<PackerImage>
-  stage?: string
 }
 
 interface ImageConfig {
@@ -60,11 +58,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
               choices: Object.values(PackerImage),
               default: Object.values(PackerImage),
             }),
-        ({ consulEncryptKey, digitalOceanToken, images, stage }) => {
+        ({ consulEncryptKey, digitalOceanToken, images }) => {
           const buildOptions = {
             consulEncryptKey,
             digitalOceanToken,
-            stage,
           }
 
           // Build images in the order they appear in imageConfigs
@@ -94,10 +91,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
             const imageDir = join(this.packerDir, config.dir)
             execCommand(`cd ${imageDir} && packer init .`)
 
-            // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used)
-            const consulKeyVar = consulEncryptKey
-              ? `-var "consul_encrypt_key=${consulEncryptKey}"`
-              : ''
+            // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
+            const consulKeyVar = `-var "consul_encrypt_key=${consulEncryptKey}"`
 
             execCommand(
               `cd ${imageDir} && packer validate -var "do_token=${digitalOceanToken}" ${consulKeyVar} ${config.template}`,
@@ -166,9 +161,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
   private buildImage(
     imageConfig: ImageConfig,
     options: {
-      consulEncryptKey?: string
-      digitalOceanToken?: string
-      stage?: string
+      consulEncryptKey: string
+      digitalOceanToken: string
     },
   ): void {
     const { consulEncryptKey, digitalOceanToken } = options
@@ -201,10 +195,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
       execCommand(`cd ${imageDir} && packer init .`)
 
       // Build the image (Packer will fetch the latest snapshot automatically via external data source)
-      // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used)
-      const consulKeyVar = consulEncryptKey
-        ? `-var "consul_encrypt_key=${consulEncryptKey}"`
-        : ''
+      // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
+      const consulKeyVar = `-var "consul_encrypt_key=${consulEncryptKey}"`
 
       execCommand(
         `cd ${imageDir} && packer build -var "do_token=${digitalOceanToken}" ${consulKeyVar} ${imageConfig.template}`,

@@ -168,10 +168,19 @@ docker ps
 3. **ACLs**: Can be enabled for production (currently disabled)
 4. **Secrets**: Consider using Vault integration for sensitive data
 
+## Architecture Notes
+
+### Single Datacenter Design
+This implementation uses a single datacenter architecture (dc1). All nodes operate within the same datacenter, which is appropriate for our single-region deployment in DigitalOcean Singapore (sgp1).
+
+Key decisions:
+- **Datacenter name**: Uses Consul's default "dc1" (no configuration needed)
+- **No multi-DC complexity**: Simplified architecture for single region
+- **All nodes in same VPC**: Using 10.104.0.0/20 network
+
 ## Future Enhancements
 
 - [ ] Enable ACLs for production
 - [ ] Integrate HashiCorp Vault for secrets
 - [ ] Set up Consul Connect for service mesh
 - [ ] Add backup/restore procedures
-- [ ] Implement multi-datacenter replication

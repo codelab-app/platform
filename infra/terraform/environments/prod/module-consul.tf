@@ -11,6 +11,6 @@ output "consul_server_ip" {
   value = module.consul.consul_server_private_ip
 }
 
-output "consul_datacenter" {
-  value = module.consul.consul_datacenter
+output "consul_server_public_ip" {
+  value = module.consul.consul_server_public_ip
 }
