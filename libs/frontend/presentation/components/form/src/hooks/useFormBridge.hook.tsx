@@ -1,3 +1,5 @@
+'use client'
+
 import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
 import type { Bridge } from 'uniforms'
 
