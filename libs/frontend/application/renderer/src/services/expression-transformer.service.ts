@@ -65,6 +65,7 @@ export class ExpressionTransformer
 
       const { code } = this.transform(wrappedExpression, {
         production: true,
+        disableESTransforms: true,
         transforms: ['jsx'],
       })
 
