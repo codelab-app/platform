@@ -44,12 +44,20 @@ export class ReactNodeTypeTransformer
 
     // propValue is a custom JS component
     if (hasExpression(prop.value)) {
+      const context = isRuntimeElement(runtimeNode)
+        ? runtimeNode.runtimeProps.evaluationContext
+        : runtimeNode.runtimeProps.runtimeContext
+
       const transpiledValue =
-        expressionTransformer.transpileAndEvaluateExpression(propValue)
+        expressionTransformer.transpileAndEvaluateExpression(propValue, context)
 
       if (typeof transpiledValue === 'function') {
         try {
-          return transpiledValue.call(expressionTransformer.context)
+          const callContext = {
+            ...(expressionTransformer.context ?? {}),
+            ...context,
+          }
+          return transpiledValue.call(callContext)
         } catch (error) {
           console.error('Error while evaluating expression', error)
         }
