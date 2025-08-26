@@ -41,7 +41,7 @@ const WrappedUnionField = (props: WrappedUnionFieldProps) => {
               const model = set(form.model, path, value)
               const bridge = createBridge(schema, model)
               setBridge(bridge)
-              form.onChange(props.name, bridge?.getInitialValue(props.name))
+              form.onChange(props.name, bridge.getInitialValue(props.name))
             } else {
               form.onChange(joinName(props.name, field), value)
             }
