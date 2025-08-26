@@ -6,13 +6,12 @@ import {
   type JsonSchema,
 } from '@codelab/frontend-abstract-domain'
 import { GeneralValidationRules } from '@codelab/shared-abstract-core'
-import { titleCase } from '@codelab/shared-utils'
 import { HiddenField } from 'uniforms-antd'
 
 export const typedPropSchema = (
   type: ITypeModel,
   uniforms: ObjectLike,
-  { defaultValues, fieldName, validationRules }: ITypeTransformContext,
+  { defaultValues, validationRules }: ITypeTransformContext,
 ): JsonSchema => {
   const { id, kind } = type
 
@@ -36,7 +35,7 @@ export const typedPropSchema = (
         uniforms: { component: HiddenField },
       },
       value: {
-        label: fieldName ? titleCase(fieldName) : '',
+        label: '',
         uniforms,
         type: 'string',
       },

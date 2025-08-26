@@ -15,6 +15,7 @@ import {
   type SetIsLoading,
 } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
+import { createContext } from 'react'
 
 import { InterfaceForm } from '../interface-form'
 
@@ -33,6 +34,8 @@ export interface PropsFormProps
   setIsLoading?: SetIsLoading
   onSubmit(values: IPropData): Promise<IPropData>
 }
+
+const PropsFormSchemaContext = createContext({})
 
 /**
  * Generates a props form with CodeMirror fields for a given {@link InterfaceType}

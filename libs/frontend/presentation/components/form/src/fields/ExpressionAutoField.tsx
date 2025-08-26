@@ -1,5 +1,6 @@
 'use client'
 
+import { Union } from '@codelab/frontend-shared-utils'
 import invariant from 'invariant'
 import { createAutoField } from 'uniforms'
 
@@ -11,6 +12,7 @@ import { ExpressionNumField } from './ExpressionNumField'
 import { ExpressionRadioField } from './ExpressionRadioField'
 import { ExpressionSelectField } from './ExpressionSelectField'
 import { ExpressionTextField } from './ExpressionTextField'
+import { ExpressionUnionField } from './ExpressionUnionField'
 
 export const ExpressionAutoField = createAutoField((props) => {
   if (props.component) {
@@ -36,6 +38,8 @@ export const ExpressionAutoField = createAutoField((props) => {
       return ExpressionNestField
     case String:
       return ExpressionTextField
+    case Union:
+      return ExpressionUnionField
   }
 
   return invariant(false, 'Unsupported field type: %s', props.fieldType)

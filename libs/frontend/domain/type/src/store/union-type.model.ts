@@ -8,7 +8,7 @@ import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
-import { UnionTypeField } from '@codelab/frontend-presentation-components-form'
+import { ExpressionUnionField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { unique } from 'remeda'
@@ -51,59 +51,60 @@ export class UnionType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
+    const kinds = unique(this.typesOfUnionType.map((type) => type.current.kind))
+    const types = unique(this.typesOfUnionType.map((type) => type.current.id))
+    const typeOptions = this.typesOfUnionType.map((type) => ({
+      label: type.current.name,
+      value: type.current.id,
+    }))
+
     return {
       discriminator: {
         propertyName: 'type',
       },
-      // serves as default schema for antd to avoid errors
-      properties: {
-        __isTypedProp: {
-          default: true,
-          type: 'boolean',
-          uniforms: { component: HiddenField },
-        },
-        kind: {
-          default: this.typesOfUnionType[0]?.current.kind,
-          enum: unique(this.typesOfUnionType.map((type) => type.current.kind)),
-          type: 'string',
-          uniforms: { component: HiddenField },
-        },
-        type: {
-          default: this.typesOfUnionType[0]?.current.id,
-          enum: unique(this.typesOfUnionType.map((type) => type.current.id)),
-          type: 'string',
-          label: '',
-          uniforms: {
-            component: SelectField,
-            options: this.typesOfUnionType.map((type) => ({
-              label: type.current.name,
-              value: type.current.id,
-            })),
-          },
-        },
-        // a placeholder to avoid uniforms errors
-        value: {
-          label: '',
-        },
-      },
       oneOf: this.typesOfUnionType.map((type) => {
-        const valueSchema = type.current.toJsonSchema({ fieldName: 'value' })
+        const typeSchema = type.current.toJsonSchema(context)
+        const value = (
+          typeSchema.properties?.__isTypedProp
+            ? typeSchema.properties.value
+            : typeSchema
+        ) as JsonSchema
 
-        const value = valueSchema.properties?.__isTypedProp
-          ? valueSchema.properties.value
-          : valueSchema
         return {
           properties: {
-            type: { const: type.id },
-            value: value ?? {},
+            __isTypedProp: {
+              default: true,
+              type: 'boolean',
+              uniforms: { component: HiddenField },
+            },
+            kind: {
+              default: type.current.kind,
+              enum: kinds,
+              type: 'string',
+              uniforms: { component: HiddenField },
+            },
+            type: {
+              const: type.id,
+              default: type.id,
+              enum: types,
+              type: 'string',
+              label: '',
+              uniforms: {
+                component: SelectField,
+                options: typeOptions,
+              },
+            },
+            value: {
+              ...value,
+              label: '',
+            },
           },
         }
       }),
       required: ['__isTypedProp', 'kind', 'type'],
       type: 'object',
       uniforms: {
-        component: UnionTypeField,
-        unionType: this,
+        component: ExpressionUnionField,
       },
     }
   }

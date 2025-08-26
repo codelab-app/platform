@@ -126,7 +126,6 @@ export class InterfaceType
             ...context,
             defaultValues: field.defaultValues,
             depth: currentDepth + 1,
-            fieldName: field.key,
             validationRules: field.validationRules,
           }),
         }),

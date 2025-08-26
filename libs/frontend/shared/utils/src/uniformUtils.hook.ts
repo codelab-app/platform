@@ -4,9 +4,8 @@ import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import type { RefObject } from 'react'
 
-import JSONSchemaBridge from 'uniforms-bridge-json-schema'
-
 import { ajv } from './ajv'
+import { CustomBridge } from './bridge'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<RefObject<Maybe<SubmitController>>>) =>
@@ -24,16 +23,16 @@ export const createValidator = (schema: Schema) => {
 
   return (model: ObjectLike) => {
     validator(model)
-
     return validator.errors?.length ? { details: validator.errors } : null
   }
 }
 
 export const createBridge = <T extends ObjectLike>(
   schema: JSONSchemaType<T> | TSchema,
+  model?: T,
 ) => {
   const validator = createValidator(schema)
-  const bridge = new JSONSchemaBridge({ schema, validator })
+  const bridge = new CustomBridge({ schema, validator, model: model ?? {} })
 
   return bridge
 }

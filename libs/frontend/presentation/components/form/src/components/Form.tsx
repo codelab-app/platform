@@ -1,7 +1,9 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend-abstract-types'
-import type { ObjectLike } from '@codelab/shared-abstract-types'
+import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
+import type { TSchema } from '@sinclair/typebox'
+import type { JSONSchemaType } from 'ajv'
 import type { ReactElement } from 'react'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
@@ -10,12 +12,26 @@ import {
   createBridge,
 } from '@codelab/frontend-shared-utils'
 import { throttle } from 'radash'
-import { useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge, filterDOMProps } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 
 import { useAsyncHandler, usePostSubmit } from './utils'
+
+export const FormBridgeContext = createContext<{
+  bridge: Nullable<Bridge>
+  schema: JSONSchemaType<ObjectLike> | TSchema
+  setBridge(bridge: Bridge): void
+}>({
+  schema: {} as JSONSchemaType<ObjectLike> | TSchema,
+  bridge: null,
+  setBridge: (bridge) => null,
+})
+
+export const useFormBridge = () => {
+  return useContext(FormBridgeContext)
+}
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('nullable')
@@ -49,11 +65,13 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     } = props
 
     const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge<TData>(schema),
+      schema instanceof Bridge ? schema : createBridge<TData>(schema, model),
     )
 
     useEffect(() => {
-      setBridge(schema instanceof Bridge ? schema : createBridge<TData>(schema))
+      setBridge(
+        schema instanceof Bridge ? schema : createBridge<TData>(schema, model),
+      )
     }, [schema])
 
     const modelRef = useRef(model)
@@ -77,28 +95,30 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           ${cssString}
         `}
       >
-        <BaseAutoForm<TData>
-          autosave={autosave}
-          autosaveDelay={500}
-          data-testid={CuiTestId.cuiForm(uiKey)}
-          disabled={disabled}
-          errorsField={() => null}
-          model={autosave ? modelRef.current : model}
-          modelTransform={modelTransform}
-          onChange={onChange}
-          onChangeModel={onChangeModel}
-          onSubmit={throttle({ interval: 200 }, (formData) =>
-            submit(formData as TData)
-              .then(postSubmit.onSubmitSuccess)
-              .catch(postSubmit.onSubmitError),
-          )}
-          ref={connectUniformSubmitRef(submitRef)}
-          schema={bridge}
-          showInlineError
-          submitField={submitField}
-        >
-          {children}
-        </BaseAutoForm>
+        <FormBridgeContext value={{ bridge, setBridge, schema }}>
+          <BaseAutoForm<TData>
+            autosave={autosave}
+            autosaveDelay={500}
+            data-testid={CuiTestId.cuiForm(uiKey)}
+            disabled={disabled}
+            errorsField={() => null}
+            model={autosave ? modelRef.current : model}
+            modelTransform={modelTransform}
+            onChange={onChange}
+            onChangeModel={onChangeModel}
+            onSubmit={throttle({ interval: 200 }, (formData) =>
+              submit(formData as TData)
+                .then(postSubmit.onSubmitSuccess)
+                .catch(postSubmit.onSubmitError),
+            )}
+            ref={connectUniformSubmitRef(submitRef)}
+            schema={bridge}
+            showInlineError
+            submitField={submitField}
+          >
+            {children}
+          </BaseAutoForm>
+        </FormBridgeContext>
       </div>
     )
   }

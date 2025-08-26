@@ -11,6 +11,7 @@ export const ajv = new Ajv({
   strict: false,
   useDefaults: true,
   discriminator: true,
+  coerceTypes: true,
 })
 
 addFormats(ajv)

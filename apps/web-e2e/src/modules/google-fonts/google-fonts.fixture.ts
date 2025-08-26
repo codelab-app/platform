@@ -20,7 +20,7 @@ export class GoogleFontsPage extends CssBuilderPage {
       await this.page.locator('.ant-select-item-option-active').hover()
       await this.scrollUntilElementIsVisible(fontLazyOption)
       await this.page.locator(`.ant-select-item[title="${FONT_NAME}"]`).click()
-      await this.page.locator('div[name="value.weight"]').click()
+      await this.page.locator('div[id="fonts.0.value.weight"]').click()
       await this.page.locator(`.ant-select-item[title="${FONT_SIZE}"]`).click()
       await this.waitForProgressBar()
     })

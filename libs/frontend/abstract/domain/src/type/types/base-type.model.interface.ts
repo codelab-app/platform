@@ -57,7 +57,6 @@ export interface ITypeTransformContext {
   defaultValues?: Nullish<IFieldDefaultValue>
   depth?: number
   element?: IElementModel
-  fieldName?: string | null
   providerStore?: IStoreModel
   store?: IStoreModel
   validationRules?: Nullish<IValidationRules>

@@ -6,15 +6,11 @@ import type { ReactElement } from 'react'
 import { isArray } from 'radash'
 import { Children, cloneElement, isValidElement } from 'react'
 import { connectField } from 'uniforms'
-import {
-  AutoField,
-  ListAddField,
-  type ListFieldProps,
-  ListItemField,
-} from 'uniforms-antd'
+import { ListAddField, type ListFieldProps, ListItemField } from 'uniforms-antd'
 
 import type { WithExpressionFieldProps } from './ToggleExpression'
 
+import { ExpressionAutoField } from './ExpressionAutoField'
 import { ToggleExpressionWrapper } from './ToggleExpression'
 
 export type WrappedListFieldProps = WithExpressionFieldProps<
@@ -34,7 +30,7 @@ const WrappedListField = (props: WrappedListFieldProps) => {
   const {
     children = (
       <ListItemField name="$">
-        <AutoField label="" name="" />
+        <ExpressionAutoField name="" />
       </ListItemField>
     ),
     error,
@@ -50,6 +46,7 @@ const WrappedListField = (props: WrappedListFieldProps) => {
   const wrapperStyle = error ? { ...errorStyle, ...style } : style
 
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <ToggleExpressionWrapper<Array<unknown>> {...props} style={wrapperStyle}>
       {Boolean(error && showInlineError) && <div>{errorMessage}</div>}
       {isArray(value) &&

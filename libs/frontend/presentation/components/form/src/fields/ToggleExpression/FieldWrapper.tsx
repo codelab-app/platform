@@ -23,6 +23,7 @@ export type WrapperProps = Override<
     info?: string
     showInlineError?: boolean
     wrapperStyle?: ObjectLike
+    children: React.ReactNode
   }
 >
 
@@ -57,6 +58,7 @@ export const FieldWrapper = ({
   isExpression,
   label,
   labelCol,
+  name,
   required,
   showInlineError,
   toggle,
@@ -97,12 +99,13 @@ export const FieldWrapper = ({
       htmlFor={id}
       label={labelNode}
       labelCol={labelCol}
+      name={name}
       required={required}
       style={wrapperStyle}
       validateStatus={error ? 'error' : validateStatus}
       wrapperCol={wrapperCol}
     >
-      {children}
+      <div>{children}</div>
     </StyledFormItem>
   )
 }

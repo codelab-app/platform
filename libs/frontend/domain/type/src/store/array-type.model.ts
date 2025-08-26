@@ -58,7 +58,6 @@ export class ArrayType
   toJsonSchema({
     defaultValues,
     depth,
-    fieldName,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     return {
@@ -66,7 +65,6 @@ export class ArrayType
         ? this.itemType.current.toJsonSchema({
             // Don't pass default values here, as they are for array
             depth,
-            fieldName,
             validationRules,
           })
         : {},

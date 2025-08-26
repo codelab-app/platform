@@ -24,16 +24,15 @@ const WrappedNestField = ({
   showInlineError,
   ...props
 }: WrappedNestFieldProps) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
   <div {...filterDOMProps(props)}>
     {label && <label>{label}</label>}
     {Boolean(error && props.showInlineError) && <div>{errorMessage}</div>}
     {children ||
       fields.map((field) => {
-        return (
-          <ExpressionAutoField key={field} name={field} {...props.itemProps} />
-        )
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        return <ExpressionAutoField key={field} name={field} {...itemProps} />
       })}
   </div>
 )
-
 export const ExpressionNestField = connectField(WrappedNestField)

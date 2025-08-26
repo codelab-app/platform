@@ -1,3 +1,4 @@
+export * from './bridge'
 export * from './client-cache'
 export * from './copy-text-to-clipboard'
 export * from './download-json-as-file'
