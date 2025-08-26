@@ -11,8 +11,8 @@ import {
   ExpressionNumField,
   ExpressionSelectField,
   ExpressionTextField,
+  ExpressionUnionField,
   RichTextField,
-  UnionTypeField,
 } from '@codelab/frontend-presentation-components-form'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { HiddenField, SelectField } from 'uniforms-antd'
@@ -33,7 +33,6 @@ import {
   richTextType,
   stringFieldWithDefaultValue,
   stringType,
-  unionType,
 } from './setup-store'
 
 export const stringTypeExpectedSchema = {
@@ -147,69 +146,90 @@ export const arrayTypeExpectedSchema = {
 }
 
 export const unionTypeExpectedSchema = {
-  discriminator: { propertyName: 'type' },
-  properties: {
-    __isTypedProp: {
-      default: true,
-      type: 'boolean',
-      uniforms: { component: HiddenField },
-    },
-    kind: {
-      default: stringType.kind,
-      enum: [ITypeKind.PrimitiveType],
-      type: 'string',
-      uniforms: { component: HiddenField },
-    },
-    type: {
-      default: stringType.id,
-      enum: [stringType.id, intType.id],
-      type: 'string',
-      label: '',
-      uniforms: {
-        component: SelectField,
-        options: [stringType, intType].map((type) => ({
-          label: type.name,
-          value: type.id,
-        })),
-      },
-    },
-    // a placeholder to avoid uniforms errors
-    value: {
-      label: '',
-    },
+  discriminator: {
+    propertyName: 'type',
   },
   oneOf: [
     {
       properties: {
-        type: { const: stringType.id },
-        value: stringTypeExpectedSchema,
+        __isTypedProp: {
+          default: true,
+          type: 'boolean',
+          uniforms: { component: HiddenField },
+        },
+        kind: {
+          default: stringType.kind,
+          enum: [ITypeKind.PrimitiveType],
+          type: 'string',
+          uniforms: { component: HiddenField },
+        },
+        type: {
+          const: stringType.id,
+          default: stringType.id,
+          enum: [stringType.id, intType.id],
+          label: '',
+          type: 'string',
+          uniforms: {
+            component: SelectField,
+            options: [
+              { label: stringType.name, value: stringType.id },
+              { label: intType.name, value: intType.id },
+            ],
+          },
+        },
+        value: {
+          ...stringTypeExpectedSchema,
+          label: '',
+        },
       },
     },
     {
       properties: {
-        type: { const: intType.id },
-        value: intTypeExpectedSchema,
+        __isTypedProp: {
+          default: true,
+          type: 'boolean',
+          uniforms: {
+            component: HiddenField,
+          },
+        },
+        kind: {
+          default: intType.kind,
+          enum: [ITypeKind.PrimitiveType],
+          type: 'string',
+          uniforms: { component: HiddenField },
+        },
+        type: {
+          const: intType.id,
+          default: intType.id,
+          enum: [stringType.id, intType.id],
+          type: 'string',
+          label: '',
+          uniforms: {
+            component: SelectField,
+            options: [
+              { label: stringType.name, value: stringType.id },
+              { label: intType.name, value: intType.id },
+            ],
+          },
+        },
+        value: {
+          ...intTypeExpectedSchema,
+          label: '',
+        },
       },
     },
   ],
-  uniforms: {
-    component: UnionTypeField,
-    unionType: unionType,
-  },
   required: ['__isTypedProp', 'kind', 'type'],
   type: 'object',
+  uniforms: {
+    component: ExpressionUnionField,
+  },
 }
 
 export const interfaceWithUnionExpectedSchema = {
   properties: {
-    stringField: {
-      ...stringTypeExpectedSchema,
-      label: 'String field',
-    },
-    unionField: {
-      ...unionTypeExpectedSchema,
-      label: 'Union field',
-    },
+    stringField: stringTypeExpectedSchema,
+    unionField: unionTypeExpectedSchema,
   },
   required: [],
   type: 'object',
@@ -220,19 +240,16 @@ export const interfaceWithRequiredDefaultFieldValuesExpectedSchema = {
     enumField: {
       ...enumTypeExpectedSchema,
       default: enumFieldWithDefaultValue.defaultValues,
-      label: 'Enum field',
       type: 'string',
     },
     intField: {
       ...intTypeExpectedSchema,
-      label: 'Int field',
       nullable: false,
       type: 'integer',
     },
     stringField: {
       ...stringTypeExpectedSchema,
       default: stringFieldWithDefaultValue.defaultValues,
-      label: 'String field',
       type: 'string',
     },
   },

@@ -76,7 +76,6 @@ export class PrimitiveType
 
   toJsonSchema({
     defaultValues,
-    label,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     const rulesSchema =
@@ -95,7 +94,6 @@ export class PrimitiveType
 
     return {
       ...rulesSchema,
-      label,
       uniforms: { component: componentMap[this.primitiveKind] },
       type: primitives[this.primitiveKind],
     }

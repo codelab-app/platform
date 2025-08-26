@@ -99,13 +99,12 @@ export const FieldWrapper = ({
       htmlFor={id}
       label={labelNode}
       labelCol={labelCol}
-      name={name}
       required={required}
       style={wrapperStyle}
       validateStatus={error ? 'error' : validateStatus}
       wrapperCol={wrapperCol}
     >
-      <div>{children}</div>
+      <div id={name}>{children}</div>
     </StyledFormItem>
   )
 }
