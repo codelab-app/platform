@@ -2,13 +2,12 @@
 
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 
-import { createBridge } from '@codelab/frontend-shared-utils'
 import { set } from 'radash'
 import { connectField, joinName, useForm } from 'uniforms'
 
 import type { WithExpressionFieldProps } from './ToggleExpression'
 
-import { useFormBridge } from '../components'
+import { useFormBridge } from '../hooks'
 import { ExpressionAutoField } from './ExpressionAutoField'
 import { ToggleExpressionWrapper } from './ToggleExpression'
 
@@ -21,7 +20,7 @@ const WrappedUnionField = (props: WrappedUnionFieldProps) => {
   const discriminator = props.discriminator.propertyName
   const form = useForm<ObjectLike>()
 
-  const { schema, setBridge } = useFormBridge()
+  const { refershBridge } = useFormBridge()
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -39,8 +38,7 @@ const WrappedUnionField = (props: WrappedUnionFieldProps) => {
               )
 
               const model = set(form.model, path, value)
-              const bridge = createBridge(schema, model)
-              setBridge(bridge)
+              const bridge = refershBridge(model)
               form.onChange(props.name, bridge.getInitialValue(props.name))
             } else {
               form.onChange(joinName(props.name, field), value)

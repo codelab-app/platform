@@ -48,33 +48,16 @@ const partialNames = ['allOf', 'anyOf', 'oneOf']
 
 export class Union {}
 
-interface FieldError {
-  /** Provided by Ajv < 8 */
-  dataPath?: string
-  instancePath?: string
-  message?: string
-  params?: UnknownObjectLike & {
-    missingProperty?: string
-  }
+type JSONSchemaBridgeProps = ConstructorParameters<typeof JSONSchemaBridge>[0]
+
+export interface CustomBridgeProps extends JSONSchemaBridgeProps {
+  model: ObjectLike
 }
 
-export interface ValidatorResult {
-  details: Array<FieldError>
-}
-
-export class CustomBridge extends JSONSchemaBridge {
+export class SchemaBridge extends JSONSchemaBridge {
   model: ObjectLike = {}
-  constructor({
-    model,
-    schema,
-    validator,
-    ...rest
-  }: {
-    model: ObjectLike
-    schema: UnknownObject
-    validator(model: UnknownObject): ValidatorResult | null | undefined
-  }) {
-    super({ schema: resolveRefIfNeeded(schema, schema), validator, ...rest })
+  constructor({ model, ...rest }: CustomBridgeProps) {
+    super(rest)
     this.model = model
   }
 

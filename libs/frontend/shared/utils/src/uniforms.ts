@@ -5,7 +5,7 @@ import type { JSONSchemaType, Schema } from 'ajv'
 import type { RefObject } from 'react'
 
 import { ajv } from './ajv'
-import { CustomBridge } from './bridge'
+import { SchemaBridge } from './schema-bridge'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<RefObject<Maybe<SubmitController>>>) =>
@@ -32,7 +32,7 @@ export const createBridge = <T extends ObjectLike>(
   model?: T,
 ) => {
   const validator = createValidator(schema)
-  const bridge = new CustomBridge({ schema, validator, model: model ?? {} })
+  const bridge = new SchemaBridge({ schema, validator, model: model ?? {} })
 
   return bridge
 }

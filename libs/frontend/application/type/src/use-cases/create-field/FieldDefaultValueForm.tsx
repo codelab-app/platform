@@ -67,7 +67,6 @@ export const FieldDefaultValueForm = ({
       label: '',
       properties: {
         defaultValues: type.toJsonSchema({
-          fieldName: 'defaultValues',
           validationRules: validationRules,
         }),
       },

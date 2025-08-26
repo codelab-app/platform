@@ -1,9 +1,7 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend-abstract-types'
-import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
-import type { TSchema } from '@sinclair/typebox'
-import type { JSONSchemaType } from 'ajv'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
@@ -12,26 +10,13 @@ import {
   createBridge,
 } from '@codelab/frontend-shared-utils'
 import { throttle } from 'radash'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge, filterDOMProps } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 
+import { FormBridgeContext } from '../hooks'
 import { useAsyncHandler, usePostSubmit } from './utils'
-
-export const FormBridgeContext = createContext<{
-  bridge: Nullable<Bridge>
-  schema: JSONSchemaType<ObjectLike> | TSchema
-  setBridge(bridge: Bridge): void
-}>({
-  schema: {} as JSONSchemaType<ObjectLike> | TSchema,
-  bridge: null,
-  setBridge: (bridge) => null,
-})
-
-export const useFormBridge = () => {
-  return useContext(FormBridgeContext)
-}
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('nullable')
@@ -64,14 +49,15 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       uiKey,
     } = props
 
-    const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge<TData>(schema, model),
-    )
+    const createBridgeOrUseExisting = (currentModel: TData) =>
+      schema instanceof Bridge
+        ? schema
+        : createBridge<TData>(schema, currentModel)
+
+    const [bridge, setBridge] = useState(createBridgeOrUseExisting(model))
 
     useEffect(() => {
-      setBridge(
-        schema instanceof Bridge ? schema : createBridge<TData>(schema, model),
-      )
+      setBridge(createBridgeOrUseExisting(model))
     }, [schema])
 
     const modelRef = useRef(model)
@@ -95,7 +81,18 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           ${cssString}
         `}
       >
-        <FormBridgeContext value={{ bridge, setBridge, schema }}>
+        <FormBridgeContext
+          value={{
+            bridge,
+            refershBridge: (currentModel) => {
+              const createdBridge = createBridgeOrUseExisting(
+                currentModel as TData,
+              )
+              setBridge(createdBridge)
+              return createdBridge
+            },
+          }}
+        >
           <BaseAutoForm<TData>
             autosave={autosave}
             autosaveDelay={500}
