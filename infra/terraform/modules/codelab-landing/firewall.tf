@@ -66,4 +66,40 @@ resource "digitalocean_firewall" "codelab_landing" {
     protocol              = "icmp"
     destination_addresses = ["0.0.0.0/0", "::/0"]
   }
+
+  # Allow outbound Consul communication to VPC
+  # Port 8300: Server RPC
+  # Port 8301: Serf LAN gossip (TCP and UDP)
+  # Port 8302: Serf WAN gossip (TCP and UDP)
+  # Port 8500: HTTP API
+  # Port 8600: DNS
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "8300-8302"
+    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "8301-8302"
+    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "8500"
+    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "8600"
+    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "8600"
+    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+  }
 }

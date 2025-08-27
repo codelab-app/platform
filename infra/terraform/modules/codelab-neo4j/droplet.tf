@@ -33,6 +33,9 @@ resource "digitalocean_droplet" "neo4j" {
   # SSH keys
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
+  # Tags for firewall rules
+  tags = ["consul-client"]
+
   # No user_data - everything is baked into the image
 
   lifecycle {

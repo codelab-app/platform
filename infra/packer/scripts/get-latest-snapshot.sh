@@ -13,8 +13,8 @@ if [ -z "$PATTERN" ]; then
   exit 1
 fi
 
-if [ -z "$DO_API_TOKEN" ]; then
-  echo "Error: DO_API_TOKEN environment variable not set" >&2
+if [ -z "$DIGITALOCEAN_API_TOKEN" ]; then
+  echo "Error: DIGITALOCEAN_API_TOKEN environment variable not set" >&2
   exit 1
 fi
 
@@ -22,7 +22,7 @@ fi
 LATEST_SNAPSHOT=$(doctl compute snapshot list \
   --format ID,Name,CreatedAt \
   --no-header \
-  --access-token "$DO_API_TOKEN" | \
+  --access-token "$DIGITALOCEAN_API_TOKEN" | \
   grep "$PATTERN" | \
   sort -k3 -r | \
   head -1 | \

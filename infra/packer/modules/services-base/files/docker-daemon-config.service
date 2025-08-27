@@ -1,0 +1,22 @@
+[Unit]
+Description=Consul-Template for Docker Daemon Configuration
+Documentation=https://github.com/hashicorp/consul-template
+After=network-online.target consul.service docker.service
+Before=docker-login.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+ExecStart=/usr/bin/consul-template -config=/etc/consul-template/consul-template-daemon.hcl
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -37,6 +37,9 @@ resource "digitalocean_droplet" "codelab_api" {
 
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
+  # Tags for firewall rules
+  tags = ["consul-client"]
+
   # No user_data needed - everything is configured via:
   # 1. Hostname (api) determines service type
   # 2. Private networking for Consul discovery

@@ -1,8 +1,9 @@
-import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
+import type { Argv, CommandModule } from 'yargs'
 
 import { execCommand } from '@codelab/backend-infra-adapter-shell'
 import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
+import { commandSync } from 'execa'
 
 import type { StageParam } from '../../shared/options'
 
@@ -74,11 +75,37 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           ({ autoApprove, stage }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : ''
+            const tfDir = `infra/terraform/environments/${stage}`
 
-            // Add export TF_LOG=DEBUG for verbose
-            execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApproveFlag}`,
+            /**
+             * Two-stage Terraform apply to solve the Consul provider bootstrap problem:
+             *
+             * Problem: The Consul provider needs the Consul server's IP address, but the server
+             * doesn't exist until Terraform creates it. Providers are initialized before resources
+             * are created, causing a chicken-and-egg problem.
+             *
+             * Solution: Apply in two stages:
+             * 1. Create Consul server first using -target
+             * 2. Set CONSUL_HTTP_ADDR environment variable with the server's IP
+             * 3. Apply remaining resources (Consul provider now has correct address)
+             */
+
+            // Stage 1: Create Consul server infrastructure only
+            this.applyConsulInfrastructure(stage, tfDir, autoApproveFlag)
+
+            // Get Consul server IP and configure environment
+            const consulIP = this.getConsulServerIP()
+            process.env['CONSUL_HTTP_ADDR'] = `${consulIP}:8500`
+
+            // Stage 2: Apply all remaining infrastructure and Consul configuration
+            this.applyRemainingInfrastructure(
+              stage,
+              tfDir,
+              process.env['CONSUL_HTTP_ADDR'],
+              autoApproveFlag,
             )
+
+            console.log('✨ Terraform apply completed successfully')
           },
         )
         .command<StageParam>(
@@ -107,7 +134,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'lint',
           'terraform lint',
           (argv) => argv,
-          ({ stage }) => {
+          () => {
             execCommand(
               `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --recursive`,
             )
@@ -129,7 +156,63 @@ export class TerraformService implements CommandModule<unknown, unknown> {
     )
   }
 
-  handler(args: ArgumentsCamelCase) {
+  handler() {
     //
+  }
+
+  // Helper methods for two-stage Terraform apply
+  private applyConsulInfrastructure(
+    stage: string,
+    tfDir: string,
+    autoApproveFlag: string,
+  ) {
+    console.log('🔧 Stage 1/2: Creating Consul server infrastructure...')
+    execCommand(
+      `export TF_WORKSPACE=${stage}; terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`,
+    )
+  }
+
+  private applyRemainingInfrastructure(
+    stage: string,
+    tfDir: string,
+    consulAddr: string,
+    autoApproveFlag: string,
+  ) {
+    console.log(
+      '🚀 Stage 2/2: Applying remaining infrastructure and configuration...',
+    )
+    // Set environment variables properly for the subprocess
+    process.env['TF_WORKSPACE'] = stage
+    process.env['CONSUL_HTTP_ADDR'] = consulAddr
+
+    console.log(`Setting CONSUL_HTTP_ADDR=${consulAddr}`)
+    console.log(
+      `Current CONSUL_HTTP_ADDR in process.env: ${process.env['CONSUL_HTTP_ADDR']}`,
+    )
+
+    // Use env command to ensure the variable is passed
+    execCommand(
+      `env CONSUL_HTTP_ADDR=${consulAddr} TF_WORKSPACE=${stage} terraform -chdir=${tfDir} apply ${autoApproveFlag}`,
+    )
+  }
+
+  private getConsulServerIP(): string {
+    console.log('🔍 Retrieving Consul server IP address...')
+    // Use doctl to get the Consul server's public IP by droplet name
+    const result = commandSync(
+      'doctl compute droplet get consul-server --format PublicIPv4 --no-header',
+      { shell: true },
+    )
+    const consulIP = result.stdout.trim()
+
+    if (!consulIP) {
+      throw new Error(
+        'Failed to retrieve Consul server IP address from DigitalOcean',
+      )
+    }
+
+    console.log(`✅ Consul server IP: ${consulIP}`)
+
+    return consulIP
   }
 }

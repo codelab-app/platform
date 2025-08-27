@@ -1,7 +1,0 @@
-{
-  "log-driver": "loki",
-  "log-opts": {
-    "loki-url": "${loki_url}",
-    "loki-batch-size": "400"
-  }
-}

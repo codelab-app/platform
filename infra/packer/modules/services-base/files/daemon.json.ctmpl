@@ -1,7 +1,7 @@
 {
   "log-driver": "loki",
   "log-opts": {
-    "loki-url": "${loki_url}",
+    "loki-url": "{{ key "config/loki/url" }}",
     "loki-batch-size": "400"
   }
 }

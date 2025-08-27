@@ -1,6 +1,6 @@
 [Unit]
 Description=Login to DigitalOcean Docker Registry
-After=network-online.target docker.service consul.service
+After=network-online.target docker.service docker-daemon-config.service docker-loki-plugin.service
 Before=consul-template.service
 Wants=network-online.target
 
@@ -8,14 +8,8 @@ Wants=network-online.target
 Type=oneshot
 RemainAfterExit=yes
 
-# Get token from Consul KV (populated during initial setup)
-ExecStartPre=/bin/bash -c 'consul kv get config/digitalocean/token > /tmp/do-token 2>/dev/null || true'
-
-# Configure doctl with token from Consul
-ExecStartPre=/bin/bash -c 'if [ -s /tmp/do-token ]; then mkdir -p /root/.config/doctl && echo "access-token: $(cat /tmp/do-token)" > /root/.config/doctl/config.yaml; fi'
-
-# Login to Docker registry
-ExecStart=/bin/bash -c 'if [ -s /tmp/do-token ]; then /usr/local/bin/doctl registry login; else echo "No token in Consul KV, skipping registry login"; fi'
+# Login to Docker registry using the pre-configured doctl
+ExecStart=/usr/local/bin/doctl registry login
 
 StandardOutput=journal
 StandardError=journal

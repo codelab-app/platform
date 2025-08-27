@@ -4,8 +4,8 @@ set -e
 # Script to clean up old Packer snapshots, keeping only the latest ones
 # Run this periodically (e.g., weekly) to prevent snapshot accumulation
 
-if [ -z "$DO_API_TOKEN" ]; then
-  echo "Error: DO_API_TOKEN environment variable not set"
+if [ -z "$DIGITALOCEAN_API_TOKEN" ]; then
+  echo "Error: DIGITALOCEAN_API_TOKEN environment variable not set"
   exit 1
 fi
 
@@ -31,7 +31,7 @@ for SERVICE in "${SERVICES[@]}"; do
   SNAPSHOTS=$(doctl compute snapshot list \
     --format ID,Name \
     --no-header \
-    --access-token "$DO_API_TOKEN" | \
+    --access-token "$DIGITALOCEAN_API_TOKEN" | \
     grep "^[0-9]*[[:space:]]*${SERVICE}-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" | \
     sort -k2 -r || true)
   
@@ -55,7 +55,7 @@ for SERVICE in "${SERVICES[@]}"; do
       echo "  Deleting old: $SNAPSHOT_NAME (ID: $SNAPSHOT_ID)"
       doctl compute snapshot delete "$SNAPSHOT_ID" \
         --force \
-        --access-token "$DO_API_TOKEN" || true
+        --access-token "$DIGITALOCEAN_API_TOKEN" || true
     fi
   done <<< "$SNAPSHOTS"
 done
@@ -66,5 +66,5 @@ echo ""
 echo "Current snapshots:"
 doctl compute snapshot list \
   --format Name,Size,CreatedAt \
-  --access-token "$DO_API_TOKEN" | \
+  --access-token "$DIGITALOCEAN_API_TOKEN" | \
   grep -E "(codelab-|Name)" || true

@@ -10,6 +10,7 @@ export const execCommand = (command: string) => {
     return execa.commandSync(command, {
       shell: true,
       stdio: 'inherit',
+      env: process.env, // Explicitly pass environment variables
     })
   } catch (error) {
     console.error(error)

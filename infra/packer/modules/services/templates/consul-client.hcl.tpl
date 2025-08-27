@@ -12,6 +12,7 @@ server = false
 # This prevents external access to potentially sensitive configuration data
 client_addr = "127.0.0.1"
 
-# Retry joining the Consul server
-# This can be overridden at runtime with proper service discovery
-retry_join = ["consul-server"]
+# Use DigitalOcean cloud auto-join to discover Consul server
+# This queries the DigitalOcean API for droplets tagged "consul-server" in the specified region
+# The private VPC IP will be automatically discovered and used for joining
+retry_join = ["provider=digitalocean region=${region} tag_name=consul-server api_token=${digitalocean_api_token}"]
