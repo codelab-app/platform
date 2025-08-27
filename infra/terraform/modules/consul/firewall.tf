@@ -8,6 +8,16 @@
  * - Future: TLS encryption for data in transit
  */
 
+# Create the consul-client tag that will be used by other droplets
+resource "digitalocean_tag" "consul_client" {
+  name = "consul-client"
+}
+
+# Create the consul-server tag for cloud auto-join discovery
+resource "digitalocean_tag" "consul_server" {
+  name = "consul-server"
+}
+
 resource "digitalocean_firewall" "consul_server" {
   name = "consul-server-firewall"
   
@@ -47,24 +57,41 @@ resource "digitalocean_firewall" "consul_server" {
     source_addresses = ["0.0.0.0/0"]
   }
   
-  # Allow internal VPC communication for Consul clustering
+  # Allow internal communication from Consul clients
+  # Port 8300: Server RPC (TCP only)
+  # Port 8301: Serf LAN gossip (TCP and UDP)
+  # Port 8302: Serf WAN gossip (TCP and UDP)
   inbound_rule {
-    protocol         = "tcp"
-    port_range       = "8300-8302"
-    source_addresses = ["10.104.0.0/20"]  # VPC CIDR
+    protocol     = "tcp"
+    port_range   = "8300-8302"
+    source_tags  = ["consul-client"]
   }
   
-  # Allow DNS queries from VPC
+  # Consul gossip protocol requires UDP on port 8301
   inbound_rule {
-    protocol         = "tcp"
-    port_range       = "8600"
-    source_addresses = ["10.104.0.0/20"]
+    protocol     = "udp"
+    port_range   = "8301"
+    source_tags  = ["consul-client"]
+  }
+  
+  # Port 8302 UDP for WAN gossip (if using multi-datacenter)
+  inbound_rule {
+    protocol     = "udp"
+    port_range   = "8302"
+    source_tags  = ["consul-client"]
+  }
+  
+  # Allow DNS queries from Consul clients
+  inbound_rule {
+    protocol     = "tcp"
+    port_range   = "8600"
+    source_tags  = ["consul-client"]
   }
   
   inbound_rule {
-    protocol         = "udp"
-    port_range       = "8600"
-    source_addresses = ["10.104.0.0/20"]
+    protocol     = "udp"
+    port_range   = "8600"
+    source_tags  = ["consul-client"]
   }
   
   # Allow all outbound traffic

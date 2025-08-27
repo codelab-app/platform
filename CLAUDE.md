@@ -42,6 +42,9 @@ Load when needed: `Read .claude/documentation/convention/documentation-conventio
 ## Prompting
 
 - Do what has been asked; nothing more, nothing less
+- Use minimal configuration for services where possible
+- Don't add "nice-to-have" or "best practice" configurations unless explicitly
+  requested
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (\*.md) or README files in the main codebase
@@ -107,10 +110,10 @@ Load when needed: `Read .claude/documentation/convention/git-commit-conventions.
 - If I am wrong, point it out bluntly.
 - I need honest feedback on my code.
 - When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
-- When creating tasks, DO NOT automatically lint them in an extra step
-- When analyzing codebase always use parallel tasks with subagents to speed things up
 - Make everything as concise as possible to achieve the goal, don't add extra features that are not asked for.
 - Use minimal configuration for services where possible
+- Avoid try catch or conditional logic, don't handle a use case that we didn't specify
+- Do not handle a fallback case automatically unless asked specifically
 
 ## Research and Information Lookup
 
@@ -126,6 +129,5 @@ When I say read documentation it's regarding: Use the CLI tool to read from `.cl
 ## GitHub Issue Context
 
 - When I say "update issue" or "create issue regarding this", I'm referring to GitHub issues
-- Use the `mcp__github__` tools to interact with GitHub issues
 - Default to the current repository unless specified otherwise
 - **IMPORTANT**: Only create GitHub issues for repositories under the `codelab-app` organization. Never create issues for any other organization or personal repositories

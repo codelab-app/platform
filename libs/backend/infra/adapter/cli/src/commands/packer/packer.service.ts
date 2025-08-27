@@ -17,12 +17,12 @@ interface PackerBaseOptions {
 }
 
 interface PackerBuildOptions extends PackerBaseOptions {
-  digitalOceanToken: string
+  digitaloceanApiToken: string
   images: Array<PackerImage>
 }
 
 interface PackerValidateOptions extends PackerBaseOptions {
-  digitalOceanToken: string
+  digitaloceanApiToken: string
   images: Array<PackerImage>
 }
 
@@ -58,10 +58,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
               choices: Object.values(PackerImage),
               default: Object.values(PackerImage),
             }),
-        ({ consulEncryptKey, digitalOceanToken, images }) => {
+        ({ consulEncryptKey, digitaloceanApiToken, images }) => {
           const buildOptions = {
             consulEncryptKey,
-            digitalOceanToken,
+            digitaloceanApiToken,
           }
 
           // Build images in the order they appear in imageConfigs
@@ -86,7 +86,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
               choices: Object.values(PackerImage),
               default: Object.values(PackerImage),
             }),
-        ({ consulEncryptKey, digitalOceanToken, images }) => {
+        ({ consulEncryptKey, digitaloceanApiToken, images }) => {
           const validateImage = (config: ImageConfig) => {
             const imageDir = join(this.packerDir, config.dir)
             execCommand(`cd ${imageDir} && packer init .`)
@@ -95,7 +95,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
             const consulKeyVar = `-var "consul_encrypt_key=${consulEncryptKey}"`
 
             execCommand(
-              `cd ${imageDir} && packer validate -var "do_token=${digitalOceanToken}" ${consulKeyVar} ${config.template}`,
+              `cd ${imageDir} && packer validate -var "digitalocean_api_token=${digitaloceanApiToken}" ${consulKeyVar} ${config.template}`,
             )
           }
 
@@ -162,17 +162,17 @@ export class PackerService implements CommandModule<unknown, unknown> {
     imageConfig: ImageConfig,
     options: {
       consulEncryptKey: string
-      digitalOceanToken: string
+      digitaloceanApiToken: string
     },
   ): void {
-    const { consulEncryptKey, digitalOceanToken } = options
+    const { consulEncryptKey, digitaloceanApiToken } = options
 
     console.log(`Building ${imageConfig.name}...`)
 
     // Clean up old snapshots before building to avoid hitting DigitalOcean limits
     // Use the external cleanup script (non-critical, so we don't fail if it errors)
     execCommand(
-      `DO_API_TOKEN="${digitalOceanToken}" ${this.packerDir}/scripts/cleanup-old-snapshots.sh || true`,
+      `DIGITALOCEAN_API_TOKEN="${digitaloceanApiToken}" ${this.packerDir}/scripts/cleanup-old-snapshots.sh || true`,
     )
 
     const imageDir = join(this.packerDir, imageConfig.dir)
@@ -199,7 +199,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
       const consulKeyVar = `-var "consul_encrypt_key=${consulEncryptKey}"`
 
       execCommand(
-        `cd ${imageDir} && packer build -var "do_token=${digitalOceanToken}" ${consulKeyVar} ${imageConfig.template}`,
+        `cd ${imageDir} && packer build -var "digitalocean_api_token=${digitaloceanApiToken}" ${consulKeyVar} ${imageConfig.template}`,
       )
     } finally {
       // Remove signal handlers after completion
@@ -220,10 +220,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
   }
 
   private fetchDigitalOceanToken = (args: ArgumentsCamelCase) => {
-    const digitalOceanToken = get('DIGITALOCEAN_API_TOKEN')
+    const digitaloceanApiToken = get('DIGITALOCEAN_API_TOKEN')
       .required()
       .asString()
-    args['digitalOceanToken'] = digitalOceanToken
+    args['digitaloceanApiToken'] = digitaloceanApiToken
   }
   // Build order: services-base must be built first, then services (which includes all service images)
   private readonly imageConfigs: Array<{

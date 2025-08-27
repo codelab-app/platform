@@ -11,7 +11,7 @@ packer {
   }
 }
 
-variable "do_token" {
+variable "digitalocean_api_token" {
   type        = string
   description = "DigitalOcean API Token"
   sensitive   = true
@@ -33,9 +33,9 @@ variable "consul_encrypt_key" {
 }
 
 # Use external data source to get the latest services base snapshot
-# The script will use DO_API_TOKEN from environment
+# The script will use DIGITALOCEAN_API_TOKEN from environment
 data "external" "latest_services_base" {
-  program = ["bash", "-c", "DO_API_TOKEN='${var.do_token}' ${path.root}/../../scripts/get-latest-snapshot.sh codelab-services-base"]
+  program = ["bash", "-c", "DIGITALOCEAN_API_TOKEN='${var.digitalocean_api_token}' ${path.root}/../../scripts/get-latest-snapshot.sh codelab-services-base"]
 }
 
 locals {
@@ -45,7 +45,7 @@ locals {
 
 # Define sources for each service
 source "digitalocean" "api" {
-  api_token    = var.do_token
+  api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
@@ -57,7 +57,7 @@ source "digitalocean" "api" {
 }
 
 source "digitalocean" "web" {
-  api_token    = var.do_token
+  api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
@@ -69,7 +69,7 @@ source "digitalocean" "web" {
 }
 
 source "digitalocean" "landing" {
-  api_token    = var.do_token
+  api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
@@ -81,7 +81,7 @@ source "digitalocean" "landing" {
 }
 
 source "digitalocean" "sites" {
-  api_token    = var.do_token
+  api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
@@ -93,7 +93,7 @@ source "digitalocean" "sites" {
 }
 
 source "digitalocean" "neo4j" {
-  api_token    = var.do_token
+  api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-2gb-intel"  # Match Terraform deployment size (needs more RAM)
@@ -105,7 +105,7 @@ source "digitalocean" "neo4j" {
 }
 
 source "digitalocean" "consul_server" {
-  api_token    = var.do_token
+  api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
@@ -133,35 +133,35 @@ build {
   provisioner "file" {
     only        = ["digitalocean.api"]
     source      = "templates/docker-compose-api.ctmpl"
-    destination = "/etc/consul-template/templates/docker-compose.ctmpl"
+    destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
   # Web-specific template
   provisioner "file" {
     only        = ["digitalocean.web"]
     source      = "templates/docker-compose-web.ctmpl"
-    destination = "/etc/consul-template/templates/docker-compose.ctmpl"
+    destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
   # Landing-specific template
   provisioner "file" {
     only        = ["digitalocean.landing"]
     source      = "templates/docker-compose-landing.ctmpl"
-    destination = "/etc/consul-template/templates/docker-compose.ctmpl"
+    destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
   # Sites-specific template
   provisioner "file" {
     only        = ["digitalocean.sites"]
     source      = "templates/docker-compose-sites.ctmpl"
-    destination = "/etc/consul-template/templates/docker-compose.ctmpl"
+    destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
   # Neo4j-specific template
   provisioner "file" {
     only        = ["digitalocean.neo4j"]
     source      = "templates/docker-compose-neo4j.ctmpl"
-    destination = "/etc/consul-template/templates/docker-compose.ctmpl"
+    destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
   # CRITICAL: Selective Consul configuration based on node type
@@ -187,7 +187,10 @@ build {
   # These nodes only need local API access for security
   provisioner "file" {
     except      = ["digitalocean.consul_server"]
-    source      = "files/consul-client.hcl"
+    content     = templatefile("templates/consul-client.hcl.tpl", {
+      digitalocean_api_token = var.digitalocean_api_token
+      region                 = var.do_region
+    })
     destination = "/etc/consul.d/consul-client.hcl"
   }
 

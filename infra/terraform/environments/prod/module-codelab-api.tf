@@ -24,7 +24,4 @@ module "codelab_api" {
 
   next_public_api_port      = var.NEXT_PUBLIC_API_PORT
   next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
-  
-  # Consul configuration
-  consul_server_ip   = module.consul.consul_server_private_ip
 }
