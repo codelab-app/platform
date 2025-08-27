@@ -67,7 +67,7 @@ export const UpdateDomainModal = observer<UpdateDomainModalProps>(
           onSubmitSuccess={goBack}
           schema={updateDomainSchema}
         >
-          <AutoFields omitFields={['storeId']} />
+          <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>
     )
