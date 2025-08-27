@@ -7,6 +7,7 @@ import {
   type JsonSchema,
   userRef,
 } from '@codelab/frontend-abstract-domain'
+import { ExpressionSelectField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
@@ -49,14 +50,21 @@ export class EnumType
 
   toJsonSchema({
     defaultValues,
-    uniformSchema,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     return {
       enum: this.allowedValues.map((allowedValue) => allowedValue.value),
       type: 'string',
       ...validationRules?.general,
-      ...(uniformSchema?.(this) ?? {}),
+      // needed for union because we skip the bridge
+      uniforms: {
+        component: ExpressionSelectField,
+        options: this.allowedValues.map((allowedValue) => ({
+          label: allowedValue.label,
+          value: allowedValue.value,
+        })),
+      },
+
       // for the enum, the default value cannot be "null", in this case ajv
       // will report error even if the filed has "nullable: true" in schema.
       // instead, the default value should be "undefined" to allow optional enums

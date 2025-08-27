@@ -1,25 +1,27 @@
-import type {
-  ITypeModel,
-  ITypeTransformContext,
-  JsonSchema,
-} from '@codelab/frontend-abstract-domain'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
+import {
+  type ITypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
+} from '@codelab/frontend-abstract-domain'
+import { GeneralValidationRules } from '@codelab/shared-abstract-core'
 import { HiddenField } from 'uniforms-antd'
 
 export const typedPropSchema = (
   type: ITypeModel,
-  {
-    defaultValues,
-    fieldName,
-    uniformSchema,
-    validationRules,
-  }: ITypeTransformContext,
+  uniforms: ObjectLike,
+  { defaultValues, validationRules }: ITypeTransformContext,
 ): JsonSchema => {
   const { id, kind } = type
 
   return {
-    isTypedProp: true,
     properties: {
+      __isTypedProp: {
+        default: true,
+        type: 'boolean',
+        uniforms: { component: HiddenField },
+      },
       kind: {
         default: kind,
         enum: [kind],
@@ -33,14 +35,16 @@ export const typedPropSchema = (
         uniforms: { component: HiddenField },
       },
       value: {
-        label: fieldName ?? '',
-        ...(uniformSchema?.(type) ?? {}),
+        label: '',
+        uniforms,
+        type: 'string',
       },
     },
-    ...validationRules?.general,
     ...(defaultValues ? { default: defaultValues } : {}),
     label: '',
-    required: ['type', 'kind'],
+    required: validationRules?.general?.[GeneralValidationRules.Nullable]
+      ? ['type', 'kind']
+      : ['type', 'kind', 'value'],
     type: 'object',
   }
 }

@@ -78,11 +78,17 @@ export class TypeListPage extends BasePage {
 
     await form.fillInputText({ label: 'Key' }, interfaceFieldName)
     await form.fillInputSelect({ label: 'Type' }, PrimitiveTypeKind.String)
+
+    await this.getPopover(UiKey.FieldPopoverCreate)
+      .getButton({ text: 'Next' })
+      .click()
+
     await form.fillInputText({ label: 'Default values' }, 'default string')
 
     await this.getPopover(UiKey.FieldPopoverCreate)
       .getButton({ text: 'Create' })
       .click()
+
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -198,8 +204,13 @@ export class TypeListPage extends BasePage {
     await form.fillInputText({ label: 'Key' }, updatedInterfaceFieldName)
 
     await this.getPopover(UiKey.FieldPopoverUpdate)
-      .getButton({ text: 'Update' })
+      .getButton({ text: 'Next' })
       .click()
+
+    await this.getPopover(UiKey.FieldPopoverUpdate)
+      .getButton({ text: 'Update Field' })
+      .click()
+
     await this.expectGlobalProgressBarToBeHidden()
   }
 

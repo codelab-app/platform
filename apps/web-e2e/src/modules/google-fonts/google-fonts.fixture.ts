@@ -1,3 +1,4 @@
+import { IConfigPaneTab } from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -19,7 +20,7 @@ export class GoogleFontsPage extends CssBuilderPage {
       await this.page.locator('.ant-select-item-option-active').hover()
       await this.scrollUntilElementIsVisible(fontLazyOption)
       await this.page.locator(`.ant-select-item[title="${FONT_NAME}"]`).click()
-      await this.page.locator('div[name="value.weight"]').click()
+      await this.page.locator('div[id="fonts.0.value.weight"]').click()
       await this.page.locator(`.ant-select-item[title="${FONT_SIZE}"]`).click()
       await this.waitForProgressBar()
     })
@@ -42,7 +43,9 @@ export class GoogleFontsPage extends CssBuilderPage {
 
   async openPropsTab() {
     return test.step('openPropsTab', async () => {
-      const cssTab = this.page.locator('[data-node-key="Props"]')
+      const cssTab = this.page.locator(
+        `[data-node-key="${IConfigPaneTab.Props}"]`,
+      )
 
       await cssTab.click()
 

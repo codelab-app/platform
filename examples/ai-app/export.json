@@ -117,7 +117,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "4b84bdb2-d2af-429b-b460-7627cbc72e10",
-            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"children\":\"{{componentProps.content}}\"}"
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"children\":\"{{componentProps.content}}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -348,7 +348,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
-            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"children\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"children\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -410,7 +410,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "82e07e59-cf9d-4010-97d9-739db0e2cbbe",
-            "data": "{\"placeholder\":\"Type your message...\",\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"363002dc-21db-4c18-b807-9b898f41ffd8\"},\"autoSize\":true}"
+            "data": "{\"placeholder\":\"Type your message...\",\"onPressEnter\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"363002dc-21db-4c18-b807-9b898f41ffd8\"},\"autoSize\":true}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -643,7 +643,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "ad9adef5-21df-4ac0-92ca-c48f685e72c2",
-            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+            "data": "{\"children\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,

@@ -1,17 +1,20 @@
 'use client'
 
 import type { IFieldCreateRoute } from '@codelab/frontend-abstract-application'
+import type { IFieldCreateData } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend-abstract-types'
 import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
+import { FieldFormStep } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
-import { useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
 import { useFieldService } from '../../services/field.service'
 import { CreateFieldForm } from './CreateFieldForm'
+import { FieldDefaultValueForm } from './FieldDefaultValueForm'
 
 interface CreateFieldPopoverProps {
   context: IFieldCreateRoute
@@ -23,37 +26,91 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
   } = context
 
   const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>(undefined)
+  const fieldService = useFieldService()
+
+  const [formStep, setFormStep] = useState<FieldFormStep>(
+    FieldFormStep.CreateFieldFormStep,
+  )
+
+  const [formState, setFormState] = useState<IFieldCreateData>()
+  const createFieldFormSubmitRef = useRef<Maybe<SubmitController>>(undefined)
+  const defaultValueFormSubmitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useFieldService()
   const closePopover = () => createPopover.close(router, context)
+
+  const createFieldFormToolbar = useMemo(
+    () => [
+      {
+        cuiKey: UiKey.FieldToolbarItemCreateNext,
+        icon: <SaveOutlined />,
+        label: 'Next',
+        onClick: () => createFieldFormSubmitRef.current?.submit(),
+      },
+      {
+        cuiKey: UiKey.FieldToolbarItemCreateCancel,
+        icon: <CloseOutlined />,
+        label: 'Cancel',
+        onClick: closePopover,
+      },
+    ],
+    [],
+  )
+
+  const defaultValueFormToolbar = useMemo(
+    () => [
+      {
+        cuiKey: UiKey.FieldToolbarItemCreate,
+        icon: <SaveOutlined />,
+        label: 'Create',
+        onClick: () => defaultValueFormSubmitRef.current?.submit(),
+      },
+      {
+        cuiKey: UiKey.FieldToolbarItemCreateBack,
+        icon: <CloseOutlined />,
+        label: 'Back',
+        onClick: () => setFormStep(FieldFormStep.CreateFieldFormStep),
+      },
+    ],
+    [],
+  )
 
   return (
     <CuiSidebarSecondary
       id={UiKey.FieldPopoverCreate}
       toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.FieldToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => submitRef.current?.submit(),
-          },
-          {
-            cuiKey: UiKey.FieldToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: closePopover,
-          },
-        ],
+        items:
+          formStep === FieldFormStep.CreateFieldFormStep
+            ? createFieldFormToolbar
+            : defaultValueFormToolbar,
         title: 'Create Field toolbar',
       }}
     >
       <CreateFieldForm
+        disabled={formStep === FieldFormStep.DefaultValueFormStep}
         interfaceId={interfaceId}
-        onSubmitSuccess={closePopover}
-        showFormControl={false}
-        submitRef={submitRef}
+        onSubmit={(data) => {
+          setFormState(data)
+          setFormStep(FieldFormStep.DefaultValueFormStep)
+        }}
+        submitRef={createFieldFormSubmitRef}
       />
+
+      {formStep === FieldFormStep.DefaultValueFormStep && formState && (
+        <FieldDefaultValueForm
+          errorMessage="Error while creating field"
+          fieldType={formState.fieldType}
+          onSubmit={async (data) => {
+            await fieldService.create({
+              ...formState,
+              defaultValues: data.defaultValues,
+            })
+            closePopover()
+          }}
+          submitRef={defaultValueFormSubmitRef}
+          successMessage="Field created successfully"
+          validationRules={formState.validationRules}
+        />
+      )}
     </CuiSidebarSecondary>
   )
 }

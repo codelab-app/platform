@@ -1,3 +1,4 @@
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import {
   IAtomType,
   IComponentType,
@@ -26,11 +27,11 @@ export const typographyElement = {
   id: v4(),
   name: 'Text Element',
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'Testing fonts',
-    },
+    }),
   },
 }
 

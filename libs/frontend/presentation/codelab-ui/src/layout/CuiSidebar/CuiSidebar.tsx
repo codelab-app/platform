@@ -59,6 +59,7 @@ export const CuiSidebar = ({
       <CuiSidebarHeader label={label} toolbar={toolbar} />
       <CuiSidebarBody
         defaultActiveViewKeys={defaultActiveViewKeys}
+        uiKey={uiKey}
         views={views}
       />
     </CuiSidebarLayout>

@@ -19,7 +19,6 @@ import { useMemo } from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 
 import { useAtomService } from '../../services'
-import { SelectAtom } from '../select-atom'
 import { updateAtomSchema } from './update-atom.schema'
 
 interface UpdateAtomFormProps extends IFormController {
@@ -37,7 +36,7 @@ const omitFields = [
 
 export const UpdateAtomForm = observer<UpdateAtomFormProps>(
   ({ atom, onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { tagDomainService } = useDomainStore()
+    const { atomDomainService, tagDomainService } = useDomainStore()
     const atomService = useAtomService()
     const tagListOption = tagDomainService.tagsSelectOptions
 
@@ -90,8 +89,16 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
           options={tagListOption}
           showSearch={true}
         />
-        <SelectAtom label="Suggested Children" name="suggestedChildren" />
-        <SelectAtom label="Required Parents" name="requiredParents" />
+        <SelectField
+          label="Suggested Children"
+          name="suggestedChildren"
+          options={atomDomainService.getSelectOptions()}
+        />
+        <SelectField
+          label="Required Parents"
+          name="requiredParents"
+          options={atomDomainService.getSelectOptions()}
+        />
 
         <DisplayIf condition={showFormControl}>
           <FormController submitLabel="Update Atom" />

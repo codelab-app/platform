@@ -13,7 +13,10 @@ import type {
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import type { Ref } from 'mobx-keystone'
 
+import type { IComponentModel } from '../../component'
+import type { IElementModel } from '../../element'
 import type { IModel } from '../../shared'
+import type { IStoreModel } from '../../store'
 import type { IUserModel } from '../../user'
 import type { IActionTypeModel } from './action-type.model.interface'
 import type { IAppTypeModel } from './app-type.model.interface'
@@ -32,9 +35,11 @@ import type { IUnionTypeModel } from './union-type.model.interface'
 
 export interface JsonSchema extends JSONSchema7 {
   autocomplete?: IPropData
+  discriminator?: ObjectLike
   help?: Nullable<string>
-  isTypedProp?: boolean
+  isPropComponent?: boolean
   label?: string
+  oneOf?: Array<JsonSchema>
   properties?:
     | {
         [key: string]: JSONSchema7Definition & {
@@ -44,15 +49,19 @@ export interface JsonSchema extends JSONSchema7 {
         }
       }
     | undefined
+  uniforms?: ObjectLike
 }
 
 export interface ITypeTransformContext {
+  component?: IComponentModel
   defaultValues?: Nullish<IFieldDefaultValue>
   depth?: number
-  fieldName?: string | null
+  element?: IElementModel
+  providerStore?: IStoreModel
+  store?: IStoreModel
   validationRules?: Nullish<IValidationRules>
-  uniformSchema?(type: ITypeModel): ObjectLike
 }
+
 export interface IBaseTypeModel<IDto extends IBaseTypeDto>
   extends IModel<IDto, IBaseTypeModel<IDto>> {
   __typename: `${ITypeKind}`

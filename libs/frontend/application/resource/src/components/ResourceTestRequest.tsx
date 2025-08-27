@@ -45,10 +45,10 @@ export const ResourceTestRequest = observer<ResourceTestRequestProps>(
         <h3 className="text-gray-700">Response</h3>
         <CodeMirrorEditor
           height="150px"
+          label="Response"
           language={ICodeMirrorLanguage.Json}
           onChange={() => undefined}
           readOnly
-          title="Response"
           value={propSafeStringify(response)}
         />
         <Button

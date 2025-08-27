@@ -68,7 +68,7 @@ export class RuntimeComponentPropModel
 
   @computed
   get instanceElementProps(): Maybe<IPropData> {
-    if (this.runtimeComponent.current.isTypedProp) {
+    if (this.runtimeComponent.current.isPropComponent) {
       return undefined
     }
 

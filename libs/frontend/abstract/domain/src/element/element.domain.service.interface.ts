@@ -1,4 +1,8 @@
-import type { IElementDto } from '@codelab/shared-abstract-core'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type {
+  IElementDto,
+  IElementTypeKind,
+} from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
 
@@ -18,6 +22,11 @@ export interface IElementDomainService
   modifiedElements: Array<IElementModel>
   addTreeNode(elementDto: IElementDto): IElementModel
   element(id: string): IElementModel
+  getSelectOptions(
+    element: IElementModel,
+    kind: IElementTypeKind,
+    exclude?: Array<string>,
+  ): Array<SelectOption>
   logElementTreeState(): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
   move(context: IMoveElementContext): void

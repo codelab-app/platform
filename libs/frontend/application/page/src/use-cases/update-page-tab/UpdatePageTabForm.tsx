@@ -2,8 +2,9 @@ import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import { IPageKind } from '@codelab/shared-abstract-core'
+import { IElementTypeKind, IPageKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 
@@ -12,6 +13,7 @@ import { schema } from './update-page-tab.schema'
 
 export const UpdatePageTabForm = observer<{ page: IPageModel }>(({ page }) => {
   const pageService = usePageService()
+  const { elementDomainService } = useDomainStore()
   const onSubmit = (input: IPageUpdateFormData) => pageService.update(input)
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']
@@ -31,15 +33,21 @@ export const UpdatePageTabForm = observer<{ page: IPageModel }>(({ page }) => {
     pageContentContainer: pageContentContainer?.maybeCurrent?.id
       ? { id: pageContentContainer.maybeCurrent.id }
       : null,
-    url: page.urlPattern,
-  }
+    urlPattern: page.urlPattern,
+  } as IPageUpdateFormData
 
   return (
-    <Form
+    <Form<IPageUpdateFormData>
       autosave={true}
       model={model}
       onSubmit={onSubmit}
-      schema={schema(kind)}
+      schema={schema(
+        kind,
+        elementDomainService.getSelectOptions(
+          page.rootElement.current,
+          IElementTypeKind.AllElements,
+        ),
+      )}
       uiKey={UiKey.PageFormUpdate}
     >
       <AutoFields omitFields={omitFields} />

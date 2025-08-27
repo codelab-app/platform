@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { IAppDto } from '@codelab/shared-abstract-core'
 
 import {
@@ -23,6 +24,13 @@ export class AppDomainService
 
   app(id: string) {
     return this.apps.get(id)
+  }
+
+  getSelectOption(): Array<SelectOption> {
+    return this.appsList.map((app) => ({
+      label: app.name,
+      value: app.id,
+    }))
   }
 
   @modelAction

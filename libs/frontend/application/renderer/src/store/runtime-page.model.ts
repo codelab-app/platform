@@ -1,19 +1,17 @@
-import type {
-  IElementTreeViewDataNode,
-  IElementTreeViewDataNodePreview,
-  IRuntimeElementModel,
-  IRuntimePageDto,
-  IRuntimePageModel,
-  IRuntimeStoreModel,
-} from '@codelab/frontend-abstract-application'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
   getRuntimeElementService,
   getRuntimePageService,
+  type IElementTreeViewDataNode,
+  type IElementTreeViewDataNodePreview,
+  type IRuntimeElementModel,
+  type IRuntimePageDto,
+  type IRuntimePageModel,
+  type IRuntimeStoreModel,
 } from '@codelab/frontend-abstract-application'
-import { type IPageModel } from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement, type ReactElement } from 'react'
@@ -65,6 +63,7 @@ export class RuntimePageModel
     return createElement(ContainerNodeWrapper, {
       children: this.runtimeRootElement.current.rendered,
       runtimeContainerNode: this,
+      key: this.compositeKey,
     })
   }
 
