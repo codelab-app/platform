@@ -1170,9 +1170,6 @@ importers:
       eslint-plugin-unused-imports:
         specifier: 4.1.4
         version: 4.1.4(@typescript-eslint/eslint-plugin@8.37.0(@typescript-eslint/parser@8.37.0(eslint@9.31.0(jiti@2.4.2))(typescript@5.5.4))(eslint@9.31.0(jiti@2.4.2))(typescript@5.5.4))(eslint@9.31.0(jiti@2.4.2))
-      execa:
-        specifier: 5.1.1
-        version: 5.1.1
       git-changed-files:
         specifier: 1.0.0
         version: 1.0.0
@@ -1281,6 +1278,9 @@ importers:
       wait-on:
         specifier: 6.0.1
         version: 6.0.1
+      zx:
+        specifier: ^8.2.4
+        version: 8.8.1
 
 packages:
 
@@ -17957,6 +17957,11 @@ packages:
         optional: true
       react:
         optional: true
+
+  zx@8.8.1:
+    resolution: {integrity: sha512-qvsKBnvWHstHKCluKPlEgI/D3+mdiQyMoSSeFR8IX/aXzWIas5A297KxKgPJhuPXdrR6ma0Jzx43+GQ/8sqbrw==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
 
 snapshots:
 
@@ -39473,3 +39478,5 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.12
       react: 19.1.0
+
+  zx@8.8.1: {}

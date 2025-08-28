@@ -36,7 +36,7 @@ variable "consul_encrypt_key" {
 # Use external data source to get the latest services base snapshot
 # The script will use DIGITALOCEAN_API_TOKEN from environment
 data "external" "latest_services_base" {
-  program = ["bash", "-c", "DIGITALOCEAN_API_TOKEN='${var.digitalocean_api_token}' ${path.root}/../../scripts/get-latest-snapshot.sh codelab-services-base"]
+  program = ["bash", "-c", "cd ${path.root}/../../../../.. && DIGITALOCEAN_API_TOKEN='${var.digitalocean_api_token}' pnpm cli packer get-latest-snapshot --stage prod 2>/dev/null"]
 }
 
 locals {

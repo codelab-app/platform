@@ -58,6 +58,7 @@ Load when needed: `Read .claude/documentation/convention/git-commit-conventions.
 - Do not add console.log or any output unless explicitly requested
 - Stop being eager on adding code, only add what is necessary to accomplish the goal
 - Stop providing defaults for configs
+- Never set default values unless asked to
 
 ## Research and Information Lookup
 
