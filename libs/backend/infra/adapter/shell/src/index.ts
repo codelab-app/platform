@@ -1,2 +1,2 @@
-export * from './exec-command'
-export * from './handle-command'
+export { globalHandler } from './handle-command'
+export { $, $quiet, $stream } from './shell'

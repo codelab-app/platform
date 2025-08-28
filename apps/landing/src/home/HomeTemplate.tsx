@@ -42,26 +42,4 @@ const HomeTemplate = ({ children }: HomeTemplateProps) => {
   )
 }
 
-// const LayoutTest = ({ children }: PropsWithChildren<any>) => {
-//   const isMenuOpen = useRecoilValue(menuState)
-
-//   return (
-//     <div css={[isMenuOpen ?? tw`backdrop-blur`]} id="home">
-//       {children}
-//     </div>
-//   )
-// }
-
-// export const Layout2 = ({ children }: any) => (
-//   <LayoutTest>
-//     <Header>
-//       <CodelabMenuContainer>
-//         <MenuDesktop />
-//       </CodelabMenuContainer>
-//     </Header>
-//     <Content>{children}</Content>
-//     <Footer></Footer>
-//   </LayoutTest>
-// )
-
 export default HomeTemplate
