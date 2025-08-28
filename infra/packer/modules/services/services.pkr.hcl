@@ -32,6 +32,7 @@ variable "consul_encrypt_key" {
   sensitive   = true
 }
 
+
 # Use external data source to get the latest services base snapshot
 # The script will use DIGITALOCEAN_API_TOKEN from environment
 data "external" "latest_services_base" {
@@ -202,6 +203,48 @@ build {
     only        = ["digitalocean.consul_server"]
     source      = "files/consul-server.hcl"
     destination = "/etc/consul.d/consul-server.hcl"
+  }
+
+  # Fix permissions for Consul configuration files
+  provisioner "shell" {
+    inline = [
+      "chown consul:consul /etc/consul.d/*.hcl",
+      "chmod 640 /etc/consul.d/*.hcl"
+    ]
+  }
+
+  # Pre-pull Docker images for faster deployment
+  # This caches the images in the snapshot, avoiding slow pulls on boot
+  provisioner "shell" {
+    only = ["digitalocean.landing"]
+    inline = [
+      "doctl registry login",
+      "docker pull registry.digitalocean.com/codelabapp/landing:latest || true"
+    ]
+  }
+
+  provisioner "shell" {
+    only = ["digitalocean.api"]
+    inline = [
+      "doctl registry login",
+      "docker pull registry.digitalocean.com/codelabapp/api:latest || true"
+    ]
+  }
+
+  provisioner "shell" {
+    only = ["digitalocean.web"]
+    inline = [
+      "doctl registry login",
+      "docker pull registry.digitalocean.com/codelabapp/web:latest || true"
+    ]
+  }
+
+  provisioner "shell" {
+    only = ["digitalocean.sites"]
+    inline = [
+      "doctl registry login",
+      "docker pull registry.digitalocean.com/codelabapp/sites:latest || true"
+    ]
   }
 
   # Clean up and optimize snapshot size

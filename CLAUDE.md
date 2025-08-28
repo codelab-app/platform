@@ -1,96 +1,37 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
-
-Codelab is a visual web application builder platform that allows users to create web applications through a drag-and-drop interface. It's similar to Webflow, Framer, or Bubble.io but with a more sophisticated type system and component architecture. The platform targets developers who want visual development with code-level control.
-
-## Architecture & Domain Knowledge
-
-_Fetch from: `.claude/documentation/codelab-domain-knowledge.md`_
-
-## Development Guidelines
-
-<!-- ### Code Style and Conventions
-
-_Fetch from: `.claude/documentation/convention/file-conventions.md`_
-_Fetch from: `.claude/documentation/convention/code-style-conventions.md`_ -->
-
-### Project Structure
-
-_Fetch from: `.claude/documentation/convention/project-structure-conventions.md`_
-_Fetch from: `.claude/documentation/convention/nx-library-naming-conventions.md`_
-_Fetch from: `.claude/documentation/nx-workspace-library-build-process.md`_
-
-<!-- ### State Management
-
-_Fetch from: `.claude/documentation/convention/state-management-conventions.md`_ -->
-
-### Styling
-
-_Fetch from: `.claude/documentation/convention/styling-conventions.md`_
-
-<!-- ### GraphQL
-
-Load when needed: `Read .claude/documentation/convention/graphql-conventions.md` -->
-
-## Documentation Guidelines
-
-Load when needed: `Read .claude/documentation/convention/documentation-conventions.md`
-
 ## Prompting
 
-- Do what has been asked; nothing more, nothing less
-- Use minimal configuration for services where possible
-- Don't add "nice-to-have" or "best practice" configurations unless explicitly
-  requested
-- NEVER create files unless they're absolutely necessary for achieving your goal
-- ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (\*.md) or README files in the main codebase
-- Use `.claude/documentation/` for complex implementation summaries when needed
-- Prefer simpler and shorter code rather than optimized code that handles more cases. Don'n automatically add use cases to my original task.
+### Core Principles
 
-### Linting
+- **Do exactly what has been asked; nothing more, nothing less**
+- **NEVER add extra features, convenience methods, or "nice-to-have" functionality**
+- **NEVER add logging, console output, or status messages unless explicitly requested**
+- **NEVER create "list", "status", "info", or other utility commands unless asked**
+- **NEVER create duplicate functionality - if something can be done with existing code, don't create another way to do it**
+- **Use minimal configuration for services where possible**
+- **Don't add "best practice" configurations unless explicitly requested**
 
-<!-- #### TypeScript Class Member Ordering
+### File Management
 
-The codebase enforces strict member ordering for TypeScript classes via `@typescript-eslint/member-ordering`:
+- **NEVER create files unless they're absolutely necessary for the requested task**
+- **ALWAYS prefer editing an existing file to creating a new one**
+- **NEVER proactively create documentation files (\*.md) or README files**
 
-1. **Public static fields and methods** (grouped together)
-2. **Getters** (`get` accessors)
-3. **Public fields**
-4. **Public methods**
-5. **Protected members** (fields, getters, setters, methods - grouped together)
-6. **Private static methods**
-7. **Private static fields**
-8. **Private fields and methods** (grouped together)
-9. **Private getters**
-10. **Private setters** -->
+### Code Style
 
-Within each group, members are ordered alphabetically.
+- **Write the minimal code required to fulfill the request**
+- **Don't add error handling, validation, or edge cases unless requested**
+- **Don't add type safety, interfaces, or abstractions beyond what's needed**
+- **Prefer simpler and shorter code rather than optimized code**
+- **Don't automatically add use cases to the original task**
 
-**Important**: Constructor should be placed after field declarations but before other methods.
+### Examples of What NOT to Do
 
-#### Ant Design Icon Imports
-
-Icons from Ant Design must be imported individually from their specific paths:
-
-```typescript
-// ❌ Wrong
-import { EyeOutlined } from '@ant-design/icons'
-
-// ✅ Correct
-import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
-```
-
-#### Other Linting Rules
-
-- No inline comments are allowed (use separate line comments, put before the code)
-- Don't remove comment simply for the lint error
-- Use multi line comment style if more than 1 line
-- React components in arrays must have `key` props
-- Import `UnknownObjectLike` from `@codelab/shared-abstract-types` instead of using `Record<string, unknown>`
+- Adding a "list" command when asked to create a build command
+- Adding success/failure messages or console.log when not requested
+- Creating helper functions or utilities "for convenience"
+- Adding verbose logging or progress indicators
+- Implementing additional validation or error checking
+- Creating abstractions or interfaces "for future extensibility"
 
 ## Git Workflow
 
@@ -112,8 +53,11 @@ Load when needed: `Read .claude/documentation/convention/git-commit-conventions.
 - When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
 - Make everything as concise as possible to achieve the goal, don't add extra features that are not asked for.
 - Use minimal configuration for services where possible
-- Avoid try catch or conditional logic, don't handle a use case that we didn't specify
+- Avoid conditional logic, don't handle a use case that we didn't specify
 - Do not handle a fallback case automatically unless asked specifically
+- Do not add console.log or any output unless explicitly requested
+- Stop being eager on adding code, only add what is necessary to accomplish the goal
+- Stop providing defaults for configs
 
 ## Research and Information Lookup
 
@@ -121,10 +65,6 @@ Load when needed: `Read .claude/documentation/convention/git-commit-conventions.
 - Use perplexity mcp instead of web search
 - Perplexity provides faster, more summarized results ideal for answering questions
 - Only use web search as a fallback if Perplexity is unavailable or fails
-
-## Documentation
-
-When I say read documentation it's regarding: Use the CLI tool to read from `.claude/documentation` directory
 
 ## GitHub Issue Context
 
