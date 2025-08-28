@@ -31,7 +31,7 @@ export class CommandService {
 
     // const args = hideBin(process.argv)[0]?.split(' ')
 
-    yargs(args)
+    void yargs(args)
       .scriptName('cli')
       // Add global stage option that's required
       .option('stage', {
@@ -73,6 +73,6 @@ export class CommandService {
       .strict()
       .showHelpOnFail(true)
       .exitProcess(true) // Ensure yargs exits the process
-      .parseSync()
+      .parse()
   }
 }

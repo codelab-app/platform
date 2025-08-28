@@ -1,10 +1,9 @@
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 
-import { execCommand } from '@codelab/backend-infra-adapter-shell'
+import { $, $stream, globalHandler } from '@codelab/backend-infra-adapter-shell'
 import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { get } from 'env-var'
-import { $ } from 'zx'
 
 import type { StageParam } from '../../shared/options'
 
@@ -54,12 +53,20 @@ export class DockerService implements CommandModule<unknown, unknown> {
               describe: 'Docker tag version',
               type: 'string',
             }),
-        ({ dockerTagVersion, push, service }) => {
-          const pushFlag = push ? ' --push' : ''
-          const target = service ? ` ${service}` : ''
-          const command = `DOCKER_TAG_VERSION=${dockerTagVersion} docker buildx bake --file .docker/docker-bake.hcl${pushFlag}${target}`
-          execCommand(command)
-        },
+        globalHandler(({ dockerTagVersion, push, service }) => {
+          const pushFlag = push ? '--push' : ''
+          const targets = service ? [service] : []
+          const env = { ...process.env, DOCKER_TAG_VERSION: dockerTagVersion }
+          if (pushFlag) {
+            $stream.syncWithEnv(
+              env,
+            )`docker buildx bake --file .docker/docker-bake.hcl ${pushFlag} ${targets}`
+          } else {
+            $stream.syncWithEnv(
+              env,
+            )`docker buildx bake --file .docker/docker-bake.hcl ${targets}`
+          }
+        }),
       )
       .command<DockerBuildParams>(
         'push [service]',
@@ -77,16 +84,19 @@ export class DockerService implements CommandModule<unknown, unknown> {
               describe: 'Docker tag version',
               type: 'string',
             }),
-        ({ dockerTagVersion, service }) => {
-          const target = service ? ` ${service}` : ''
-          const command = `DOCKER_TAG_VERSION=${dockerTagVersion} docker buildx bake --file .docker/docker-bake.hcl --push${target}`
-          execCommand(command)
-        },
+        globalHandler(({ dockerTagVersion, service }) => {
+          const targets = service ? [service] : []
+          const env = { ...process.env, DOCKER_TAG_VERSION: dockerTagVersion }
+          $stream.syncWithEnv(
+            env,
+          )`docker buildx bake --file .docker/docker-bake.hcl --push ${targets}`
+        }),
       )
       .command(
         'cleanup',
         'Clean up old Docker images from DigitalOcean registry (keeps last 3 versions)',
-        () => {
+        (argv) => argv,
+        globalHandler(() => {
           const repositories = ['api', 'landing', 'web', 'sites']
           const keepLastN = 3
 
@@ -94,15 +104,15 @@ export class DockerService implements CommandModule<unknown, unknown> {
             console.log(`\nProcessing repository: ${repo}`)
 
             // Get all tags sorted by date (newest first), excluding 'latest'
-            $.shell = '/bin/bash'
-            const result = $.sync`doctl registry repository list-tags "${repo}" --format Tag,UpdatedAt --no-header | grep -v "^latest" | sort -k2 -r || true`
+            const result = $.sync`doctl registry repository list-tags ${repo} --format Tag,UpdatedAt --no-header | grep -v "^latest" | sort -k2 -r || true`
+            const output = result.stdout.trim()
 
-            if (!result.stdout) {
+            if (!output) {
               console.log(`No tags found for ${repo}`)
               continue
             }
 
-            const tagLines = result.stdout.split('\n').filter(Boolean)
+            const tagLines = output.split('\n').filter(Boolean)
             if (tagLines.length <= keepLastN) {
               console.log(
                 `Repository has ${tagLines.length} tags, keeping all (minimum: ${keepLastN})`,
@@ -117,22 +127,19 @@ export class DockerService implements CommandModule<unknown, unknown> {
               .filter(Boolean)
 
             if (tagsToDelete.length > 0) {
-              console.log(`Deleting ${tagsToDelete.length} old tags from ${repo}...`)
-              const tagList = tagsToDelete.join(' ')
-              execCommand(
-                `doctl registry repository delete-tag "${repo}" ${tagList} --force`,
+              console.log(
+                `Deleting ${tagsToDelete.length} old tags from ${repo}...`,
               )
+              $stream.sync`doctl registry repository delete-tag ${repo} ${tagsToDelete} --force`
               console.log(`Deleted ${tagsToDelete.length} tags from ${repo}`)
             }
           }
 
           // Start garbage collection
           console.log('\nStarting garbage collection to reclaim space...')
-          execCommand(
-            'doctl registry garbage-collection start --include-untagged-manifests --force',
-          )
+          $stream.sync`doctl registry garbage-collection start --include-untagged-manifests --force`
           console.log('Garbage collection started')
-        },
+        }),
       )
       .demandCommand(1, 'Please provide a task')
   }
