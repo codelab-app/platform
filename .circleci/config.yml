@@ -354,11 +354,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-api.sh)
-          name: Build api Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push api
+          name: Build and Push API Docker Image
   docker-landing:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
@@ -369,11 +366,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-landing.sh)
-          name: Build landing Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push landing
+          name: Build and Push Landing Docker Image
   docker-sites:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
@@ -384,11 +378,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-sites.sh)
-          name: Build sites Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push sites
+          name: Build and Push Sites Docker Image
   docker-web:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
@@ -399,11 +390,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-web.sh)
-          name: Build web Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push web
+          name: Build and Push Web Docker Image
   e2e:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>

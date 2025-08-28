@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
+  DockerService,
   PackerService,
   // ScrapeAntdService,
   // ScrapeHtmlService,
@@ -13,6 +15,7 @@ import { hideBin } from 'yargs/helpers'
 @Injectable()
 export class CommandService {
   constructor(
+    private readonly dockerService: DockerService,
     private readonly packerService: PackerService,
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
@@ -53,6 +56,10 @@ export class CommandService {
       // .command('scrape', 'Antd / Html', (argv) =>
       //   argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
       // )
+      /**
+       * Docker - Build and push images
+       */
+      .command(this.dockerService)
       /**
        * Packer - Machine image builder
        */

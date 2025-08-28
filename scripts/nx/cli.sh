@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 nx build cli
 
 # Build the nx command with each argument passed as a separate --args flag
