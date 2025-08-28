@@ -1,17 +1,14 @@
-import execa from 'execa'
+import { $ } from 'zx'
 
 export const execCommand = (command: string) => {
   console.log(`Executing: ${command}`)
 
   try {
-    // Only use shell on CI
-    const shell = process.env['CI'] ? true : false
-
-    return execa.commandSync(command, {
-      shell: true,
-      stdio: 'inherit',
-      env: process.env, // Explicitly pass environment variables
-    })
+    $.shell = '/bin/bash'
+    $.verbose = false // We're already logging the command
+    
+    const result = $.sync`${command}`
+    return result
   } catch (error) {
     console.error(error)
     /**

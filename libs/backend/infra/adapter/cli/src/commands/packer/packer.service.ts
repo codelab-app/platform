@@ -3,7 +3,7 @@ import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { execCommand } from '@codelab/backend-infra-adapter-shell'
 import { Injectable } from '@nestjs/common'
 import { get } from 'env-var'
-import { commandSync } from 'execa'
+import { $ } from 'zx'
 import { existsSync } from 'fs'
 import { join } from 'path'
 
@@ -148,6 +148,86 @@ export class PackerService implements CommandModule<unknown, unknown> {
           execCommand(`packer fmt ${checkFlag} ${this.packerDir}`)
         },
       )
+      .command(
+        'get-latest-snapshot',
+        'Get the latest snapshot ID',
+        (argv) =>
+          argv.middleware(this.fetchDigitalOceanToken).option('service', {
+            describe: 'Service name (default: services-base)',
+            type: 'string',
+            default: 'services-base',
+          }),
+        ({ digitaloceanApiToken, service }) => {
+          const pattern = `codelab-${service}`
+          $.shell = '/bin/bash'
+          const result = $.sync`doctl compute snapshot list --format ID,Name,CreatedAt --no-header --access-token "${digitaloceanApiToken}" | grep "${pattern}" | sort -k3 -r | head -1 | awk '{print $1}'`
+
+          if (!result.stdout.trim()) {
+            console.error(`Error: No snapshot found for service: ${service}`)
+            process.exit(1)
+          }
+
+          // Output JSON format for Packer's external data source
+          console.log(JSON.stringify({ id: result.stdout.trim() }))
+        },
+      )
+      .command(
+        'cleanup',
+        'Clean up old Packer snapshots (keeps only latest)',
+        (argv) => argv.middleware(this.fetchDigitalOceanToken),
+        ({ digitaloceanApiToken }) => {
+          const services = [
+            'codelab-services-base',
+            'codelab-consul-server',
+            'codelab-api-base',
+            'codelab-web-base',
+            'codelab-landing-base',
+            'codelab-sites-base',
+            'codelab-neo4j-base',
+          ]
+          const keepCount = 1
+
+          for (const service of services) {
+            console.log(`\nProcessing: ${service}`)
+
+            // Get all snapshots for this service, sorted by name (includes timestamp)
+            $.shell = '/bin/bash'
+            const result = $.sync`doctl compute snapshot list --format ID,Name --no-header --access-token "${digitaloceanApiToken}" | grep "^[0-9]*[[:space:]]*${service}-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" | sort -k2 -r || true`
+
+            if (!result.stdout) {
+              console.log(`  No snapshots found for ${service}`)
+              continue
+            }
+
+            const snapshots = result.stdout.split('\n').filter(Boolean)
+            let count = 0
+
+            for (const line of snapshots) {
+              count++
+              const [snapshotId, snapshotName] = line.split(/\s+/)
+
+              if (count <= keepCount) {
+                console.log(
+                  `  Keeping latest: ${snapshotName} (ID: ${snapshotId})`,
+                )
+              } else {
+                console.log(
+                  `  Deleting old: ${snapshotName} (ID: ${snapshotId})`,
+                )
+                execCommand(
+                  `doctl compute snapshot delete "${snapshotId}" --force --access-token "${digitaloceanApiToken}" || true`,
+                )
+              }
+            }
+          }
+
+          console.log('\nCleanup completed!')
+          console.log('\nCurrent snapshots:')
+          execCommand(
+            `doctl compute snapshot list --format Name,Size,CreatedAt --access-token "${digitaloceanApiToken}" | grep -E "(codelab-|Name)" || true`,
+          )
+        },
+      )
       .demandCommand(1, 'Please provide a command')
   }
 
@@ -170,10 +250,19 @@ export class PackerService implements CommandModule<unknown, unknown> {
     console.log(`Building ${imageConfig.name}...`)
 
     // Clean up old snapshots before building to avoid hitting DigitalOcean limits
-    // Use the external cleanup script (non-critical, so we don't fail if it errors)
-    execCommand(
-      `DIGITALOCEAN_API_TOKEN="${digitaloceanApiToken}" ${this.packerDir}/scripts/cleanup-old-snapshots.sh || true`,
-    )
+    $.shell = '/bin/bash'
+    const cleanupResult = $.sync`doctl compute snapshot list --format ID,Name --no-header --access-token "${digitaloceanApiToken}" | grep "^[0-9]*[[:space:]]*${imageConfig.name}-base-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" | sort -k2 -r | tail -n +2 || true`
+
+    if (cleanupResult.stdout) {
+      const oldSnapshots = cleanupResult.stdout.split('\n').filter(Boolean)
+      for (const snapshot of oldSnapshots) {
+        const [id] = snapshot.split(/\s+/)
+        console.log(`Deleting old snapshot: ${id}`)
+        execCommand(
+          `doctl compute snapshot delete "${id}" --force --access-token "${digitaloceanApiToken}" || true`,
+        )
+      }
+    }
 
     const imageDir = join(this.packerDir, imageConfig.dir)
 
@@ -211,10 +300,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
   // Reusable middleware functions
   private fetchConsulEncryptKey = (args: ArgumentsCamelCase) => {
     console.log('Fetching CONSUL_ENCRYPT_KEY from prod-packer workspace...')
-    const result = commandSync(
-      'cd infra/terraform/environments/prod-packer && terraform output -raw consul_encrypt_key',
-      { shell: true },
-    )
+    $.shell = '/bin/bash'
+    const result = $.sync`cd infra/terraform/environments/prod-packer && terraform output -raw consul_encrypt_key`
     args['consulEncryptKey'] = result.stdout.trim()
     console.log('✓ CONSUL_ENCRYPT_KEY fetched successfully')
   }

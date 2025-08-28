@@ -3,12 +3,15 @@ import type { Argv, CommandModule } from 'yargs'
 import { execCommand } from '@codelab/backend-infra-adapter-shell'
 import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
-import { commandSync } from 'execa'
+import { $ } from 'zx'
 
 import type { StageParam } from '../../shared/options'
-
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getAutoApproveOptions, getStageOptions } from '../../shared/options'
+
+interface TerraformParams extends StageParam {
+  tag?: string
+}
 
 @Injectable()
 export class TerraformService implements CommandModule<unknown, unknown> {
@@ -44,13 +47,18 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command<StageParam>(
+        .command<TerraformParams>(
           'plan',
           'terraform plan',
-          (argv) => argv,
-          ({ stage }) => {
+          (argv) =>
+            argv.option('tag', {
+              describe: 'Docker tag version',
+              type: 'string',
+            }),
+          ({ stage, tag }) => {
+            const dockerTagEnv = tag ? `DOCKER_TAG_VERSION=${tag} ` : ''
             execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} plan`,
+              `export TF_WORKSPACE=${stage}; ${dockerTagEnv}terraform -chdir=infra/terraform/environments/${stage} plan`,
             )
           },
         )
@@ -69,13 +77,22 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command<StageParam & { autoApprove: boolean }>(
+        .command<TerraformParams & { autoApprove: boolean }>(
           'apply',
           'terraform apply',
-          (argv) => argv,
-          ({ autoApprove, stage }) => {
+          (argv) =>
+            argv.option('tag', {
+              describe: 'Docker tag version',
+              type: 'string',
+            }),
+          async ({ autoApprove, stage, tag }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : ''
             const tfDir = `infra/terraform/environments/${stage}`
+            
+            // Set DOCKER_TAG_VERSION if provided
+            if (tag) {
+              process.env['DOCKER_TAG_VERSION'] = tag
+            }
 
             /**
              * Two-stage Terraform apply to solve the Consul provider bootstrap problem:
@@ -94,7 +111,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             this.applyConsulInfrastructure(stage, tfDir, autoApproveFlag)
 
             // Get Consul server IP and configure environment
-            const consulIP = this.getConsulServerIP()
+            const consulIP = await this.getConsulServerIP()
             process.env['CONSUL_HTTP_ADDR'] = `${consulIP}:8500`
 
             // Stage 2: Apply all remaining infrastructure and Consul configuration
@@ -167,8 +184,11 @@ export class TerraformService implements CommandModule<unknown, unknown> {
     autoApproveFlag: string,
   ) {
     console.log('🔧 Stage 1/2: Creating Consul server infrastructure...')
+    const dockerTagEnv = process.env['DOCKER_TAG_VERSION']
+      ? `DOCKER_TAG_VERSION=${process.env['DOCKER_TAG_VERSION']} `
+      : ''
     execCommand(
-      `export TF_WORKSPACE=${stage}; terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`,
+      `export TF_WORKSPACE=${stage}; ${dockerTagEnv}terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`,
     )
   }
 
@@ -191,18 +211,18 @@ export class TerraformService implements CommandModule<unknown, unknown> {
     )
 
     // Use env command to ensure the variable is passed
+    const dockerTagEnv = process.env['DOCKER_TAG_VERSION']
+      ? `DOCKER_TAG_VERSION=${process.env['DOCKER_TAG_VERSION']} `
+      : ''
     execCommand(
-      `env CONSUL_HTTP_ADDR=${consulAddr} TF_WORKSPACE=${stage} terraform -chdir=${tfDir} apply ${autoApproveFlag}`,
+      `env ${dockerTagEnv}CONSUL_HTTP_ADDR=${consulAddr} TF_WORKSPACE=${stage} terraform -chdir=${tfDir} apply ${autoApproveFlag}`,
     )
   }
 
-  private getConsulServerIP(): string {
+  private async getConsulServerIP(): Promise<string> {
     console.log('🔍 Retrieving Consul server IP address...')
     // Use doctl to get the Consul server's public IP by droplet name
-    const result = commandSync(
-      'doctl compute droplet get consul-server --format PublicIPv4 --no-header',
-      { shell: true },
-    )
+    const result = await $`doctl compute droplet get consul-server --format PublicIPv4 --no-header`
     const consulIP = result.stdout.trim()
 
     if (!consulIP) {
