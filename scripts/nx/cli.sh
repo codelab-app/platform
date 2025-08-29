@@ -2,8 +2,6 @@
 
 # set -x
 
-nx build cli
-
 # Extract the arguments after "pnpm cli"
 args=${@#pnpm cli}
 
