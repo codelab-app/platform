@@ -747,8 +747,8 @@ importers:
         specifier: 4.5.2
         version: 4.5.2(@types/react@19.0.12)(react@19.1.0)
       zx:
-        specifier: ^8.2.4
-        version: 8.8.1
+        specifier: 8.2.4
+        version: 8.2.4
     devDependencies:
       '@0no-co/graphqlsp':
         specifier: 1.12.12
@@ -18086,8 +18086,8 @@ packages:
       react:
         optional: true
 
-  zx@8.8.1:
-    resolution: {integrity: sha512-qvsKBnvWHstHKCluKPlEgI/D3+mdiQyMoSSeFR8IX/aXzWIas5A297KxKgPJhuPXdrR6ma0Jzx43+GQ/8sqbrw==}
+  zx@8.2.4:
+    resolution: {integrity: sha512-g9wVU+5+M+zVen/3IyAZfsZFmeqb6vDfjqFggakviz5uLK7OAejOirX+jeTOkyvAh/OYRlCgw+SdqzN7F61QVQ==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
@@ -39742,4 +39742,7 @@ snapshots:
       '@types/react': 19.0.12
       react: 19.1.0
 
-  zx@8.8.1: {}
+  zx@8.2.4:
+    optionalDependencies:
+      '@types/fs-extra': 11.0.4
+      '@types/node': 22.13.5
