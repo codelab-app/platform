@@ -295,6 +295,12 @@ const UiDataRecord = {
   [UiKey.FieldToolbarItemCreate]: {
     label: 'Create Field Toolbar Item',
   },
+  [UiKey.FieldToolbarItemCreateNext]: {
+    label: 'Create Field Toolbar Item Next',
+  },
+  [UiKey.FieldToolbarItemCreateBack]: {
+    label: 'Create Field Toolbar Item Back',
+  },
   [UiKey.FieldToolbarItemCreateCancel]: {
     label: 'Cancel Create Field Toolbar Item',
   },
@@ -304,8 +310,14 @@ const UiDataRecord = {
   [UiKey.FieldToolbarItemUpdate]: {
     label: 'Update Field Toolbar Item',
   },
+  [UiKey.FieldToolbarItemUpdateBack]: {
+    label: 'Update Field Toolbar Item Back',
+  },
   [UiKey.FieldToolbarItemUpdateCancel]: {
     label: 'Cancel Update Field Toolbar Item',
+  },
+  [UiKey.FieldToolbarItemUpdateNext]: {
+    label: 'Update Field Toolbar Item Next',
   },
   [UiKey.FormInterface]: {
     label: 'Interface Form',

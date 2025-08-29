@@ -13,7 +13,7 @@ export interface IRuntimeComponentService {
     parent?: IRuntimeModel,
     propKey?: string,
     childMapperIndex?: number,
-    isTypedProp?: boolean,
+    isPropComponent?: boolean,
   ): IRuntimeComponentModel
   maybeRuntimeComponent(compositeKey: string): Maybe<IRuntimeComponentModel>
   remove(runtimeComponent: IRuntimeComponentModel): void

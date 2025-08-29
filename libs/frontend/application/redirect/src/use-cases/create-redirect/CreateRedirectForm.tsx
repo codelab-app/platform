@@ -1,6 +1,7 @@
 import type { IRedirectCreateFormData } from '@codelab/frontend-abstract-domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
@@ -9,7 +10,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IRedirectTargetType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useRedirectService } from '../../services'
@@ -19,11 +20,12 @@ export const CreateRedirectForm = observer<
   IFormController & { pageId: string }
 >(({ onSubmitSuccess, pageId, showFormControl = true, submitRef }) => {
   const redirectService = useRedirectService()
+  const { authGuardDomainService, pageDomainService } = useDomainStore()
 
   const model = {
     id: v4(),
     source: { id: pageId },
-  }
+  } as IRedirectCreateFormData
 
   return (
     <Form<IRedirectCreateFormData>
@@ -45,7 +47,15 @@ export const CreateRedirectForm = observer<
       successMessage="Auth redirect created successfully"
       uiKey={UiKey.RedirectFormCreate}
     >
-      <AutoFields omitFields={['targetPage', 'targetUrl']} />
+      <AutoFields omitFields={['targetPage', 'targetUrl', 'authGuard']} />
+      <SelectField
+        name="targetPage"
+        options={pageDomainService.getSelectOptions()}
+      />
+      <SelectField
+        name="authGuard.id"
+        options={authGuardDomainService.getSelectOptions()}
+      />
 
       <DisplayIfField<IRedirectCreateFormData>
         condition={(context) =>

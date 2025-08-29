@@ -24,7 +24,7 @@
         "api": {
           "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
         },
-        "defaultValues": "{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\",\"value\":\"\"}",
         "description": null,
         "fieldType": {
           "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
@@ -64,7 +64,7 @@
         "api": {
           "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
         },
-        "defaultValues": "{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\",\"value\":\"middle\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\",\"value\":\"middle\"}",
         "description": null,
         "fieldType": {
           "id": "cb576e30-ddbb-499a-ba53-c443a762000f"
@@ -98,7 +98,7 @@
         "prevSibling": {
           "id": "297fbbb2-e69e-4939-a1ae-933d8e1dbdd7"
         },
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {

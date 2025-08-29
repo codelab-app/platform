@@ -59,7 +59,10 @@ export const AdminPropsPanel = ({
           }}
           title={`Are you sure you want to delete ${field.name ?? field.key}?`}
         >
-          {field.name ?? field.key}
+          {/* https://github.com/ant-design/ant-design/issues/45972 */}
+          <div onClick={(event) => event.stopPropagation()}>
+            {field.name ?? field.key}
+          </div>
         </Popconfirm>
       ),
     }
@@ -84,12 +87,22 @@ export const AdminPropsPanel = ({
         </Button>
       </Col>
       <Col>
-        <Dropdown.Button menu={{ items: editMenuItems }}>Edit</Dropdown.Button>
+        <Dropdown
+          disabled={!interfaceType.fields.length}
+          menu={{ items: editMenuItems }}
+          trigger={['click']}
+        >
+          <Button>Update</Button>
+        </Dropdown>
       </Col>
       <Col>
-        <Dropdown.Button danger menu={{ items: deleteMenuItems }}>
-          Delete
-        </Dropdown.Button>
+        <Dropdown
+          disabled={!interfaceType.fields.length}
+          menu={{ items: deleteMenuItems }}
+          trigger={['click']}
+        >
+          <Button danger>Delete</Button>
+        </Dropdown>
       </Col>
     </Row>
   )

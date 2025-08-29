@@ -6,6 +6,7 @@ import {
   type JsonSchema,
   userRef,
 } from '@codelab/frontend-abstract-domain'
+import { RichTextField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model } from 'mobx-keystone'
 
@@ -31,6 +32,6 @@ export class RichTextType
   public static create = create
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return typedPropSchema(this, context)
+    return typedPropSchema(this, { component: RichTextField }, context)
   }
 }

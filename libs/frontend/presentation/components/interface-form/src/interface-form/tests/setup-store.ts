@@ -1,6 +1,26 @@
-import type { ITypeModel } from '@codelab/frontend-abstract-domain'
+import type {
+  IDomainStore,
+  ITypeModel,
+} from '@codelab/frontend-abstract-domain'
 
-import { fieldRef, typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import {
+  actionDomainServiceContext,
+  appDomainServiceContext,
+  atomDomainServiceContext,
+  componentDomainServiceContext,
+  elementDomainServiceContext,
+  fieldRef,
+  pageDomainServiceContext,
+  typeRef,
+  userDomainServiceContext,
+  userRef,
+} from '@codelab/frontend-abstract-domain'
+import { ActionDomainService } from '@codelab/frontend-domain-action/services'
+import { AppDomainService } from '@codelab/frontend-domain-app/services'
+import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
+import { ComponentDomainService } from '@codelab/frontend-domain-component/services'
+import { ElementDomainService } from '@codelab/frontend-domain-element/services'
+import { PageDomainService } from '@codelab/frontend-domain-page/services'
 import { domainStoreFactory } from '@codelab/frontend-domain-shared'
 import {
   FieldDomainService,
@@ -22,7 +42,10 @@ import {
   RichTextType,
   UnionType,
 } from '@codelab/frontend-domain-type/store'
+import { UserDomainService } from '@codelab/frontend-domain-user/services'
+import { User } from '@codelab/frontend-domain-user/store'
 import { ITypeKind } from '@codelab/shared-abstract-core'
+import { userDto } from '@codelab/shared-data-test'
 import {
   CodeMirrorLanguage,
   ElementTypeKind,
@@ -31,13 +54,13 @@ import {
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
-const ownerId = v4()
+export const user = User.create(userDto)
 
 export const stringType = new PrimitiveType({
   id: v4(),
   kind: ITypeKind.PrimitiveType,
   name: 'String type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
   primitiveKind: PrimitiveTypeKind.String,
 })
 
@@ -45,7 +68,7 @@ export const intType = new PrimitiveType({
   id: v4(),
   kind: ITypeKind.PrimitiveType,
   name: 'Int type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
   primitiveKind: PrimitiveTypeKind.Integer,
 })
 
@@ -53,7 +76,7 @@ export const booleanType = new PrimitiveType({
   id: v4(),
   kind: ITypeKind.PrimitiveType,
   name: 'Boolean type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
   primitiveKind: PrimitiveTypeKind.Boolean,
 })
 
@@ -61,42 +84,42 @@ export const appType = new AppType({
   id: v4(),
   kind: ITypeKind.AppType,
   name: 'App type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const actionType = new ActionType({
   id: v4(),
   kind: ITypeKind.ActionType,
   name: 'Action type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const pageType = new PageType({
   id: v4(),
   kind: ITypeKind.PageType,
   name: 'Page type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const renderPropType = new RenderPropType({
   id: v4(),
   kind: ITypeKind.RenderPropType,
   name: 'Render prop type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const richTextType = new RichTextType({
   id: v4(),
   kind: ITypeKind.RichTextType,
   name: 'Rich text type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const reactNodeType = new ReactNodeType({
   id: v4(),
   kind: ITypeKind.ReactNodeType,
   name: 'React node type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const codeMirrorType = new CodeMirrorType({
@@ -104,7 +127,7 @@ export const codeMirrorType = new CodeMirrorType({
   kind: ITypeKind.CodeMirrorType,
   language: CodeMirrorLanguage.Javascript,
   name: 'CodeMirror type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const elementType = new ElementType({
@@ -112,7 +135,7 @@ export const elementType = new ElementType({
   id: v4(),
   kind: ITypeKind.ElementType,
   name: 'Element type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const enumType = new EnumType({
@@ -124,7 +147,7 @@ export const enumType = new EnumType({
   id: v4(),
   kind: ITypeKind.EnumType,
   name: 'Enum type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const arrayType = new ArrayType({
@@ -132,21 +155,21 @@ export const arrayType = new ArrayType({
   itemType: typeRef(stringType),
   kind: ITypeKind.ArrayType,
   name: 'Array type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const unionType = new UnionType({
   id: v4(),
   kind: ITypeKind.UnionType,
   name: 'Union type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
   typesOfUnionType: [typeRef(stringType), typeRef(intType)],
 })
 
 const emptyInterface = new InterfaceType({
   id: v4(),
   name: 'Empty Interface Type',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 const stringField = new Field({
@@ -200,7 +223,7 @@ const unionField = new Field({
   api: typeRef(emptyInterface),
   id: v4(),
   key: 'unionField',
-  name: 'union field',
+  name: 'Union field',
   type: typeRef(unionType),
 })
 
@@ -212,7 +235,7 @@ export const interfaceWithUnionField = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with union field',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const interfaceWithEnumField = new InterfaceType({
@@ -222,7 +245,7 @@ export const interfaceWithEnumField = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with enum field',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
@@ -234,12 +257,26 @@ export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with default field values',
-  owner: userRef(ownerId),
+  owner: userRef(user.id),
 })
 
 export const domainStore = domainStoreFactory({
-  context: {},
+  context: {
+    atomDomainServiceContext,
+    elementDomainServiceContext,
+    appDomainServiceContext,
+    actionDomainServiceContext,
+    pageDomainServiceContext,
+    componentDomainServiceContext,
+    userDomainServiceContext,
+  },
   store: {
+    atomDomainService: new AtomDomainService({}),
+    elementDomainService: new ElementDomainService({}),
+    actionDomainService: new ActionDomainService({}),
+    userDomainService: new UserDomainService({ user }),
+    appDomainService: new AppDomainService({}),
+    componentDomainService: new ComponentDomainService({}),
     fieldDomainService: new FieldDomainService({
       fields: objectMap([
         [stringField.id, stringField],
@@ -250,8 +287,12 @@ export const domainStore = domainStoreFactory({
         [enumFieldWithDefaultValue.id, enumFieldWithDefaultValue],
       ]),
     }),
+    pageDomainService: new PageDomainService({}),
     typeDomainService: new TypeDomainService({
       types: objectMap<ITypeModel>([
+        [arrayType.id, arrayType],
+        [actionType.id, actionType],
+        [appType.id, appType],
         [unionType.id, unionType],
         [interfaceWithUnionField.id, interfaceWithUnionField],
         [
@@ -259,10 +300,18 @@ export const domainStore = domainStoreFactory({
           interfaceWithRequiredAndDefaultFieldValues,
         ],
         [intType.id, intType],
+        [pageType.id, pageType],
+        [booleanType.id, booleanType],
         [stringType.id, stringType],
         [enumType.id, enumType],
+        [reactNodeType.id, reactNodeType],
+        [renderPropType.id, renderPropType],
+        [codeMirrorType.id, codeMirrorType],
+        [richTextType.id, richTextType],
+        [elementType.id, elementType],
+        [emptyInterface.id, emptyInterface],
         [interfaceWithEnumField.id, interfaceWithEnumField],
       ]),
     }),
   },
-})
+}) as IDomainStore

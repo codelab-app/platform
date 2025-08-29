@@ -4,13 +4,15 @@ import { CuiCollapsePanel, CuiCollapsePanelContent } from '../../../views'
 
 export const CuiSidebarBody = ({
   defaultActiveViewKeys,
+  uiKey,
   views,
-}: Pick<CuiSidebarProps, 'defaultActiveViewKeys' | 'views'>) => {
+}: Pick<CuiSidebarProps, 'defaultActiveViewKeys' | 'uiKey' | 'views'>) => {
   if (views.length > 1) {
     return (
       <CuiCollapsePanel
         defaultActivePanels={defaultActiveViewKeys}
         items={views}
+        uiKey={uiKey}
       />
     )
   }

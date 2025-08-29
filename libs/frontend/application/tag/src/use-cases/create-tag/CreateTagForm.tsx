@@ -31,7 +31,7 @@ export const CreateTagForm = observer<IFormController>(
       parent: selectedOption
         ? { id: selectedOption.value.toString() }
         : undefined,
-    }
+    } as ICreateTagData
 
     return (
       <Form<ICreateTagData>

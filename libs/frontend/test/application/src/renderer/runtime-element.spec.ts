@@ -1,4 +1,5 @@
 import { RendererType } from '@codelab/frontend-abstract-application'
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
 import {
   createTestStore,
@@ -46,11 +47,14 @@ describe('Runtime Element', () => {
       renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
-    rootElement.props.set('children', {
-      kind: richTextType.kind,
-      type: richTextType.id,
-      value: 'text',
-    })
+    rootElement.props.set(
+      'children',
+      typedProp({
+        kind: richTextType.kind,
+        type: richTextType.id,
+        value: 'text',
+      }),
+    )
 
     // render itself adds `body > div`
     render(

@@ -23,7 +23,7 @@ export const UpdateAppModal = observer<{ app?: IAppModel }>(({ app }) => {
   const model = {
     id: app?.id,
     name: app?.name,
-  }
+  } as IAppUpdateFormData
 
   const onSubmit = appService.update
   const closeModal = () => router.push(RoutePaths.App.list())

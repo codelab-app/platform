@@ -6,7 +6,6 @@ import type {
   IComponentDomainService,
   IDomainDomainService,
   IDomainStore,
-  IDomainStoreDto,
   IDomainStoreFactoryDto,
   IElementDomainService,
   IFieldDomainService,
@@ -19,7 +18,7 @@ import type {
   IUserDomainService,
 } from '@codelab/frontend-abstract-domain'
 
-import { Model, model, prop, registerRootStore } from 'mobx-keystone'
+import { Model, model, prop } from 'mobx-keystone'
 
 /**
  * Create a factory for the structure, but only pass in interface for the props.

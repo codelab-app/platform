@@ -4,30 +4,25 @@ import type { IRuntimeElementModel } from '@codelab/frontend-abstract-applicatio
 
 import {
   isAtom,
+  isPage,
   type IUpdateBaseElementData,
   type IUpdateElementData,
 } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import {
-  SelectActionsField,
-  SelectComponent,
-} from '@codelab/frontend-presentation-components-interface-form'
+import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
-import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useCustomCompareMemo } from 'use-custom-compare'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import { ChildMapperPreviousSiblingField } from '../../components/child-mapper-field/ChildMapperPreviousSiblingField'
-import { ChildMapperPropKeyField } from '../../components/child-mapper-field/ChildMapperPropKeyField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
@@ -41,6 +36,12 @@ export const UpdateElementForm = observer(
   ({ runtimeElement }: UpdateElementFormProps) => {
     const elementService = useElementService()
 
+    const {
+      actionDomainService,
+      componentDomainService,
+      elementDomainService,
+    } = useDomainStore()
+
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
     }
@@ -48,6 +49,11 @@ export const UpdateElementForm = observer(
     const expandedFields: Array<string> = ['childMapper']
     // `getSnapshot` is immutable and doesn't work
     const element = runtimeElement.element.current
+    const store = element.store.current
+
+    const providerStore = isPage(element.closestContainerNode)
+      ? element.closestContainerNode.providerPage?.store.current
+      : undefined
 
     if (element.renderType.id) {
       expandedFields.push('renderer')
@@ -73,17 +79,17 @@ export const UpdateElementForm = observer(
     const runtimeProps = runtimeElement.runtimeProps
     const customOptions = createAutoCompleteOptions(runtimeProps.runtimeContext)
 
-    const codeMirrorField = useCustomCompareMemo(
-      CodeMirrorField,
-      [customOptions],
-      isDeepEqual,
-    )
+    // const codeMirrorField = useCustomCompareMemo(
+    //   CodeMirrorField,
+    //   [customOptions],
+    //   isDeepEqual,
+    // )
 
     const collapseItems = [
       {
         children: (
           <AutoField
-            component={codeMirrorField}
+            component={CodeMirrorField}
             customOptions={customOptions}
             language={CodeMirrorLanguage.Javascript}
             name="renderIfExpression"
@@ -95,8 +101,20 @@ export const UpdateElementForm = observer(
       {
         children: (
           <>
-            <SelectActionsField name="preRenderActions" />
-            <SelectActionsField name="postRenderActions" />
+            <AutoField
+              name="preRenderActions"
+              options={actionDomainService.getSelectActionOptions(
+                store,
+                providerStore,
+              )}
+            />
+            <AutoField
+              name="postRenderActions"
+              options={actionDomainService.getSelectActionOptions(
+                store,
+                providerStore,
+              )}
+            />
           </>
         ),
         key: 'actions',
@@ -109,18 +127,22 @@ export const UpdateElementForm = observer(
         children: (
           // We don't want a composite field since there is no top level name to nest under
           <>
-            <SelectComponent
-              label="Component"
+            <AutoField
               name="childMapperComponent.id"
-              parentComponent={element.closestContainerComponent}
+              options={componentDomainService.getSelectOptions(
+                element.closestContainerComponent,
+              )}
             />
-            <ChildMapperPropKeyField
+            <AutoField
               name="childMapperPropKey"
-              runtimeElement={runtimeElement}
+              options={runtimeElement.propKeyAutoCompleteOptions}
             />
-            <ChildMapperPreviousSiblingField
-              element={element}
-              name="childMapperPreviousSibling"
+            <AutoField
+              name="childMapperPreviousSibling.id"
+              options={elementDomainService.getSelectOptions(
+                element,
+                IElementTypeKind.ChildrenOnly,
+              )}
             />
           </>
         ),

@@ -1,6 +1,7 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend-abstract-types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
@@ -14,6 +15,7 @@ import { css } from 'styled-components'
 import { Bridge, filterDOMProps } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 
+import { FormBridgeContext } from '../hooks'
 import { useAsyncHandler, usePostSubmit } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
@@ -21,14 +23,18 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('isTypedProp')
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
+  filterDOMProps.register('defaultExpression')
+  filterDOMProps.register('oneOf')
+  filterDOMProps.register('unionType')
 
-  const Form = <TData, TResponse = unknown>(
+  const Form = <TData extends ObjectLike, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
   ): ReactElement<unknown> => {
     const {
       autosave = false,
       children,
       cssString,
+      disabled,
       model,
       modelTransform,
       onChange,
@@ -43,12 +49,15 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       uiKey,
     } = props
 
-    const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge(schema),
-    )
+    const createBridgeOrUseExisting = (currentModel: TData) =>
+      schema instanceof Bridge
+        ? schema
+        : createBridge<TData>(schema, currentModel)
+
+    const [bridge, setBridge] = useState(createBridgeOrUseExisting(model))
 
     useEffect(() => {
-      setBridge(schema instanceof Bridge ? schema : createBridge(schema))
+      setBridge(createBridgeOrUseExisting(model))
     }, [schema])
 
     const modelRef = useRef(model)
@@ -72,27 +81,41 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           ${cssString}
         `}
       >
-        <BaseAutoForm<TData>
-          autosave={autosave}
-          autosaveDelay={500}
-          data-testid={CuiTestId.cuiForm(uiKey)}
-          errorsField={() => null}
-          model={autosave ? modelRef.current : model}
-          modelTransform={modelTransform}
-          onChange={onChange}
-          onChangeModel={onChangeModel}
-          onSubmit={throttle({ interval: 200 }, (formData) =>
-            submit(formData as TData)
-              .then(postSubmit.onSubmitSuccess)
-              .catch(postSubmit.onSubmitError),
-          )}
-          ref={connectUniformSubmitRef(submitRef)}
-          schema={bridge}
-          showInlineError
-          submitField={submitField}
+        <FormBridgeContext
+          value={{
+            bridge,
+            refershBridge: (currentModel) => {
+              const createdBridge = createBridgeOrUseExisting(
+                currentModel as TData,
+              )
+              setBridge(createdBridge)
+              return createdBridge
+            },
+          }}
         >
-          {children}
-        </BaseAutoForm>
+          <BaseAutoForm<TData>
+            autosave={autosave}
+            autosaveDelay={500}
+            data-testid={CuiTestId.cuiForm(uiKey)}
+            disabled={disabled}
+            errorsField={() => null}
+            model={autosave ? modelRef.current : model}
+            modelTransform={modelTransform}
+            onChange={onChange}
+            onChangeModel={onChangeModel}
+            onSubmit={throttle({ interval: 200 }, (formData) =>
+              submit(formData as TData)
+                .then(postSubmit.onSubmitSuccess)
+                .catch(postSubmit.onSubmitError),
+            )}
+            ref={connectUniformSubmitRef(submitRef)}
+            schema={bridge}
+            showInlineError
+            submitField={submitField}
+          >
+            {children}
+          </BaseAutoForm>
+        </FormBridgeContext>
       </div>
     )
   }

@@ -1,28 +1,31 @@
+'use client'
+
 import type { MoveData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
+import { SelectField } from 'uniforms-antd'
 
 export const moveElementSchema: JSONSchemaType<MoveData> = {
   properties: {
     parentElement: {
       properties: {
-        ...idSchema(),
-        id: {
+        ...idSchema({
           label: 'Parent Element',
-          type: 'string',
-        },
+          component: SelectField,
+          disabled: false,
+        }),
       },
       required: [],
       type: 'object',
     },
     prevSibling: {
       properties: {
-        ...idSchema(),
-        id: {
+        ...idSchema({
+          disabled: false,
+          component: SelectField,
           label: 'Prev Sibling',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',

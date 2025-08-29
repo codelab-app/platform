@@ -3,6 +3,7 @@
 import type { EditorState, LexicalEditor } from 'lexical'
 
 import { type IRuntimeElementModel } from '@codelab/frontend-abstract-application'
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useLoading } from '@codelab/frontend-application-shared-services/loading'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
@@ -55,11 +56,11 @@ export const RichTextEditorWrapper = observer<{
             .updateWithDefaultValuesApplied(props, {
               data: {
                 ...props.data.data,
-                children: {
+                children: typedProp({
                   kind: richTextType.kind,
                   type: richTextType.id,
                   value: htmlString,
-                },
+                }),
               },
               defaultValues: renderType.api.current.defaultValues,
               id: props.id,
@@ -106,11 +107,11 @@ export const CodeMirrorEditorWrapper = observer<{
     void propService.updateWithDefaultValuesApplied(props, {
       data: {
         ...props.data.data,
-        children: {
-          kind: codeMirrorType?.kind,
-          type: codeMirrorType?.id,
+        children: typedProp({
+          kind: ITypeKind.CodeMirrorType,
+          type: codeMirrorType!.id,
           value,
-        },
+        }),
       },
       defaultValues: renderType.api.current.defaultValues,
       id: props.id,

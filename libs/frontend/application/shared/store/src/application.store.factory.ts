@@ -8,12 +8,8 @@ import type {
   IRuntimeElementService,
   IRuntimePageService,
 } from '@codelab/frontend-abstract-application'
+import type { IDomainStore } from '@codelab/frontend-abstract-domain'
 
-import {
-  componentDomainServiceContext,
-  IDomainStore,
-  userDomainServiceContext,
-} from '@codelab/frontend-abstract-domain'
 import { Model, model, prop } from 'mobx-keystone'
 
 /**
@@ -41,25 +37,23 @@ export const applicationStoreFactory = (
     }
 
     protected override onInit() {
-      context.builderServiceContext.set(this, this.builderService)
-      context.rendererServiceContext.set(this, this.rendererService)
-      context.routerServiceContext.set(this, this.routerService)
-      context.runtimeComponentServiceContext.set(
-        this,
-        this.runtimeComponentService,
-      )
-      context.runtimeElementServiceContext.set(this, this.runtimeElementService)
-      context.runtimePageServiceContext.set(this, this.runtimePageService)
-
-      /**
-       * Provides context to self and children. TODO: Perhaps can move all context to root store
-       */
-      userDomainServiceContext.set(this, domainStore.userDomainService)
-
-      componentDomainServiceContext.set(
-        this,
-        domainStore.componentDomainService,
-      )
+      // context.builderServiceContext.set(this, this.builderService)
+      // context.rendererServiceContext.set(this, this.rendererService)
+      // context.routerServiceContext.set(this, this.routerService)
+      // context.runtimeComponentServiceContext.set(
+      //   this,
+      //   this.runtimeComponentService,
+      // )
+      // context.runtimeElementServiceContext.set(this, this.runtimeElementService)
+      // context.runtimePageServiceContext.set(this, this.runtimePageService)
+      // /**
+      //  * Provides context to self and children. TODO: Perhaps can move all context to root store
+      //  */
+      // userDomainServiceContext.set(this, domainStore.userDomainService)
+      // componentDomainServiceContext.set(
+      //   this,
+      //   domainStore.componentDomainService,
+      // )
     }
   }
 

@@ -27,7 +27,7 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
   component: Ref<IComponentModel>
   elements: Array<IRuntimeElementModel>
   isChildMapperComponentInstance: boolean
-  isTypedProp?: boolean
+  isPropComponent?: boolean
   /**
    * When clicking an element from component while editing a page or another component we should select element
    * from main tree that is being edited

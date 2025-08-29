@@ -6,7 +6,7 @@
         "api": {
           "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
         },
-        "defaultValues": "{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\",\"value\":\"\"}",
         "description": null,
         "fieldType": {
           "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"

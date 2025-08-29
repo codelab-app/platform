@@ -20,9 +20,8 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
         headers: {
           type: 'string',
           uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Json,
-            }),
+            component: CodeMirrorField,
+            language: CodeMirrorLanguage.Json,
           },
           nullable: true,
         },
@@ -37,7 +36,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
       ...titleCaseValidation,
     },
     type: {
-      allowedValues: Object.values(IResourceType),
+      enum: Object.values(IResourceType),
       showSearch: true,
       type: 'string',
     },
