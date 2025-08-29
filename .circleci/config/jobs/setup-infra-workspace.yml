@@ -4,6 +4,8 @@ steps:
   - checkout
   - setup-env
   - install-nvm
+  - install-pnpm
+  - install-packages
   - install-terraform
   - login-docker
 
