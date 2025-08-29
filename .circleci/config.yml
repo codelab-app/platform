@@ -84,13 +84,13 @@ commands:
       - run:
           command: |
             # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
-            wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
+            wget -O - https://debian.neo4j.com/neotechnology.gpg.key | gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
 
-            echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+            echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | tee -a /etc/apt/sources.list.d/neo4j.list
 
-            sudo apt-get update
+            apt-get update
 
-            sudo apt-get install -y neo4j cypher-shell
+            apt-get install -y neo4j cypher-shell
           name: Install Cypher Shell
   install-doctl:
     description: Install DigitalOcean CLI (doctl)
@@ -110,7 +110,7 @@ commands:
             cd /tmp
             wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
             tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
-            sudo mv doctl /usr/local/bin
+            mv doctl /usr/local/bin
             rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
 
             # Verify installation
@@ -173,11 +173,11 @@ commands:
           command: |
             set -x
 
-            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 
-            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
-            sudo apt-get update && sudo apt-get install packer
+            apt-get update && apt-get install -y packer
           name: Install Packer
   install-pnpm:
     steps:
@@ -187,10 +187,10 @@ commands:
 
             # Install corepack using the correct path
             # https://github.com/pnpm/pnpm/issues/9029
-            sudo npm install -g corepack@0.31.0
+            npm install -g corepack@0.31.0
 
-            sudo corepack enable
-            sudo corepack prepare pnpm@9.15.5 --activate
+            corepack enable
+            corepack prepare pnpm@9.15.5 --activate
             pnpm config set store-dir ~/.pnpm-store
           name: Install pnpm package manager
   install-terraform:
@@ -200,23 +200,23 @@ commands:
           command: |
             set -x
 
-            sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+            apt-get update && apt-get install -y gnupg software-properties-common
 
             apt list upgrade
 
             wget -O- https://apt.releases.hashicorp.com/gpg | \
             gpg --dearmor | \
-            sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+            tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 
             echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-            sudo tee /etc/apt/sources.list.d/hashicorp.list
+            tee /etc/apt/sources.list.d/hashicorp.list
 
             gpg --no-default-keyring \
             --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
             --fingerprint
 
-            sudo apt update
-            sudo apt install terraform=1.7.0-*
+            apt update
+            apt install -y terraform=1.7.0-*
           name: Install Terraform
   load-nvm:
     steps:

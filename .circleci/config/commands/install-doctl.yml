@@ -16,7 +16,7 @@ steps:
         cd /tmp
         wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
         tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
-        sudo mv doctl /usr/local/bin
+        mv doctl /usr/local/bin
         rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
         
         # Verify installation
