@@ -477,7 +477,7 @@ jobs:
       - restore-workspace-database
       - setup-neo4j
       - run:
-          command: pnpm cli tasks int --stage ci --stream
+          command: pnpm cli tasks int --stage ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
           name: Run Integration Tests
@@ -499,7 +499,7 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks lint --stage ci --stream
+          command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
       - store_test_results:
           path: ./tmp/reports/lint
@@ -707,7 +707,7 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks unit --stage ci --stream
+          command: pnpm cli tasks unit --stage ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
           name: Run Unit Tests

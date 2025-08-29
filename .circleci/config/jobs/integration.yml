@@ -17,7 +17,7 @@ steps:
   # - clear-jest-cache
   - run:
       name: 'Run Integration Tests'
-      command: pnpm cli tasks int --stage ci --stream
+      command: pnpm cli tasks int --stage ci
       no_output_timeout: 10m
       environment:
         JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration

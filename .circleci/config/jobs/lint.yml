@@ -17,7 +17,7 @@ steps:
   - restore-workspace
   - run:
       name: 'Run Lint on Repository'
-      command: pnpm cli tasks lint --stage ci --stream
+      command: pnpm cli tasks lint --stage ci
   # - run:
   #     name: 'Commitlint'
   #     command: pnpm cli tasks commitlint --stage ci
