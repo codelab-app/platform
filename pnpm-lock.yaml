@@ -740,6 +740,9 @@ importers:
       zustand:
         specifier: 4.5.2
         version: 4.5.2(@types/react@19.0.12)(react@19.1.0)
+      zx:
+        specifier: ^8.2.4
+        version: 8.8.1
     devDependencies:
       '@0no-co/graphqlsp':
         specifier: 1.12.12
@@ -1278,9 +1281,6 @@ importers:
       wait-on:
         specifier: 6.0.1
         version: 6.0.1
-      zx:
-        specifier: ^8.2.4
-        version: 8.8.1
 
 packages:
 
