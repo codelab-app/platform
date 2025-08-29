@@ -2,7 +2,7 @@ import type { Argv, CommandModule } from 'yargs'
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
-import { $, globalHandler } from '@codelab/backend-infra-adapter-shell'
+import { $, $stream, globalHandler } from '@codelab/backend-infra-adapter-shell'
 import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { spawn } from 'child_process'
@@ -40,7 +40,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            $.sync`nx affected --target=build -c test`
+            $stream.sync`nx affected --target=build -c test`
           }
 
           if (stage === Stage.CI) {
@@ -61,7 +61,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // $`nx build web -c test`
-            $.sync`nx affected --target=test -c test.unit`
+            $stream.sync`nx affected --target=test -c test.unit`
           }
 
           if (stage === Stage.CI) {
@@ -69,7 +69,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`pnpm nx affected --target=test -c ci.unit --ci`
+            $stream.sync`pnpm nx affected --target=test -c ci.unit --ci`
           }
         }),
       )
@@ -83,7 +83,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`nx affected --target=test -c test.integration --parallel=1`
+            $stream.sync`nx affected --target=test -c test.integration --parallel=1`
           }
 
           if (stage === Stage.CI) {
@@ -91,7 +91,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1`
+            $stream.sync`pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1`
           }
         }),
       )
@@ -199,7 +199,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
                   )
 
                   if (containsGeneratedFiles) {
-                    $.sync`git diff`
+                    $stream.sync`git diff`
                     this.logger.error('Generated files not committed', {
                       context: 'TaskService',
                       data: { containsGeneratedFiles },
@@ -238,13 +238,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`pnpm cpack`
+            $stream.sync`pnpm cpack`
 
             this.logger.log('Generating workspace', {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive`
+            $stream.sync`pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive`
 
             const { unCommittedFiles } = await gitChangedFiles()
 
@@ -254,7 +254,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             })
 
             if (unCommittedFiles.length) {
-              $.sync`git diff`
+              $stream.sync`git diff`
               this.logger.error('Workspace changes not committed', {
                 context: 'TaskService',
                 data: { unCommittedFiles },
@@ -274,7 +274,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`pnpm cross-env TIMING=1 lint-staged`
+            $stream.sync`pnpm cross-env TIMING=1 lint-staged`
           }
 
           if (stage === Stage.CI) {
@@ -282,16 +282,16 @@ export class TaskService implements CommandModule<unknown, unknown> {
               context: 'TaskService',
               data: { stage },
             })
-            $.sync`pnpm nx affected --target=lint -c ci`
+            $stream.sync`pnpm nx affected --target=lint -c ci`
 
             // Below breaks cache
             // $`pnpm nx affected --target=lint -c ci --rule "unused-imports/no-unused-imports: error"`
 
             // https://github.com/nrwl/nx/discussions/8769
-            $.sync`pnpm prettier --check "./**/*.{graphql,yaml,json}"`
+            $stream.sync`pnpm prettier --check "./**/*.{graphql,yaml,json}"`
           }
 
-          $.sync`pnpm ls-lint`
+          $stream.sync`pnpm ls-lint`
         }),
       )
       .command(

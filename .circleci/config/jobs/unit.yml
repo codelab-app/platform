@@ -11,7 +11,7 @@ steps:
   # - clear-jest-cache
   - run:
       name: 'Run Unit Tests'
-      command: pnpm cli tasks unit --stage ci
+      command: pnpm cli tasks unit --stage ci --stream
       environment:
         JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
         # JEST_JUNIT_OUTPUT_NAME: 'unit-specs-results.xml'

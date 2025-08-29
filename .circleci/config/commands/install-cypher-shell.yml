@@ -2,6 +2,17 @@ steps:
   - run:
       name: 'Install Cypher Shell'
       command: |
+        # Install Java 21 from Adoptium (Eclipse Temurin)
+        apt-get update
+        apt-get install -y wget apt-transport-https
+
+        # Add Adoptium repository for Java 21
+        wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/adoptium.list
+
+        apt-get update
+        apt-get install -y temurin-21-jre
+
         # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
         wget -O - https://debian.neo4j.com/neotechnology.gpg.key | gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
 

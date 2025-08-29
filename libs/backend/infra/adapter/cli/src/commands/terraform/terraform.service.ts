@@ -37,10 +37,10 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           globalHandler(({ stage }) => {
             // Use `tfswitch` to change to specific versions
-            $.sync({
+            $stream.sync({
               cwd: `infra/terraform/environments/${stage}`,
             })`./symlink.sh`
-            $.sync({ cwd: 'infra/terraform/modules' })`./symlink.sh`
+            $stream.sync({ cwd: 'infra/terraform/modules' })`./symlink.sh`
 
             const env = { ...process.env, TF_WORKSPACE: stage }
             $stream.syncWithEnv(
@@ -157,7 +157,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           globalHandler(() => {
             const cwd = process.cwd()
-            $.sync`tflint --config="${cwd}/terraform/.tflint.hcl" --recursive`
+            $stream.sync`tflint --config="${cwd}/terraform/.tflint.hcl" --recursive`
             // exec(
             //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/ci`,
             // )

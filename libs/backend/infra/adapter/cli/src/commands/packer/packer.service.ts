@@ -1,11 +1,6 @@
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 
-import {
-  $,
-  $quiet,
-  $stream,
-  globalHandler,
-} from '@codelab/backend-infra-adapter-shell'
+import { $, $stream, globalHandler } from '@codelab/backend-infra-adapter-shell'
 import { Injectable } from '@nestjs/common'
 import { get } from 'env-var'
 import { existsSync } from 'fs'
@@ -102,7 +97,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
         globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
           const validateImage = (config: ImageConfig) => {
             const imageDir = join(this.packerDir, config.dir)
-            $.sync({ cwd: imageDir })`packer init .`
+            $stream.sync({ cwd: imageDir })`packer init .`
 
             // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
             $stream.sync`cd ${imageDir} && packer validate -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${config.template}`
@@ -134,7 +129,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
             const imageDir = join(this.packerDir, item.config.dir)
 
             if (existsSync(imageDir)) {
-              $.sync({ cwd: imageDir })`packer init .`
+              $stream.sync({ cwd: imageDir })`packer init .`
             }
           }
         }),
@@ -152,9 +147,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
           }),
         globalHandler(({ check }) => {
           if (check) {
-            $.sync`packer fmt -check ${this.packerDir}`
+            $stream.sync`packer fmt -check ${this.packerDir}`
           } else {
-            $.sync`packer fmt ${this.packerDir}`
+            $stream.sync`packer fmt ${this.packerDir}`
           }
         }),
       )
@@ -291,13 +286,12 @@ export class PackerService implements CommandModule<unknown, unknown> {
       for (const snapshot of oldSnapshots) {
         const [id] = snapshot.split(/\s+/)
         console.log(`Deleting old snapshot: ${id}`)
-        const env = {
-          ...process.env,
-          DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-        }
-        $quiet.syncWithEnv(
-          env,
-        )`doctl compute snapshot delete ${id} --force || true`
+        $.sync({
+          env: {
+            ...process.env,
+            DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
+          },
+        })`doctl compute snapshot delete ${id} --force || true`
       }
     }
 
@@ -306,7 +300,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
     // Set up cleanup handler for Ctrl+C
     const cleanup = () => {
       // Delete all packer build droplets (best effort)
-      $quiet.sync`doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`
+      $.sync`doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`
       process.exit(1)
     }
 
