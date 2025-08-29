@@ -59,7 +59,14 @@ export class RenderPropTypeTransformer
     }
 
     if (hasExpression(propValue)) {
-      return expressionTransformer.transpileAndEvaluateExpression(propValue)
+      const context = isRuntimeElement(runtimeNode)
+        ? runtimeNode.runtimeProps.evaluationContext
+        : runtimeNode.runtimeProps.runtimeContext
+
+      return expressionTransformer.transpileAndEvaluateExpression(
+        propValue,
+        context,
+      )
     }
 
     const component = this.componentDomainService.components.get(propValue)

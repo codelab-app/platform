@@ -48,7 +48,7 @@ export class ExpressionTransformer
   transform: Nullable<IExpressionTransformer['transform']> = null
 
   @modelAction
-  transpileAndEvaluateExpression(expression: string) {
+  transpileAndEvaluateExpression(expression: string, context?: ObjectLike) {
     if (!this.transform) {
       throw new Error(
         'ExpressionTransformer needs to be initialized first. Make sure to call "init" first.',
@@ -56,30 +56,22 @@ export class ExpressionTransformer
     }
 
     try {
+      const evalContext = { ...(this.context ?? {}), ...(context ?? {}) }
       const wrappedExpression = `(function getResult() {
-        const { React } = this
+        const { React, actions, rootActions, state, rootState, refs, rootRefs, urlProps, props, componentProps } = this
 
         return ${stripSingleExpression(expression)}
       }).call(this)`
 
       const { code } = this.transform(wrappedExpression, {
         production: true,
+        disableESTransforms: true,
         transforms: ['jsx'],
       })
 
-      return new Function('return ' + (code ?? '')).call(this.context)
+      return new Function('return ' + (code ?? '')).call(evalContext)
     } catch (error) {
-      // Do not log expected error when an expression with props or state
-      // is used in a ReactNodeType value e.g. {{props.name}}
-      if (
-        !(error instanceof Error) ||
-        !error.message.match(
-          /(\bprops|componentProps|state)\s+is\s+not\s+defined\b/,
-        )
-      ) {
-        console.log('expression', expression)
-        console.log(error instanceof Error ? error.message : String(error))
-      }
+      console.error('Error while evaluating expression', error)
 
       return expression
     }
