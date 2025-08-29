@@ -33,6 +33,8 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend-abstract-domain'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import { createValidator } from '@codelab/frontend-shared-utils'
 import {
   evaluateExpression,
@@ -169,6 +171,13 @@ export class RuntimeElementModel
   }
 
   @computed
+  get propKeyAutoCompleteOptions() {
+    return createAutoCompleteOptions(this.runtimeProps.runtimeContext)
+      .map(({ label }) => ({ label, value: label }))
+      .sort()
+  }
+
+  @computed
   get propsHaveErrors() {
     /**
      * This causes TypeRef resolution errors in production since we don't load atom API types.
@@ -186,8 +195,16 @@ export class RuntimeElementModel
     const schema = api.toJsonSchema({})
     const validate = createValidator(schema)
 
-    const evaluatedProps = evaluateObject(
+    const elementProps = mergeProps(
+      this.element.current.renderType.current.api.current.defaultValues,
+      isComponent(this.element.current.renderType.current)
+        ? this.element.current.renderType.current.props.values
+        : {},
       this.element.current.props.values,
+    )
+
+    const evaluatedProps = evaluateObject(
+      elementProps,
       this.runtimeProps.runtimeContext,
     )
 

@@ -1,13 +1,21 @@
+'use client'
+
 import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
   idSchema,
-  nullableIdSchema,
+  nonEmptyString,
   showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
+import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend-shared-utils'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { SelectField } from 'uniforms-antd'
 
 export type ICreateElementDto = Pick<
   IElementDto,
@@ -16,7 +24,6 @@ export type ICreateElementDto = Pick<
   | 'parentElement'
   | 'postRenderActions'
   | 'preRenderActions'
-  | 'prevSibling'
   | 'props'
   | 'renderType'
   | 'style'
@@ -27,7 +34,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
   properties: {
     ...idSchema(),
     name: {
-      type: 'string',
+      ...nonEmptyString,
       ...titleCaseValidation,
     },
     style: {
@@ -45,6 +52,8 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       nullable: true,
       properties: {
         ...idSchema({
+          component: SelectField,
+          disabled: false,
           label: 'Parent element',
         }),
       },
@@ -58,6 +67,8 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         type: 'object',
         properties: {
           ...idSchema({
+            disabled: false,
+            component: SelectField,
             label: 'Post Render action',
           }),
         },
@@ -71,21 +82,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         type: 'object',
         properties: {
           ...idSchema({
+            disabled: false,
+            component: SelectField,
             label: 'Pre Render action',
           }),
         },
         required: [],
       },
-    },
-    prevSibling: {
-      nullable: true,
-      properties: {
-        ...nullableIdSchema({
-          label: 'Prev Sibling',
-        }),
-      },
-      required: [],
-      type: 'object',
     },
     props: {
       label: '',
@@ -106,6 +109,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         data: {
           label: 'Props Data',
           type: 'string',
+          // TODO: add json validation
         },
       },
       type: 'object',
@@ -141,6 +145,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
           type: 'object',
         },
       ],
+    },
+  },
+  errors: {
+    name: {
+      required: requiredMsg('Element name'),
+      minLength: minLengthMsg('Element name', 1),
+      pattern: titleCasePatternMsg('Element name'),
     },
   },
   required: ['name', 'id'],

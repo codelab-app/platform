@@ -2,10 +2,6 @@ import type { IRedirectCreateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
-import {
-  SelectAuthGuard,
-  SelectPage,
-} from '@codelab/frontend-presentation-components-interface-form'
 import { IRedirectTargetType } from '@codelab/shared-abstract-core'
 
 export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
@@ -31,16 +27,13 @@ export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
         id: {
           type: 'string',
           label: 'Auth Guard',
-          uniforms: {
-            component: SelectAuthGuard,
-          },
         },
       },
       required: ['id'],
     },
     targetType: {
       type: 'string',
-      allowedValues: Object.values(IRedirectTargetType),
+      enum: Object.values(IRedirectTargetType),
     },
     targetPage: {
       type: 'object',
@@ -50,9 +43,6 @@ export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
         id: {
           type: 'string',
           label: 'Target Page',
-          uniforms: {
-            component: SelectPage,
-          },
         },
       },
       required: ['id'],

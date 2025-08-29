@@ -1,7 +1,9 @@
+import { typedProp } from '@codelab/frontend-abstract-domain'
+import { ExpressionAutoFields } from '@codelab/frontend-presentation-components-form'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { debug } from 'console'
 import { Fragment } from 'react'
 
 import { InterfaceForm } from '../InterfaceForm'
@@ -24,20 +26,21 @@ describe('InterfaceForm', () => {
         onChangeModel={mockSubmit}
         onSubmit={mockSubmit}
         submitField={Fragment}
-      />,
+      >
+        <ExpressionAutoFields />
+      </InterfaceForm>,
     )
 
     // Check enumField is rendered
-    expect(container.querySelector('[name="enumField"]')).toBeInTheDocument()
+    expect(container.querySelector('[label="Enum field"]')).toBeInTheDocument()
+    expect(container.querySelector('[role="combobox"]')).toBeInTheDocument()
 
     // Check enumField has the correct initial value
     expect(
       container.querySelector('.ant-select-selection-item[title="Enum 1"]'),
     ).toHaveTextContent('Enum 1')
 
-    const enumSelectElement = container.querySelector(
-      '[name="enumField"] .ant-select-selector',
-    )
+    const enumSelectElement = container.querySelector('.ant-select-selector')
 
     expect(enumSelectElement).toBeInTheDocument()
 
@@ -47,9 +50,7 @@ describe('InterfaceForm', () => {
     await userEvent.click(enumSelectElement)
 
     // Select the second option
-    const dropdownOption = container.querySelector(
-      '.ant-select-item-option[title="Enum 2"]',
-    )
+    const dropdownOption = container.querySelector('[title="Enum 2"]')
 
     await waitFor(() => expect(dropdownOption).toBeVisible())
 
@@ -69,7 +70,7 @@ describe('InterfaceForm', () => {
   test('interface form select union type of string and number', async () => {
     const mockSubmit = jest.fn()
 
-    const { container, getByTestId } = render(
+    const { container } = render(
       <InterfaceForm
         interfaceType={interfaceWithUnionField}
         model={{}}
@@ -77,11 +78,11 @@ describe('InterfaceForm', () => {
         onChangeModel={mockSubmit}
         onSubmit={mockSubmit}
         submitField={Fragment}
-      />,
+      >
+        <ExpressionAutoFields />
+      </InterfaceForm>,
     )
 
-    debug()
-    // Check unionField is rendered
     expect(
       container.querySelector('[name="unionField.type"]'),
     ).toBeInTheDocument()
@@ -116,20 +117,21 @@ describe('InterfaceForm', () => {
       container.querySelector('.ant-select-selection-item'),
     ).toHaveTextContent(intType.name)
 
-    expect(mockSubmit).toHaveBeenCalledWith('unionField', {
-      kind: intType.kind,
-      type: intType.id,
-    })
+    expect(mockSubmit).toHaveBeenCalledWith(
+      'unionField',
+      typedProp({ kind: intType.kind, type: intType.id }),
+    )
 
-    // Update value field
-    const valueField = getByTestId('unionField.value')
+    const valueField = container.querySelector('[name="unionField.value"]')
+
+    Validator.assertsDefined(valueField)
 
     expect(valueField).toBeInTheDocument()
 
     await userEvent.type(valueField, '123')
 
     // Check the value has been updated
-    expect(valueField).toHaveValue('123')
+    expect(valueField).toHaveValue(123)
 
     // Select String type option
     await userEvent.click(selectUnionTypeElement)
@@ -148,9 +150,12 @@ describe('InterfaceForm', () => {
       container.querySelector('.ant-select-selection-item'),
     ).toHaveTextContent(stringType.name)
 
-    expect(mockSubmit).toHaveBeenCalledWith('unionField', {
-      kind: 'PrimitiveType',
-      type: stringType.id,
-    })
+    expect(mockSubmit).toHaveBeenCalledWith(
+      'unionField',
+      typedProp({
+        kind: ITypeKind.PrimitiveType,
+        type: stringType.id,
+      }),
+    )
   })
 })

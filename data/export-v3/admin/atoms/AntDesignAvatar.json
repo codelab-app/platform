@@ -184,7 +184,7 @@
         "api": {
           "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
         },
-        "defaultValues": "{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"}",
         "description": null,
         "fieldType": {
           "id": "e1489c1e-c897-400b-8806-d22320a01bf7"

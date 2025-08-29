@@ -16,7 +16,7 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node", "styled-components"]
+    "types": ["jest", "node", "styled-components", "uniforms"]
   },
   "include": [
     "**/*.ts",

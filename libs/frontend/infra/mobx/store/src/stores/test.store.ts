@@ -3,6 +3,7 @@ import type {
   IRendererDto,
   IRootStore,
 } from '@codelab/frontend-abstract-application'
+import type { IDomainStore } from '@codelab/frontend-abstract-domain'
 import type {
   IApiActionDto,
   IAppDto,
@@ -26,8 +27,14 @@ import type {
 import type { PartialExcept } from '@codelab/shared-abstract-types'
 
 import {
+  builderServiceContext,
   rendererRef,
+  rendererServiceContext,
   RendererType,
+  routerServiceContext,
+  runtimeComponentServiceContext,
+  runtimeElementServiceContext,
+  runtimePageServiceContext,
 } from '@codelab/frontend-abstract-application'
 import {
   actionDomainServiceContext,
@@ -38,7 +45,6 @@ import {
   domainDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
-  IDomainStore,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
@@ -660,6 +666,32 @@ export const createTestStore = () => {
       tagDomainServiceContext.set(this, this.domainStore.tagDomainService)
       typeDomainServiceContext.set(this, this.domainStore.typeDomainService)
       userDomainServiceContext.set(this, this.domainStore.userDomainService)
+
+      builderServiceContext.set(this, this.applicationStore.builderService)
+      rendererServiceContext.set(this, this.applicationStore.rendererService)
+      routerServiceContext.set(this, this.applicationStore.routerService)
+      runtimeComponentServiceContext.set(
+        this,
+        this.applicationStore.runtimeComponentService,
+      )
+      runtimeElementServiceContext.set(
+        this,
+        this.applicationStore.runtimeElementService,
+      )
+      runtimePageServiceContext.set(
+        this,
+        this.applicationStore.runtimePageService,
+      )
+
+      /**
+       * Provides context to self and children. TODO: Perhaps can move all context to root store
+       */
+      userDomainServiceContext.set(this, domainStore.userDomainService)
+
+      componentDomainServiceContext.set(
+        this,
+        domainStore.componentDomainService,
+      )
     }
   }
 

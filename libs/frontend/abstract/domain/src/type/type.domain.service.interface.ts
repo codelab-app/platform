@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type {
   IInterfaceTypeDto,
   IPrimitiveTypeKind,
@@ -13,6 +14,7 @@ import type { IInterfaceTypeModel, ITypeModel } from './types'
 
 export interface ITypeDomainService extends IHydrateable<ITypeDto, ITypeModel> {
   expandedNodes: Array<string>
+  options: Array<SelectOption>
   selectedKey: Maybe<string>
   types: ObjectMap<ITypeModel>
   typesList: Array<ITypeModel>

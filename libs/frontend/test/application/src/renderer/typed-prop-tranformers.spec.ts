@@ -1,3 +1,4 @@
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import {
   createTestStore,
   RootStoreProvider,
@@ -32,11 +33,14 @@ describe('TypedPropTransformers', () => {
     const propKey = 'propKey'
     const propValue = 'propValue'
 
-    rootElement.props.set(propKey, {
-      kind: integerType.kind,
-      type: integerType.id,
-      value: propValue,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: integerType.kind,
+        type: integerType.id,
+        value: propValue,
+      }),
+    )
 
     renderer.render()
 
@@ -55,11 +59,14 @@ describe('TypedPropTransformers', () => {
     const reactNodeType = testStore.addReactNodeType({})
     const component = testStore.addComponent({})
 
-    rootElement.props.set(propKey, {
-      kind: reactNodeType.kind,
-      type: reactNodeType.id,
-      value: component.id,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: reactNodeType.kind,
+        type: reactNodeType.id,
+        value: component.id,
+      }),
+    )
 
     renderer.render()
 
@@ -82,11 +89,14 @@ describe('TypedPropTransformers', () => {
     const content = 'Expression node content'
     const reactNodeType = testStore.addReactNodeType({})
 
-    rootElement.props.set(propKey, {
-      kind: reactNodeType.kind,
-      type: reactNodeType.id,
-      value: `{{<span>${content}</span>}}`,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: reactNodeType.kind,
+        type: reactNodeType.id,
+        value: `{{<span>${content}</span>}}`,
+      }),
+    )
 
     renderer.render()
 
@@ -108,11 +118,14 @@ describe('TypedPropTransformers', () => {
     const renderPropsType = testStore.addRenderPropsType({})
     const component = testStore.addComponent({})
 
-    rootElement.props.set(propKey, {
-      kind: renderPropsType.kind,
-      type: renderPropsType.id,
-      value: component.id,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: renderPropsType.kind,
+        type: renderPropsType.id,
+        value: component.id,
+      }),
+    )
 
     renderer.render()
 
@@ -141,11 +154,14 @@ describe('TypedPropTransformers', () => {
     const content = 'Expression node content'
     const renderPropsType = testStore.addRenderPropsType({})
 
-    rootElement.props.set(propKey, {
-      kind: renderPropsType.kind,
-      type: renderPropsType.id,
-      value: `{{function Render() { return <span>${content}</span> }}}`,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: renderPropsType.kind,
+        type: renderPropsType.id,
+        value: `{{function Render() { return <span>${content}</span> }}}`,
+      }),
+    )
 
     renderer.render()
 
@@ -195,19 +211,25 @@ describe('TypedPropTransformers', () => {
       renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
-    childElement.props.set('children', {
-      kind: codeMirrorType.kind,
-      type: codeMirrorType.id,
-      value: childrenExpression,
-    })
+    childElement.props.set(
+      'children',
+      typedProp({
+        kind: codeMirrorType.kind,
+        type: codeMirrorType.id,
+        value: childrenExpression,
+      }),
+    )
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
-    rootElement.props.set(propKey, {
-      kind: renderPropsType.kind,
-      type: renderPropsType.id,
-      value: component.id,
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: renderPropsType.kind,
+        type: renderPropsType.id,
+        value: component.id,
+      }),
+    )
 
     renderer.render()
 

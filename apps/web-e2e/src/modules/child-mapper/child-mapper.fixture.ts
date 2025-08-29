@@ -165,9 +165,9 @@ export class ChildMapperPage extends BuilderPage {
       const updateElementForm = this.getUpdateElementForm()
 
       await this.selectTreeElement(pageRowElement)
-      await updateElementForm
-        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-        .click()
+      // await updateElementForm
+      //   .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+      //   .click()
       await this.fillInputText({ label: 'Prop Key' }, '{{[]}}', {
         locator: updateElementForm,
         waitForAutosave: true,
@@ -180,9 +180,9 @@ export class ChildMapperPage extends BuilderPage {
       const updateElementForm = this.getUpdateElementForm()
 
       await this.selectTreeElement(pageRowElement)
-      await updateElementForm
-        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-        .click()
+      // await updateElementForm
+      //   .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+      //   .click()
       await this.fillInputText({ label: 'Prop Key' }, '{{false}}', {
         locator: updateElementForm,
         waitForAutosave: true,

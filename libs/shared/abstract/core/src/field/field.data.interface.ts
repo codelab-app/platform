@@ -1,25 +1,29 @@
 import type { Nullish } from '@codelab/shared-abstract-types'
 
-import type { IFieldRef } from './field.dto.interface'
+import type { IFieldDto } from './field.dto.interface'
 import type { IValidationRules } from './field.validation'
 
-export interface IFieldRouteCreateData {
-  interfaceTypeId: string
+export enum FieldFormStep {
+  CreateFieldFormStep = 'CreateFieldFormStep',
+  DefaultValueFormStep = 'DefaultValueFormStep',
+  UpdateFieldFormStep = 'UpdateFieldFormStep',
 }
 
-export interface IFieldCreateData {
-  defaultValues?: Nullish<IFieldDefaultValue>
-  description?: Nullish<string>
-  // Type of field specified by a type id
-  // TODO: Refactor fieldType to take in `{ id: string }`
-  fieldType: string
-  id: IFieldRef
-  interfaceTypeId: string
-  key: string
-  name?: Nullish<string>
-  prevSibling?: Nullish<{ id: IFieldRef }>
+export type IFieldCreateData = IFieldCreateFormData & IFieldDefaultValueFormData
+export interface IFieldCreateFormData
+  extends Pick<
+    IFieldDto,
+    'api' | 'description' | 'fieldType' | 'id' | 'key' | 'name'
+  > {
   validationRules?: Nullish<IValidationRules>
 }
+
+export interface IFieldDefaultValueFormData {
+  defaultValues?: Nullish<unknown>
+}
+
+export type IFieldUpdateFormData = IFieldCreateFormData &
+  Pick<IFieldDto, 'prevSibling'>
 
 export type IFieldUpdateData = IFieldCreateData
 

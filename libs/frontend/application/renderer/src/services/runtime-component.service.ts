@@ -40,7 +40,7 @@ export class RuntimeComponentService
     parent?: IRuntimeModel,
     propKey?: string,
     childMapperIndex?: number,
-    isTypedProp?: boolean,
+    isPropComponent?: boolean,
   ): IRuntimeComponentModel {
     const compositeKey = RuntimeComponentModel.compositeKey(
       component,
@@ -64,7 +64,7 @@ export class RuntimeComponentService
       childMapperIndex,
       component,
       compositeKey,
-      isTypedProp,
+      isPropComponent,
       runtimeParent: parent
         ? runtimeElementRef(parent.compositeKey)
         : undefined,

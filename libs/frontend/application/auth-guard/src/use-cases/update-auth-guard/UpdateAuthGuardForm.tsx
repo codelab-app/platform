@@ -5,19 +5,21 @@ import type {
   IAuthGuardUpdateFormData,
 } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IResourceFetchConfig } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
 } from '@codelab/frontend-application-resource/components'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, SelectField } from 'uniforms-antd'
 
 import { useAuthGuardService } from '../../services'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
@@ -29,17 +31,19 @@ interface UpdateAuthGuardFormProps extends IFormController {
 export const UpdateAuthGuardForm = observer<UpdateAuthGuardFormProps>(
   ({ authGuard, onSubmitSuccess, showFormControl = false, submitRef }) => {
     const authGuardService = useAuthGuardService()
+    const { resourceDomainService, userDomainService } = useDomainStore()
 
     const model = {
       config: {
-        data: authGuard.config.values,
+        data: authGuard.config.values as IResourceFetchConfig,
         id: authGuard.config.id,
       },
       id: authGuard.id,
       name: authGuard.name,
-      resource: authGuard.resource,
+      resource: { id: authGuard.resource.id },
+      owner: { id: userDomainService.currentUser.id },
       responseTransformer: authGuard.responseTransformer,
-    }
+    } as IAuthGuardUpdateFormData
 
     return (
       <Form<IAuthGuardUpdateFormData>
@@ -51,7 +55,11 @@ export const UpdateAuthGuardForm = observer<UpdateAuthGuardFormProps>(
         submitRef={submitRef}
         uiKey={UiKey.AuthGuardFormUpdate}
       >
-        <AutoFields omitFields={['config', 'owner']} />
+        <AutoFields omitFields={['config', 'owner', 'resource']} />
+        <SelectField
+          name="resource.id"
+          options={resourceDomainService.getSelectOption()}
+        />
         <ResourceFetchConfigField />
         <ResourceTestRequest
           fetchConfigDataFieldName="config.data"

@@ -112,6 +112,27 @@ export class BasePage {
     await expect(this.getNotification()).toHaveText(message)
   }
 
+  async fillInputCheckbox(
+    { label }: { label: string | RegExp },
+    checked: boolean,
+    options?: {
+      locator?: Locator
+      waitForAutosave?: boolean
+    },
+  ) {
+    return base.step('fillInputCheckbox', async () => {
+      const page = options?.locator ?? this.locator ?? this.page
+
+      await page
+        .getByLabel(label, { exact: true })
+        .setChecked(checked, { force: true })
+
+      if (options?.waitForAutosave) {
+        await this.waitForProgressBar()
+      }
+    })
+  }
+
   async fillInputMultiSelect(
     options: { name: string | RegExp },
     values: Array<number | string>,

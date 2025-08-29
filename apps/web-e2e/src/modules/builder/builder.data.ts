@@ -1,5 +1,6 @@
 import type { ICreateElementSeedData } from '@codelab/shared-abstract-core'
 
+import { typedProp } from '@codelab/frontend-abstract-domain'
 import { IAtomType, ITypeKind } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 
@@ -20,11 +21,11 @@ export const elementTextA: ICreateElementSeedData = {
   name: 'Column A Text',
   parentElement: elementColA.name,
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'Ant Design Text Element',
-    },
+    }),
   },
 }
 
@@ -51,11 +52,11 @@ export const elementButtonText: ICreateElementSeedData = {
   name: 'Button Text',
   parentElement: elementButton.name,
   propsData: {
-    children: {
+    children: typedProp({
       kind: ITypeKind.RichTextType,
       type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
       value: 'Click Me!',
-    },
+    }),
   },
 }
 

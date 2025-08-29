@@ -14,21 +14,23 @@ import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAtomService } from '../../services'
-import { SelectAtom } from '../select-atom'
 import { createAtomSchema } from './create-atom.schema'
 
 export const CreateAtomForm = observer<IFormController>(
   ({ onSubmitSuccess, submitRef }) => {
     const { tagDomainService } = useDomainStore()
     const atomService = useAtomService()
+    const { atomDomainService } = useDomainStore()
     const tagsSelectionOptions = tagDomainService.tagsSelectOptions
 
     return (
       <Form<ICreateAtomData>
         errorMessage="Error while creating atom"
-        model={{
-          id: v4(),
-        }}
+        model={
+          {
+            id: v4(),
+          } as ICreateAtomData
+        }
         onSubmit={atomService.create}
         onSubmitSuccess={onSubmitSuccess}
         schema={createAtomSchema}
@@ -54,7 +56,11 @@ export const CreateAtomForm = observer<IFormController>(
           <TextField name="externalJsSource" required />
           <TextField name="externalSourceType" required />
         </DisplayIfField>
-        <SelectAtom label="Required Parents" name="requiredParents" />
+        <SelectField
+          label="Required Parents"
+          name="requiredParents"
+          options={atomDomainService.getSelectOptions()}
+        />
         <SelectField
           label="Connect Tag"
           mode="multiple"

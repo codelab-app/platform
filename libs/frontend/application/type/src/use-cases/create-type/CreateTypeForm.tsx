@@ -38,9 +38,11 @@ export const CreateTypeForm = ({
   return (
     <Form<ITypeCreateFormData>
       errorMessage="Error while creating type"
-      model={{
-        id: v4(),
-      }}
+      model={
+        {
+          id: v4(),
+        } as ITypeCreateFormData
+      }
       onSubmit={onSubmit}
       onSubmitSuccess={onSubmitSuccess}
       schema={createTypeSchema}

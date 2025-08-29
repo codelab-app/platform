@@ -102,7 +102,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "38d1486c-38a0-4f44-85bc-fc83d434591c",
-                "data": "{\"onDeselect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOpenChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"overflowedIndicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d2fb37a9-486b-44b0-a938-8c9e6128e4a6\"},\"items\":[{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"all\",\"label\":\"All\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"shirts\",\"label\":\"Shirts\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"stickers\",\"label\":\"Stickers\"}],\"mode\":\"horizontal\",\"theme\":\"dark\"}"
+                "data": "{\"onDeselect\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOpenChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"overflowedIndicator\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onSelect\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d2fb37a9-486b-44b0-a938-8c9e6128e4a6\"},\"items\":[{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"all\",\"label\":\"All\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"shirts\",\"label\":\"Shirts\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"stickers\",\"label\":\"Stickers\"}],\"mode\":\"horizontal\",\"theme\":\"dark\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -140,7 +140,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "71510e03-252a-4ab9-aabb-edac6f68a1bd",
-                "data": "{\"placeholder\":\"Search for products...\",\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"0af892c6-07d2-48fe-a4ca-bb941312cdbc\"},\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"defaultValue\":\"{{state.searchKey}}\"}"
+                "data": "{\"placeholder\":\"Search for products...\",\"suffix\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"0af892c6-07d2-48fe-a4ca-bb941312cdbc\"},\"addonAfter\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"defaultValue\":\"{{state.searchKey}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -219,7 +219,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "5bc4ae6e-622d-4fd1-ad38-f535346f81c5",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"da05396a-c05b-44ab-99fa-0e0559ae8bf9\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"da05396a-c05b-44ab-99fa-0e0559ae8bf9\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -445,7 +445,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "e3ff41fe-fff8-421c-b3a2-dc20ddb831ca",
-                "data": "{\"count\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{state.cart.length}}\"},\"text\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"count\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{state.cart.length}}\"},\"text\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -483,7 +483,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c219f762-7f0e-4821-a1eb-8456d7cf0f0c",
-                "data": "{\"title\":\"My Cart\",\"open\":\"{{state.isCartOpen}}\",\"onCancel\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"215b07ca-ce95-4fd8-87a5-5b43e2a621bf\"},\"style\":{\"top\":0,\"marginLeft\":\"50%\"},\"width\":\"50%\",\"okText\":\"Proceed to Checkout\",\"cancelButtonProps\":{\"hidden\":true},\"okButtonProps\":{\"hidden\":true}}"
+                "data": "{\"title\":\"My Cart\",\"open\":\"{{state.isCartOpen}}\",\"onCancel\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"215b07ca-ce95-4fd8-87a5-5b43e2a621bf\"},\"style\":{\"top\":0,\"marginLeft\":\"50%\"},\"width\":\"50%\",\"okText\":\"Proceed to Checkout\",\"cancelButtonProps\":{\"hidden\":true},\"okButtonProps\":{\"hidden\":true}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -521,7 +521,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "afd839ea-1f31-4e31-8471-6fa6a8acbd28",
-                "data": "{\"renderItem\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"loadMore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"itemLayout\":\"vertical\"}"
+                "data": "{\"renderItem\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"footer\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"loadMore\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"header\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"itemLayout\":\"vertical\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": "{{state.cart}}",
@@ -600,7 +600,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "6ee9e25e-2e16-4117-bc1a-ac75df267dcb",
-                "data": "{\"style\":{\"margin\":0},\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"style\":{\"margin\":0},\"children\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -675,7 +675,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "61204b16-2e00-43e8-8936-537e0d91f57c",
-                "data": "{\"actions\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"actions\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -747,7 +747,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "328ff313-a1b9-434e-8e81-e61cf2abc076",
-                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"width\":\"{{100}}\",\"src\":\"{{props.imageUrl}}\",\"alt\":\"{{props.name}}\"}"
+                "data": "{\"onError\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"width\":\"{{100}}\",\"src\":\"{{props.imageUrl}}\",\"alt\":\"{{props.name}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1055,7 +1055,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cde47e87-3f07-400e-8edc-0c73bc0e826c",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"9fe6a373-c021-4dde-b64a-9c34e2ab3340\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>-</p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"9fe6a373-c021-4dde-b64a-9c34e2ab3340\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>-</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1129,7 +1129,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "1620a1d4-5ca9-43e0-8ea9-937095cb0047",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"17d7c2e4-86c8-449f-990e-d8cbd72a0f06\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>+</p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"17d7c2e4-86c8-449f-990e-d8cbd72a0f06\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>+</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1758,7 +1758,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "ba6c001b-5437-460b-aa68-10259054e186",
-                "data": "{\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"items\":[{\"title\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{'Information'}}\"},\"key\":\"information\"},{\"title\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{'Shipping'}}\"},\"key\":\"shipping\"},{\"title\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{'Payment'}}\"},\"key\":\"payment\"}],\"responsive\":false,\"size\":\"small\",\"current\":\"{{state.currentStep ?? 0}}\",\"style\":{\"padding\":\"10px\"}}"
+                "data": "{\"onChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"items\":[{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{'Information'}}\"},\"key\":\"information\"},{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{'Shipping'}}\"},\"key\":\"shipping\"},{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{'Payment'}}\"},\"key\":\"payment\"}],\"responsive\":false,\"size\":\"small\",\"current\":\"{{state.currentStep ?? 0}}\",\"style\":{\"padding\":\"10px\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1910,7 +1910,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "70ed28e8-c625-46ba-a0fe-834244d0a258",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"dbf7cae6-285b-407d-b410-fd31775c53e8\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>&lt; Return to {{state.currentStep === 1 ? 'Information' : state.currentStep === 2 ? 'Shipping' : ''}}</p>\",\"ghost\":false,\"type\":\"link\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"dbf7cae6-285b-407d-b410-fd31775c53e8\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>&lt; Return to {{state.currentStep === 1 ? 'Information' : state.currentStep === 2 ? 'Shipping' : ''}}</p>\",\"ghost\":false,\"type\":\"link\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1948,7 +1948,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "a30cd281-3bb6-4c04-8175-738df59230f0",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"4726a6ff-0d41-4a4a-8d6a-77e92162c71e\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Continue to {{!state.currentStep ? 'Shipping' : state.currentStep === 1 ? 'Payment' : ''}}</p>\",\"type\":\"primary\",\"style\":{\"float\":\"right\"}}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"4726a6ff-0d41-4a4a-8d6a-77e92162c71e\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Continue to {{!state.currentStep ? 'Shipping' : state.currentStep === 1 ? 'Payment' : ''}}</p>\",\"type\":\"primary\",\"style\":{\"float\":\"right\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2221,7 +2221,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "56707804-504d-4c78-8a23-6ed4714813a5",
-                "data": "{\"onValuesChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    console.log('change event', event)\\n  }\\n}}\"},\"onFinish\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    console.log('submit event', event);\\n  }\\n}}\"},\"onFieldsChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onFinishFailed\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"style\":{\"color\":\"white\"},\"layout\":\"vertical\",\"initialValues\":\"{{state.info}}\"}"
+                "data": "{\"onValuesChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    console.log('change event', event)\\n  }\\n}}\"},\"onFinish\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    console.log('submit event', event);\\n  }\\n}}\"},\"onFieldsChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onFinishFailed\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"style\":{\"color\":\"white\"},\"layout\":\"vertical\",\"initialValues\":\"{{state.info}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2297,7 +2297,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "ad1d77f4-27e5-4ccf-a11a-0a214d5dc23d",
-                "data": "{\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"suffix\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"addonAfter\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2449,7 +2449,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "3d820af7-89ea-4ef7-8a04-a10f2e20b41d",
-                "data": "{\"onDropdownVisibleChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"suffixIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"getPopupContainer\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tagRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"filterSort\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"dropdownRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"notFoundContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"clearIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"removeIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"menuItemSelectedIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"options\":[{\"label\":\"Philippines\",\"value\":\"ph\"},{\"label\":\"United States\",\"value\":\"us\"}]}"
+                "data": "{\"onDropdownVisibleChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"suffixIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"getPopupContainer\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tagRender\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"filterSort\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"dropdownRender\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"notFoundContent\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"clearIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"removeIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"menuItemSelectedIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"options\":[{\"label\":\"Philippines\",\"value\":\"ph\"},{\"label\":\"United States\",\"value\":\"us\"}]}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2981,7 +2981,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "811c1570-6e49-41d4-b339-bfcbcc502b34",
-                "data": "{\"options\":[{\"label\":\"Alabama\",\"value\":\"alabama\"},{\"label\":\"Alaska\",\"value\":\"alaska\"}],\"onDropdownVisibleChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"suffixIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"getPopupContainer\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tagRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"filterSort\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"dropdownRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"notFoundContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"clearIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"removeIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"menuItemSelectedIcon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"options\":[{\"label\":\"Alabama\",\"value\":\"alabama\"},{\"label\":\"Alaska\",\"value\":\"alaska\"}],\"onDropdownVisibleChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"suffixIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"getPopupContainer\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tagRender\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"filterSort\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"dropdownRender\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"notFoundContent\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"clearIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"removeIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"menuItemSelectedIcon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3096,7 +3096,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "fdbef02d-9524-4e90-9307-4d5c11621a10",
-                "data": "{\"onClickAction\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"title\":\"Contact\",\"actionLabel\":\"Change\",\"description\":\"{{state.info.contact}}\"}"
+                "data": "{\"onClickAction\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"title\":\"Contact\",\"actionLabel\":\"Change\",\"description\":\"{{state.info.contact}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3134,7 +3134,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "183aa59c-9f63-4d21-8a20-69f1068a38e7",
-                "data": "{\"onClickAction\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"actionLabel\":\"Change\",\"title\":\"Ship to\",\"description\":\"{{state.info.address}}, {{state.info.city}}, {{state.info.state}}, {{state.info.zipCode}}, {{state.info.country}}\"}"
+                "data": "{\"onClickAction\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"actionLabel\":\"Change\",\"title\":\"Ship to\",\"description\":\"{{state.info.address}}, {{state.info.city}}, {{state.info.state}}, {{state.info.zipCode}}, {{state.info.country}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3172,7 +3172,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cbe2f135-59dd-45df-ae71-528b6cb6978f",
-                "data": "{\"onClickAction\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 1;\\n  }\\n}}\"},\"title\":\"Method\",\"actionLabel\":\"Change\",\"description\":\"{{state.shipping}} - {{state.shipping === 'standard' ? '$10' : 'Free'}}\"}"
+                "data": "{\"onClickAction\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 1;\\n  }\\n}}\"},\"title\":\"Method\",\"actionLabel\":\"Change\",\"description\":\"{{state.shipping}} - {{state.shipping === 'standard' ? '$10' : 'Free'}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3279,7 +3279,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "162cd8c5-5cd0-4f39-a86b-8d408f15c33c",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"04845d8f-8cf1-41ba-8710-e9f7c8ec40b6\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Continue to {{!state.currentStep ? 'Shipping' : state.currentStep === 1 ? 'Payment' : ''}}</p>\",\"type\":\"primary\",\"style\":{\"float\":\"right\"}}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"04845d8f-8cf1-41ba-8710-e9f7c8ec40b6\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Continue to {{!state.currentStep ? 'Shipping' : state.currentStep === 1 ? 'Payment' : ''}}</p>\",\"type\":\"primary\",\"style\":{\"float\":\"right\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3885,7 +3885,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "5f7fab83-2a7c-4c62-b13b-7fa4e6f7f3e2",
-                "data": "{\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    console.log('event', event.target.value);\\n    state.shipping = event.target.value;\\n  }\\n}}\"},\"value\":\"{{state.shipping}}\"}"
+                "data": "{\"onChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    console.log('event', event.target.value);\\n    state.shipping = event.target.value;\\n  }\\n}}\"},\"value\":\"{{state.shipping}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -4458,7 +4458,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cd054b40-6f71-4cf2-833e-c8a941a6e6a4",
-                "data": "{\"onClickAction\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"actionLabel\":\"Change\",\"title\":\"Contact\",\"description\":\"{{state.info.contact}}\"}"
+                "data": "{\"onClickAction\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"actionLabel\":\"Change\",\"title\":\"Contact\",\"description\":\"{{state.info.contact}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -4496,7 +4496,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "2970d8d8-52af-493b-9395-e59ea0c5e52a",
-                "data": "{\"onClickAction\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"actionLabel\":\"Change\",\"title\":\"Ship to\",\"description\":\"{{state.info.address}}, {{state.info.city}}, {{state.info.state}}, {{state.info.zipCode}}, {{state.info.country}}\"}"
+                "data": "{\"onClickAction\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\n    // To access component props use component.[prop-name]\\n    /* your code here */\\n    state.currentStep = 0;\\n  }\\n}}\"},\"actionLabel\":\"Change\",\"title\":\"Ship to\",\"description\":\"{{state.info.address}}, {{state.info.city}}, {{state.info.state}}, {{state.info.zipCode}}, {{state.info.country}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -4688,7 +4688,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "0fe5250e-004e-4691-8366-bd335975e8de",
-                "data": "{\"count\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{props.quantity}}\"},\"text\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"status\":\"default\"}"
+                "data": "{\"count\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{props.quantity}}\"},\"text\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"status\":\"default\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -4724,7 +4724,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "9573d028-bded-4dd5-a561-17d763400bf3",
-                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{props.imageUrl}}\"}"
+                "data": "{\"onError\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{props.imageUrl}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -5026,7 +5026,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "d4348b38-8911-46e2-947e-a5f6f924c2f0",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{props.onClickAction}}\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>{{props.actionLabel}}</p>\",\"type\":\"link\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{props.onClickAction}}\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>{{props.actionLabel}}</p>\",\"type\":\"link\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -5469,7 +5469,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "2cc8f6f0-694d-4276-94fa-e8376532882c",
-                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{state.product?.imageUrl}}\",\"preview\":\"{{false}}\",\"height\":\"{{250}}\"}"
+                "data": "{\"onError\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{state.product?.imageUrl}}\",\"preview\":\"{{false}}\",\"height\":\"{{250}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -5619,7 +5619,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "15c4eea6-4a8c-4889-bd6e-934402d2cc68",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"a39dca20-8a41-4052-a11c-8bab3a993560\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Add to cart</p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"a39dca20-8a41-4052-a11c-8bab3a993560\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Add to cart</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -5967,7 +5967,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "1e948ea7-ccde-4a4a-9032-eb4a2e97f409",
-                "data": "{\"onDeselect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOpenChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"overflowedIndicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d2fb37a9-486b-44b0-a938-8c9e6128e4a6\"},\"items\":[{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"all\",\"label\":\"All\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"electronics\",\"label\":\"Electronics\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"headwear\",\"label\":\"Headwear\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"shirts\",\"label\":\"Shirts\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"stickers\",\"label\":\"Stickers\"}],\"theme\":\"dark\"}"
+                "data": "{\"onDeselect\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOpenChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"overflowedIndicator\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onSelect\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d2fb37a9-486b-44b0-a938-8c9e6128e4a6\"},\"items\":[{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"all\",\"label\":\"All\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"electronics\",\"label\":\"Electronics\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"headwear\",\"label\":\"Headwear\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"shirts\",\"label\":\"Shirts\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"stickers\",\"label\":\"Stickers\"}],\"theme\":\"dark\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -6041,7 +6041,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "63aa3f0a-da0f-4403-821e-124d74c285b4",
-                "data": "{\"onDeselect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOpenChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"overflowedIndicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"b66eb61f-a026-45ca-a4ef-62d105c30493\"},\"items\":[{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"relavance\",\"label\":\"Relevance\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"trending\",\"label\":\"Trending\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"latest-arrivals\",\"label\":\"Latest arrivals\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"price-low-to-high\",\"label\":\"Price: Low to high\"},{\"icon\":{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"price-high-to-low\",\"label\":\"Price: High to low\"}],\"theme\":\"dark\"}"
+                "data": "{\"onDeselect\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOpenChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"overflowedIndicator\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onSelect\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"b66eb61f-a026-45ca-a4ef-62d105c30493\"},\"items\":[{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"relavance\",\"label\":\"Relevance\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"trending\",\"label\":\"Trending\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"latest-arrivals\",\"label\":\"Latest arrivals\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"price-low-to-high\",\"label\":\"Price: Low to high\"},{\"icon\":{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"},\"key\":\"price-high-to-low\",\"label\":\"Price: High to low\"}],\"theme\":\"dark\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -6426,7 +6426,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "2d46ebbc-7ae9-4c54-a753-e0c753849ae0",
-                "data": "{\"actions\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"cover\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"tabList\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onTabChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tabBarExtraContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"style\":{\"color\":\"white\"},\"title\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{props.name}} - ${{props.price}}\"}}"
+                "data": "{\"actions\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"cover\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"tabList\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onTabChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tabBarExtraContent\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"style\":{\"color\":\"white\"},\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{props.name}} - ${{props.price}}\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -6462,7 +6462,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c90be600-fd31-4a70-b2cc-d295c08b1201",
-                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{props.imageUrl}}\",\"preview\":\"{{false}}\"}"
+                "data": "{\"onError\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{props.imageUrl}}\",\"preview\":\"{{false}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -7062,7 +7062,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "61204b16-2e00-43e8-8936-537e0d91f57c",
-          "data": "{\"actions\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+          "data": "{\"actions\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
@@ -7080,7 +7080,7 @@
       },
       "props": {
         "id": "9ee4c91e-cdc7-4f54-ab9b-a2cb7bbe0f7d",
-        "data": "{\"onIncreaseProduct\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onDecreaseProducts\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
+        "data": "{\"onIncreaseProduct\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onDecreaseProducts\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
       },
       "store": {
         "id": "27b5a507-f399-4a33-b0af-d64972abfa62",
@@ -7424,7 +7424,7 @@
       },
       "props": {
         "id": "3f820a45-5ad6-417b-bec4-427fe1e7f052",
-        "data": "{\"onClickAction\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
+        "data": "{\"onClickAction\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
       },
       "store": {
         "id": "0958787e-e4c5-4405-bb4c-48344f3550fd",
@@ -7488,7 +7488,7 @@
             "name": "On Click Action",
             "description": null,
             "validationRules": "{\"general\":{\"nullable\":true}}",
-            "defaultValues": "{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
+            "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
             "prevSibling": null,
             "nextSibling": null,
             "fieldType": {
@@ -7552,7 +7552,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "2d46ebbc-7ae9-4c54-a753-e0c753849ae0",
-          "data": "{\"actions\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"cover\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"tabList\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onTabChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tabBarExtraContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"style\":{\"color\":\"white\"},\"title\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{props.name}} - ${{props.price}}\"}}"
+          "data": "{\"actions\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"extra\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"cover\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"tabList\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onTabChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"tabBarExtraContent\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"style\":{\"color\":\"white\"},\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{props.name}} - ${{props.price}}\"}}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,

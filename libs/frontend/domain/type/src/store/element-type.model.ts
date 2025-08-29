@@ -4,12 +4,15 @@ import type {
 } from '@codelab/shared-abstract-core'
 
 import {
+  getElementDomainService,
   type IElementTypeModel,
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
 } from '@codelab/frontend-abstract-domain'
+import { ExpressionSelectField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'
@@ -36,6 +39,11 @@ export class ElementType
 {
   public static create = create
 
+  @computed
+  get elementDomainService() {
+    return getElementDomainService(this)
+  }
+
   get toJson() {
     return {
       __typename: this.__typename,
@@ -48,7 +56,19 @@ export class ElementType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return typedPropSchema(this, context)
+    const { element } = context
+    const options = element
+      ? this.elementDomainService.getSelectOptions(element, this.elementKind)
+      : []
+
+    return typedPropSchema(
+      this,
+      {
+        component: ExpressionSelectField,
+        options,
+      },
+      context,
+    )
   }
 
   @modelAction

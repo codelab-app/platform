@@ -6,8 +6,6 @@ import { cache } from 'react'
 import 'server-only'
 
 export const appListQuery = cache(async () => {
-  console.log('appListQuery')
-
   const user = await getServerUser()
 
   const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
@@ -24,7 +22,5 @@ export const appListQuery = cache(async () => {
 })
 
 export const preloadAppListQuery = () => {
-  console.log('preloadAppListQuery')
-
   void appListQuery()
 }

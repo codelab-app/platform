@@ -16,7 +16,10 @@ import { AutoForm } from 'uniforms-antd'
 import { useAsyncHandler, usePostSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
-export type OptimisticFormProps<TData, TResponse> = React.PropsWithChildren<
+export type OptimisticFormProps<
+  TData extends ObjectLike,
+  TResponse,
+> = React.PropsWithChildren<
   // Only standalone form should have `uiKey`
   Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
 >

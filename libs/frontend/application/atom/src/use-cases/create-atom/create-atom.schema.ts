@@ -49,7 +49,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       type: 'array',
     },
     type: {
-      allowedValues: Object.values(IAtomType).filter(filterNotHookType),
+      enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
       type: 'string',
     },

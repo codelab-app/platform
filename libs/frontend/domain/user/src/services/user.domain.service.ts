@@ -6,7 +6,7 @@ import type {
 import type { IUserDto } from '@codelab/shared-abstract-core'
 
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 import { User } from '../store'
 

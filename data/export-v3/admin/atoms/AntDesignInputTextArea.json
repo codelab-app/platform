@@ -24,7 +24,7 @@
         "api": {
           "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
         },
-        "defaultValues": "{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
         "description": null,
         "fieldType": {
           "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"

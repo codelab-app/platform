@@ -10,4 +10,4 @@ export type IAuthGuardCreateFormData = Omit<IAuthGuardDto, 'config'> & {
   }
 }
 
-export type IAuthGuardUpdateFormData = IAuthGuardCreateFormData
+export type IAuthGuardUpdateFormData = Omit<IAuthGuardCreateFormData, 'owner'>

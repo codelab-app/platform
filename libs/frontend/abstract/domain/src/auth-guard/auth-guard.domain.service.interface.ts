@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { IAuthGuardDto } from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
@@ -7,4 +8,5 @@ import type { IAuthGuardModel } from './auth-guard.model.interface'
 export interface IAuthGuardDomainService
   extends IHydrateable<IAuthGuardDto, IAuthGuardModel> {
   authGuards: ObjectMap<IAuthGuardModel>
+  getSelectOptions(): Array<SelectOption>
 }
