@@ -1,2 +1,2 @@
 docker:
-  - image: node:22-slim
+  - image: node:22
