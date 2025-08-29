@@ -122,11 +122,14 @@ describe('TypedPropTransformers', () => {
     const propKey = 'someNode'
     const reactNodeType = testStore.addReactNodeType({})
 
-    rootElement.props.set(propKey, {
-      kind: reactNodeType.kind,
-      type: reactNodeType.id,
-      value: '{{<img src="test" style={{ border: \'2px solid red\'}} />}}',
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: reactNodeType.kind,
+        type: reactNodeType.id,
+        value: '{{<img src="test" style={{ border: \'2px solid red\'}} />}}',
+      }),
+    )
 
     renderer.render()
 
@@ -226,12 +229,15 @@ describe('TypedPropTransformers', () => {
     const propKey = 'someNode'
     const renderPropsType = testStore.addRenderPropsType({})
 
-    rootElement.props.set(propKey, {
-      kind: renderPropsType.kind,
-      type: renderPropsType.id,
-      value:
-        '{{function Render() { return <img src="test" style={{ border: \'2px solid red\'}} /> }}}',
-    })
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: renderPropsType.kind,
+        type: renderPropsType.id,
+        value:
+          '{{function Render() { return <img src="test" style={{ border: \'2px solid red\'}} /> }}}',
+      }),
+    )
 
     renderer.render()
 
