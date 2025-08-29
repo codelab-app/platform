@@ -1,6 +1,6 @@
 executor: machine-ubuntu
 
-resource_class: small
+resource_class: arm.medium
 
 steps:
   - swissknife/wait_for_job:

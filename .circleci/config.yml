@@ -92,6 +92,12 @@ commands:
 
             sudo apt-get install -y neo4j cypher-shell
           name: Install Cypher Shell
+  install-doctl:
+    description: Install DigitalOcean CLI (doctl)
+    steps:
+      - run:
+          command: "echo \"Installing DigitalOcean CLI...\"\n\n# For Alpine Linux (node:22-alpine image)\nif [ -f /etc/alpine-release ]; then\n  apk add --no-cache doctl\nelse\n  # Fallback for non-Alpine systems - use wget for simpler installation\n  DOCTL_VERSION=\"1.104.0\"\n  ARCH=$(uname -m)\n  if [ \"$ARCH\" = \"aarch64\" ] || [ \"$ARCH\" = \"arm64\" ]; then\n    DOCTL_ARCH=\"linux-arm64\"\n  else\n    DOCTL_ARCH=\"linux-amd64\"\n  fi\n  \n  cd /tmp\n  wget -q \"https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz\"\n  tar xf \"doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz\"\n  sudo mv doctl /usr/local/bin\n  rm \"doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz\"\nfi\n\n# Verify installation\ndoctl version\necho \"DigitalOcean CLI installation completed\""
+          name: Install doctl
   install-nvm:
     steps:
       - restore_cache:
@@ -281,10 +287,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:22.14.0-browsers
+      - image: node:22-alpine
   docker-node-neo4j:
     docker:
-      - image: cimg/node:22.14.0-browsers
+      - image: node:22-alpine
       - environment:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
@@ -294,7 +300,7 @@ executors:
         image: neo4j:5.26.3-enterprise
   machine-ubuntu:
     machine:
-      image: ubuntu-2004:2022.04.1
+      image: ubuntu-2204:current
   playwright:
     docker:
       - image: mcr.microsoft.com/playwright:v1.50.0-noble
@@ -348,7 +354,7 @@ jobs:
           name: Check Generate Workspace
   docker-api:
     executor: docker-node
-    resource_class: medium
+    resource_class: arm.medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -360,7 +366,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
     executor: docker-node
-    resource_class: large
+    resource_class: arm.large
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -372,7 +378,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
     executor: docker-node
-    resource_class: large
+    resource_class: arm.large
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -384,7 +390,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
     executor: docker-node
-    resource_class: large
+    resource_class: arm.large
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -481,7 +487,7 @@ jobs:
           path: ./tmp/reports/lint
   notify-failure:
     executor: machine-ubuntu
-    resource_class: small
+    resource_class: arm.medium
     steps:
       - swissknife/wait_for_job:
           job-name: install-and-build-workspace,lint,unit,e2e,codegen
@@ -572,7 +578,7 @@ jobs:
           event: pass
   packer-image:
     executor: docker-node
-    resource_class: medium
+    resource_class: arm.medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -585,7 +591,7 @@ jobs:
           name: Push Docker Image
   setup-infra-workspace:
     executor: docker-node
-    resource_class: large
+    resource_class: arm.large
     steps:
       - checkout
       - setup-env
@@ -593,6 +599,7 @@ jobs:
       - install-pnpm
       - install-packages
       - install-terraform
+      - install-doctl
       - login-docker
       - persist_to_workspace:
           paths:
@@ -705,7 +712,7 @@ workflows:
               only:
                 - master
           max_old_space_size: 6144
-          resource_class: large
+          resource_class: arm.large
       - hold-deploy:
           filters:
             branches:
@@ -813,7 +820,7 @@ workflows:
                 - master
                 - staging
           max_old_space_size: 6144
-          resource_class: large
+          resource_class: arm.large
       - lint:
           filters:
             branches:
@@ -823,7 +830,7 @@ workflows:
           max_old_space_size: 8192
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - build-nx-apps:
           filters:
             branches:
@@ -833,7 +840,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - build-nx-libs:
           filters:
             branches:
@@ -843,7 +850,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - tsc-check:
           filters:
             branches:
@@ -852,7 +859,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - codegen:
           filters:
             branches:
@@ -861,7 +868,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-          resource_class: medium
+          resource_class: arm.medium
       - unit:
           filters:
             branches:
@@ -870,7 +877,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - integration:
           filters:
             branches:
@@ -880,7 +887,7 @@ workflows:
           max_old_space_size: 8192
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - e2e:
           filters:
             branches:
@@ -890,7 +897,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - build-nx-apps
-          resource_class: large
+          resource_class: arm.large
       - notify-success:
           filters:
             branches:
@@ -906,7 +913,7 @@ workflows:
             - build-nx-apps
             - tsc-check
             - e2e
-          resource_class: medium
+          resource_class: arm.medium
   infra-pr:
     jobs:
       - setup-infra-workspace:

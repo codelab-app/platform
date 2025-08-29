@@ -1,6 +1,6 @@
 executor: docker-node
 
-resource_class: large
+resource_class: arm.large
 
 environment:
   NODE_OPTIONS: --max-old-space-size=6144

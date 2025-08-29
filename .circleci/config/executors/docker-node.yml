@@ -1,2 +1,2 @@
 docker:
-  - image: cimg/node:22.14.0-browsers
+  - image: node:22-alpine
