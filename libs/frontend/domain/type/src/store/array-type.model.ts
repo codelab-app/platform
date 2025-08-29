@@ -9,6 +9,7 @@ import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { ExpressionListField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { connectNodeId } from '@codelab/shared-domain-orm'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -57,22 +58,20 @@ export class ArrayType
   toJsonSchema({
     defaultValues,
     depth,
-    fieldName,
-    uniformSchema,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     return {
-      items: this.itemType?.isValid
+      items: this.itemType?.current
         ? this.itemType.current.toJsonSchema({
-            defaultValues,
+            // Don't pass default values here, as they are for array
             depth,
-            fieldName,
-            uniformSchema,
             validationRules,
           })
         : {},
+      uniforms: {
+        component: ExpressionListField,
+      },
       type: 'array',
-      ...(uniformSchema?.(this) ?? {}),
       ...validationRules?.general,
       default: defaultValues,
     }

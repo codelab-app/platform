@@ -31,7 +31,7 @@ export const DeleteTagsModal = observer<{ tags: Array<ITagModel> }>(
       >
         <ModalForm.Form<DeleteTagsData>
           errorMessage="Error while deleting tags"
-          model={{}}
+          model={{ ids: tags.map(({ id }) => id) }}
           onSubmit={onSubmit}
           onSubmitSuccess={closeModal}
           schema={deleteTagsSchema}

@@ -1,12 +1,19 @@
+import type { ObjectLike } from '@codelab/shared-abstract-types'
+
 import { HiddenField } from 'uniforms-antd'
 
 export const createTypedPropTypeExpectedSchema = (
   kind: string,
+  uniforms: ObjectLike,
   id: string,
 ) => ({
-  isTypedProp: true,
   label: '',
   properties: {
+    __isTypedProp: {
+      default: true,
+      type: 'boolean',
+      uniforms: { component: HiddenField },
+    },
     kind: {
       default: kind,
       enum: [kind],
@@ -21,8 +28,10 @@ export const createTypedPropTypeExpectedSchema = (
     },
     value: {
       label: '',
+      type: 'string',
+      uniforms,
     },
   },
-  required: ['type', 'kind'],
+  required: ['type', 'kind', 'value'],
   type: 'object',
 })

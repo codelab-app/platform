@@ -4,17 +4,12 @@ import type { IRuntimeElementModel } from '@codelab/frontend-abstract-applicatio
 import type { MoveData } from '@codelab/frontend-abstract-domain'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx-context'
-import { SelectExcludeDescendantsElements } from '@codelab/frontend-presentation-components-interface-form'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField } from 'uniforms-antd'
 
-import { SelectLinkElement } from '../../components/SelectLinkElement'
 import { useElementService } from '../../services'
 import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
@@ -34,9 +29,7 @@ export interface MoveElementFormProps {
  */
 export const MoveElementForm = observer<MoveElementFormProps>(
   ({ runtimeElement }) => {
-    const { rendererService } = useApplicationStore()
-    const { atomDomainService, elementDomainService } = useDomainStore()
-    const elementTree = rendererService.activeElementTree
+    const { elementDomainService } = useDomainStore()
     const element = runtimeElement.element.current
     const elementService = useElementService()
 
@@ -74,18 +67,6 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       return Promise.resolve()
     }
 
-    const elementAtomRequiredParents = atomDomainService.atoms
-      .get(element.renderType.id)
-      ?.requiredParents.map((parent) => parent.id)
-
-    const elementOptions = elementAtomRequiredParents?.length
-      ? elementTree?.elements
-          .filter((el) =>
-            elementAtomRequiredParents.includes(el.renderType.id || ''),
-          )
-          .map(mapElementOption)
-      : elementTree?.elements.map(mapElementOption)
-
     return (
       <div key={element.id}>
         <MoveElementAutoForm<MoveData>
@@ -96,24 +77,26 @@ export const MoveElementForm = observer<MoveElementFormProps>(
           schema={moveElementSchema}
           uiKey={UiKey.ElementFormMove}
         >
-          <AutoFields omitFields={['parentElement', 'prevSibling']} />
           <AutoField
-            component={observer((props) => {
-              return (
-                <SelectExcludeDescendantsElements
-                  allowClear={false}
-                  elementOptions={elementOptions}
-                  targetElementId={element.id}
-                  // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
-                  {...(props as any)}
-                />
-              )
-            })}
+            allowClear={false}
             name="parentElement.id"
+            options={elementDomainService.getSelectOptions(
+              element,
+              IElementTypeKind.ExcludeDescendantsElements,
+              [element.id],
+            )}
           />
-          <SelectLinkElement
-            elementOptions={elementOptions}
+          <AutoField
             name="prevSibling.id"
+            options={
+              element.parentElement?.current
+                ? elementDomainService.getSelectOptions(
+                    element,
+                    IElementTypeKind.ExcludeDescendantsElements,
+                    [element.id, element.closestContainerNode.rootElement.id],
+                  )
+                : []
+            }
           />
         </MoveElementAutoForm>
       </div>

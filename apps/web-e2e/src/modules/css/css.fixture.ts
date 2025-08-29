@@ -1,3 +1,4 @@
+import { IConfigPaneTab } from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -13,7 +14,9 @@ export class CssBuilderPage extends BuilderPage {
 
   async openCssTab() {
     return test.step('openCssTab', async () => {
-      const cssTab = this.page.locator('[data-node-key="CSS"]')
+      const cssTab = this.page.locator(
+        `[data-node-key="${IConfigPaneTab.Css}"]`,
+      )
 
       await cssTab.click()
 
@@ -36,7 +39,7 @@ export class CssBuilderPage extends BuilderPage {
     return test.step('typeIntoCssEditor', async () => {
       const cssTab = this.page.locator('.ant-tabs-tabpane-active')
 
-      await this.fillInputText({ label: 'Css Editor' }, css, {
+      await this.fillInputText({ label: 'Current breakpoint css' }, css, {
         locator: cssTab,
         waitForAutosave: true,
       })

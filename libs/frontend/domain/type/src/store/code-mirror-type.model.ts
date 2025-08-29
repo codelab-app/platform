@@ -7,6 +7,7 @@ import {
   type JsonSchema,
   userRef,
 } from '@codelab/frontend-abstract-domain'
+import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
@@ -52,7 +53,7 @@ export class CodeMirrorType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return typedPropSchema(this, context)
+    return typedPropSchema(this, { component: CodeMirrorField }, context)
   }
 
   @modelAction

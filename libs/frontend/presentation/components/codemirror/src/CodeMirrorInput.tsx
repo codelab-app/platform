@@ -20,8 +20,9 @@ export interface CodeMirrorInputProps
   className?: string
   cssString?: string
   expandable?: boolean
+  label?: Nullish<string>
+  required?: boolean
   singleLine?: boolean
-  title?: Nullish<string>
   value?: string
   onChange(value: string): void
   onSave?(value: string): void
@@ -31,9 +32,9 @@ export const CodeMirrorInput = ({
   className,
   cssString,
   expandable,
+  label,
   onChange,
   onSave,
-  title,
   value = '',
   ...props
 }: CodeMirrorInputProps) => {
@@ -61,8 +62,9 @@ export const CodeMirrorInput = ({
         container: editorRef.current,
         extensions: [
           EditorView.contentAttributes.of({
-            'aria-label': title ?? '',
+            'aria-label': label ?? '',
             id: props.id ?? '',
+            required: String(props.required),
           }),
           ...(props.extensions || []),
         ],
@@ -109,7 +111,7 @@ export const CodeMirrorInput = ({
             onChange={onChange}
             onSave={onSave}
             setupFactory={setupFactory}
-            title={title}
+            title={label}
             value={value}
             visible={isExpand}
           />

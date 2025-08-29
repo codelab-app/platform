@@ -334,7 +334,7 @@
               "firstChild": null,
               "props": {
                 "id": "c25fea2c-efee-4ded-b154-a42d9db0715e",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -399,7 +399,7 @@
               "firstChild": null,
               "props": {
                 "id": "157e01a0-539d-4502-b36a-199f2557717e",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -430,7 +430,7 @@
               "firstChild": null,
               "props": {
                 "id": "cf312e87-3f5f-4dfe-922d-ffdb92e9d536",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -461,7 +461,7 @@
               "firstChild": null,
               "props": {
                 "id": "7081ca21-84ea-45f5-acdb-f369cb87232f",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1308,7 +1308,7 @@
               "firstChild": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
               "props": {
                 "id": "63b358b6-fc9e-401b-a406-99f6a4389447",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"2990c9dc-71bb-4598-ae42-023c9dcf5436\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"2990c9dc-71bb-4598-ae42-023c9dcf5436\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1370,7 +1370,7 @@
               "firstChild": null,
               "props": {
                 "id": "f589d2dd-fc72-407f-8351-21dc42c20b02",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Sign in with GitHub</p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Sign in with GitHub</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1432,7 +1432,7 @@
               "firstChild": null,
               "props": {
                 "id": "a1956b1e-c1a6-475e-9d7c-07633553b638",
-                "data": "{\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"suffix\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"addonAfter\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1463,7 +1463,7 @@
               "firstChild": { "id": "4ac4edbb-894f-4419-bebd-45cb982e8476" },
               "props": {
                 "id": "c681ccf8-cbe1-4999-858d-f191860479f7",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p><br></p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p><br></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1494,7 +1494,7 @@
               "firstChild": null,
               "props": {
                 "id": "e26783f8-839d-43d8-b0f8-32a3e736cdfb",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Logout</p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Logout</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1525,7 +1525,7 @@
               "firstChild": { "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c" },
               "props": {
                 "id": "158a661a-ecda-4736-85d4-b4aa5420d71a",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p><br></p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p><br></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1556,7 +1556,7 @@
               "firstChild": null,
               "props": {
                 "id": "6b42fa43-2f8c-417f-aadd-6cf5536aa8bc",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Post</p>\"}"
+                "data": "{\"onClick\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Post</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1587,7 +1587,7 @@
               "firstChild": null,
               "props": {
                 "id": "3390093e-26e0-4f48-8d31-df9512b526b4",
-                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"1a80043e-6e72-4246-8a25-bf643e99b0fd\"},\"src\":\"https://unpkg.com/@supabase/supabase-js@2\"}"
+                "data": "{\"onError\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"__isTypedProp\":true,\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"1a80043e-6e72-4246-8a25-bf643e99b0fd\"},\"src\":\"https://unpkg.com/@supabase/supabase-js@2\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1927,7 +1927,7 @@
               "firstChild": null,
               "props": {
                 "id": "2c891c7b-e05e-4e16-9a31-f6b376f74e5c",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> follow me on twitter\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> follow me on twitter\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2051,7 +2051,7 @@
               "firstChild": null,
               "props": {
                 "id": "45317451-196a-4b0e-978f-ab63da37762e",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> get email updates\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> get email updates\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2237,7 +2237,7 @@
               "firstChild": null,
               "props": {
                 "id": "810218c4-2c5b-4d2b-a472-8103cfc4e7e1",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"__isTypedProp\":true,\"kind\":\"ReactNodeType\",\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,

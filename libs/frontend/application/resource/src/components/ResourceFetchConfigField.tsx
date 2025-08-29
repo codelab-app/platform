@@ -1,4 +1,5 @@
 import type { IRef } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { Context } from 'uniforms'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
@@ -7,7 +8,7 @@ import { IResourceType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField } from 'uniforms-antd'
 
-interface WithResourceRef {
+interface WithResourceRef extends ObjectLike {
   resource: IRef
 }
 
@@ -15,7 +16,7 @@ export const ResourceFetchConfigField = observer(() => {
   const { resourceDomainService } = useDomainStore()
 
   const getResource = (context: Context<WithResourceRef>) => {
-    const resourceId = context.model.resource?.id
+    const resourceId = context.model.resource.id
 
     return resourceId ? resourceDomainService.resources.get(resourceId) : null
   }

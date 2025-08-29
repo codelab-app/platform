@@ -7,6 +7,7 @@ import type { TypedProp } from '@codelab/frontend-abstract-domain'
 import { extractTypedPropValue } from '@codelab/frontend-abstract-domain'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { ExtendedModel, model } from 'mobx-keystone'
+import { isString } from 'remeda'
 
 import { BaseRenderPipe } from '../render-pipes'
 
@@ -46,7 +47,7 @@ export class ActionTypeTransformer
      */
     const actionId = extractTypedPropValue(prop)
 
-    if (!actionId) {
+    if (!actionId || !isString(actionId)) {
       return ''
     }
 

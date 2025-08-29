@@ -64,6 +64,17 @@ export class BuilderService
   }
 
   @computed
+  get activeElement() {
+    const selectedNode = this.selectedNode?.current
+
+    if (!selectedNode || !isRuntimeElement(selectedNode)) {
+      return null
+    }
+
+    return selectedNode
+  }
+
+  @computed
   get activeElementTree() {
     const selectedNode = this.selectedNode?.current
 

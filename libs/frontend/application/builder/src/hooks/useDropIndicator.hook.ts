@@ -5,7 +5,7 @@ import type { CSSProperties } from 'react'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { useDndContext } from '@dnd-kit/core'
 
-export const DROP_INDICATOR_STYLE = '5px solid #439A56'
+export const DROP_INDICATOR_STYLE = '5px solid rgb(67, 154, 86)'
 
 const afterStyle: CSSProperties = {
   borderLeft: DROP_INDICATOR_STYLE,

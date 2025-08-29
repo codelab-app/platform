@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type {
   IAppDto,
   IElementRenderTypeDto,
@@ -21,5 +22,6 @@ export interface IPageDomainFactory {
 export interface IPageDomainService extends IHydrateable<IPageDto, IPageModel> {
   pages: ObjectMap<IPageModel>
   pagesList: Array<IPageModel>
+  getSelectOptions(): Array<SelectOption>
   page(id: string): IPageModel
 }

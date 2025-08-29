@@ -1,8 +1,7 @@
-import type { IPropData } from '@codelab/shared-abstract-core'
+import type { IPropData, ITypeKind } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 
-import { ITypeKind } from '@codelab/shared-abstract-core'
-import { isPlainObject, isString } from 'remeda'
+import { isPlainObject } from 'remeda'
 
 /**
  * Used to represent a value that has a specific type.
@@ -13,41 +12,31 @@ import { isPlainObject, isString } from 'remeda'
  * an element id, but they are hydrated in different ways in the render pipeline.
  */
 export interface TypedProp {
+  // serves as a discriminator, as some atoms may have the same attributes `kind` `type` and `value`
+  __isTypedProp: true
   // sometimes we need to know the kind without having to load the type
   kind: ITypeKind
   type: string
   // required for nested types
-  value?: string | TypedProp
+  value?: unknown | TypedProp
 }
+
+export const typedProp = (input: {
+  kind: ITypeKind
+  type: string
+  value?: number | string
+}): TypedProp => ({
+  ...input,
+  __isTypedProp: true,
+})
 
 /**
  * Tells us whether this JSON data is representing a `TypedProp`
  */
-export const isTypedProp = (prop: IPropData): prop is TypedProp => {
-  if (!isPlainObject(prop)) {
-    return false
-  }
+export const isTypedProp = (prop: IPropData): prop is TypedProp =>
+  isPlainObject(prop) && prop.__isTypedProp
 
-  const keysLength = Object.keys(prop).length
-  const hasType = 'type' in prop && isString(prop['type'])
-  const hasKind = 'kind' in prop && prop['kind'] in ITypeKind
-  const hasValue = 'value' in prop
-  const hasTypeAndKindOnly = hasType && hasKind && keysLength === 2
-  const hasAllKeys = hasKind && hasType && hasValue && keysLength === 3
-
-  // This condition reduces the chances of falsely identifying a prop from an atom component
-  // that has an actual `type`, `kind`, or `value` field but is not a render prop.
-  return hasTypeAndKindOnly || hasAllKeys
-}
-
-export const extractTypedPropValue = (prop: TypedProp): Maybe<string> => {
-  if (!prop.value) {
-    return undefined
-  }
-
-  if (isString(prop.value)) {
-    return prop.value
-  }
-
-  return extractTypedPropValue(prop.value)
-}
+export const extractTypedPropValue = (prop: TypedProp): Maybe<unknown> =>
+  prop.value && isTypedProp(prop.value)
+    ? extractTypedPropValue(prop.value)
+    : prop.value

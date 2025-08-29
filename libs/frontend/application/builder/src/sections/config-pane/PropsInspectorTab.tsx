@@ -11,7 +11,7 @@ import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-code
 import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { usePropsInspector } from '../../hooks'
 
@@ -29,27 +29,31 @@ export const PropsInspectorTab = observer<{
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
 
+  useEffect(() => {
+    setEditedProp(initialProps)
+  }, [initialProps])
+
   return (
     <div className="w-full">
       <h3 className="text-gray-700">Current props</h3>
       <CodeMirrorEditor
         height="150px"
+        label="Current props"
         language={ICodeMirrorLanguage.Json}
         onChange={() => undefined}
         readOnly
-        title="Current props"
         value={propSafeStringify(lastRenderedProp)}
       />
 
       <h3 className="text-gray-700">{nodeLabel} props</h3>
       <CodeMirrorEditor
         height="150px"
+        label={`${nodeLabel} props`}
         language={ICodeMirrorLanguage.Json}
         onChange={(value) => {
           setEditedProp(value)
         }}
         onSave={(value) => save(value)}
-        title={`${nodeLabel} props`}
         value={editedProp}
       />
       <Button

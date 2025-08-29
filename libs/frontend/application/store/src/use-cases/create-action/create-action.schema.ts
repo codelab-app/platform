@@ -1,3 +1,5 @@
+'use client'
+
 import type { ICreateActionData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -25,9 +27,8 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
     code: {
       type: 'string',
       uniforms: {
-        component: CodeMirrorField({
-          language: CodeMirrorLanguage.Typescript,
-        }),
+        component: CodeMirrorField,
+        language: CodeMirrorLanguage.Typescript,
       },
     },
     config: {
@@ -41,18 +42,16 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
             headers: {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
             method: {
@@ -64,16 +63,15 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
               // nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorGraphqlField({}),
+                component: CodeMirrorGraphqlField,
               },
             },
             queryParams: {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
             responseType: {
@@ -88,9 +86,8 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
           },

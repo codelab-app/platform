@@ -101,9 +101,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           <Label>Current breakpoint css:</Label>
           <CodeMirrorEditor
             height="100%"
+            label="Current breakpoint css"
             language={CodeMirrorLanguage.Css}
             onChange={cssChangeHandler}
-            title="CSS Editor"
             value={runtimeElement.style.customCss ?? ''}
           />
         </Col>

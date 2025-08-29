@@ -24,7 +24,7 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
           "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
@@ -84,7 +84,7 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
           "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
@@ -124,7 +124,7 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
           "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
@@ -144,7 +144,7 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
           "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"

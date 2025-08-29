@@ -11,6 +11,7 @@ import { extractTypedPropValue } from '@codelab/frontend-abstract-domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { ExtendedModel, model } from 'mobx-keystone'
+import { isString } from 'remeda'
 import { v4 } from 'uuid'
 
 import { BaseRenderPipe } from '../render-pipes'
@@ -53,7 +54,7 @@ export class RenderPropTypeTransformer
     const { expressionTransformer } = this.rendererService
     const propValue = extractTypedPropValue(prop)
 
-    if (!propValue) {
+    if (!propValue || !isString(propValue)) {
       return ''
     }
 

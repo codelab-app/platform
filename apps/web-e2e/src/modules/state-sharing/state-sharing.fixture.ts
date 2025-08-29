@@ -29,6 +29,11 @@ export class StateSharingPage extends BuilderPage {
 
       await form.fillInputText({ label: 'Key' }, 'name')
       await form.fillInputSelect({ label: 'Type' }, 'String')
+
+      await this.getPopover(UiKey.FieldPopoverCreate)
+        .getButton({ text: 'Next' })
+        .click()
+
       await form.fillInputText({ label: 'Default values' }, defaultValue)
 
       await this.getPopover(UiKey.FieldPopoverCreate)

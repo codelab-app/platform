@@ -163,10 +163,10 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
               <CodeMirrorEditor
                 className="mt-1"
                 editable={false}
+                label="Local Store"
                 language={CodeMirrorLanguage.Json}
                 onChange={() => undefined}
                 singleLine={false}
-                title="Local Store"
                 value={runtimeStore.jsonString}
               />
             </Collapse.Panel>
@@ -175,10 +175,10 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
                 <CodeMirrorEditor
                   className="mt-1"
                   editable={false}
+                  label="Component Store"
                   language={CodeMirrorLanguage.Json}
                   onChange={() => undefined}
                   singleLine={false}
-                  title="Component Store"
                   value={runtimeStore.jsonString}
                 />
               </Collapse.Panel>
@@ -193,10 +193,10 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
                 <CodeMirrorEditor
                   className="mt-1"
                   editable={false}
+                  label="Root Store"
                   language={CodeMirrorLanguage.Json}
                   onChange={() => undefined}
                   singleLine={false}
-                  title="Root Store"
                   value={runtimeProviderStore.jsonString}
                 />
               </Collapse.Panel>
