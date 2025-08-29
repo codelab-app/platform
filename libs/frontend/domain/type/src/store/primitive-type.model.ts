@@ -7,6 +7,11 @@ import {
   userRef,
 } from '@codelab/frontend-abstract-domain'
 import {
+  ExpressionBoolField,
+  ExpressionNumField,
+  ExpressionTextField,
+} from '@codelab/frontend-presentation-components-form'
+import {
   assertIsTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
@@ -42,6 +47,13 @@ const create = ({
   })
 }
 
+const componentMap = {
+  [IPrimitiveTypeKind.Boolean]: ExpressionBoolField,
+  [IPrimitiveTypeKind.Integer]: ExpressionNumField,
+  [IPrimitiveTypeKind.Number]: ExpressionNumField,
+  [IPrimitiveTypeKind.String]: ExpressionTextField,
+}
+
 @model('@codelab/PrimitiveType')
 export class PrimitiveType
   extends ExtendedModel(createBaseType(ITypeKind.PrimitiveType), {
@@ -64,7 +76,6 @@ export class PrimitiveType
 
   toJsonSchema({
     defaultValues,
-    uniformSchema,
     validationRules,
   }: ITypeTransformContext): JsonSchema {
     const rulesSchema =
@@ -83,7 +94,7 @@ export class PrimitiveType
 
     return {
       ...rulesSchema,
-      ...(uniformSchema?.(this) ?? {}),
+      uniforms: { component: componentMap[this.primitiveKind] },
       type: primitives[this.primitiveKind],
     }
   }

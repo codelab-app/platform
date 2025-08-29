@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { IAppDto } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
@@ -9,4 +10,5 @@ export interface IAppDomainService extends IHydrateable<IAppDto, IAppModel> {
   apps: ObjectMap<IAppModel>
   appsList: Array<IAppModel>
   app(id: string): Maybe<IAppModel>
+  getSelectOption(): Array<SelectOption>
 }

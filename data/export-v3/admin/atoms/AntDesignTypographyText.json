@@ -218,7 +218,7 @@
         "prevSibling": {
           "id": "129040b1-b17c-4b65-bd88-cb54aeea1ce4"
         },
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {

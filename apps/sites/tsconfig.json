@@ -5,7 +5,13 @@
     "allowJs": true,
     "emitDecoratorMetadata": false,
     "lib": ["es2021", "DOM"],
-    "types": ["node", "worker-loader", "cypher", "styled-components"],
+    "types": [
+      "node",
+      "worker-loader",
+      "cypher",
+      "styled-components",
+      "uniforms"
+    ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,

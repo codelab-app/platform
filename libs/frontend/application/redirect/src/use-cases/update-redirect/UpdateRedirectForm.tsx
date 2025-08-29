@@ -11,7 +11,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IRedirectTargetType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 
 import { useRedirectService } from '../../services'
 import { DeleteRedirectButton } from '../delete-redirect'
@@ -31,7 +31,10 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
     submitRef,
   }) => {
     const redirectService = useRedirectService()
-    const { redirectDomainService } = useDomainStore()
+
+    const { authGuardDomainService, pageDomainService, redirectDomainService } =
+      useDomainStore()
+
     const redirect = redirectDomainService.redirects.get(redirectId)
 
     const model = {
@@ -41,7 +44,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
       targetPage: redirect?.targetPage,
       targetType: redirect?.targetType,
       targetUrl: redirect?.targetUrl,
-    }
+    } as IRedirectUpdateFormData
 
     return (
       <>
@@ -55,7 +58,16 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
           successMessage="Auth redirect updated successfully"
           uiKey={UiKey.RedirectFormUpdate}
         >
-          <AutoFields omitFields={['targetPage', 'targetUrl']} />
+          <AutoFields omitFields={['targetPage', 'targetUrl', 'authGuard']} />
+
+          <SelectField
+            name="targetPage"
+            options={pageDomainService.getSelectOptions()}
+          />
+          <SelectField
+            name="authGuard.id"
+            options={authGuardDomainService.getSelectOptions()}
+          />
 
           <DisplayIfField<IRedirectUpdateFormData>
             condition={(context) =>

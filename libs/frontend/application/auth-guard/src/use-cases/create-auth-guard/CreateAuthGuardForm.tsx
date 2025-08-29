@@ -6,12 +6,13 @@ import {
   ResourceTestRequest,
 } from '@codelab/frontend-application-resource/components'
 import { useUser } from '@codelab/frontend-application-user/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAuthGuardService } from '../../services'
@@ -22,16 +23,15 @@ export const CreateAuthGuardForm = ({
   showFormControl = true,
   submitRef,
 }: IFormController) => {
-  console.log('CreateAuthGuardForm')
-
   const user = useUser()
   const authGuardService = useAuthGuardService()
+  const { resourceDomainService } = useDomainStore()
 
   const model = {
     config: { data: {}, id: v4() },
     id: v4(),
     owner: { id: user.id },
-  }
+  } as IAuthGuardCreateFormData
 
   return (
     <Form<IAuthGuardCreateFormData>
@@ -43,7 +43,11 @@ export const CreateAuthGuardForm = ({
       submitRef={submitRef}
       uiKey={UiKey.AuthGuardFormCreate}
     >
-      <AutoFields omitFields={['config']} />
+      <AutoFields omitFields={['config', 'resource']} />
+      <SelectField
+        name="resource.id"
+        options={resourceDomainService.getSelectOption()}
+      />
       <ResourceFetchConfigField />
       <ResourceTestRequest
         fetchConfigDataFieldName="config.data"

@@ -4,6 +4,8 @@ import type {
 } from '@codelab/frontend-abstract-domain'
 import type { IAuthGuardDto } from '@codelab/shared-abstract-core'
 
+import { SelectOption } from '@codelab/frontend-abstract-types'
+import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
 import { AuthGuardModel } from '../store'
@@ -15,6 +17,18 @@ export class AuthGuardDomainService
   })
   implements IAuthGuardDomainService
 {
+  @computed
+  get authGuardList() {
+    return [...this.authGuards.values()]
+  }
+
+  getSelectOptions(): Array<SelectOption> {
+    return this.authGuardList.map((authGuard) => ({
+      label: authGuard.name,
+      value: authGuard.id,
+    }))
+  }
+
   @modelAction
   hydrate({
     config,

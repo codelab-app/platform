@@ -16,7 +16,6 @@ import type { Ref } from 'mobx-keystone'
 
 import { fieldRef, typeRef } from '@codelab/frontend-abstract-domain'
 import { reconnectNodeId } from '@codelab/shared-domain-orm'
-import { titleCase } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { isNonNullish } from 'remeda'
@@ -155,13 +154,10 @@ export class Field
   // TODO: figure out how to use context
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
-      ...(this.description ? { help: this.description } : {}),
-      label: this.name || titleCase(this.key),
+      ...(this.description ? { extra: this.description } : {}),
       ...this.type.current.toJsonSchema({
         ...context,
         defaultValues: this.defaultValues,
-        fieldName: this.name || titleCase(this.key),
-        uniformSchema: context.uniformSchema,
         validationRules: this.validationRules,
       }),
     }

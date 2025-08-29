@@ -6,7 +6,7 @@
         "api": {
           "id": "de749d18-fdea-4228-a6b6-87592483402b"
         },
-        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\",\"value\":\"{{\\n  function children(fields, { add, remove }) {\\n    const { AntDesignButton, AntDesignInput, AntDesignFormItem, AntDesignSpace } = this.atoms;\\n    \\n    const renderedFields = fields.map(({ key, name }) => (\\n      <AntDesignSpace key={key}>\\n        <AntDesignFormItem className=\\\"m-0 p-1\\\" label=\\\"Item\\\" name={[name, 'item']}>\\n          <AntDesignInput />\\n        </AntDesignFormItem>\\n        <AntDesignButton onClick={() => remove(name)}>Remove</AntDesignButton>\\n      </AntDesignSpace>\\n    ));\\n\\n    return (\\n      <>\\n        {renderedFields}\\n        \\n        <AntDesignButton block onClick={() => add()}>\\n          + Add Item\\n        </AntDesignButton>\\n      </>\\n    )\\n  }.bind(this);\\n}}\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\",\"value\":\"{{\\n  function children(fields, { add, remove }) {\\n    const { AntDesignButton, AntDesignInput, AntDesignFormItem, AntDesignSpace } = this.atoms;\\n    \\n    const renderedFields = fields.map(({ key, name }) => (\\n      <AntDesignSpace key={key}>\\n        <AntDesignFormItem className=\\\"m-0 p-1\\\" label=\\\"Item\\\" name={[name, 'item']}>\\n          <AntDesignInput />\\n        </AntDesignFormItem>\\n        <AntDesignButton onClick={() => remove(name)}>Remove</AntDesignButton>\\n      </AntDesignSpace>\\n    ));\\n\\n    return (\\n      <>\\n        {renderedFields}\\n        \\n        <AntDesignButton block onClick={() => add()}>\\n          + Add Item\\n        </AntDesignButton>\\n      </>\\n    )\\n  }.bind(this);\\n}}\"}",
         "description": null,
         "fieldType": {
           "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
@@ -24,7 +24,7 @@
         "api": {
           "id": "de749d18-fdea-4228-a6b6-87592483402b"
         },
-        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\",\"value\":\"{{\\n  [{}]\\n}}\"}",
+        "defaultValues": "{\"__isTypedProp\":true,\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\",\"value\":\"{{\\n  [{}]\\n}}\"}",
         "description": null,
         "fieldType": {
           "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"

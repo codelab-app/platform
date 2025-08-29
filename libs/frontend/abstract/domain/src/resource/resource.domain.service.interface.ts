@@ -1,3 +1,4 @@
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { IResourceDto } from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
@@ -8,4 +9,5 @@ export interface IResourceDomainService
   extends IHydrateable<IResourceDto, IResourceModel> {
   resourceList: Array<IResourceModel>
   resources: ObjectMap<IResourceModel>
+  getSelectOption(): Array<SelectOption>
 }

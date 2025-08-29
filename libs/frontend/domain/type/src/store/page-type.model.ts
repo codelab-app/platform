@@ -1,12 +1,15 @@
 import type { IPageTypeDto } from '@codelab/shared-abstract-core'
 
 import {
+  getPageDomainService,
   type IPageTypeModel,
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
 } from '@codelab/frontend-abstract-domain'
+import { ExpressionSelectField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { computed } from 'mobx'
 import { ExtendedModel, model } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'
@@ -25,7 +28,19 @@ export class PageType
 {
   public static create = create
 
+  @computed
+  get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return typedPropSchema(this, context)
+    return typedPropSchema(
+      this,
+      {
+        component: ExpressionSelectField,
+        options: this.pageDomainService.getSelectOptions(),
+      },
+      context,
+    )
   }
 }

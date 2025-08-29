@@ -9,7 +9,6 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend-abstract-domain'
-import type { Maybe } from '@codelab/shared-abstract-types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { RoutePaths } from '@codelab/frontend-abstract-application'
@@ -83,20 +82,8 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getAll = async (ids?: Array<string>) => {
-    console.log('getAll called with IDs:', ids)
-
     // Fetch type fragments
     const typeFragments = await typeRepository.getAll(ids)
-
-    console.log(
-      'Type fragments from repository:',
-      typeFragments.map((fragment) => ({
-        __typename: fragment.__typename,
-        id: fragment.id,
-        kind: fragment.kind,
-        name: fragment.name,
-      })),
-    )
 
     // Fetch descendant types if ids are provided
     const descendantTypeFragments = ids
@@ -105,46 +92,18 @@ export const useTypeService = (): ITypeService => {
         )
       : []
 
-    console.log(
-      'Descendant type fragments:',
-      descendantTypeFragments.map((fragment) => ({
-        __typename: fragment.__typename,
-        id: fragment.id,
-        kind: fragment.kind,
-        name: fragment.name,
-      })),
-    )
-
     // Combine all fragments
     const allFragments = [...typeFragments, ...descendantTypeFragments]
 
-    console.log('All fragments before hydration:', allFragments.length)
-
     const types = typeDomainService.hydrateTypes(allFragments)
-
-    console.log(
-      'Hydrated types:',
-      types.map((type) => ({
-        id: type.id,
-        kind: type.kind,
-        name: type.name,
-      })),
-    )
 
     // Filter types if ids are provided, otherwise return all
     const result = ids ? types.filter((type) => ids.includes(type.id)) : types
-
-    console.log(
-      'Returning types:',
-      result.map((type) => ({ id: type.id, kind: type.kind, name: type.name })),
-    )
 
     return result
   }
 
   const getInterface = async (interfaceTypeId: string) => {
-    console.log('getInterface called for:', interfaceTypeId)
-
     // Always load the interface first to ensure we have all fields
     const loadedTypes = await getAll([interfaceTypeId])
     const interfaceType = loadedTypes.find(({ id }) => id === interfaceTypeId)
@@ -162,15 +121,12 @@ export const useTypeService = (): ITypeService => {
       (field) => field.type.id,
     )
 
-    console.log('Field type IDs from loaded interface:', fieldTypeIds)
-
     // Check if we need to load any field types
     const missingTypeIds = fieldTypeIds.filter(
       (id) => !typeDomainService.types.get(id),
     )
 
     if (missingTypeIds.length > 0) {
-      console.log('Loading missing field types:', missingTypeIds)
       // Load only the missing types
       await getAll(missingTypeIds)
     }
@@ -179,16 +135,6 @@ export const useTypeService = (): ITypeService => {
     const finalInterface = typeDomainService.types.get(
       interfaceTypeId,
     ) as IInterfaceTypeModel
-
-    console.log(
-      'Returning interface with fields:',
-      finalInterface.fields.map((field) => ({
-        name: field.name,
-        typeId: field.type.id,
-        typeKind: field.type.maybeCurrent?.kind,
-        typeName: field.type.maybeCurrent?.name,
-      })),
-    )
 
     return finalInterface
   }
@@ -229,18 +175,7 @@ export const useTypeService = (): ITypeService => {
   ) => {
     const type = typeDomainService.types.get(typeId)
 
-    console.log(
-      'shouldLoadType checking:',
-      typeId,
-      'found in store:',
-      Boolean(type),
-    )
-
     if (!type || visitedTypeIds.has(typeId)) {
-      console.log(
-        'shouldLoadType returning true - type not found or already visited',
-      )
-
       return true
     } else {
       // to avoid infinite recursion for circular types
@@ -249,23 +184,10 @@ export const useTypeService = (): ITypeService => {
 
     if (type.kind === TypeKind.InterfaceType) {
       for (const field of type.fields) {
-        console.log(
-          'Checking field:',
-          field.name,
-          'type ref:',
-          field.type.id,
-          'resolved:',
-          Boolean(field.type.maybeCurrent),
-        )
-
         if (
           !field.type.maybeCurrent ||
           shouldLoadType(field.type.maybeCurrent.id, visitedTypeIds)
         ) {
-          console.log(
-            'shouldLoadType returning true - field type needs loading',
-          )
-
           return true
         }
       }
@@ -276,10 +198,6 @@ export const useTypeService = (): ITypeService => {
         !type.itemType?.maybeCurrent ||
         shouldLoadType(type.itemType.maybeCurrent.id, visitedTypeIds)
       ) {
-        console.log(
-          'shouldLoadType returning true - array item type needs loading',
-        )
-
         return true
       }
     }
@@ -290,16 +208,10 @@ export const useTypeService = (): ITypeService => {
           !typeOfUnion.maybeCurrent ||
           shouldLoadType(typeOfUnion.maybeCurrent.id, visitedTypeIds)
         ) {
-          console.log(
-            'shouldLoadType returning true - union type needs loading',
-          )
-
           return true
         }
       }
     }
-
-    console.log('shouldLoadType returning false - all types loaded')
 
     return false
   }

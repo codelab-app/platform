@@ -2,7 +2,6 @@
 
 import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
-import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import {
@@ -14,8 +13,10 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
+import type { UpdatePageSchema } from './update-page.schema'
+
 import { usePageService } from '../../services'
-import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
+import { updatePageSchema } from './update-page.schema'
 
 export interface UpdatePageFormProps extends IFormController {
   appId: string
@@ -30,7 +31,7 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
     const closeForm = () =>
       pageService.updatePopover.close(router, { appId, pageId: page.id })
 
-    const model: Partial<IPageUpdateFormData> = {
+    const model = {
       app: page.app,
       id: page.id,
       name: page.name,

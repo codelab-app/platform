@@ -1,4 +1,5 @@
 import { UiKey } from '@codelab/frontend-abstract-types'
+import { IConfigPaneTab } from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -18,7 +19,9 @@ export class ProviderPageContentContainerPage extends BuilderPage {
   }
 
   async openPageSettingsTab() {
-    const pageSettingsTab = this.page.locator('[data-node-key="Page"]')
+    const pageSettingsTab = this.page.locator(
+      `[data-node-key="${IConfigPaneTab.Page}"]`,
+    )
 
     await pageSettingsTab.click()
 

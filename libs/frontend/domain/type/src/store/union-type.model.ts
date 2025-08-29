@@ -8,11 +8,12 @@ import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { ExpressionUnionField } from '@codelab/frontend-presentation-components-form'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { mergeDeep } from 'remeda'
+import { unique } from 'remeda'
+import { HiddenField, SelectField } from 'uniforms-antd'
 
-import { typedPropSchema } from '../shared'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDto) => {
@@ -50,24 +51,61 @@ export class UnionType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return {
-      oneOf: this.typesOfUnionType.map((innerType) => {
-        const typeSchema = innerType.current.toJsonSchema(context)
+    const kinds = unique(this.typesOfUnionType.map((type) => type.current.kind))
+    const types = unique(this.typesOfUnionType.map((type) => type.current.id))
+    const typeOptions = this.typesOfUnionType.map((type) => ({
+      label: type.current.name,
+      value: type.current.id,
+    }))
 
-        return typeSchema.isTypedProp
-          ? {
-              ...typedPropSchema(innerType.current, context),
-              typeName: innerType.current.name,
-            }
-          : mergeDeep(
-              {
-                ...typedPropSchema(innerType.current, {}),
-                typeName: innerType.current.name,
+    return {
+      discriminator: {
+        propertyName: 'type',
+      },
+      oneOf: this.typesOfUnionType.map((type) => {
+        const typeSchema = type.current.toJsonSchema(context)
+        const value = (
+          typeSchema.properties?.__isTypedProp
+            ? typeSchema.properties.value
+            : typeSchema
+        ) as JsonSchema
+
+        return {
+          properties: {
+            __isTypedProp: {
+              default: true,
+              type: 'boolean',
+              uniforms: { component: HiddenField },
+            },
+            kind: {
+              default: type.current.kind,
+              enum: kinds,
+              type: 'string',
+              uniforms: { component: HiddenField },
+            },
+            type: {
+              const: type.id,
+              default: type.id,
+              enum: types,
+              type: 'string',
+              label: '',
+              uniforms: {
+                component: SelectField,
+                options: typeOptions,
               },
-              { properties: { value: typeSchema } },
-            )
+            },
+            value: {
+              ...value,
+              label: '',
+            },
+          },
+        }
       }),
-      ...(context.uniformSchema?.(this) ?? {}),
+      required: ['__isTypedProp', 'kind', 'type'],
+      type: 'object',
+      uniforms: {
+        component: ExpressionUnionField,
+      },
     }
   }
 

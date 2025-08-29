@@ -7,7 +7,8 @@ export interface IRuntimeComponentDto {
   childMapperIndex?: number
   component: IComponentModel
   compositeKey: string
-  isTypedProp?: boolean
+  // the source of component is a prop
+  isPropComponent?: boolean
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeRootElement: IRuntimeElementModel
 }

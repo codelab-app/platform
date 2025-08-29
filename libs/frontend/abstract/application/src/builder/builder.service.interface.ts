@@ -6,7 +6,11 @@ import type {
 import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
-import type { IRuntimeComponentModel, IRuntimeModel } from '../renderer'
+import type {
+  IRuntimeComponentModel,
+  IRuntimeElementModel,
+  IRuntimeModel,
+} from '../renderer'
 
 export interface IBuilderService {
   /**
@@ -14,6 +18,7 @@ export interface IBuilderService {
    */
   activeComponent: Nullable<IRuntimeComponentModel>
   activeContainer: Nullable<Ref<IComponentModel | IPageModel>>
+  activeElement: Nullable<IRuntimeElementModel>
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IAtomModel>>
   hoveredNode: Nullable<Ref<IRuntimeModel>>
