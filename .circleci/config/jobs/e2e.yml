@@ -13,9 +13,6 @@ environment:
 
 parallelism: 4
 steps:
-  # This increases memory by double
-  - setup_remote_docker:
-      version: default
   - restore-workspace-database
   - setup-neo4j
   # We use workspace so it has the latest build
