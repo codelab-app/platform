@@ -294,6 +294,7 @@
     "winston": "3.8.2",
     "ws": "8.17.0",
     "yargs": "17.7.2",
+    "zx": "^8.2.4",
     "zen-observable-ts": "1.1.0",
     "zod": "3.23.8",
     "zustand": "4.5.2"
@@ -443,7 +444,6 @@
     "eslint-plugin-tailwindcss": "3.18.2",
     "eslint-plugin-unicorn": "59.0.1",
     "eslint-plugin-unused-imports": "4.1.4",
-    "zx": "^8.2.4",
     "git-changed-files": "1.0.0",
     "globals": "^16.3.0",
     "husky": "9.1.7",
