@@ -5,25 +5,19 @@ steps:
       command: |
         echo "Installing DigitalOcean CLI..."
         
-        # For Alpine Linux (node:22-alpine image)
-        if [ -f /etc/alpine-release ]; then
-          apk add --no-cache doctl
+        DOCTL_VERSION="1.104.0"
+        ARCH=$(uname -m)
+        if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+          DOCTL_ARCH="linux-arm64"
         else
-          # Fallback for non-Alpine systems - use wget for simpler installation
-          DOCTL_VERSION="1.104.0"
-          ARCH=$(uname -m)
-          if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
-            DOCTL_ARCH="linux-arm64"
-          else
-            DOCTL_ARCH="linux-amd64"
-          fi
-          
-          cd /tmp
-          wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
-          tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
-          sudo mv doctl /usr/local/bin
-          rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+          DOCTL_ARCH="linux-amd64"
         fi
+        
+        cd /tmp
+        wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+        tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+        sudo mv doctl /usr/local/bin
+        rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
         
         # Verify installation
         doctl version

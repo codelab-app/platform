@@ -96,7 +96,26 @@ commands:
     description: Install DigitalOcean CLI (doctl)
     steps:
       - run:
-          command: "echo \"Installing DigitalOcean CLI...\"\n\n# For Alpine Linux (node:22-alpine image)\nif [ -f /etc/alpine-release ]; then\n  apk add --no-cache doctl\nelse\n  # Fallback for non-Alpine systems - use wget for simpler installation\n  DOCTL_VERSION=\"1.104.0\"\n  ARCH=$(uname -m)\n  if [ \"$ARCH\" = \"aarch64\" ] || [ \"$ARCH\" = \"arm64\" ]; then\n    DOCTL_ARCH=\"linux-arm64\"\n  else\n    DOCTL_ARCH=\"linux-amd64\"\n  fi\n  \n  cd /tmp\n  wget -q \"https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz\"\n  tar xf \"doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz\"\n  sudo mv doctl /usr/local/bin\n  rm \"doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz\"\nfi\n\n# Verify installation\ndoctl version\necho \"DigitalOcean CLI installation completed\""
+          command: |-
+            echo "Installing DigitalOcean CLI..."
+
+            DOCTL_VERSION="1.104.0"
+            ARCH=$(uname -m)
+            if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+              DOCTL_ARCH="linux-arm64"
+            else
+              DOCTL_ARCH="linux-amd64"
+            fi
+
+            cd /tmp
+            wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+            tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+            sudo mv doctl /usr/local/bin
+            rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+
+            # Verify installation
+            doctl version
+            echo "DigitalOcean CLI installation completed"
           name: Install doctl
   install-nvm:
     steps:
@@ -287,10 +306,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: node:22-alpine
+      - image: node:22-slim
   docker-node-neo4j:
     docker:
-      - image: node:22-alpine
+      - image: node:22-slim
       - environment:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
