@@ -1,7 +1,7 @@
 import type { IExpressionTransformer } from '@codelab/frontend-abstract-application'
 import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
 
-import { stripExpression } from '@codelab/shared-infra-eval'
+import { stripSingleExpression } from '@codelab/shared-infra-eval'
 import {
   _async,
   _await,
@@ -59,7 +59,7 @@ export class ExpressionTransformer
       const wrappedExpression = `(function getResult() {
         const { React } = this
 
-        return ${stripExpression(expression)}
+        return ${stripSingleExpression(expression)}
       }).call(this)`
 
       const { code } = this.transform(wrappedExpression, {

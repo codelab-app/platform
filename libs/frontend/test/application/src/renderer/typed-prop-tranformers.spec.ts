@@ -110,6 +110,42 @@ describe('TypedPropTransformers', () => {
     expect(await screen.findByText(content)).toBeInTheDocument()
   })
 
+  it('should render ReactNodeType expression with inner jsx object braces', async () => {
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
+    const { rendererService } = testStore.applicationStore
+    const expressionTransformer = rendererService.expressionTransformer
+
+    await expressionTransformer.init()
+
+    const propKey = 'someNode'
+    const reactNodeType = testStore.addReactNodeType({})
+
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: reactNodeType.kind,
+        type: reactNodeType.id,
+        value: '{{<img src="test" style={{ border: \'2px solid red\'}} />}}',
+      }),
+    )
+
+    renderer.render()
+
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
+
+    expect(isValidElement(renderedProp)).toBeTruthy()
+
+    render(renderedProp)
+
+    const img = await screen.findByRole('img')
+    expect(img).toBeInTheDocument()
+    expect(img).toHaveAttribute('src', 'test')
+    expect(img).toHaveStyle('border: 2px solid red')
+  })
+
   it('should render props when kind is RenderPropsType', () => {
     const { renderer, rootElement, runtimeRootElement } =
       testStore.setupRuntimeElement()
@@ -179,6 +215,47 @@ describe('TypedPropTransformers', () => {
     render(createElement(renderedProp))
 
     expect(await screen.findByText(content)).toBeInTheDocument()
+  })
+
+  it('should render RenderPropsType expression with inner jsx object braces', async () => {
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
+    const { rendererService } = testStore.applicationStore
+    const expressionTransformer = rendererService.expressionTransformer
+
+    await expressionTransformer.init()
+
+    const propKey = 'someNode'
+    const renderPropsType = testStore.addRenderPropsType({})
+
+    rootElement.props.set(
+      propKey,
+      typedProp({
+        kind: renderPropsType.kind,
+        type: renderPropsType.id,
+        value:
+          '{{function Render() { return <img src="test" style={{ border: \'2px solid red\'}} /> }}}',
+      }),
+    )
+
+    renderer.render()
+
+    expect(
+      runtimeRootElement.current.runtimeProps.evaluatedProps,
+    ).toMatchObject({
+      [propKey]: expect.any(Function),
+    })
+
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
+
+    render(createElement(renderedProp))
+
+    const img = await screen.findByRole('img')
+    expect(img).toBeInTheDocument()
+    expect(img).toHaveAttribute('src', 'test')
+    expect(img).toHaveStyle('border: 2px solid red')
   })
 
   it('should pass props to render props component', async () => {

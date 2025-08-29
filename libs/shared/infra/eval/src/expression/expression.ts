@@ -36,11 +36,18 @@ export const isSingleExpression = (str: string) =>
   str.match(EXP_PATH_TEMPLATE_START_REGEX)?.length === 1 &&
   str.match(EXP_PATH_TEMPLATE_END_REGEX)?.length === 1
 
+export const stripSingleExpression = (expression: string) => {
+  return expression
+    .trim()
+    .substring(2, expression.length - 2)
+    .trim()
+}
+
 export const stripExpression = (expression: string) => {
   return isSingleExpression(expression)
-    ? expression.substring(2, expression.length - 2).trim()
+    ? stripSingleExpression(expression)
     : expression.replace(EXP_PATH_TEMPLATE_REGEX, (subExpression) =>
-        subExpression.substring(2, subExpression.length - 2).trim(),
+        stripSingleExpression(subExpression),
       )
 }
 
