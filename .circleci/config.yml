@@ -85,11 +85,12 @@ commands:
           command: |
             # Install Java 21 from Adoptium (Eclipse Temurin)
             apt-get update
-            apt-get install -y wget apt-transport-https
+            apt-get install -y wget apt-transport-https lsb-release
 
             # Add Adoptium repository for Java 21
             wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg
-            echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/adoptium.list
+            # Use bookworm as the codename for Debian 12
+            echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb bookworm main" | tee /etc/apt/sources.list.d/adoptium.list
 
             apt-get update
             apt-get install -y temurin-21-jre
