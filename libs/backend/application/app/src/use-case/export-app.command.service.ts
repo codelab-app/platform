@@ -64,22 +64,8 @@ export class ExportAppHandler
   private async components(pages: Array<IPageAggregate>) {
     const components: Array<IComponentAggregate> = []
 
-    for (const { page } of pages) {
-      // TODO: need to create a separate query that contains descendants
-      // This can access the resolvers
-      // const elements = page.rootElement.descendants
-      const elements: Array<IElementExport> = []
-      // const elements = (
-      //   await this.elementRepository.getElementWithDescendants(
-      //     page.rootElement.id,
-      //   )
-      // ).map((element: Element) => ({
-      //   ...element,
-      //   renderType: {
-      //     __typename: Validator.parseDefined(element.renderType.__typename),
-      //     id: element.renderType.id,
-      //   },
-      // }))
+    for (const { elements: pageElements } of pages) {
+      const elements: Array<IElementExport> = pageElements
       let elementsCurrentBatch: Array<IElementExport> = elements
 
       // get all components and nested components that are used in the page including their elements

@@ -7,5 +7,8 @@ export interface IExpressionTransformer {
     (code: string, options: Options) => { code: string | null }
   >
   init(): Promise<void>
-  transpileAndEvaluateExpression(expression: string): unknown
+  transpileAndEvaluateExpression(
+    expression: string,
+    context?: ObjectLike,
+  ): unknown
 }
