@@ -195,7 +195,7 @@ importers:
         specifier: 11.0.3
         version: 11.0.3(@nestjs/common@11.0.7(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@11.0.7)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)
       '@nestjs/websockets':
-        specifier: ^11.0.11
+        specifier: 11.0.11
         version: 11.0.11(@nestjs/common@11.0.7(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@11.0.7)(@nestjs/platform-socket.io@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.0)
       '@next/bundle-analyzer':
         specifier: 15.2.4
