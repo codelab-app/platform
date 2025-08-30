@@ -30,7 +30,7 @@ steps:
         ls -la .nx/ 2>/dev/null || echo "No .nx directory"
         echo ""
         echo "=== Running build ==="
-        pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+        pnpm nx run-many --target=build --projects=web,api -c ci
         echo ""
         echo "=== AFTER BUILD - Check .nx directory ==="
         ls -la .nx/ 2>/dev/null || echo "No .nx directory after build"
