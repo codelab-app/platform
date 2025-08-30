@@ -14,6 +14,7 @@ import { Tag } from '../store'
 @model('@codelab/TagDomainService')
 export class TagDomainService
   extends Model({
+    checkedTagIds: prop<Array<string>>(() => []).withSetter(),
     expandedNodes: prop<Array<string>>(() => []).withSetter(),
     selectedTag: prop<Nullable<Ref<ITagModel>>>(null).withSetter(),
     tags: prop(() => objectMap<ITagModel>()),

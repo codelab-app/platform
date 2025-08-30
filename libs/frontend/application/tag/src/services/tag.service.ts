@@ -12,13 +12,9 @@ import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { Validator } from '@codelab/shared-infra-typebox'
-import { atom, useAtom } from 'jotai'
-
-const checkedTagsAtom = atom<Array<string>>([])
 
 export const useTagService = (): ITagService => {
   const { tagDomainService } = useDomainStore()
-  const [checkedTagIds, setCheckedTagIds] = useAtom(checkedTagsAtom)
 
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
@@ -67,10 +63,7 @@ export const useTagService = (): ITagService => {
   }
 
   const getAll = async (where?: TagWhere, options?: TagOptions) => {
-    const {
-      aggregate: { count },
-      items: tags,
-    } = await tagRepository.find(where, options, {
+    const { items: tags } = await tagRepository.find(where, options, {
       tags: [CACHE_TAGS.Tag.list()],
     })
 
@@ -96,12 +89,12 @@ export const useTagService = (): ITagService => {
   }
 
   const deleteCheckedTags = async () => {
-    const checkedTags = checkedTagIds
+    const checkedTags = tagDomainService.checkedTagIds
       .map((id) => tagDomainService.tags.get(id))
       .filter((tag): tag is ITagModel => Boolean(tag))
 
     await removeMany(checkedTags)
-    setCheckedTagIds([])
+    tagDomainService.setCheckedTagIds([])
   }
 
   const createPopover = {
@@ -123,13 +116,13 @@ export const useTagService = (): ITagService => {
   }
 
   return {
-    checkedTagIds,
+    checkedTagIds: tagDomainService.checkedTagIds,
     create,
     createPopover,
     deleteCheckedTags,
     getAll,
     removeMany,
-    setCheckedTagIds,
+    setCheckedTagIds: tagDomainService.setCheckedTagIds,
     update,
     updatePopover,
   }

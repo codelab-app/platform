@@ -73,6 +73,7 @@ Never add Generated with [Claude Code](https://claude.ai/code)
 - Stop being eager on adding code, only add what is necessary to accomplish the goal
 - Stop providing defaults for configs
 - Never set default values unless asked to
+- Do not refactor code that isn't relevant to the task at hand
 
 ## Research and Information Lookup
 
