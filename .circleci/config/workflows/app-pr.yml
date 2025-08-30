@@ -104,7 +104,6 @@ jobs:
       requires:
         - build-nx-apps
   - notify-success:
-      resource_class: arm.medium
       filters:
         branches:
           ignore:

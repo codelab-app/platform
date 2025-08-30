@@ -902,7 +902,6 @@ workflows:
             - build-nx-apps
             - tsc-check
             - e2e
-          resource_class: arm.medium
   infra-pr:
     jobs:
       - setup-infra-workspace:
