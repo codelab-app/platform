@@ -393,6 +393,21 @@ jobs:
       - setup_remote_docker:
           version: default
       - restore-workspace-database
+      - run:
+          command: |
+            echo "=== Checking restored workspace ==="
+            echo "Current directory: $(pwd)"
+            echo ""
+            echo "Checking ~/project/dist/apps:"
+            ls -la ~/project/dist/apps/ 2>/dev/null || echo "No ~/project/dist/apps directory"
+            echo ""
+            echo "Checking dist/apps (relative):"
+            ls -la dist/apps/ 2>/dev/null || echo "No dist/apps directory"
+            echo ""
+            echo "Checking for web and api builds:"
+            ls -la dist/apps/web/ 2>/dev/null | head -10 || echo "No web build found"
+            ls -la dist/apps/api/ 2>/dev/null | head -10 || echo "No api build found"
+          name: Check workspace after restore
       - setup-neo4j
       - run: pnpm npx playwright install-deps
       - run:
