@@ -51,6 +51,9 @@ query GetTypes($ids: [ID!]) {
   unionTypes(where: { id_IN: $ids }) {
     ...Type
   }
+  unknownTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
 }
 
 query GetDescendants($ids: [ID!]) {
@@ -163,6 +166,12 @@ query GetCodeMirrorTypes(
   $where: CodeMirrorTypeWhere
 ) {
   types: codeMirrorTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetUnknownTypes($options: UnknownTypeOptions, $where: UnknownTypeWhere) {
+  types: unknownTypes(options: $options, where: $where) {
     ...Type
   }
 }

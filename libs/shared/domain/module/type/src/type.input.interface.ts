@@ -14,6 +14,7 @@ import type {
   IRichTextTypeDto,
   ITypeKind,
   IUnionTypeDto,
+  IUnknownTypeDto,
 } from '@codelab/shared-abstract-core'
 import type {
   ActionTypeConnectInput,
@@ -101,6 +102,12 @@ import type {
   UnionTypeDisconnectInput,
   UnionTypeUpdateInput,
   UnionTypeWhere,
+  UnknownTypeConnectInput,
+  UnknownTypeCreateInput,
+  UnknownTypeDeleteInput,
+  UnknownTypeDisconnectInput,
+  UnknownTypeUpdateInput,
+  UnknownTypeWhere,
   UpdateActionTypesMutationVariables,
   UpdateAppTypesMutationVariables,
   UpdateArrayTypesMutationVariables,
@@ -115,6 +122,7 @@ import type {
   UpdateRenderPropTypesMutationVariables,
   UpdateRichTextTypesMutationVariables,
   UpdateUnionTypesMutationVariables,
+  UpdateUnknownTypesMutationVariables,
 } from '@codelab/shared-infra-gqlgen'
 
 export interface ITypeUpdateArgs {
@@ -140,6 +148,7 @@ export type ITypeWhere =
   | RenderPropTypeWhere
   | RichTextType
   | UnionTypeWhere
+  | UnknownTypeWhere
 
 export type ITypeCreateInput =
   | ActionTypeCreateInput
@@ -156,6 +165,7 @@ export type ITypeCreateInput =
   | RenderPropTypeCreateInput
   | RichTextTypeCreateInput
   | UnionTypeCreateInput
+  | UnknownTypeCreateInput
 
 export type ITypeUpdateInput =
   | ActionTypeUpdateInput
@@ -172,6 +182,7 @@ export type ITypeUpdateInput =
   | RenderPropTypeUpdateInput
   | RichTextTypeUpdateInput
   | UnionTypeUpdateInput
+  | UnknownTypeUpdateInput
 
 export type ITypeUpdateVars =
   | UpdateActionTypesMutationVariables
@@ -188,6 +199,7 @@ export type ITypeUpdateVars =
   | UpdateRenderPropTypesMutationVariables
   | UpdateRichTextTypesMutationVariables
   | UpdateUnionTypesMutationVariables
+  | UpdateUnknownTypesMutationVariables
 
 /**
  * Connect
@@ -208,6 +220,7 @@ export type ITypeConnectInput =
   | RenderPropTypeConnectInput
   | RichTextTypeConnectInput
   | UnionTypeConnectInput
+  | UnknownTypeConnectInput
 
 /**
  * Disconnect
@@ -227,6 +240,7 @@ export type ITypeDisconnectInput =
   | RenderPropTypeDisconnectInput
   | RichTextTypeDisconnectInput
   | UnionTypeDisconnectInput
+  | UnknownTypeDisconnectInput
 
 /**
  * Delete
@@ -247,6 +261,7 @@ export type ITypeDeleteInput =
   | RenderPropTypeDeleteInput
   | RichTextTypeDeleteInput
   | UnionTypeDeleteInput
+  | UnknownTypeDeleteInput
 
 /**
  * Type mapping for different types
@@ -284,4 +299,5 @@ export interface TypeCreateMap {
     where: RichTextTypeWhere
   }
   [ITypeKind.UnionType]: { dto: IUnionTypeDto; where: UnionTypeWhere }
+  [ITypeKind.UnknownType]: { dto: IUnknownTypeDto; where: UnknownTypeWhere }
 }
