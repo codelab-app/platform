@@ -17,6 +17,21 @@ steps:
   #     command: (./scripts/nx/reset-cache.sh)
   - run:
       command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+  # Debug: Check what cache directories and files were created
+  - run:
+      name: 'Debug - Check cache directories after build'
+      command: |
+        echo "=== Checking .nx/cache directory ==="
+        ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+        echo ""
+        echo "=== Count of cache entries ==="
+        find .nx/cache -type d -maxdepth 1 2>/dev/null | wc -l || echo "0"
+        echo ""
+        echo "=== Recent cache entries (last 5) ==="
+        ls -lat .nx/cache/ 2>/dev/null | head -6 || echo "No entries"
+        echo ""
+        echo "=== Checking for Next.js cache ==="
+        ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
   # Only save Next.js cache, not Nx cache (Nx Cloud handles Nx caching)
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
