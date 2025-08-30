@@ -326,7 +326,6 @@ executors:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
-          NEO4J_dbms_logs_debug_level: DEBUG
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.3-enterprise
   machine-ubuntu:
@@ -447,6 +446,10 @@ jobs:
               --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
           no_output_timeout: 15m
+      - run:
+          command: |
+            apt-get update && apt-get install -y docker.io
+          name: Install Docker CLI
       - run:
           command: |
             set -x

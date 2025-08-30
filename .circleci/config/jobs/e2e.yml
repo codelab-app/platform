@@ -61,6 +61,10 @@ steps:
   #       pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
   #     when: always
   - run:
+      name: Install Docker CLI
+      command: |
+        apt-get update && apt-get install -y docker.io
+  - run:
       name: Capture Docker logs
       command: |
         set -x

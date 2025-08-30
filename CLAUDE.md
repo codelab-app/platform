@@ -33,17 +33,31 @@
 - Implementing additional validation or error checking
 - Creating abstractions or interfaces "for future extensibility"
 
+## Scope Management
+
+### Change Isolation
+
+- **Only modify what is explicitly broken or requested**
+- **NEVER propagate changes to similar files/functions unless explicitly asked**
+- **If you see a pattern in one place, DO NOT automatically apply it elsewhere**
+- **Each bug fix or feature should be isolated to its specific context**
+
+### Examples of What NOT to Do
+
+- Finding an issue in e2e job → DON'T automatically fix the same in integration job
+- Adding logging to one function → DON'T add logging to similar functions
+- Fixing a bug in one component → DON'T "improve" other components
+- Seeing an optimization opportunity → DON'T apply it unless it's the task
+
+### The Rule
+
+**"Fix only what's broken, change only what's requested, touch only what's necessary"**
+
 ## Git Workflow
-
-### Branch Naming
-
-Load when needed: `Read .claude/documentation/convention/git-branch-naming-convention.md`
 
 ### Commit Messages
 
 Never add Generated with [Claude Code](https://claude.ai/code)
-
-Load when needed: `Read .claude/documentation/convention/git-commit-conventions.md`
 
 ## Claude fine-tuning
 
