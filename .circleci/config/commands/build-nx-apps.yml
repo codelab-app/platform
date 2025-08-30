@@ -13,48 +13,14 @@ steps:
         - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-apps-cache-
   - run:
-      name: 'Debug - Check Nx cache after restore'
-      command: |
-        echo "=== After Nx cache restore ==="
-        echo "Checking .nx/cache:"
-        ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
-        echo ""
-        echo "Nx cache directory size:"
-        du -sh .nx/cache/ 2>/dev/null || echo "0"
-  - run:
-      name: 'Debug'
-      command: |
-        echo "=== BEFORE BUILD - Check .nx directory ==="
-        ls -la .nx/ 2>/dev/null || echo "No .nx directory"
-        echo ""
-        echo "=== Running build ==="
-        pnpm nx run-many --target=build --projects=web,api -c ci
-        echo ""
-        echo "=== AFTER BUILD - Check .nx directory ==="
-        ls -la .nx/ 2>/dev/null || echo "No .nx directory after build"
-        echo ""
-        echo "=== Check .nx/cache directory ==="
-        ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
-        echo ""
-        echo "=== Check if Nx Cloud is enabled ==="
-        echo "NX_CLOUD_ACCESS_TOKEN is ${NX_CLOUD_ACCESS_TOKEN:+set}"
-        echo "NX_SKIP_NX_CACHE is ${NX_SKIP_NX_CACHE:-not set}"
-        echo ""
-        echo "=== Check cache task runner ==="
-        cat nx.json | grep -A2 "tasksRunnerOptions" || echo "No custom task runner"
-        echo ""
-        echo "=== Search for any cache directories ==="
-        find . -name "cache" -type d 2>/dev/null | grep -v node_modules | grep -v ".git" | head -20
-        echo ""
-        echo "=== Check workspace root ==="
-        pwd
-        echo "NX_WORKSPACE_ROOT is ${NX_WORKSPACE_ROOT:-not set}"
+      command: pnpm nx run-many --target=build --projects=web,api -c ci
   # Save Nx cache for local caching (works alongside Nx Cloud)
   - save_cache:
       name: 'Save Nx Apps Cache'
       key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - .nx/cache
+        - dist/apps/web/.next/cache
   - persist_to_workspace:
       root: .
       paths:
