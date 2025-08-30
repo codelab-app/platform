@@ -303,6 +303,8 @@ jobs:
   build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+      NX_CACHE_DIRECTORY: ~/project/.nx/cache
+      NX_DAEMON: false
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
@@ -317,6 +319,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
       NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
+      NX_DAEMON: false
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
