@@ -5,25 +5,25 @@ description: 'Build Nx Apps'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
+  # Only restore Next.js cache, not Nx cache (Nx Cloud handles Nx caching)
   - restore_cache:
-      name: 'Restore NX Cache'
+      name: 'Restore Next.js Cache'
       keys:
-        # - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum .Environment.CIRCLE_SHA1 }}
-        - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-
-        - nx-cache-apps-
+        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - nextjs-cache-
   # - run:
   #     name: 'Monitor NX Cache Size'
   #     command: (./scripts/nx/reset-cache.sh)
   - run:
       command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
+  # Only save Next.js cache, not Nx cache (Nx Cloud handles Nx caching)
+  # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
   - save_cache:
-      name: 'Save NX Cache'
-      key: nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+      name: 'Save Next.js Cache'
+      key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
-        - .nx/cache-apps
-        # https://github.com/nrwl/nx/issues/5221
         - dist/apps/web/.next/cache
   - persist_to_workspace:
       root: ~/

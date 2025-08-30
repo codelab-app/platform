@@ -11,7 +11,6 @@ resource_class: << parameters.resource_class >>
 
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-  NX_CACHE_DIRECTORY: .nx/cache-apps
 
 steps:
   - restore-workspace

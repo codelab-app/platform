@@ -6,17 +6,16 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-apps-
-          name: Restore NX Cache
+            - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nextjs-cache-
+          name: Restore Next.js Cache
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
-          key: nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save NX Cache
+          key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save Next.js Cache
           paths:
-            - .nx/cache-apps
             - dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
@@ -28,19 +27,8 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
-      - restore_cache:
-          keys:
-            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-libs-
-          name: Restore NX Cache
       - run:
           command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
-      - save_cache:
-          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save NX Cache
-          paths:
-            - .nx/cache-libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -305,7 +293,6 @@ jobs:
   build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: .nx/cache-apps
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
@@ -319,7 +306,6 @@ jobs:
   build-nx-libs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: .nx/cache-libs
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
