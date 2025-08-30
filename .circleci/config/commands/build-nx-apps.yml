@@ -1,5 +1,6 @@
 # Can't use `pnpm cli` doesn't exist yet
 # We split `apps` and `libs` along with their cache location
+# IMPORTANT: Do not use --nx-bail flag as it prevents Nx Cloud from properly storing cache artifacts
 
 description: 'Build Nx Apps'
 steps:
