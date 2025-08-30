@@ -1,10 +1,6 @@
-parameters:
-  resource_class:
-    type: string
+executor: docker-node-x86
 
-executor: docker-node
-
-resource_class: << parameters.resource_class >>
+resource_class: medium
 
 steps:
   - slack/notify:

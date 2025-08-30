@@ -6,8 +6,8 @@ import type {
 
 import { BuilderDndAction } from '@codelab/frontend-abstract-application'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
+import { Space } from '@codelab/frontend-presentation-components-space'
 import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/error'
-import { Space } from 'antd'
 import Input from 'antd/lib/input'
 import { observer } from 'mobx-react-lite'
 import { useRef, useState } from 'react'

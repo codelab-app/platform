@@ -6,12 +6,11 @@ export interface IHotjarEnvVars {
 }
 
 export class HotjarEnvVars implements IHotjarEnvVars {
-  readonly id: number
+  get id(): number {
+    return env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt()
+  }
 
-  readonly version: number
-
-  constructor() {
-    this.id = env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt()
-    this.version = env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt()
+  get version(): number {
+    return env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt()
   }
 }

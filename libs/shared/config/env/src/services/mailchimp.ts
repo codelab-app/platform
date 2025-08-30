@@ -7,15 +7,15 @@ export interface IMailchimpEnvVars {
 }
 
 export class MailchimpEnvVars implements IMailchimpEnvVars {
-  apiKey: string
+  get apiKey(): string {
+    return env.get('MAILCHIMP_API_KEY').required().asString()
+  }
 
-  listId: string
+  get listId(): string {
+    return env.get('MAILCHIMP_LIST_ID').required().asString()
+  }
 
-  serverPrefix: string
-
-  constructor() {
-    this.apiKey = env.get('MAILCHIMP_API_KEY').required().asString()
-    this.listId = env.get('MAILCHIMP_LIST_ID').required().asString()
-    this.serverPrefix = env.get('MAILCHIMP_SERVER_PREFIX').required().asString()
+  get serverPrefix(): string {
+    return env.get('MAILCHIMP_SERVER_PREFIX').required().asString()
   }
 }

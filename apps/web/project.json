@@ -15,6 +15,22 @@
         "outputPath": "dist/apps/web",
         "postcssConfig": "apps/web/postcss.config.js"
       },
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "env": "NEXT_PUBLIC_API_HOSTNAME"
+        },
+        {
+          "env": "NEXT_PUBLIC_API_PORT"
+        },
+        {
+          "env": "NEXT_PUBLIC_WEB_HOST"
+        },
+        {
+          "env": "NEXT_PUBLIC_BASE_API_PATH"
+        }
+      ],
       "configurations": {
         "dev": {},
         "ci": {},

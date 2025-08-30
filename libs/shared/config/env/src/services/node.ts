@@ -28,11 +28,9 @@ export class NodeEnvVars implements INodeEnvVars {
   }
 
   get nodeEnv() {
-    return (this._nodeEnv ??= env
+    return env
       .get('NODE_ENV')
       .default('development')
-      .asEnum(['development', 'production', 'test']))
+      .asEnum(['development', 'production', 'test'])
   }
-
-  private _nodeEnv?: NodeEnv
 }

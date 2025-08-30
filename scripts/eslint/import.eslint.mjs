@@ -75,6 +75,22 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
         {
           paths: [
             {
+              name: 'antd',
+              importNames: ['Space'],
+              message:
+                'Please use `Space` from `@codelab/frontend/presentation/components` instead. Ant Design Space has FOUC issues with SSR.',
+            },
+            {
+              name: 'antd/lib/space',
+              message:
+                'Please use `Space` from `@codelab/frontend/presentation/components` instead. Ant Design Space has FOUC issues with SSR.',
+            },
+            {
+              name: 'antd/es/space',
+              message:
+                'Please use `Space` from `@codelab/frontend/presentation/components` instead. Ant Design Space has FOUC issues with SSR.',
+            },
+            {
               name: 'antd/lib/select',
               importNames: ['DefaultOptionType'],
               message:

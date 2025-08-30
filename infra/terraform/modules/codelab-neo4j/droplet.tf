@@ -1,6 +1,26 @@
-# Create a new Web Droplet in the nyc2 region
+# Find the latest Packer-built neo4j base image
+data "digitalocean_images" "codelab_neo4j_base" {
+  filter {
+    key      = "name"
+    values   = ["codelab-neo4j-base"]
+    match_by = "substring"
+  }
+  filter {
+    key    = "regions"
+    values = [var.digitalocean_region]
+  }
+  filter {
+    key    = "private"
+    values = ["true"]
+  }
+  sort {
+    key       = "created"
+    direction = "desc"
+  }
+}
+
 resource "digitalocean_droplet" "neo4j" {
-  image  = "docker-20-04"
+  image  = data.digitalocean_images.codelab_neo4j_base.images[0].id
   name   = "neo4j"
   region = var.digitalocean_region
   size   = "s-1vcpu-2gb-intel"
@@ -13,11 +33,14 @@ resource "digitalocean_droplet" "neo4j" {
   # SSH keys
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
-  # Run once only
-  user_data = data.cloudinit_config.neo4j.rendered
+  # Tags for firewall rules
+  tags = ["consul-client"]
+
+  # No user_data - everything is baked into the image
 
   lifecycle {
-    # ignore_changes = [user_data]
+    create_before_destroy = false
+    ignore_changes        = []
   }
 
   # Tags for easier management
@@ -28,7 +51,9 @@ resource "digitalocean_droplet" "neo4j" {
 }
 
 output "neo4j_uri" {
-  # https://stackoverflow.com/questions/62357682/routing-issue-in-neo4j-4-0-with-multiple-databases
-  value = "bolt://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
-  # value = "bolt+s://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
+  # Use droplet name instead of IP address to avoid hardcoding IPs.
+  # DigitalOcean provides automatic DNS resolution for droplet names within the same VPC,
+  # allowing infrastructure changes without updating connection strings.
+  # The old Neo4j 4.0 routing issue has been resolved in Neo4j 5.x.
+  value = "bolt://${digitalocean_droplet.neo4j.name}:7687"
 }

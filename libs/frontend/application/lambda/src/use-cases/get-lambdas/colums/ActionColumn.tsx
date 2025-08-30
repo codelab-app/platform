@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
 
 import type { ActionColumnProps } from './types'
 

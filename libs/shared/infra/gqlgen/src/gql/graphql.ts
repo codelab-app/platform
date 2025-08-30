@@ -5470,7 +5470,6 @@ export enum AtomType {
   HookQueryLambda = 'HookQueryLambda',
   HookQueryPage = 'HookQueryPage',
   HookQueryPages = 'HookQueryPages',
-  HookRecoilState = 'HookRecoilState',
   HookRouter = 'HookRouter',
   HtmlA = 'HtmlA',
   HtmlAbbr = 'HtmlAbbr',

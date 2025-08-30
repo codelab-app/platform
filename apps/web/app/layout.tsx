@@ -1,4 +1,4 @@
-import '../styles/main.css'
+import '../styles/app.css'
 // import config from '../tailwind.config.js'
 import {
   NotificationProvider,

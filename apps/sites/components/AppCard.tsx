@@ -1,7 +1,8 @@
 'use client'
 
 import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
-import { Button, Card, List, Space, Typography } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Button, Card, List, Typography } from 'antd'
 
 const { Paragraph, Text, Title } = Typography
 

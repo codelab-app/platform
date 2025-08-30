@@ -26,4 +26,6 @@ resource "digitalocean_loadbalancer" "landing" {
     port     = 22
     protocol = "tcp"
   }
+
+  # No need to replace load balancer when droplet changes since we use hostnames
 }

@@ -1,4 +1,5 @@
-import { Modal, Skeleton, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Modal, Skeleton } from 'antd'
 
 export const SkeletonModal = () => {
   return (

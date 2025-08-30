@@ -2,14 +2,13 @@ import ShopOutlined from '@ant-design/icons/ShopOutlined'
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Button, Card, Typography } from 'antd'
-import { useRecoilValue } from 'recoil'
 
-import { demoCardPropState } from './ButtonDemoProps'
+import { useDemoState } from './DemoContext'
 
 const { Text } = Typography
 
 export const DemoShoppingCard = () => {
-  const demoCardProp = useRecoilValue(demoCardPropState)
+  const { demoCardProp } = useDemoState()
 
   const cardIcon = (icon: string) => {
     if (icon === 'shopping-outlined') {
@@ -40,7 +39,7 @@ export const DemoShoppingCard = () => {
             xl:m-auto xl:w-64
             2xl:w-full
           `}
-          src="https://www.apple.com/v/macbook-pro/af/images/overview/hero_13__d1tfa5zby7e6_large_2x.jpg"
+          src="/hero_13__d1tfa5zby7e6_large_2x.jpeg"
         />
       }
     >

@@ -2,11 +2,23 @@ steps:
   - run:
       name: 'Install Cypher Shell'
       command: |
+        # Install Java 21 from Adoptium (Eclipse Temurin)
+        apt-get update
+        apt-get install -y wget apt-transport-https lsb-release
+
+        # Add Adoptium repository for Java 21
+        wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg
+        # Use bookworm as the codename for Debian 12
+        echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb bookworm main" | tee /etc/apt/sources.list.d/adoptium.list
+
+        apt-get update
+        apt-get install -y temurin-21-jre
+
         # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
-        wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
+        wget -O - https://debian.neo4j.com/neotechnology.gpg.key | gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
 
-        echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+        echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | tee -a /etc/apt/sources.list.d/neo4j.list
 
-        sudo apt-get update
+        apt-get update
 
-        sudo apt-get install -y neo4j cypher-shell
+        apt-get install -y neo4j cypher-shell

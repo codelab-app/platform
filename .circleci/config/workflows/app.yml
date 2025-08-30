@@ -1,6 +1,6 @@
 jobs:
   - setup-workspace:
-      resource_class: large
+      resource_class: arm.large
       max_old_space_size: 6144
       filters:
         branches:

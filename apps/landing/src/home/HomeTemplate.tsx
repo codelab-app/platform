@@ -1,17 +1,17 @@
-import type { PropsWithChildren, ReactElement } from 'react'
+'use client'
+
+import type { PropsWithChildren, ReactNode } from 'react'
 
 import { breakpoints } from '@codelab/shared-config-builder'
 import { useMediaQuery } from 'react-responsive'
-import { useRecoilValue } from 'recoil'
 
 import { Footer } from '../footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
-import { menuState } from './menu/menu-state'
 import { CodelabMenuContainer } from './menu/MenuContainer'
 import { MenuMobile } from './menu/MobileMenu'
 
 export interface HomeTemplateProps {
-  children: ReactElement<unknown>
+  children: Array<ReactNode> | ReactNode
 }
 
 const Header = ({ children }: PropsWithChildren) => {
@@ -19,13 +19,7 @@ const Header = ({ children }: PropsWithChildren) => {
 }
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const isMenuOpen = useRecoilValue(menuState)
-
-  return (
-    <div className={isMenuOpen ? 'backdrop-blur' : ''} id="home">
-      {children}
-    </div>
-  )
+  return <div id="home">{children}</div>
 }
 
 const Content = ({ children }: PropsWithChildren) => {
@@ -42,32 +36,10 @@ const HomeTemplate = ({ children }: HomeTemplateProps) => {
           <>{isMobileOrTablet ? <MenuMobile /> : <MenuDesktop />}</>
         </CodelabMenuContainer>
       </Header>
-      <Content>{children}</Content>
+      <Content>{Array.isArray(children) ? <>{children}</> : children}</Content>
       <Footer></Footer>
     </Layout>
   )
 }
-
-// const LayoutTest = ({ children }: PropsWithChildren<any>) => {
-//   const isMenuOpen = useRecoilValue(menuState)
-
-//   return (
-//     <div css={[isMenuOpen ?? tw`backdrop-blur`]} id="home">
-//       {children}
-//     </div>
-//   )
-// }
-
-// export const Layout2 = ({ children }: any) => (
-//   <LayoutTest>
-//     <Header>
-//       <CodelabMenuContainer>
-//         <MenuDesktop />
-//       </CodelabMenuContainer>
-//     </Header>
-//     <Content>{children}</Content>
-//     <Footer></Footer>
-//   </LayoutTest>
-// )
 
 export default HomeTemplate

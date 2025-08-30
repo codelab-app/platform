@@ -1,6 +1,6 @@
-executor: machine-ubuntu
+executor: docker-node-x86
 
-resource_class: small
+resource_class: medium
 
 steps:
   - swissknife/wait_for_job:

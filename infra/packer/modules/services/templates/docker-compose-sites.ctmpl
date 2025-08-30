@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  sites:
+    image: registry.digitalocean.com/codelabapp/sites:{{ key "config/docker/sites_tag_version" }}
+    container_name: codelab-sites
+    restart: unless-stopped
+    ports:
+      - '80:3000'
+    environment:
+      - NEXT_PUBLIC_WEB_HOST={{ key "config/web/host" }}
+      - NEXT_PUBLIC_API_PORT={{ key "config/api/port" }}
+      - NEXT_PUBLIC_API_HOSTNAME={{ key "config/api/hostname" }}

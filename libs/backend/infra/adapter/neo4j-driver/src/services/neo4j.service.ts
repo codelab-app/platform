@@ -53,21 +53,21 @@ export class Neo4jService {
     })
 
     // Log server connectivity info periodically (for debugging in non-production)
-    if (process.env.NODE_ENV !== 'production') {
-      setInterval(async () => {
-        try {
-          const serverInfo = await this.driver.getServerInfo()
+    // if (process.env.NODE_ENV !== 'production') {
+    //   setInterval(async () => {
+    //     try {
+    //       const serverInfo = await this.driver.getServerInfo()
 
-          console.log('[Neo4j Connection Pool]', {
-            protocolVersion: serverInfo.protocolVersion,
-            serverAddress: serverInfo.address,
-          })
-        } catch (error) {
-          // Ignore errors in monitoring
-        }
-        // Log every minute
-      }, 60000)
-    }
+    //       console.log('[Neo4j Connection Pool]', {
+    //         protocolVersion: serverInfo.protocolVersion,
+    //         serverAddress: serverInfo.address,
+    //       })
+    //     } catch (error) {
+    //       // Ignore errors in monitoring
+    //     }
+    //     // Log every minute
+    //   }, 60000)
+    // }
   }
 
   async close(): Promise<void> {

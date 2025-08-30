@@ -4,7 +4,8 @@ import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
-import { Select, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Select } from 'antd'
 import { useState } from 'react'
 
 import {
@@ -106,12 +107,14 @@ export const TailwindClassEditor = ({
               label={option.label}
               value={option.value}
             >
-              <Space onMouseMove={previewClassName}>
-                <span aria-label={option.label} role="img">
-                  <ColorBox color={option.value} />
-                </span>
-                {option.label}
-              </Space>
+              <div onMouseMove={previewClassName}>
+                <Space>
+                  <span aria-label={option.label} role="img">
+                    <ColorBox color={option.value} />
+                  </span>
+                  {option.label}
+                </Space>
+              </div>
             </Select.Option>
           )
         })}

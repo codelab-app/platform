@@ -9,13 +9,14 @@ export const globalHandler = <T>(
   handler: HandlerFunction<T>,
 ): HandlerFunction<T> => {
   return async (args: ArgumentsCamelCase<T>) => {
+    let exitCode = 0
     try {
       await handler(args)
     } catch (error) {
       console.error(error)
-      // Need this for finally to execute completely
+      exitCode = 1
     } finally {
-      process.exit(0)
+      process.exit(exitCode)
     }
   }
 }

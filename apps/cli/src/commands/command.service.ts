@@ -1,6 +1,6 @@
 import {
-  // ScrapeAntdService,
-  // ScrapeHtmlService,
+  DockerService,
+  PackerService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
@@ -11,6 +11,8 @@ import { hideBin } from 'yargs/helpers'
 @Injectable()
 export class CommandService {
   constructor(
+    private readonly dockerService: DockerService,
+    private readonly packerService: PackerService,
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     private readonly terraformService: TerraformService,
@@ -27,6 +29,15 @@ export class CommandService {
 
     void yargs(args)
       .scriptName('cli')
+      // Add global stage option that's required
+      .option('stage', {
+        alias: 's',
+        describe: 'Deployment stage',
+        type: 'string',
+        choices: ['dev', 'test', 'ci', 'prod'],
+        demandOption: true,
+        global: true,
+      })
       /**
        * These scripts could act on different deployment environment, so we group under `data`
        */
@@ -42,11 +53,22 @@ export class CommandService {
       //   argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
       // )
       /**
+       * Docker - Build and push images
+       */
+      .command(this.dockerService)
+      /**
+       * Packer - Machine image builder
+       */
+      .command(this.packerService)
+      /**
        * Terraform
        */
       .command(this.terraformService)
       .demandCommand(1)
       // Must add this to throw error for unknown arguments
-      .strict().argv
+      .strict()
+      .showHelpOnFail(true)
+      .exitProcess(true) // Ensure yargs exits the process
+      .parse()
   }
 }

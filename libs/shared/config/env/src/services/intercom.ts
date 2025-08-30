@@ -5,9 +5,7 @@ export interface IIntercomEnvVars {
 }
 
 export class IntercomEnvVars implements IIntercomEnvVars {
-  readonly appId: string
-
-  constructor() {
-    this.appId = env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString()
+  get appId(): string {
+    return env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString()
   }
 }

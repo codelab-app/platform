@@ -1,10 +1,15 @@
-import { Button, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Button } from 'antd'
 import Image from 'next/image'
+
+import { CuiText } from '../../components/CuiText'
 
 export const Architecture = () => {
   return (
     <section className="container m-auto bg-violet-700">
-      <h2>Replace Your Entire Frontend Stack</h2>
+      <CuiText color="white" variant="section-title">
+        Replace Your Entire Frontend Stack
+      </CuiText>
       <p>
         Codelab is a purpose built frontend layer meant to be used with external
         API services. It’s designed from the ground up as a full-fledged

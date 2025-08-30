@@ -7,7 +7,6 @@ export const hookTypes = new Set([
   IAtomType.HookQueryLambda,
   IAtomType.HookQueryPage,
   IAtomType.HookQueryPages,
-  IAtomType.HookRecoilState,
   IAtomType.HookRouter,
 ])
 

@@ -2,7 +2,7 @@
   "mcpServers": {
     "browser-tools": {
       "command": "npx",
-      "args": ["-y", "@agentdeskai/browser-tools-mcp@1.2.0"]
+      "args": ["--prefer-offline", "-y", "@agentdeskai/browser-tools-mcp@latest"]
     },
     "context7": {
       "type": "sse",
@@ -31,7 +31,7 @@
     },
     "notionMCP": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.notion.com/sse"]
+      "args": ["--prefer-offline", "-y", "mcp-remote", "https://mcp.notion.com/sse"]
     },
     "nx": {
       "command": "npx",
@@ -53,7 +53,7 @@
     },
     "playwright": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-playwright"]
+      "args": ["--prefer-offline", "-y", "@playwright/mcp@latest"]
     }
   }
 }

@@ -106,14 +106,10 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * http://127.0.0.1:4000
    */
   get apiHost(): string {
-    if (this._apiHost) {
-      return this._apiHost
-    }
-
     const port = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
     const url = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject()
 
-    return (this._apiHost = new URL(`${url.origin}:${port}`).toString())
+    return new URL(`${url.origin}:${port}`).toString()
   }
 
   get apiUrl() {
@@ -180,13 +176,6 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This is used before module is initialized, so we must access process.env
    */
   get webHost(): string {
-    return (this._webHost ??= env
-      .get('NEXT_PUBLIC_WEB_HOST')
-      .required()
-      .asString())
+    return env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
   }
-
-  private _apiHost?: string
-
-  private _webHost?: string
 }

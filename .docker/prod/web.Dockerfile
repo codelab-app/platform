@@ -17,9 +17,9 @@ WORKDIR /usr/src/codelab
 # Combine commands to reduce the number of layers in your Docker image, which can reduce the overhead when running containers.
 # No cache reduces bundle size
 RUN apk update && \
-  apk add --no-cache libc6-compat python3 py3-pip make g++ && \
+  apk add --no-cache libc6-compat python3 py3-pip make g++ jq && \
   corepack enable && \
-  corepack prepare pnpm@8.15.0 --activate
+  corepack prepare pnpm@9.15.5 --activate
 
 
 FROM base AS install
@@ -35,7 +35,7 @@ FROM install AS build
 
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
-COPY nx.json .nxignore .eslintrc.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
+COPY nx.json .nxignore eslint.config.mjs tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 COPY apps/web ./apps/web
 COPY libs ./libs
 COPY types ./types
@@ -51,6 +51,7 @@ ARG AUTH0_SECRET
 ARG AUTH0_DOMAIN
 ARG AUTH0_CLIENT_ID
 ARG AUTH0_CLIENT_SECRET
+ARG NX_CLOUD_ACCESS_TOKEN
 
 # Then pass from ARG to ENV
 #
@@ -67,11 +68,45 @@ ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
 ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Enable Nx Cloud for caching
+ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
+
+# Enable maximum Nx debug logging to diagnose cache issues
+# This will show computation hash, cache miss reasons, and inputs changed
+ENV NX_VERBOSE_LOGGING=true
+ENV NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT=0
+ENV NX_DAEMON=false
+# Add more detailed cache debugging
+ENV NX_CACHE_DIRECTORY=/usr/src/codelab/.nx/cache
+ENV NX_CLOUD_DEBUG=true
+# This helps show what's being included in the hash computation
+ENV NX_PERF_LOGGING=true
+
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN pnpm nx build web --verbose --skip-nx-cache
+
+# Run with additional debugging flags
+# First, let's see what Nx thinks the inputs are
+RUN echo "=== Environment Variables ===" && \
+    env | grep -E "^(NEXT_PUBLIC_|NODE_ENV|NX_)" | sort && \
+    echo "=== Checking Nx inputs ===" && \
+    pnpm nx show project web --json | jq '.targets.build.inputs' && \
+    echo "=== Computing hash for web:build ===" && \
+    pnpm nx hash web:build --verbose && \
+    echo "=== Checking affected projects ===" && \
+    pnpm nx affected:graph --target=build --verbose && \
+    echo "=== Running build with maximum cache debugging ===" && \
+    pnpm nx build web --verbose --skip-nx-cache=false 2>&1 | tee build.log && \
+    echo "=== Extracting cache miss information ===" && \
+    grep -E "computation hash|cache miss|inputs changed|Hash mismatch|File changed|Cache key|NX Cloud" build.log || true && \
+    echo "=== Checking local cache entries ===" && \
+    ls -la .nx/cache 2>/dev/null | head -20 || true || \
+    (echo "Build failed, checking Nx report..." && \
+     cat node_modules/.cache/nx/d/daemon.log 2>/dev/null || true && \
+     cat .nx/report.json 2>/dev/null || true && \
+     exit 1)
 
 #
 # (2) Prod

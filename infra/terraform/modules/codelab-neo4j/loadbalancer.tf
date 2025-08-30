@@ -35,4 +35,6 @@ resource "digitalocean_loadbalancer" "neo4j" {
     port     = 22
     protocol = "tcp"
   }
+
+  # No need to replace load balancer when droplet changes since we use hostnames
 }

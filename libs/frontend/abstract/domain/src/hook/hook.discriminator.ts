@@ -6,6 +6,5 @@ export enum HookDiscriminator {
   QueryHookConfig = 'QueryHookConfig',
   QueryPageHookConfig = 'QueryPageHookConfig',
   QueryPagesHookConfig = 'QueryPagesHookConfig',
-  RecoilStateHookConfig = 'RecoilStateHookConfig',
   RouterHookConfig = 'RouterHookConfig',
 }

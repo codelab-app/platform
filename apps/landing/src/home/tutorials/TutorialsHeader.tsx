@@ -1,28 +1,17 @@
+import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
+
 export const TutorialsHeader = () => {
   return (
-    <section
-      className={`
-        m-auto w-11/12
-        xl:container
-      `}
-    >
-      <div
+    <CuiContainer>
+      <CuiContainer
         className={`
-          m-auto mt-5 w-11/12 pb-7
-          xl:container
+          mt-5 pb-7
           sm:mt-10 sm:pb-14
           md:mt-20
         `}
       >
-        <h1
-          className={`
-            text-center text-2xl
-            sm:text-3xl
-            md:text-5xl
-          `}
-        >
-          Learn To Build
-        </h1>
+        <CuiText variant="hero-title">Learn To Build</CuiText>
         <p
           className={`
             m-auto w-full px-8 text-center text-base text-slate-500
@@ -34,7 +23,7 @@ export const TutorialsHeader = () => {
           Checkout our different tutorials for building different types of user
           interfaces. From simple to complex, we've got you covered.
         </p>
-      </div>
-    </section>
+      </CuiContainer>
+    </CuiContainer>
   )
 }

@@ -4,11 +4,12 @@ import type { FormProps } from '@codelab/frontend-abstract-types'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
 
+import { Space } from '@codelab/frontend-presentation-components-space'
 import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend-shared-utils'
-import { Skeleton, Space } from 'antd'
+import { Skeleton } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'

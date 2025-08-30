@@ -1,5 +1,6 @@
 import type { IAuth0EnvVars } from './services/auth0'
 import type { ICircleCIEnvVars } from './services/circleci'
+import type { IDigitalOceanEnvVars } from './services/digitalocean'
 import type { IEndpointEnvVars } from './services/endpoint'
 import type { IGoogleAnalyticsEnvVars } from './services/google-analytics'
 import type { IHotjarEnvVars } from './services/hotjar'
@@ -11,6 +12,7 @@ import type { ISupabaseEnvVars } from './services/supabase'
 
 import { Auth0EnvVars } from './services/auth0'
 import { CircleCIEnvVars } from './services/circleci'
+import { DigitalOceanEnvVars } from './services/digitalocean'
 import { EndpointEnvVars } from './services/endpoint'
 import { GoogleAnalyticsEnvVars } from './services/google-analytics'
 import { HotjarEnvVars } from './services/hotjar'
@@ -23,6 +25,7 @@ import { SupabaseEnvVars } from './services/supabase'
 export interface IEnvironmentVariables {
   auth0: IAuth0EnvVars
   circleci: ICircleCIEnvVars
+  digitalocean: IDigitalOceanEnvVars
   endpoint: IEndpointEnvVars
   googleAnalytics: IGoogleAnalyticsEnvVars
   hotjar: IHotjarEnvVars
@@ -33,6 +36,7 @@ export interface IEnvironmentVariables {
   supabase: ISupabaseEnvVars
 }
 
+/* eslint-disable @typescript-eslint/member-ordering */
 /**
  * Env works a bit different in Next.js for the browser, they inline the value by replacing all references process.env with a hard coded value
  *
@@ -49,67 +53,20 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return EnvironmentVariables.instance
   }
 
-  public get auth0() {
-    return (this._auth0 ??= new Auth0EnvVars(this.endpoint))
-  }
-
-  public get circleci() {
-    return (this._circleci ??= new CircleCIEnvVars())
-  }
-
-  public get endpoint() {
-    return (this._endpoint ??= new EndpointEnvVars())
-  }
-
-  public get googleAnalytics() {
-    return (this._googleAnalytics ??= new GoogleAnalyticsEnvVars())
-  }
-
-  public get hotjar() {
-    return (this._hotjar ??= new HotjarEnvVars())
-  }
-
-  public get intercom() {
-    return (this._intercom ??= new IntercomEnvVars())
-  }
-
-  public get mailchimp() {
-    return (this._mailchimp ??= new MailchimpEnvVars())
-  }
-
-  public get neo4j() {
-    return (this._neo4j ??= new Neo4jEnvVars())
-  }
-
-  public get node() {
-    return (this._node ??= new NodeEnvVars())
-  }
-
-  public get supabase() {
-    return (this._supabase ??= new SupabaseEnvVars())
-  }
+  // Create endpoint first as auth0 depends on it
+  public readonly endpoint = new EndpointEnvVars()
+  public readonly auth0 = new Auth0EnvVars(this.endpoint)
+  public readonly circleci = new CircleCIEnvVars()
+  public readonly digitalocean = new DigitalOceanEnvVars()
+  public readonly googleAnalytics = new GoogleAnalyticsEnvVars()
+  public readonly hotjar = new HotjarEnvVars()
+  public readonly intercom = new IntercomEnvVars()
+  public readonly mailchimp = new MailchimpEnvVars()
+  public readonly neo4j = new Neo4jEnvVars()
+  public readonly node = new NodeEnvVars()
+  public readonly supabase = new SupabaseEnvVars()
 
   private static instance?: EnvironmentVariables
-
-  private _auth0?: IAuth0EnvVars
-
-  private _circleci?: ICircleCIEnvVars
-
-  private _endpoint?: IEndpointEnvVars
-
-  private _googleAnalytics?: IGoogleAnalyticsEnvVars
-
-  private _hotjar?: IHotjarEnvVars
-
-  private _intercom?: IIntercomEnvVars
-
-  private _mailchimp?: IMailchimpEnvVars
-
-  private _neo4j?: INeo4jEnvVars
-
-  private _node?: INodeEnvVars
-
-  private _supabase?: ISupabaseEnvVars
 }
 
 export const getEnv = () => EnvironmentVariables.getInstance()

@@ -1,4 +1,5 @@
-import { Skeleton, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Skeleton } from 'antd'
 
 export const PrimarySidebarLoader = () => {
   return (

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    image: registry.digitalocean.com/codelabapp/api:{{ key "config/docker/api_tag_version" }}
+    container_name: codelab-api
+    restart: unless-stopped
+    ports:
+      - '{{ key "config/api/port" }}:{{ key "config/api/port" }}'
+    environment:
+      - AUTH0_M2M_CLIENT_ID={{ key "config/auth0/m2m_client_id" }}
+      - AUTH0_M2M_CLIENT_SECRET={{ key "config/auth0/m2m_client_secret" }}
+      - AUTH0_DOMAIN={{ key "config/auth0/domain" }}
+      - NEXT_PUBLIC_API_PORT={{ key "config/api/port" }}
+      - NEO4J_URI={{ key "config/neo4j/uri" }}
+      - NEO4J_USER={{ key "config/neo4j/user" }}
+      - NEO4J_PASSWORD={{ key "config/neo4j/password" }}
+      - DIGITALOCEAN_API_TOKEN={{ key "config/digitalocean/api_token" }}
+      - DIGITALOCEAN_DROPLET_NAME={{ env "HOSTNAME" }}

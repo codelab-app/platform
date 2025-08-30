@@ -1,8 +1,0 @@
-version: '3.8'
-services:
-  landing:
-    image: registry.digitalocean.com/codelabapp/landing:${docker_tag_version}
-    container_name: codelab-landing
-    restart: unless-stopped
-    ports:
-      - '80:3000'
