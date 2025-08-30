@@ -13,6 +13,10 @@ environment:
 
 parallelism: 4
 steps:
+  # All Docker commands execute locally on the same virtual machine that used to spin up the primary container.
+  # Needed for sidecars to interact with each other
+  - setup_remote_docker:
+      version: default
   - restore-workspace-database
   - setup-neo4j
   # We use workspace so it has the latest build
@@ -60,6 +64,7 @@ steps:
   #     command: |
   #       pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
   #     when: always
+  # Not installed with `node:22`
   - run:
       name: Install Docker CLI
       command: |
