@@ -6,17 +6,17 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-
+            - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-apps-
           name: Restore NX Cache
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
-          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          key: nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
           paths:
-            - ~/project/.nx/cache
+            - ~/project/.nx/cache-apps
             - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
@@ -283,6 +283,8 @@ commands:
             ./apply-constraints.sh
           name: Apply Neo4j Constraints
           working_directory: ~/project/.docker/cypher/scripts
+environment:
+  NX_DAEMON: false
 executors:
   docker-node-arm64:
     docker:
@@ -303,8 +305,7 @@ jobs:
   build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: ~/project/.nx/cache
-      NX_DAEMON: false
+      NX_CACHE_DIRECTORY: /root/project/.nx/cache-apps
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
@@ -318,8 +319,7 @@ jobs:
   build-nx-libs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
-      NX_DAEMON: false
+      NX_CACHE_DIRECTORY: /root/project/.nx/cache-libs
     executor: docker-node-arm64
     parameters:
       max_old_space_size:

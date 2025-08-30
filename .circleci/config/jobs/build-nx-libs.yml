@@ -11,11 +11,7 @@ resource_class: << parameters.resource_class >>
 
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-  NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
-  # Disable Nx daemon to prevent conflicts when jobs run in parallel
-  # The daemon is a global process that can cause race conditions and cache
-  # confusion when multiple jobs try to use it simultaneously
-  NX_DAEMON: false
+  NX_CACHE_DIRECTORY: /root/project/.nx/cache-libs
 
 steps:
   - restore-workspace
