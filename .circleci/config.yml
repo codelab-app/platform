@@ -6,10 +6,10 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nextjs-cache-
-          name: Restore Next.js Cache
+            - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-apps-cache-
+          name: Restore Nx Apps Cache
       - run:
           command: |
             echo "=== After Next.js cache restore ==="
@@ -50,8 +50,8 @@ commands:
             pwd
             echo "NX_WORKSPACE_ROOT is ${NX_WORKSPACE_ROOT:-not set}"
       - save_cache:
-          key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save Next.js Cache
+          key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save Nx Apps Cache
           paths:
             - dist/apps/web/.next/cache
       - persist_to_workspace:

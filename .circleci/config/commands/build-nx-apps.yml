@@ -7,11 +7,11 @@ steps:
       main-branch-name: 'master'
   # Only restore Next.js cache (libs build fast enough with just Nx Cloud)
   - restore_cache:
-      name: 'Restore Next.js Cache'
+      name: 'Restore Nx Apps Cache'
       keys:
-        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - nextjs-cache-
+        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - nx-apps-cache-
   - run:
       name: 'Debug - Check Next.js cache after restore'
       command: |
@@ -54,8 +54,8 @@ steps:
   # Only save Next.js cache (libs build fast enough with just Nx Cloud)
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
   - save_cache:
-      name: 'Save Next.js Cache'
-      key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+      name: 'Save Nx Apps Cache'
+      key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - dist/apps/web/.next/cache
   - persist_to_workspace:
