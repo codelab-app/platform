@@ -20,9 +20,9 @@ commands:
             - dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
-            - dist/apps/web
-            - dist/apps/api
-          root: .
+            - project/dist/apps/web
+            - project/dist/apps/api
+          root: ./
   build-nx-libs:
     description: Build Nx Libs
     steps:
