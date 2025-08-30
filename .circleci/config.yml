@@ -11,21 +11,32 @@ commands:
             - nextjs-cache-
           name: Restore Next.js Cache
       - run:
-          command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
-      - run:
           command: |
-            echo "=== Checking .nx/cache directory ==="
+            echo "=== BEFORE BUILD - Check .nx directory ==="
+            ls -la .nx/ 2>/dev/null || echo "No .nx directory"
+            echo ""
+            echo "=== Running build ==="
+            pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+            echo ""
+            echo "=== AFTER BUILD - Check .nx directory ==="
+            ls -la .nx/ 2>/dev/null || echo "No .nx directory after build"
+            echo ""
+            echo "=== Check .nx/cache directory ==="
             ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
             echo ""
-            echo "=== Count of cache entries ==="
-            find .nx/cache -type d -maxdepth 1 2>/dev/null | wc -l || echo "0"
+            echo "=== Check if Nx Cloud is enabled ==="
+            echo "NX_CLOUD_ACCESS_TOKEN is ${NX_CLOUD_ACCESS_TOKEN:+set}"
+            echo "NX_SKIP_NX_CACHE is ${NX_SKIP_NX_CACHE:-not set}"
             echo ""
-            echo "=== Recent cache entries (last 5) ==="
-            ls -lat .nx/cache/ 2>/dev/null | head -6 || echo "No entries"
+            echo "=== Check cache task runner ==="
+            cat nx.json | grep -A2 "tasksRunnerOptions" || echo "No custom task runner"
             echo ""
-            echo "=== Checking for Next.js cache ==="
-            ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
-          name: Debug - Check cache directories after build
+            echo "=== Search for any cache directories ==="
+            find . -name "cache" -type d 2>/dev/null | grep -v node_modules | grep -v ".git" | head -20
+            echo ""
+            echo "=== Check workspace root ==="
+            pwd
+            echo "NX_WORKSPACE_ROOT is ${NX_WORKSPACE_ROOT:-not set}"
       - save_cache:
           key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save Next.js Cache
