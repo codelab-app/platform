@@ -62,7 +62,7 @@ steps:
   # - run:
   #     name: 'Merge Playwright Reports'
   #     command: |
-  #       pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
+  #       pnpm playwright merge-reports --reporter html tmp/reports/e2e/all-blob-reports
   #     when: always
   # Not installed with `node:22`
   - run:
@@ -74,25 +74,25 @@ steps:
       command: |
         set -x
 
-        mkdir -p ~/project/tmp/logs
+        mkdir -p tmp/logs
 
-        docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+        docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > tmp/logs/neo4j.log 2>&1
       # This ensures logs are captured even if previous steps fail
       when: always
   - store_artifacts:
-      path: ~/project/tmp/logs
+      path: tmp/logs
       destination: docker-logs
   - store_artifacts:
-      path: ~/project/tmp/reports/e2e
+      path: tmp/reports/e2e
       destination: playwright-report
   # - store_artifacts:
-  #     path: ~/project/tmp/reports/e2e/html-report
+  #     path: tmp/reports/e2e/html-report
   #     destination: html-report
   #   - store_artifacts:
-  #       path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
+  #       path: dist/.playwright/apps/web-e2e/src/screenshots
   #       destination: playwright/screenshots
   #   - store_artifacts:
-  #       path: ~/project/dist/.playwright/apps/web-e2e/src/data
+  #       path: dist/.playwright/apps/web-e2e/src/data
   #       destination: playwright/data
   - store_test_results:
-      path: ~/project/tmp/reports/e2e/junit
+      path: tmp/reports/e2e/junit

@@ -22,9 +22,9 @@ steps:
       name: 'Save NX Cache'
       key: nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
-        - ~/project/.nx/cache-apps
+        - .nx/cache-apps
         # https://github.com/nrwl/nx/issues/5221
-        - ~/project/dist/apps/web/.next/cache
+        - dist/apps/web/.next/cache
   - persist_to_workspace:
       root: ~/
       paths:

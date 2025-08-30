@@ -20,4 +20,4 @@ steps:
         # nx doesn't use `lockfile.hash` anymore, so move the pnpm
         # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
       paths:
-        - ~/project/.nx/cache-libs
+        - .nx/cache-libs

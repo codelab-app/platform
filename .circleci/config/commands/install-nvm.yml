@@ -6,7 +6,7 @@ steps:
         - nvm-cache-{{ checksum ".nvmrc" }}
   - run:
       name: 'Install NVM'
-      command: source ~/project/.circleci/config/install-nvm.sh
+      command: source .circleci/config/install-nvm.sh
   - save_cache:
       name: 'Save NVM Cache'
       key: nvm-cache-{{ checksum ".nvmrc" }}

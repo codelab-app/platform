@@ -16,8 +16,8 @@ commands:
           key: nx-cache-apps-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
           paths:
-            - ~/project/.nx/cache-apps
-            - ~/project/dist/apps/web/.next/cache
+            - .nx/cache-apps
+            - dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
             - project/dist/apps/web
@@ -40,7 +40,7 @@ commands:
           key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
           paths:
-            - ~/project/.nx/cache-libs
+            - .nx/cache-libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -104,7 +104,7 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
       - run:
-          command: source ~/project/.circleci/config/install-nvm.sh
+          command: source .circleci/config/install-nvm.sh
           name: Install NVM
       - save_cache:
           key: nvm-cache-{{ checksum ".nvmrc" }}
@@ -139,13 +139,13 @@ commands:
           paths:
             - ~/.pnpm-store
       - run:
-          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          command: scripts/circleci/generate-dist-checksum.sh
           name: Generate dist libs checksum for cache key
       - save_cache:
           key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "/tmp/dist-libs-checksum.txt" }}
           name: Save node_modules Cache
           paths:
-            - ~/project/node_modules
+            - node_modules
   install-packer:
     description: Install Packer
     steps:
@@ -220,7 +220,7 @@ commands:
       - attach_workspace:
           at: ~/
       - run:
-          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          command: scripts/circleci/generate-dist-checksum.sh
           name: Generate dist libs checksum for cache key
       - restore_cache:
           keys:
@@ -241,7 +241,7 @@ commands:
       - attach_workspace:
           at: ~/
       - run:
-          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          command: scripts/circleci/generate-dist-checksum.sh
           name: Generate dist libs checksum for cache key
       - restore_cache:
           keys:
@@ -264,7 +264,7 @@ commands:
     description: Setup Env
     steps:
       - run:
-          command: source ~/project/.circleci/config/env.sh
+          command: source .circleci/config/env.sh
           name: Setup Env
   setup-neo4j:
     description: Setup Neo4j
@@ -277,12 +277,12 @@ commands:
           command: |
             ./enable-cdc.sh
           name: Enable CDC
-          working_directory: ~/project/.docker/cypher/scripts
+          working_directory: .docker/cypher/scripts
       - run:
           command: |
             ./apply-constraints.sh
           name: Apply Neo4j Constraints
-          working_directory: ~/project/.docker/cypher/scripts
+          working_directory: .docker/cypher/scripts
 environment:
   NX_DAEMON: false
 executors:
@@ -305,7 +305,7 @@ jobs:
   build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: /root/project/.nx/cache-apps
+      NX_CACHE_DIRECTORY: .nx/cache-apps
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
@@ -319,7 +319,7 @@ jobs:
   build-nx-libs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: /root/project/.nx/cache-libs
+      NX_CACHE_DIRECTORY: .nx/cache-libs
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
@@ -427,19 +427,19 @@ jobs:
           command: |
             set -x
 
-            mkdir -p ~/project/tmp/logs
+            mkdir -p tmp/logs
 
-            docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+            docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > tmp/logs/neo4j.log 2>&1
           name: Capture Docker logs
           when: always
       - store_artifacts:
           destination: docker-logs
-          path: ~/project/tmp/logs
+          path: tmp/logs
       - store_artifacts:
           destination: playwright-report
-          path: ~/project/tmp/reports/e2e
+          path: tmp/reports/e2e
       - store_test_results:
-          path: ~/project/tmp/reports/e2e/junit
+          path: tmp/reports/e2e/junit
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
