@@ -17,7 +17,7 @@ provider "consul" {
 
 module "consul" {
   source = "../../modules/consul"
-  
+
   digitalocean_region       = local.digitalocean_region
   vpc_id                    = module.codelab.codelab_app_vpc_id
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN

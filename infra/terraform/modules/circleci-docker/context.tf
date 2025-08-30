@@ -6,7 +6,7 @@ resource "circleci_context_environment_variable" "prod" {
   organization = "codelab-app"
 
   for_each = {
-    NEXT_PUBLIC_WEB_HOST     = var.next_public_web_host
+    NEXT_PUBLIC_WEB_HOST = var.next_public_web_host
     # In prod, this is set to the droplet name (e.g., "http://api") from Terraform output
     # instead of an IP address to enable infrastructure flexibility
     NEXT_PUBLIC_API_HOSTNAME = var.next_public_api_hostname

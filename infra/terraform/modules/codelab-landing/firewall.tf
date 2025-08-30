@@ -76,30 +76,30 @@ resource "digitalocean_firewall" "codelab_landing" {
   outbound_rule {
     protocol              = "tcp"
     port_range            = "8300-8302"
-    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+    destination_addresses = ["10.104.0.0/20"] # VPC CIDR
   }
 
   outbound_rule {
     protocol              = "udp"
     port_range            = "8301-8302"
-    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+    destination_addresses = ["10.104.0.0/20"] # VPC CIDR
   }
 
   outbound_rule {
     protocol              = "tcp"
     port_range            = "8500"
-    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+    destination_addresses = ["10.104.0.0/20"] # VPC CIDR
   }
 
   outbound_rule {
     protocol              = "tcp"
     port_range            = "8600"
-    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+    destination_addresses = ["10.104.0.0/20"] # VPC CIDR
   }
 
   outbound_rule {
     protocol              = "udp"
     port_range            = "8600"
-    destination_addresses = ["10.104.0.0/20"]  # VPC CIDR
+    destination_addresses = ["10.104.0.0/20"] # VPC CIDR
   }
 }

@@ -1,8 +1,8 @@
 # Find the latest Packer-built sites base image
 data "digitalocean_images" "codelab_sites_base" {
   filter {
-    key    = "name"
-    values = ["codelab-sites-base"]
+    key      = "name"
+    values   = ["codelab-sites-base"]
     match_by = "substring"
   }
   filter {
@@ -42,6 +42,6 @@ resource "digitalocean_droplet" "codelab_sites" {
 
   lifecycle {
     create_before_destroy = false
-    ignore_changes = []
+    ignore_changes        = []
   }
 }

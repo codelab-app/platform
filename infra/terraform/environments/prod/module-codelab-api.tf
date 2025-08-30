@@ -14,7 +14,7 @@ module "codelab_api" {
   codelab_api_key = var.CODELAB_API_KEY
   codelab_api_crt = var.CODELAB_API_CRT
 
-  auth0_domain            = var.AUTH0_DOMAIN
+  auth0_domain = var.AUTH0_DOMAIN
 
   codelab_app_vpc_id = module.codelab.codelab_app_vpc_id
 

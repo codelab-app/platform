@@ -1,8 +1,8 @@
 # Find the latest Packer-built landing base image
 data "digitalocean_images" "codelab_landing_base" {
   filter {
-    key    = "name"
-    values = ["codelab-landing-base"]
+    key      = "name"
+    values   = ["codelab-landing-base"]
     match_by = "substring"
   }
   filter {
@@ -43,7 +43,7 @@ resource "digitalocean_droplet" "codelab_landing" {
 
   lifecycle {
     create_before_destroy = false
-    ignore_changes = []
+    ignore_changes        = []
   }
 }
 

@@ -197,7 +197,5 @@
     "deny": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "perplexity"
-  ]
+  "enabledMcpjsonServers": ["perplexity"]
 }

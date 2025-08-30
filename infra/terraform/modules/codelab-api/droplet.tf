@@ -5,8 +5,8 @@
 # Find the latest Packer-built API-specific base image
 data "digitalocean_images" "codelab_api_base" {
   filter {
-    key    = "name"
-    values = ["codelab-api-base"]
+    key      = "name"
+    values   = ["codelab-api-base"]
     match_by = "substring"
   }
   filter {

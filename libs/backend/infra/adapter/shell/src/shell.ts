@@ -11,7 +11,14 @@ zx$.log = (entry) => {
   }
 }
 
-// Re-export the configured $
+/**
+ * $ - Standard zx command execution
+ *
+ * - Captures stdout/stderr for parsing
+ * - Any non-zero exit code throws a ProcessOutput error
+ * - Error contains full stdout, stderr, and exitCode
+ * - Use for commands where you need to process output
+ */
 export const $ = zx$
 
 /**
@@ -27,6 +34,14 @@ export const $ = zx$
  * Note: Cannot capture output with stdio: 'inherit', so don't use for:
  * - Commands where you need to parse stdout/stderr
  * - Commands where you need the result.stdout value
+ *
+ * Error handling:
+ * - Any non-zero exit code will throw a ProcessOutput error
+ * - With stdio: 'inherit', the ProcessOutput will have:
+ *   - stdout: '' (empty - output went to terminal)
+ *   - stderr: '' (empty - output went to terminal)
+ *   - exitCode: null (can't be captured with stdio: 'inherit')
+ * - The actual command output is shown in terminal before the error
  *
  * Example:
  *   $stream`terraform apply -auto-approve`

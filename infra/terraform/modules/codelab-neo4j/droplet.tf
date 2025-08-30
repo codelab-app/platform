@@ -1,8 +1,8 @@
 # Find the latest Packer-built neo4j base image
 data "digitalocean_images" "codelab_neo4j_base" {
   filter {
-    key    = "name"
-    values = ["codelab-neo4j-base"]
+    key      = "name"
+    values   = ["codelab-neo4j-base"]
     match_by = "substring"
   }
   filter {
@@ -40,7 +40,7 @@ resource "digitalocean_droplet" "neo4j" {
 
   lifecycle {
     create_before_destroy = false
-    ignore_changes = []
+    ignore_changes        = []
   }
 
   # Tags for easier management

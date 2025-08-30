@@ -69,7 +69,7 @@ resource "digitalocean_droplet" "consul_server" {
   ssh_keys = var.ssh_keys
 
   droplet_agent = true
-  
+
   tags = ["consul-server"]
 }
 
