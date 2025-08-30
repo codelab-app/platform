@@ -1,5 +1,6 @@
 import type { IEnumTypeDto, INodeType } from '@codelab/shared-abstract-core'
 import type {
+  EnumTypeFragment,
   EnumTypeOptions,
   EnumTypeWhere,
 } from '@codelab/shared-infra-gqlgen'
@@ -12,7 +13,6 @@ import {
   findTypeApi,
   updateTypeApi,
 } from '@codelab/shared-domain-module-type'
-import { EnumTypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -28,15 +28,39 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   protected async _addMany(enumTypes: Array<IEnumTypeDto>) {
-    const {
-      types: { types },
-    } = await createTypeApi().CreateEnumTypes({
-      input: enumTypes.map((enumType) =>
-        enumTypeMapper.toCreateInput(enumType),
-      ),
-    })
+    // Create the enum types with no allowedValues first to keep initial mutation light
+    const withoutValues = enumTypes.map((dto) => ({
+      ...enumTypeMapper.toCreateInput({ ...dto, allowedValues: [] }),
+      allowedValues: undefined,
+    }))
 
-    return types
+    const {
+      types: { types: created },
+    } = await createTypeApi().CreateEnumTypes({ input: withoutValues })
+
+    // Append allowedValues in manageable chunks to avoid single huge transactions
+    const BATCH_SIZE = 100
+
+    for (const dto of enumTypes) {
+      for (let i = 0; i < dto.allowedValues.length; i += BATCH_SIZE) {
+        const slice = dto.allowedValues.slice(i, i + BATCH_SIZE)
+
+        await updateTypeApi().UpdateEnumTypes({
+          update: {
+            allowedValues: [
+              {
+                create: slice.map((value) => ({
+                  node: { id: value.id, key: value.key, value: value.value },
+                })),
+              },
+            ],
+          },
+          where: { id: dto.id },
+        })
+      }
+    }
+
+    return created
   }
 
   protected async _find({
