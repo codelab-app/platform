@@ -22,6 +22,7 @@ steps:
         echo "Nx cache directory size:"
         du -sh .nx/cache/ 2>/dev/null || echo "0"
   - run:
+      name: 'Debug'
       command: |
         echo "=== BEFORE BUILD - Check .nx directory ==="
         ls -la .nx/ 2>/dev/null || echo "No .nx directory"
@@ -55,7 +56,6 @@ steps:
       paths:
         - .nx/cache
   - persist_to_workspace:
-      root: ~/
       paths:
-        - project/dist/apps/web
-        - project/dist/apps/api
+        - dist/apps/web
+        - dist/apps/api
