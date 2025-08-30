@@ -328,9 +328,6 @@ executors:
           NEO4J_PLUGINS: '["apoc"]'
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.3-enterprise
-  machine-ubuntu:
-    machine:
-      image: ubuntu-2204:current
 jobs:
   build-nx-apps:
     environment:
@@ -510,7 +507,7 @@ jobs:
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
-    executor: machine-ubuntu
+    executor: docker-node
     resource_class: arm.medium
     steps:
       - swissknife/wait_for_job:

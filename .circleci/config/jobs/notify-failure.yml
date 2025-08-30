@@ -1,4 +1,4 @@
-executor: machine-ubuntu
+executor: docker-node
 
 resource_class: arm.medium
 
