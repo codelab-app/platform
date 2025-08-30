@@ -1,6 +1,6 @@
-executor: docker-node
+executor: docker-node-x86
 
-resource_class: arm.medium
+resource_class: medium
 
 steps:
   - swissknife/wait_for_job:

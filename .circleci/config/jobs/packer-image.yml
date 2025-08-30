@@ -1,4 +1,4 @@
-executor: docker-node
+executor: docker-node-arm64
 resource_class: arm.medium
 steps:
   - restore-workspace

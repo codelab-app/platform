@@ -4,13 +4,6 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
-      - run:
-          command: |
-            echo "=== Disk space before cache restore ==="
-            df -h
-            echo "=== Directory structure before cache restore ==="
-            ls -la ~/project/.nx/ || echo "No .nx directory yet"
-          name: Check directory structure before cache restore
       - restore_cache:
           keys:
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
@@ -18,32 +11,7 @@ commands:
             - nx-cache-
           name: Restore NX Cache
       - run:
-          command: |
-            echo "=== Directory structure after cache restore ==="
-            ls -la ~/project/.nx/ || echo "No .nx directory"
-            echo "=== Contents of .nx/cache ==="
-            ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
-            echo "=== Check for specific hash directory ==="
-            find ~/project/.nx/cache -type d -name "3093047817415218224" || echo "Hash directory not found"
-            echo "=== Create directories if missing ==="
-            mkdir -p ~/project/.nx/cache
-            echo "=== Disk space after cache restore ==="
-            df -h
-          name: Debug NX Cache after restore
-      - run:
-          command: npx nx reset || echo "Failed to reset Nx cache"
-          name: Reset Nx cache to ensure clean state
-      - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
-      - run:
-          command: |
-            echo "=== Directory structure after build ==="
-            ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
-            echo "=== Directory size ==="
-            du -sh ~/project/.nx/cache/ || echo "Failed to check directory size"
-            echo "=== Next.js cache ==="
-            ls -la ~/project/dist/apps/web/.next/cache || echo "No Next.js cache directory"
-          name: Debug NX Cache after build
       - save_cache:
           key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
@@ -316,10 +284,10 @@ commands:
           name: Apply Neo4j Constraints
           working_directory: ~/project/.docker/cypher/scripts
 executors:
-  docker-node:
+  docker-node-arm64:
     docker:
       - image: node:22
-  docker-node-neo4j:
+  docker-node-neo4j-arm64:
     docker:
       - image: node:22
       - environment:
@@ -328,11 +296,14 @@ executors:
           NEO4J_PLUGINS: '["apoc"]'
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.3-enterprise
+  docker-node-x86:
+    docker:
+      - image: cimg/node:22.14.0-browsers
 jobs:
   build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -346,7 +317,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
       NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -357,7 +328,7 @@ jobs:
       - restore-workspace
       - build-nx-libs
   codegen:
-    executor: docker-node-neo4j
+    executor: docker-node-neo4j-arm64
     parameters:
       resource_class:
         type: string
@@ -372,7 +343,7 @@ jobs:
           command: pnpm cli tasks workspace-codegen --stage ci
           name: Check Generate Workspace
   docker-api:
-    executor: docker-node
+    executor: docker-node-arm64
     resource_class: arm.medium
     steps:
       - restore-workspace
@@ -384,7 +355,7 @@ jobs:
   docker-landing:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node
+    executor: docker-node-arm64
     resource_class: arm.large
     steps:
       - restore-workspace
@@ -396,7 +367,7 @@ jobs:
   docker-sites:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node
+    executor: docker-node-arm64
     resource_class: arm.large
     steps:
       - restore-workspace
@@ -408,7 +379,7 @@ jobs:
   docker-web:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node
+    executor: docker-node-arm64
     resource_class: arm.large
     steps:
       - restore-workspace
@@ -420,7 +391,7 @@ jobs:
   e2e:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node-neo4j
+    executor: docker-node-neo4j-arm64
     parallelism: 4
     parameters:
       max_old_space_size:
@@ -469,7 +440,7 @@ jobs:
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node-neo4j
+    executor: docker-node-neo4j-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -492,7 +463,7 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -507,8 +478,8 @@ jobs:
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
-    executor: docker-node
-    resource_class: arm.medium
+    executor: docker-node-x86
+    resource_class: medium
     steps:
       - swissknife/wait_for_job:
           job-name: install-and-build-workspace,lint,unit,e2e,codegen
@@ -517,11 +488,8 @@ jobs:
           event: fail
           template: basic_fail_1
   notify-success:
-    executor: docker-node
-    parameters:
-      resource_class:
-        type: string
-    resource_class: << parameters.resource_class >>
+    executor: docker-node-x86
+    resource_class: medium
     steps:
       - slack/notify:
           channel: $SLACK_CHANNEL_UPDATE
@@ -598,7 +566,7 @@ jobs:
             }
           event: pass
   packer-image:
-    executor: docker-node
+    executor: docker-node-arm64
     resource_class: arm.medium
     steps:
       - restore-workspace
@@ -611,7 +579,7 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   setup-infra-workspace:
-    executor: docker-node
+    executor: docker-node-arm64
     resource_class: arm.large
     steps:
       - checkout
@@ -629,7 +597,7 @@ jobs:
   setup-workspace:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -643,7 +611,7 @@ jobs:
       - install-pnpm
       - install-packages
   tf-apply:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       stage:
         enum:
@@ -659,7 +627,7 @@ jobs:
           command: pnpm cli terraform --stage << parameters.stage >> --autoApprove apply
           name: Terraform Apply
   tf-plan:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       stage:
         enum:
@@ -691,7 +659,7 @@ jobs:
             - project/terraform/.terraform
           root: ~/
   tsc-check:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       resource_class:
         type: string
@@ -702,7 +670,7 @@ jobs:
           command: pnpm nx run-many --target=tsc-check --target=tsc-check:spec
           name: Run tsc Check
   unit:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       resource_class:
         type: string

@@ -2,7 +2,7 @@ parameters:
   resource_class:
     type: string
 
-executor: docker-node
+executor: docker-node-arm64
 
 resource_class: << parameters.resource_class >>
 

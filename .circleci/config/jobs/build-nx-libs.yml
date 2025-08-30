@@ -5,7 +5,7 @@ parameters:
     type: integer
 
 # Can't build with machine image, causes build issues
-executor: docker-node
+executor: docker-node-arm64
 
 resource_class: << parameters.resource_class >>
 

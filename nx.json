@@ -193,8 +193,6 @@
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
-      "{workspaceRoot}/workspace.json",
-      "{workspaceRoot}/tslint.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/tsconfig.base.json"
     ],
