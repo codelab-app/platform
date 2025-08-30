@@ -12,6 +12,18 @@ commands:
           name: Restore Next.js Cache
       - run:
           command: |
+            echo "=== After Next.js cache restore ==="
+            echo "Checking dist/apps/web/.next/cache:"
+            ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -20 || echo "No Next.js cache directory"
+            echo ""
+            echo "Cache directory size:"
+            du -sh dist/apps/web/.next/cache/ 2>/dev/null || echo "0"
+            echo ""
+            echo "Checking .nx/cache before build:"
+            ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+          name: Debug - Check Next.js cache after restore
+      - run:
+          command: |
             echo "=== BEFORE BUILD - Check .nx directory ==="
             ls -la .nx/ 2>/dev/null || echo "No .nx directory"
             echo ""

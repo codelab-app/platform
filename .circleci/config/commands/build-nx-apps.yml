@@ -5,16 +5,25 @@ description: 'Build Nx Apps'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
-  # Only restore Next.js cache, not Nx cache (Nx Cloud handles Nx caching)
+  # Only restore Next.js cache (libs build fast enough with just Nx Cloud)
   - restore_cache:
       name: 'Restore Next.js Cache'
       keys:
         - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nextjs-cache-
-  # - run:
-  #     name: 'Monitor NX Cache Size'
-  #     command: (./scripts/nx/reset-cache.sh)
+  - run:
+      name: 'Debug - Check Next.js cache after restore'
+      command: |
+        echo "=== After Next.js cache restore ==="
+        echo "Checking dist/apps/web/.next/cache:"
+        ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -20 || echo "No Next.js cache directory"
+        echo ""
+        echo "Cache directory size:"
+        du -sh dist/apps/web/.next/cache/ 2>/dev/null || echo "0"
+        echo ""
+        echo "Checking .nx/cache before build:"
+        ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
   - run:
       command: |
         echo "=== BEFORE BUILD - Check .nx directory ==="
@@ -42,8 +51,7 @@ steps:
         echo "=== Check workspace root ==="
         pwd
         echo "NX_WORKSPACE_ROOT is ${NX_WORKSPACE_ROOT:-not set}"
-  # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
-  # Only save Next.js cache, not Nx cache (Nx Cloud handles Nx caching)
+  # Only save Next.js cache (libs build fast enough with just Nx Cloud)
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
   - save_cache:
       name: 'Save Next.js Cache'

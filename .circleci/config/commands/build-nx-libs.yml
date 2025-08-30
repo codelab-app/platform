@@ -4,8 +4,6 @@ description: 'Build Nx Libs'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
-  # Removed CircleCI cache for Nx - Nx Cloud handles all Nx caching
-  # This prevents ENOENT errors when Nx Cloud tries to upload artifacts
+  # No local cache needed - libs build fast enough with just Nx Cloud
   - run:
       command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
-  # Removed CircleCI cache save - Nx Cloud handles all Nx caching
