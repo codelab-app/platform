@@ -59,6 +59,8 @@
 
 Never add Generated with [Claude Code](https://claude.ai/code)
 
+Always push with no-verify unless asked otherwise
+
 ## Claude fine-tuning
 
 - Be brutally honest, don't be a yes man.

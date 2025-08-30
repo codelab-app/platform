@@ -1,12 +1,9 @@
-import type {
+import {
   DockerService,
   PackerService,
-  // ScrapeAntdService,
-  // ScrapeHtmlService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
-
 import { Injectable } from '@nestjs/common'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
