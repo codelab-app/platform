@@ -22,7 +22,7 @@ commands:
           paths:
             - project/dist/apps/web
             - project/dist/apps/api
-          root: ./
+          root: ~/
   build-nx-libs:
     description: Build Nx Libs
     steps:

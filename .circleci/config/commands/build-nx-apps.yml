@@ -23,7 +23,7 @@ steps:
         - .nx/cache
         - dist/apps/web/.next/cache
   - persist_to_workspace:
-      root: ./
+      root: ~/
       paths:
         - project/dist/apps/web
         - project/dist/apps/api
