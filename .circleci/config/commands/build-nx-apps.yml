@@ -13,17 +13,14 @@ steps:
         - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-apps-cache-
   - run:
-      name: 'Debug - Check Next.js cache after restore'
+      name: 'Debug - Check Nx cache after restore'
       command: |
-        echo "=== After Next.js cache restore ==="
-        echo "Checking dist/apps/web/.next/cache:"
-        ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -20 || echo "No Next.js cache directory"
-        echo ""
-        echo "Cache directory size:"
-        du -sh dist/apps/web/.next/cache/ 2>/dev/null || echo "0"
-        echo ""
-        echo "Checking .nx/cache before build:"
+        echo "=== After Nx cache restore ==="
+        echo "Checking .nx/cache:"
         ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+        echo ""
+        echo "Nx cache directory size:"
+        du -sh .nx/cache/ 2>/dev/null || echo "0"
   - run:
       command: |
         echo "=== BEFORE BUILD - Check .nx directory ==="
@@ -51,13 +48,12 @@ steps:
         echo "=== Check workspace root ==="
         pwd
         echo "NX_WORKSPACE_ROOT is ${NX_WORKSPACE_ROOT:-not set}"
-  # Only save Next.js cache (libs build fast enough with just Nx Cloud)
-  # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
+  # Save Nx cache for local caching (works alongside Nx Cloud)
   - save_cache:
       name: 'Save Nx Apps Cache'
       key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
-        - dist/apps/web/.next/cache
+        - .nx/cache
   - persist_to_workspace:
       root: ~/
       paths:

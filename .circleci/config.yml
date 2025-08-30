@@ -12,16 +12,13 @@ commands:
           name: Restore Nx Apps Cache
       - run:
           command: |
-            echo "=== After Next.js cache restore ==="
-            echo "Checking dist/apps/web/.next/cache:"
-            ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -20 || echo "No Next.js cache directory"
-            echo ""
-            echo "Cache directory size:"
-            du -sh dist/apps/web/.next/cache/ 2>/dev/null || echo "0"
-            echo ""
-            echo "Checking .nx/cache before build:"
+            echo "=== After Nx cache restore ==="
+            echo "Checking .nx/cache:"
             ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
-          name: Debug - Check Next.js cache after restore
+            echo ""
+            echo "Nx cache directory size:"
+            du -sh .nx/cache/ 2>/dev/null || echo "0"
+          name: Debug - Check Nx cache after restore
       - run:
           command: |
             echo "=== BEFORE BUILD - Check .nx directory ==="
@@ -53,7 +50,7 @@ commands:
           key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save Nx Apps Cache
           paths:
-            - dist/apps/web/.next/cache
+            - .nx/cache
       - persist_to_workspace:
           paths:
             - project/dist/apps/web
