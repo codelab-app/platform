@@ -2082,6 +2082,8 @@ var external_yargs_default = /*#__PURE__*/__webpack_require__.n(external_yargs_n
 ;// external "yargs/helpers"
 const helpers_namespaceObject = require("yargs/helpers");
 ;// ./src/commands/command.service.ts
+var command_service_a, command_service_b, _c, _d;
+
 
 
 
@@ -2169,7 +2171,7 @@ let CommandService = class CommandService {
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [Object, Object, Object, Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof DockerService !== "undefined" && DockerService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof PackerService !== "undefined" && PackerService) === "function" ? command_service_b : Object, typeof (_c = typeof TerraformService !== "undefined" && TerraformService) === "function" ? _c : Object, typeof (_d = typeof TaskService !== "undefined" && TaskService) === "function" ? _d : Object])
 ], CommandService);
 
 

@@ -2,6 +2,9 @@
 
 # set -x
 
+# Make CI dashboard more clean
+NX_CLOUD_SILENT_OUTPUT=true nx build cli
+
 # Extract the arguments after "pnpm cli"
 args=${@#pnpm cli}
 
