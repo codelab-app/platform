@@ -6,12 +6,12 @@ import {
   faServer,
   faSliders,
 } from '@fortawesome/pro-light-svg-icons'
-import { Col, Row, Typography } from 'antd'
+import { Col, Row } from 'antd'
 
 import { alignFullGridStyle } from '../../../styles/style'
+import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
 import { FeatureCard } from './FeatureCard'
-
-const { Title } = Typography
 
 const colProps = {
   style: {
@@ -60,10 +60,9 @@ const featureItems = [
 
 export const BestPractices = () => {
   return (
-    <section
+    <CuiContainer
       className={`
-        m-auto w-11/12 pb-0
-        xl:container
+        pb-0
         md:pb-14
       `}
     >
@@ -73,58 +72,46 @@ export const BestPractices = () => {
           sm:py-0
         `}
       >
-        <Title
-          className={`
-            mt-4 text-center !text-lg !font-extrabold !text-violet-600
-            sm:mt-14 sm:!text-2xl
-            md:mt-28 md:!text-3xl
-            lg:!text-4xl
-            xl:!text-5xl
-          `}
-          level={2}
-        >
+        <CuiText color="primary" variant="section-title">
           Build with best practices: re-use & compose
-        </Title>
-        <div
-          className={`
-            mb-11 px-4 text-center text-sm text-black
-            sm:px-0 sm:text-base
-            md:text-lg
-          `}
-        >
+        </CuiText>
+        <CuiText variant="section-subtitle">
           Re-use your knowledge of coding and apply them as you would with code.
           Think like a developer, but work more productively using our
-          development platform. It’s like a smart IDE on steroids.
-        </div>
-        <Row
+          development platform. It's like a smart IDE on steroids.
+        </CuiText>
+        <CuiContainer
           className={`
-            m-auto w-11/12 justify-center pl-0
-            md:container md:pl-8
+            pl-0
+            md:pl-8
             2xl:pl-0
           `}
+          size="md"
         >
-          {featureItems.map((items, index) => (
-            <Col
-              className={`
-                mb-8 mr-0
-                md:mr-8
-              `}
-              key={index}
-              lg={11}
-              span={24}
-              xl={11}
-              xxl={7}
-              {...colProps}
-            >
-              <FeatureCard
-                description={items.description}
-                icon={items.icon}
-                title={items.title}
-              />
-            </Col>
-          ))}
-        </Row>
+          <Row className="justify-center">
+            {featureItems.map((items, index) => (
+              <Col
+                className={`
+                  mb-8 mr-0
+                  md:mr-8
+                `}
+                key={index}
+                lg={11}
+                span={24}
+                xl={11}
+                xxl={7}
+                {...colProps} // eslint-disable-line react/jsx-props-no-spreading
+              >
+                <FeatureCard
+                  description={items.description}
+                  icon={items.icon}
+                  title={items.title}
+                />
+              </Col>
+            ))}
+          </Row>
+        </CuiContainer>
       </div>
-    </section>
+    </CuiContainer>
   )
 }

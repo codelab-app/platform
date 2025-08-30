@@ -14,7 +14,7 @@
 !/.npmrc
 !/nx.json
 !/.nxignore
-!/.eslintrc.json
+!/eslint.config.mjs
 !/package.json
 !/pnpm-lock.yaml
 !/tsconfig.base.json

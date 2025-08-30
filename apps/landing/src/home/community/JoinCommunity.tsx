@@ -1,7 +1,11 @@
+'use client'
+
 import { Button, notification } from 'antd'
 import axios from 'axios'
 import { useState } from 'react'
 
+import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
 import { EmailModal } from './EmailModal'
 
 type NotificationType = 'error' | 'success'
@@ -39,24 +43,24 @@ export const JoinCommunity = () => {
     <>
       {contextHolder}
       <section className="bg-violet-700">
-        <div
+        <CuiContainer
           className={`
-            m-auto w-11/12 py-12
-            lg:container
+            py-12
             2xl:w-11/12
           `}
+          size="lg"
         >
-          <h2
+          <CuiText
             className={`
-              pt-7 text-center text-xl font-semibold leading-snug text-white
-              sm:pt-14 sm:text-2xl
-              md:pt-28 md:text-3xl
-              lg:text-4xl
-              xl:text-5xl
+              pt-7 leading-snug
+              sm:pt-14
+              md:pt-28
             `}
+            color="white"
+            variant="section-title"
           >
             Join the Codelab community and help improve our product
-          </h2>
+          </CuiText>
           <p
             className={`
               mb-10 pt-5 text-center text-base text-white
@@ -68,29 +72,26 @@ export const JoinCommunity = () => {
             Talk to other users to share your use cases, or contact one of the
             admins for instant support.
           </p>
-          <Button
-            className={`
-              m-auto mb-6 flex items-center rounded-lg p-6
-              sm:mb-12
-              md:mb-24
-              lg:p-8
-              xl:p-10
-            `}
-            ghost
-            onClick={() => {
-              setShowEmailModal(true)
-            }}
-          >
-            <a
+          <div className="flex justify-center">
+            <Button
               className={`
-                text-base font-bold text-white
-                lg:text-xl
+                mb-6 h-auto rounded-full border-2 border-white bg-transparent px-12 py-10 text-xl font-bold text-white transition-all
+                hover:!border-white hover:!bg-white hover:!text-violet-700
+                sm:mb-12 sm:px-16 sm:py-12 sm:text-2xl
+                md:mb-24
+                lg:px-20 lg:py-14 lg:text-3xl
+                xl:px-24 xl:py-16 xl:text-4xl
               `}
+              ghost
+              onClick={() => {
+                setShowEmailModal(true)
+              }}
+              size="large"
             >
               Join The Community
-            </a>
-          </Button>
-        </div>
+            </Button>
+          </div>
+        </CuiContainer>
         <EmailModal
           onCancel={() => {
             setShowEmailModal(false)

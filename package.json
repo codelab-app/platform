@@ -43,12 +43,12 @@
     "knip": "knip",
     "aider": "node scripts/aider/run.js",
     "nx:clean-cache": "rimraf .nx/cache && mkdir -p .nx/cache",
-    "browser-tools": "npx @agentdeskai/browser-tools-server@1.2.0"
+    "browser-tools": "npx @agentdeskai/browser-tools-server@latest"
   },
   "private": true,
   "validate-branch-name": {
-    "pattern": "^(feat|fix|refactor|test)\\/[0-9]+-[a-z0-9-]+$|^(master|main|dev|staging|nx-upgrade)$|^(stag|prod)-(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
-    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, staging, nx-upgrade, or release tags (stag-x.x.x, prod-x.x.x)"
+    "pattern": "^(feat|fix|refactor|test)\\/[0-9]+-[a-z0-9-]+$|^(master|main|dev|staging|nx-upgrade)$|^(stag|prod)-(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$|^release\\/(staging|prod)$",
+    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, staging, nx-upgrade, release/staging, release/prod, or release tags (stag-x.x.x, prod-x.x.x)"
   },
   "dependencies": {
     "@ant-design/cssinjs": "1.23.0",
@@ -261,7 +261,6 @@
     "react-stickynode": "4.1.0",
     "react-syntax-highlighter": "15.5.0",
     "react-use": "17.6.0",
-    "recoil": "0.7.7",
     "reflect-metadata": "0.1.13",
     "remeda": "2.17.4",
     "require-in-the-middle": "7.5.0",
@@ -274,7 +273,6 @@
     "sonner": "1.5.0",
     "stack-trace": "1.0.0-pre2",
     "storybook": "9.0.9",
-    "styled-components": "6.1.15",
     "sucrase": "3.32.0",
     "supertest": "6.3.3",
     "swr": "2.2.5",
@@ -460,7 +458,7 @@
     "json-schema": "0.4.0",
     "jsonc-eslint-parser": "2.4.0",
     "knip": "5.29.2",
-    "lint-staged": "16.1.2",
+    "lint-staged": "16.1.4",
     "minimatch": "9.0.4",
     "msw": "2.7.0",
     "msw-storybook-addon": "2.0.4",
@@ -468,6 +466,7 @@
     "pino-pretty": "13.0.0",
     "postcss": "8.4.45",
     "semver": "^7.7.2",
+    "styled-components": "6.1.15",
     "swc-loader": "0.2.6",
     "tailwindcss": "3.4.10",
     "traverse": "0.6.11",

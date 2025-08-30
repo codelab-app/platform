@@ -1,12 +1,14 @@
+'use client'
+
 import type { Settings } from 'react-slick'
 
 import { initials } from '@codelab/shared-utils'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
-import { Fragment } from 'react'
 import Slider from 'react-slick'
 
+import { CuiText } from '../components/CuiText'
 import styles from './customDots.module.css'
 
 const { Meta } = Card
@@ -24,38 +26,38 @@ export const TestimonialItem = ({
   stakeholder,
 }: TestimonialItemProps) => {
   return (
-    <>
+    <div className="px-2 sm:px-3">
       <div className="h-8" />
       <Card
         className={`
-          mx-2 max-w-[600px] rounded-lg bg-transparent p-2
+          max-w-[600px] rounded-lg bg-transparent p-2
           sm:p-4
         `}
       >
         <div className="flex justify-center">
-          <span className="relative -mt-20 flex bg-slate-700 p-4">
+          <span className="relative -mt-20 flex p-4">
             <FontAwesomeIcon
-              className="[&_path]:fill-yellow-400"
-              color=""
+              className="h-20 w-20 [&_path]:fill-yellow-400"
               icon={faQuoteLeft}
-              size="5x"
+              style={{ maxWidth: '80px', maxHeight: '80px' }}
             />
           </span>
         </div>
-        {Array(5)
-          .fill(
-            <FontAwesomeIcon
-              className={`
-                pr-1.5
-                [&_path]:fill-yellow-400
-              `}
-              icon={faStar}
-              size="lg"
-            />,
-          )
-          .map((item, idx) => (
-            <Fragment key={idx}>{item}</Fragment>
-          ))}
+        <div className="flex items-center">
+          {Array(5)
+            .fill(null)
+            .map((_, idx) => (
+              <FontAwesomeIcon
+                className={`
+                  h-5 w-5 pr-1.5
+                  [&_path]:fill-yellow-400
+                `}
+                icon={faStar}
+                key={idx}
+                style={{ maxWidth: '20px', maxHeight: '20px' }}
+              />
+            ))}
+        </div>
         <div
           className={`
             mt-3 min-h-[120px]
@@ -85,7 +87,7 @@ export const TestimonialItem = ({
           title={stakeholder}
         />
       </Card>
-    </>
+    </div>
   )
 }
 
@@ -129,6 +131,7 @@ export const TestimonialSection = () => {
       </div>
     ),
     centerMode: false,
+    centerPadding: '0px',
     dots: true,
     infinite: true,
     // dotsClass: 'slick-dots slick-thumb',
@@ -163,24 +166,31 @@ export const TestimonialSection = () => {
         sm:pb-20
       `}
     >
-      <h1
+      <CuiText
+        align="center"
         className={`
-          mt-4 text-center text-xl !font-extrabold !text-white
-          sm:mt-14 sm:text-3xl
+          mt-4
+          sm:mt-14
           md:mt-28
-          lg:text-4xl
-          xl:!text-5xl
         `}
-        // level={2}
+        color="white"
+        variant="section-title"
       >
         Loved by startups
-      </h1>
+      </CuiText>
       <Slider
-        {...settings}
+        appendDots={settings.appendDots}
+        centerMode={settings.centerMode}
         className={`
           z-10 my-2 mt-8 pb-0
           sm:my-8 sm:pb-8
         `}
+        dots={settings.dots}
+        infinite={settings.infinite}
+        responsive={settings.responsive}
+        slidesToScroll={settings.slidesToScroll}
+        slidesToShow={settings.slidesToShow}
+        speed={settings.speed}
       >
         {testimonialItems.map((item, index) => (
           <TestimonialItem

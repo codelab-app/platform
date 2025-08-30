@@ -19,7 +19,7 @@ WORKDIR /usr/src/codelab
 RUN apk update && \
   apk add --no-cache libc6-compat python3 py3-pip make g++ && \
   corepack enable && \
-  corepack prepare pnpm@8.15.0 --activate
+  corepack prepare pnpm@9.15.5 --activate
 
 
 FROM base AS install
@@ -36,7 +36,7 @@ FROM install AS build
 # Put this separately for caching
 # The trailing / is required when copying from multiple sources
 
-COPY nx.json .nxignore .eslintrc.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
+COPY nx.json .nxignore eslint.config.mjs tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 COPY apps/sites ./apps/sites
 COPY libs ./libs
 COPY types ./types
@@ -52,6 +52,7 @@ ARG AUTH0_SECRET
 ARG AUTH0_DOMAIN
 ARG AUTH0_CLIENT_ID
 ARG AUTH0_CLIENT_SECRET
+ARG NX_CLOUD_ACCESS_TOKEN
 
 # Then pass from ARG to ENV
 #
@@ -70,9 +71,12 @@ ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 
 WORKDIR /usr/src/codelab
 
+# Enable Nx Cloud for caching
+ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
+
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN pnpm nx build sites --verbose --skip-nx-cache
+RUN pnpm nx build sites --verbose
 
 #
 # (2) Prod

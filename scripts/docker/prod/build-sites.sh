@@ -2,7 +2,10 @@
 
 set -x
 
-# `--no-cache-filter` works only with `docker build`
+# `--no-cache-filter` works only with `docker buildx`
+# Without --no-cache-filter=build, Docker layer cache would skip the Nx build step entirely
+# when files change. This would use stale build artifacts since Nx's cache lives inside
+# the container and isn't accessible to Docker's layer caching decisions.
 docker buildx build \
   -f ${PWD}/.docker/prod/sites.Dockerfile \
   -t registry.digitalocean.com/codelabapp/sites:${DOCKER_TAG_VERSION} \
@@ -14,4 +17,5 @@ docker buildx build \
   --build-arg AUTH0_DOMAIN=${AUTH0_DOMAIN} \
   --build-arg AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID} \
   --build-arg AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET} \
+  --build-arg NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN} \
   --no-cache-filter=build .

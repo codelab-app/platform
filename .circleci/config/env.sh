@@ -47,12 +47,17 @@ else
 fi
 
 #
-# Docker tag version from git tags
+# Docker tag version from CircleCI
 #
-# Note: || true prevents script failure when grep finds no matches (returns exit code 1)
-VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1 || true)
-
-eval "$(node ./scripts/validate-semver.js "$VERSION_TAG")"
+if [ -n "$CIRCLE_TAG" ]; then
+  echo "export DOCKER_TAG_VERSION=$CIRCLE_TAG" >> $BASH_ENV
+  echo "export TF_VAR_DOCKER_TAG_VERSION=$CIRCLE_TAG" >> $BASH_ENV
+  echo "[env.sh] Set DOCKER_TAG_VERSION=$CIRCLE_TAG"
+else
+  echo "export DOCKER_TAG_VERSION=latest" >> $BASH_ENV
+  echo "export TF_VAR_DOCKER_TAG_VERSION=latest" >> $BASH_ENV
+  echo "[env.sh] No CIRCLE_TAG found, using DOCKER_TAG_VERSION=latest"
+fi
 
 # Done
 source $BASH_ENV

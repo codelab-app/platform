@@ -17,7 +17,7 @@ resource "digitalocean_droplet" "neo4j" {
   user_data = data.cloudinit_config.neo4j.rendered
 
   lifecycle {
-    # ignore_changes = [user_data]
+    create_before_destroy = true
   }
 
   # Tags for easier management
@@ -28,7 +28,9 @@ resource "digitalocean_droplet" "neo4j" {
 }
 
 output "neo4j_uri" {
-  # https://stackoverflow.com/questions/62357682/routing-issue-in-neo4j-4-0-with-multiple-databases
-  value = "bolt://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
-  # value = "bolt+s://${digitalocean_droplet.neo4j.ipv4_address_private}:7687"
+  # Use droplet name instead of IP address to avoid hardcoding IPs.
+  # DigitalOcean provides automatic DNS resolution for droplet names within the same VPC,
+  # allowing infrastructure changes without updating connection strings.
+  # The old Neo4j 4.0 routing issue has been resolved in Neo4j 5.x.
+  value = "bolt://${digitalocean_droplet.neo4j.name}:7687"
 }

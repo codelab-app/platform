@@ -6,3 +6,5 @@ services:
     restart: unless-stopped
     ports:
       - '80:3000'
+    environment:
+      - NEXT_PUBLIC_WEB_HOST=${next_public_web_host}

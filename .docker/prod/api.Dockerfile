@@ -20,7 +20,7 @@ WORKDIR /usr/src/codelab
 RUN apk update && \
   apk add --no-cache libc6-compat python3 py3-pip make g++ && \
   corepack enable && \
-  corepack prepare pnpm@8.15.0 --activate
+  corepack prepare pnpm@9.15.5 --activate
 
 FROM base AS install
 
@@ -37,17 +37,23 @@ RUN pnpm install --frozen-lockfile
 FROM install AS build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json .nxignore .eslintrc.json tsconfig.base.json ./
+COPY nx.json .nxignore eslint.config.mjs tsconfig.base.json ./
 COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
 COPY scripts/eslint ./scripts/eslint
 
+# Build args
+ARG NX_CLOUD_ACCESS_TOKEN
+
 WORKDIR /usr/src/codelab
+
+# Enable Nx Cloud for caching
+ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN pnpm nx build api --verbose --skip-nx-cache
+RUN pnpm nx build api --verbose
 
 #
 # (2) Prod

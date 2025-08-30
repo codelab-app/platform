@@ -750,11 +750,13 @@ const env = (0,external_env_var_namespaceObject.from)({
     NEXT_PUBLIC_INTERCOM_APP_ID: process.env['NEXT_PUBLIC_INTERCOM_APP_ID'],
     NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
     NODE_ENV: process.env['NODE_ENV'],
+    NEXT_PUBLIC_SUPABASE_KEY: process.env['NEXT_PUBLIC_SUPABASE_KEY'],
+    NEXT_PUBLIC_SUPABASE_URL: process.env['NEXT_PUBLIC_SUPABASE_URL'],
 });
 
 ;// ../../libs/shared/config/env/src/services/auth0.ts
 
-/* *
+/**
  * https://github.com/auth0/nextjs-auth0/issues/383
  */
 class Auth0EnvVars {
@@ -765,175 +767,59 @@ class Auth0EnvVars {
             writable: true,
             value: endpoint
         });
-        Object.defineProperty(this, "_audience", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_auth0Domain", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_clientId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_clientSecret", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_e2eUsername", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_e2ePassword", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_issuerBaseUrl", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_secret", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_sessionAutoSave", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_m2mClientId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_m2mClientSecret", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
     }
     get audience() {
-        return (this._audience ??= new URL('api/v2/', this.issuerBaseUrl).toString());
+        return new URL('api/v2/', this.issuerBaseUrl).toString();
     }
     get domain() {
-        return (this._auth0Domain ??= env.get('AUTH0_DOMAIN').required().asString());
+        return env.get('AUTH0_DOMAIN').required().asString();
     }
     get clientId() {
-        return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString());
+        return env.get('AUTH0_CLIENT_ID').required().asString();
     }
     get clientSecret() {
-        return (this._clientSecret ??= env
-            .get('AUTH0_CLIENT_SECRET')
-            .required()
-            .asString());
+        return env.get('AUTH0_CLIENT_SECRET').required().asString();
     }
     get auth0Username() {
-        return (this._e2eUsername ??= env
-            .get('AUTH0_E2E_USERNAME')
-            .required()
-            .asString());
+        return env.get('AUTH0_E2E_USERNAME').required().asString();
     }
     get auth0Password() {
-        return (this._e2ePassword ??= env
-            .get('AUTH0_E2E_PASSWORD')
-            .required()
-            .asString());
+        return env.get('AUTH0_E2E_PASSWORD').required().asString();
     }
     get issuerBaseUrl() {
-        const issuerBaseUrl = new URL('/', `https://${this.domain}`).toString();
-        return (this._issuerBaseUrl ??= issuerBaseUrl);
+        return new URL('/', `https://${this.domain}`).toString();
     }
     get secret() {
-        return (this._secret ??= env.get('AUTH0_SECRET').required().asString());
+        return env.get('AUTH0_SECRET').required().asString();
     }
     get sessionAutoSave() {
-        return (this._sessionAutoSave ??= env
-            .get('AUTH0_SESSION_AUTO_SAVE')
-            .required()
-            .asBool());
+        return env.get('AUTH0_SESSION_AUTO_SAVE').required().asBool();
     }
     get baseUrl() {
-        const auth0baseUrl = this.endpoint.webHost;
-        return auth0baseUrl;
+        return this.endpoint.webHost;
     }
     get m2mClientId() {
-        return (this._m2mClientId ??= env
-            .get('AUTH0_M2M_CLIENT_ID')
-            .required()
-            .asString());
+        return env.get('AUTH0_M2M_CLIENT_ID').required().asString();
     }
     get m2mClientSecret() {
-        return (this._m2mClientSecret ??= env
-            .get('AUTH0_M2M_CLIENT_SECRET')
-            .required()
-            .asString());
+        return env.get('AUTH0_M2M_CLIENT_SECRET').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/circleci.ts
 
 class CircleCIEnvVars {
-    constructor() {
-        // Vercel uses '1'
-        // Others may use 'true'
-        Object.defineProperty(this, "_ci", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_circleCi", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get ci() {
-        return (this._ci ??= env.get('CI').default('false').asBool());
+        return env.get('CI').default('false').asBool();
     }
     get circleCi() {
-        return (this._circleCi ??= env.get('CIRCLE').default('false').asBool());
+        return env.get('CIRCLE').default('false').asBool();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/endpoint.ts
 
 class EndpointEnvVars {
-    constructor() {
-        Object.defineProperty(this, "_apiHost", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_webHost", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get admin() {
         const exportEndpoint = `${this.baseApiPath}/admin/export`;
         const importEndpoint = `${this.baseApiPath}/admin/import`;
@@ -956,12 +842,9 @@ class EndpointEnvVars {
      * http://127.0.0.1:4000
      */
     get apiHost() {
-        if (this._apiHost) {
-            return this._apiHost;
-        }
         const port = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber();
         const url = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject();
-        return (this._apiHost = new URL(`${url.origin}:${port}`).toString());
+        return new URL(`${url.origin}:${port}`).toString();
     }
     get apiUrl() {
         return new URL(this.baseApiPath, this.webHost).toString();
@@ -1015,135 +898,68 @@ class EndpointEnvVars {
      * This is used before module is initialized, so we must access process.env
      */
     get webHost() {
-        return (this._webHost ??= env
-            .get('NEXT_PUBLIC_WEB_HOST')
-            .required()
-            .asString());
+        return env.get('NEXT_PUBLIC_WEB_HOST').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/google-analytics.ts
 
 class GoogleAnalyticsEnvVars {
-    constructor() {
-        Object.defineProperty(this, "id", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.id = env.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
+    get id() {
+        return env.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/hotjar.ts
 
 class HotjarEnvVars {
-    constructor() {
-        Object.defineProperty(this, "id", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "version", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.id = env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
-        this.version = env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
+    get id() {
+        return env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
+    }
+    get version() {
+        return env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/intercom.ts
 
 class IntercomEnvVars {
-    constructor() {
-        Object.defineProperty(this, "appId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.appId = env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
+    get appId() {
+        return env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/mailchimp.ts
 
 class MailchimpEnvVars {
-    constructor() {
-        Object.defineProperty(this, "apiKey", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "listId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "serverPrefix", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.apiKey = env.get('MAILCHIMP_API_KEY').required().asString();
-        this.listId = env.get('MAILCHIMP_LIST_ID').required().asString();
-        this.serverPrefix = env.get('MAILCHIMP_SERVER_PREFIX').required().asString();
+    get apiKey() {
+        return env.get('MAILCHIMP_API_KEY').required().asString();
+    }
+    get listId() {
+        return env.get('MAILCHIMP_LIST_ID').required().asString();
+    }
+    get serverPrefix() {
+        return env.get('MAILCHIMP_SERVER_PREFIX').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/neo4j.ts
 
 class Neo4jEnvVars {
-    constructor() {
-        Object.defineProperty(this, "_password", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_uri", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_user", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get password() {
-        return (this._password ??= env.get('NEO4J_PASSWORD').required().asString());
+        return env.get('NEO4J_PASSWORD').required().asString();
     }
     get uri() {
-        return (this._uri ??= env.get('NEO4J_URI').required().asUrlString());
+        return env.get('NEO4J_URI').required().asUrlString();
     }
     get user() {
-        return (this._user ??= env.get('NEO4J_USER').required().asString());
+        return env.get('NEO4J_USER').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/node.ts
 
 class NodeEnvVars {
-    constructor() {
-        Object.defineProperty(this, "_nodeEnv", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get isCi() {
         return env.get('CI').default('false').asBool();
     }
@@ -1157,30 +973,21 @@ class NodeEnvVars {
         return this.nodeEnv === 'test';
     }
     get nodeEnv() {
-        return (this._nodeEnv ??= env
+        return env
             .get('NODE_ENV')
             .default('development')
-            .asEnum(['development', 'production', 'test']));
+            .asEnum(['development', 'production', 'test']);
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/supabase.ts
+
 class SupabaseEnvVars {
-    constructor() {
-        Object.defineProperty(this, "key", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "url", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.key = process.env['NEXT_PUBLIC_SUPABASE_KEY'] || '';
-        this.url = process.env['NEXT_PUBLIC_SUPABASE_URL'] || '';
+    get key() {
+        return env.get('NEXT_PUBLIC_SUPABASE_KEY').default('').asString();
+    }
+    get url() {
+        return env.get('NEXT_PUBLIC_SUPABASE_URL').default('').asString();
     }
 }
 
@@ -1195,6 +1002,7 @@ class SupabaseEnvVars {
 
 
 
+/* eslint-disable @typescript-eslint/member-ordering */
 /**
  * Env works a bit different in Next.js for the browser, they inline the value by replacing all references process.env with a hard coded value
  *
@@ -1204,65 +1012,66 @@ class SupabaseEnvVars {
  */
 class EnvironmentVariables {
     constructor() {
+        // Create endpoint first as auth0 depends on it
+        Object.defineProperty(this, "_endpoint", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: new EndpointEnvVars()
+        });
         Object.defineProperty(this, "_auth0", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new Auth0EnvVars(this._endpoint)
         });
         Object.defineProperty(this, "_circleci", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_endpoint", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
+            value: new CircleCIEnvVars()
         });
         Object.defineProperty(this, "_googleAnalytics", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new GoogleAnalyticsEnvVars()
         });
         Object.defineProperty(this, "_hotjar", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new HotjarEnvVars()
         });
         Object.defineProperty(this, "_intercom", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new IntercomEnvVars()
         });
         Object.defineProperty(this, "_mailchimp", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new MailchimpEnvVars()
         });
         Object.defineProperty(this, "_neo4j", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new Neo4jEnvVars()
         });
         Object.defineProperty(this, "_node", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new NodeEnvVars()
         });
         Object.defineProperty(this, "_supabase", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new SupabaseEnvVars()
         });
     }
     static getInstance() {
@@ -1272,34 +1081,34 @@ class EnvironmentVariables {
         return EnvironmentVariables.instance;
     }
     get auth0() {
-        return (this._auth0 ??= new Auth0EnvVars(this.endpoint));
+        return this._auth0;
     }
     get circleci() {
-        return (this._circleci ??= new CircleCIEnvVars());
+        return this._circleci;
     }
     get endpoint() {
-        return (this._endpoint ??= new EndpointEnvVars());
+        return this._endpoint;
     }
     get googleAnalytics() {
-        return (this._googleAnalytics ??= new GoogleAnalyticsEnvVars());
+        return this._googleAnalytics;
     }
     get hotjar() {
-        return (this._hotjar ??= new HotjarEnvVars());
+        return this._hotjar;
     }
     get intercom() {
-        return (this._intercom ??= new IntercomEnvVars());
+        return this._intercom;
     }
     get mailchimp() {
-        return (this._mailchimp ??= new MailchimpEnvVars());
+        return this._mailchimp;
     }
     get neo4j() {
-        return (this._neo4j ??= new Neo4jEnvVars());
+        return this._neo4j;
     }
     get node() {
-        return (this._node ??= new NodeEnvVars());
+        return this._node;
     }
     get supabase() {
-        return (this._supabase ??= new SupabaseEnvVars());
+        return this._supabase;
     }
 }
 const getEnv = () => EnvironmentVariables.getInstance();

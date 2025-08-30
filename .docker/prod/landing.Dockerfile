@@ -20,7 +20,7 @@ WORKDIR /usr/src/codelab
 RUN apk update && \
   apk add --no-cache libc6-compat python3 py3-pip make g++ && \
   corepack enable && \
-  corepack prepare pnpm@8.15.0 --activate
+  corepack prepare pnpm@9.15.5 --activate
 
 
 FROM base AS install
@@ -37,7 +37,7 @@ RUN pnpm install --frozen-lockfile
 FROM install AS build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json .nxignore .eslintrc.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
+COPY nx.json .nxignore eslint.config.mjs tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 # Required for yarn workspaces
 COPY apps/landing ./apps/landing
 COPY libs ./libs
@@ -51,13 +51,16 @@ COPY scripts/eslint ./scripts/eslint
 # ARG NEXT_PUBLIC_INTERCOM_APP_ID
 ARG NEXT_PUBLIC_SUPABASE_URL
 ARG NEXT_PUBLIC_SUPABASE_KEY
+ARG NEXT_PUBLIC_WEB_HOST
 ARG SUPABASE_DB_PASS
+ARG NX_CLOUD_ACCESS_TOKEN
 
 # ENV NEXT_PUBLIC_INTERCOM_APP_ID=$NEXT_PUBLIC_INTERCOM_APP_ID
 
 # NEXT_PUBLIC are injected at build time
 ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
 ENV NEXT_PUBLIC_SUPABASE_KEY=$NEXT_PUBLIC_SUPABASE_KEY
+ENV NEXT_PUBLIC_WEB_HOST=$NEXT_PUBLIC_WEB_HOST
 ENV SUPABASE_DB_PASS=$SUPABASE_DB_PASS
 
 # Injected at runtime
@@ -71,9 +74,12 @@ ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
 
 WORKDIR /usr/src/codelab
 
+# Enable Nx Cloud for caching
+ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
+
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN pnpm nx build landing --verbose --skip-nx-cache
+RUN pnpm nx build landing --verbose
 
 #
 # (2) Prod

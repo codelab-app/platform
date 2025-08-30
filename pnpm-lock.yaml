@@ -638,9 +638,6 @@ importers:
       react-use:
         specifier: 17.6.0
         version: 17.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      recoil:
-        specifier: 0.7.7
-        version: 0.7.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       reflect-metadata:
         specifier: 0.1.13
         version: 0.1.13
@@ -677,9 +674,6 @@ importers:
       storybook:
         specifier: 9.0.9
         version: 9.0.9(@testing-library/dom@10.4.0)(prettier@2.8.8)
-      styled-components:
-        specifier: 6.1.15
-        version: 6.1.15(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sucrase:
         specifier: 3.32.0
         version: 3.32.0
@@ -1231,8 +1225,8 @@ importers:
         specifier: 5.29.2
         version: 5.29.2(@types/node@22.13.5)(typescript@5.5.4)
       lint-staged:
-        specifier: 16.1.2
-        version: 16.1.2
+        specifier: 16.1.4
+        version: 16.1.4
       minimatch:
         specifier: 9.0.4
         version: 9.0.4
@@ -1254,6 +1248,9 @@ importers:
       semver:
         specifier: ^7.7.2
         version: 7.7.2
+      styled-components:
+        specifier: 6.1.15
+        version: 6.1.15(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       swc-loader:
         specifier: 0.2.6
         version: 0.2.6(@swc/core@1.10.11(@swc/helpers@0.5.15))(webpack@5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0))
@@ -11643,9 +11640,6 @@ packages:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
     engines: {node: '>=10'}
 
-  hamt_plus@1.0.2:
-    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
-
   handle-thing@2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
 
@@ -13060,8 +13054,8 @@ packages:
     resolution: {integrity: sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  lint-staged@16.1.2:
-    resolution: {integrity: sha512-sQKw2Si2g9KUZNY3XNvRuDq4UJqpHwF0/FQzZR2M7I5MvtpWvibikCjUVJzZdGE0ByurEl3KQNvsGetd1ty1/Q==}
+  lint-staged@16.1.4:
+    resolution: {integrity: sha512-xy7rnzQrhTVGKMpv6+bmIA3C0yET31x8OhKBYfvGo0/byeZ6E0BjGARrir3Kg/RhhYHutpsi01+2J5IpfVoueA==}
     engines: {node: '>=20.17'}
     hasBin: true
 
@@ -13074,9 +13068,9 @@ packages:
       enquirer:
         optional: true
 
-  listr2@8.3.3:
-    resolution: {integrity: sha512-LWzX2KsqcB1wqQ4AHgYb4RsDXauQiqhjLk+6hjbaeHG4zpjjVAB6wC/gz6X0l+Du1cN3pUB5ZlrvTbhGSNnUQQ==}
-    engines: {node: '>=18.0.0'}
+  listr2@9.0.1:
+    resolution: {integrity: sha512-SL0JY3DaxylDuo/MecFeiC+7pedM0zia33zl0vcjgwcq1q1FWWF1To9EIauPbl8GbMCU0R2e0uJ8bZunhYKD2g==}
+    engines: {node: '>=20.0.0'}
 
   loader-runner@4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
@@ -15476,18 +15470,6 @@ packages:
   recast@0.23.9:
     resolution: {integrity: sha512-Hx/BGIbwj+Des3+xy5uAtAbdCyqK9y9wbBcDFDYanLS9JnMqf7OeF87HQwUimE87OEc72mr6tkKUKMBBL+hF9Q==}
     engines: {node: '>= 4'}
-
-  recoil@0.7.7:
-    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
 
   redent@3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
@@ -21707,7 +21689,7 @@ snapshots:
   '@graphql-tools/optimize@2.0.0(graphql@16.9.0)':
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/prisma-loader@8.0.17(@types/node@22.13.5)(encoding@0.1.13)(graphql@16.9.0)':
     dependencies:
@@ -21750,7 +21732,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.1(@babel/core@7.26.7)(encoding@0.1.13)(graphql@16.9.0)
       '@graphql-tools/utils': 10.7.2(graphql@16.9.0)
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.8.1
     transitivePeerDependencies:
       - '@babel/core'
       - encoding
@@ -21806,7 +21788,7 @@ snapshots:
       cross-inspect: 1.0.0
       dset: 3.1.4
       graphql: 16.9.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@graphql-tools/utils@10.6.1(graphql@16.9.0)':
     dependencies:
@@ -24186,7 +24168,7 @@ snapshots:
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
       ts-node: 10.9.1(@swc/core@1.10.11(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.5.4)
-      tslib: 2.6.2
+      tslib: 2.8.1
       widest-line: 3.1.0
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
@@ -32078,8 +32060,6 @@ snapshots:
     dependencies:
       duplexer: 0.1.2
 
-  hamt_plus@1.0.2: {}
-
   handle-thing@2.0.1: {}
 
   handlebars@4.7.8:
@@ -34080,13 +34060,13 @@ snapshots:
 
   lines-and-columns@2.0.3: {}
 
-  lint-staged@16.1.2:
+  lint-staged@16.1.4:
     dependencies:
       chalk: 5.4.1
       commander: 14.0.0
       debug: 4.4.1
       lilconfig: 3.1.3
-      listr2: 8.3.3
+      listr2: 9.0.1
       micromatch: 4.0.8
       nano-spawn: 1.0.2
       pidtree: 0.6.0
@@ -34108,7 +34088,7 @@ snapshots:
     optionalDependencies:
       enquirer: 2.3.6
 
-  listr2@8.3.3:
+  listr2@9.0.1:
     dependencies:
       cli-truncate: 4.0.0
       colorette: 2.0.20
@@ -36865,13 +36845,6 @@ snapshots:
       source-map: 0.6.1
       tiny-invariant: 1.3.3
       tslib: 2.3.1
-
-  recoil@0.7.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 19.1.0
-    optionalDependencies:
-      react-dom: 19.1.0(react@19.1.0)
 
   redent@3.0.0:
     dependencies:

@@ -2,27 +2,20 @@
 // This file imports plugins AND registers them within the configuration objects below.
 
 // Core ESLint & TypeScript
-import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 // import tsPlugin from '@typescript-eslint/eslint-plugin' // Imported via tseslint.plugin
 // import tsParser from '@typescript-eslint/parser' // Imported via tseslint.parser
 
 // Nx
-import nx from '@nx/eslint-plugin'
 
 // React & UI
-import reactPlugin from 'eslint-plugin-react'
-import tailwindcssPlugin from 'eslint-plugin-tailwindcss'
-import readableTailwindPlugin from 'eslint-plugin-readable-tailwind'
 
 // Import handling
 // import importPlugin from 'eslint-plugin-import-x'
-import unusedImports from 'eslint-plugin-unused-imports'
 
 // Testing
 
 // Code style
-import banPlugin from 'eslint-plugin-ban'
 import sortDestructureKeysPlugin from 'eslint-plugin-sort-destructure-keys'
 import stylistic from '@stylistic/eslint-plugin'
 import preferArrowPlugin from 'eslint-plugin-prefer-arrow'
@@ -38,7 +31,7 @@ export default tseslint.config(
   {
     languageOptions: {
       ecmaVersion: 2022,
-      // sourceType: 'module',
+      sourceType: 'module',
       parser: tseslint.parser,
       parserOptions: {
         // Don't set projectService at root level to avoid full monorepo scans

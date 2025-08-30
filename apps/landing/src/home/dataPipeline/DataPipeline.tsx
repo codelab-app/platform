@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'antd'
 import Image from 'next/image'
 
+import { CuiContainer } from '../../components/CuiContainer'
+import { CuiText } from '../../components/CuiText'
 import { Integrations } from './Integrations'
 
 const data = [
@@ -54,25 +56,25 @@ export const DataPipeline = () => {
         2xl:w-11/12 2xl:px-0
       `}
     >
-      <div
+      <CuiContainer
         className={`
-          m-auto mb-12 w-11/12 bg-white p-0
-          lg:container
+          mb-12 bg-white p-0
           md:mb-0 md:w-4/5
           2xl:px-20
         `}
+        size="lg"
       >
-        <h2
+        <CuiText
           className={`
-            mt-10 px-0 text-center text-lg font-semibold text-violet-600
-            sm:text-2xl
-            md:mt-14
-            lg:px-8 lg:text-4xl
-            xl:px-0 xl:text-5xl
+            px-0
+            lg:px-8
+            xl:px-0
           `}
+          color="primary"
+          variant="section-title"
         >
           Control Your Data Pipeline
-        </h2>
+        </CuiText>
         {data.map((items, index) => (
           <div
             className={`
@@ -98,16 +100,16 @@ export const DataPipeline = () => {
                 lg:w-2/5
               `}
             >
-              <h1
+              <span
                 className={`
-                  w-fit rounded-[20px] bg-yellow-500 p-2 text-lg font-semibold text-white
+                  w-fit rounded-[20px] bg-yellow-500 p-2 font-display text-lg font-black text-white
                   sm:p-4 sm:text-3xl
                   lg:p-5 lg:text-4xl
                   xl:p-6 xl:text-5xl
                 `}
               >
                 {items.id}
-              </h1>
+              </span>
               <div
                 className={`
                   mb-2 flex items-center
@@ -120,15 +122,15 @@ export const DataPipeline = () => {
                   src={items.icon}
                   width={24}
                 />
-                <h4
+                <span
                   className={`
-                    m-0 ml-2 p-0 text-base
+                    m-0 ml-2 p-0 text-base font-bold
                     sm:text-lg
                     xl:text-xl
                   `}
                 >
                   {items.title}
-                </h4>
+                </span>
               </div>
               <p
                 className={`
@@ -172,7 +174,7 @@ export const DataPipeline = () => {
           </div>
         ))}
         <Integrations />
-      </div>
+      </CuiContainer>
     </section>
   )
 }

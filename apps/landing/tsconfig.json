@@ -19,13 +19,15 @@
     "types": ["jest", "node", "styled-components", "uniforms"]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
     "next-env.d.ts",
+    "next.config.mjs",
     "tailwind.config.cjs",
-    "next.config.mjs"
+    "../../dist/apps/landing/.next/types/**/*.ts"
   ],
   "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }
