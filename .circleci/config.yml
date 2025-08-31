@@ -20,13 +20,13 @@ commands:
           command: |
             echo "=== After cache restore ==="
             echo "Checking .nx/cache:"
-            ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+            ls -lah .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
             echo ""
             echo "Cache size:"
             du -sh .nx/cache/ 2>/dev/null || echo "0"
             echo ""
             echo "Checking Next.js cache:"
-            ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
+            ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
           name: Check cache after restore
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci
