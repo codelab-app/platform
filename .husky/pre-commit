@@ -1,2 +1,8 @@
 npx validate-branch-name
+
+# Check if there are changes in .circleci directory
+if git diff --cached --name-only | grep -q "^\.circleci/"; then
+  pnpm cpack
+fi
+
 pnpm cli tasks lint --stage=test

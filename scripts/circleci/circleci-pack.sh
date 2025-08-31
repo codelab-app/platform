@@ -10,8 +10,8 @@ if [ "$git_username" = "Webber Wang" ]; then
     # Run your circleci compile scripts
     echo "Compiling CircleCI config for $git_username"
 
-    circleci config pack .circleci/config/ > .circleci/config.yml
-    npx prettier --write .circleci/config.yml
+    circleci config pack .circleci/config/ > .circleci/config.gen.yml
+    npx prettier --write .circleci/config.gen.yml
     # circleci config validate .circleci/config.yml
 
     exit_status=$?

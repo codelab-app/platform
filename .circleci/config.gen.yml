@@ -11,42 +11,8 @@ commands:
             - nx-apps-cache-
           name: Restore Nx Apps Cache
       - run:
-          command: |
-            echo "=== After cache restore ==="
-            echo "Checking .nx/cache-apps:"
-            ls -lah .nx/cache-apps/ 2>/dev/null | head -20 || echo "No .nx/cache-apps directory"
-            echo ""
-            echo "Cache size:"
-            du -sh .nx/cache-apps/ 2>/dev/null || echo "0"
-            echo ""
-            echo "Checking Next.js cache:"
-            ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
-          name: Check cache after restore
-      - run:
-          command: pnpm nx run-many --target=build --projects=web,api -c ci --verbose
+          command: pnpm nx run-many --target=build --projects=web,api -c ci
           name: Build Nx Apps (web, api)
-      - run:
-          command: |
-            echo "=== Build output sizes ==="
-            echo "Total web build size:"
-            du -sh dist/apps/web/ 2>/dev/null || echo "No web build"
-            echo ""
-            echo "Web build breakdown:"
-            du -sh dist/apps/web/* 2>/dev/null | sort -hr || echo "No files"
-            echo ""
-            echo "Next.js directories:"
-            du -sh dist/apps/web/.next/* 2>/dev/null | sort -hr || echo "No .next directory"
-            echo ""
-            echo "Total API build size:"
-            du -sh dist/apps/api/ 2>/dev/null || echo "No api build"
-            echo ""
-            echo "=== Check what Nx is trying to cache ==="
-            echo "Files in dist/apps/web (excluding .next/cache):"
-            find dist/apps/web -type f -not -path "*/\.next/cache/*" | wc -l
-            echo ""
-            echo "Size without .next/cache:"
-            du -sh --exclude=.next/cache dist/apps/web/ 2>/dev/null || echo "Cannot calculate"
-          name: Check build output sizes
       - save_cache:
           key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save Nx Apps Cache
