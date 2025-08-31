@@ -17,16 +17,24 @@ const getEnvFilePath = () => {
   const envFilePath = (file: string) =>
     path.resolve(process.cwd(), 'apps/api', file)
 
-  if (stage === Stage.Dev) {
+  const cliEnvFilePath = (file: string) =>
+    path.resolve(process.cwd(), 'apps/cli', file)
+
+  if (stage === Stage.Dev || stage === 'dev') {
     return envFilePath('.env')
   }
 
-  if (stage === Stage.Test) {
+  if (stage === Stage.Test || stage === 'test') {
     return envFilePath('.env.test')
   }
 
-  if (stage === Stage.CI) {
+  if (stage === Stage.CI || stage === 'ci') {
     return ''
+  }
+
+  // For prod stage, use CLI's .env file for packer/terraform commands
+  if (stage === 'prod') {
+    return cliEnvFilePath('.env')
   }
 }
 

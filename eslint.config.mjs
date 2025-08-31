@@ -40,7 +40,7 @@ export default [
       '**/.nx/**',
       '**/coverage/**',
       '**/.cache/**',
-      
+
       // Other ignores
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
@@ -54,6 +54,7 @@ export default [
       '**/*.gen.ts',
       '**/jest.config.ts',
       '**/graphql.ts',
+      '.lintstagedrc.cjs',
     ],
   },
   {

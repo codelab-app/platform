@@ -1,2 +1,0 @@
-docker:
-  - image: cimg/node:22.14.0-browsers

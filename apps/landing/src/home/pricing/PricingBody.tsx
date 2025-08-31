@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row } from 'antd'
 import classNames from 'classnames'
 
+import { CuiContainer } from '../../components/CuiContainer'
+
 const pricingItems = [
   {
     benefit: 'No cost forever',
@@ -77,12 +79,7 @@ const pricingItems = [
 
 export const PricingBody = () => {
   return (
-    <section
-      className={`
-        m-auto w-11/12 pb-14
-        xl:container
-      `}
-    >
+    <CuiContainer className="pb-14">
       <Row
         className={`
           m-auto flex w-4/5 justify-evenly
@@ -114,25 +111,25 @@ export const PricingBody = () => {
                 {items.title}
               </p>
               <div className="mb-6 flex h-fit items-end justify-center font-extrabold">
-                <h1
+                <span
                   className={classNames(
                     items.titleColor,
-                    'text-4xl md:text-5xl mb-0 mr-2',
+                    'text-4xl md:text-5xl mb-0 mr-2 font-display font-black',
                   )}
                 >
                   {items.price}
-                </h1>
+                </span>
                 {items.price === 'Custom' ? (
                   ''
                 ) : (
-                  <h5
+                  <span
                     className={classNames(
                       items.titleColor,
-                      'text-xl md:text-2xl mb-0',
+                      'text-xl md:text-2xl mb-0 font-display font-black',
                     )}
                   >
                     /mo
-                  </h5>
+                  </span>
                 )}
               </div>
               <Button
@@ -198,6 +195,6 @@ export const PricingBody = () => {
           </Col>
         ))}
       </Row>
-    </section>
+    </CuiContainer>
   )
 }

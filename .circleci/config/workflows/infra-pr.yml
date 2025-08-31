@@ -1,4 +1,4 @@
-# This runs on staging branch only (no tags)
+# This runs on staging branch and version tags
 jobs:
   # - setup-workspace:
   #     resource_class: large
@@ -7,17 +7,23 @@ jobs:
   #       branches:
   #         only:
   #           - staging
+  #       tags:
+  #         only: /^[0-9]+\.[0-9]+\.[0-9]+$/
   - setup-infra-workspace:
       filters:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
   - tf-plan:
       name: 'tf-plan-ci'
       filters:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       stage: ci
       requires:
         - setup-infra-workspace
@@ -27,6 +33,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       stage: ci
       requires:
         - tf-plan-ci
@@ -44,6 +52,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
       requires:
@@ -53,6 +63,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
       requires:
@@ -62,6 +74,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
       requires:
@@ -71,6 +85,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       context:
         - prod
       requires:
@@ -80,6 +96,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       stage: prod
       requires:
         - docker-web
@@ -91,6 +109,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       type: approval
       requires:
         - tf-plan
@@ -99,6 +119,8 @@ jobs:
         branches:
           only:
             - staging
+        tags:
+          only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       stage: prod
       requires:
         - hold-apply

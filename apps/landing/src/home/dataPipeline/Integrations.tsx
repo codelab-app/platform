@@ -32,34 +32,39 @@ export const Integrations = () => {
     >
       <p
         className={`
-          mb-4 text-center text-lg font-bold
-          sm:mb-8 sm:text-xl
-          md:mb-8 md:text-2xl
+          mb-8 text-center text-lg font-bold
+          sm:mb-10 sm:text-xl
+          md:mb-12 md:text-2xl
           lg:text-3xl
         `}
       >
         Integrations
       </p>
-      <ul
-        className={`
-          mb-8 flex list-none flex-wrap justify-center px-0
-          sm:px-6
-        `}
-      >
-        {listItem.map(({ alt, src }, index) => (
-          <li
-            className={`
-              w-36 px-2 py-6
-              md:w-40
-              xl:w-48
-              2xl:w-auto
-            `}
-            key={index}
-          >
-            <Image alt={alt} height={45} src={src} width={200} />
-          </li>
-        ))}
-      </ul>
+      <div className="mx-auto max-w-6xl px-4">
+        <div
+          className={`
+            grid grid-cols-3 gap-4
+            sm:grid-cols-4
+            md:grid-cols-5
+            lg:grid-cols-6
+          `}
+        >
+          {listItem.map(({ alt, src }, index) => (
+            <div className="flex items-center justify-center p-4" key={index}>
+              <Image
+                alt={alt}
+                className={`
+                  h-auto w-full max-w-[120px] opacity-70 transition-opacity
+                  hover:opacity-100
+                `}
+                height={45}
+                src={src}
+                width={120}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }

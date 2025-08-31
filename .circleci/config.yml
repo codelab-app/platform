@@ -4,52 +4,14 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
+      - restore-nx-cache:
+          cache_name: apps
       - run:
-          command: |
-            echo "=== Disk space before cache restore ==="
-            df -h
-            echo "=== Directory structure before cache restore ==="
-            ls -la ~/project/.nx/ || echo "No .nx directory yet"
-          name: Check directory structure before cache restore
-      - restore_cache:
-          keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-
-          name: Restore NX Cache
-      - run:
-          command: |
-            echo "=== Directory structure after cache restore ==="
-            ls -la ~/project/.nx/ || echo "No .nx directory"
-            echo "=== Contents of .nx/cache ==="
-            ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
-            echo "=== Check for specific hash directory ==="
-            find ~/project/.nx/cache -type d -name "3093047817415218224" || echo "Hash directory not found"
-            echo "=== Create directories if missing ==="
-            mkdir -p ~/project/.nx/cache
-            echo "=== Disk space after cache restore ==="
-            df -h
-          name: Debug NX Cache after restore
-      - run:
-          command: npx nx reset || echo "Failed to reset Nx cache"
-          name: Reset Nx cache to ensure clean state
-      - run:
-          command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
-      - run:
-          command: |
-            echo "=== Directory structure after build ==="
-            ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
-            echo "=== Directory size ==="
-            du -sh ~/project/.nx/cache/ || echo "Failed to check directory size"
-            echo "=== Next.js cache ==="
-            ls -la ~/project/dist/apps/web/.next/cache || echo "No Next.js cache directory"
-          name: Debug NX Cache after build
-      - save_cache:
-          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save NX Cache
-          paths:
-            - ~/project/.nx/cache
-            - ~/project/dist/apps/web/.next/cache
+          command: pnpm nx run-many --target=build --projects=web,api -c ci
+          name: Build Nx Apps (web, api)
+      - save-nx-cache:
+          cache_name: apps
+          extra_paths: dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
             - project/dist/apps/web
@@ -60,19 +22,13 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
-      - restore_cache:
-          keys:
-            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-libs-
-          name: Restore NX Cache
+      - restore-nx-cache:
+          cache_name: libs
       - run:
           command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
-      - save_cache:
-          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save NX Cache
-          paths:
-            - ~/project/.nx/cache-libs
+          name: Build Nx Libs
+      - save-nx-cache:
+          cache_name: libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -83,15 +39,52 @@ commands:
     steps:
       - run:
           command: |
+            # Install Java 21 from Adoptium (Eclipse Temurin)
+            apt-get update
+            apt-get install -y wget apt-transport-https lsb-release
+
+            # Add Adoptium repository for Java 21
+            wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg
+            # Use bookworm as the codename for Debian 12
+            echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb bookworm main" | tee /etc/apt/sources.list.d/adoptium.list
+
+            apt-get update
+            apt-get install -y temurin-21-jre
+
             # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
-            wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
+            wget -O - https://debian.neo4j.com/neotechnology.gpg.key | gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
 
-            echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+            echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | tee -a /etc/apt/sources.list.d/neo4j.list
 
-            sudo apt-get update
+            apt-get update
 
-            sudo apt-get install -y neo4j cypher-shell
+            apt-get install -y neo4j cypher-shell
           name: Install Cypher Shell
+  install-doctl:
+    description: Install DigitalOcean CLI (doctl)
+    steps:
+      - run:
+          command: |-
+            echo "Installing DigitalOcean CLI..."
+
+            DOCTL_VERSION="1.104.0"
+            ARCH=$(uname -m)
+            if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+              DOCTL_ARCH="linux-arm64"
+            else
+              DOCTL_ARCH="linux-amd64"
+            fi
+
+            cd /tmp
+            wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+            tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+            mv doctl /usr/local/bin
+            rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+
+            # Verify installation
+            doctl version
+            echo "DigitalOcean CLI installation completed"
+          name: Install doctl
   install-nvm:
     steps:
       - restore_cache:
@@ -99,7 +92,7 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
       - run:
-          command: source ~/project/.circleci/config/install-nvm.sh
+          command: source .circleci/config/install-nvm.sh
           name: Install NVM
       - save_cache:
           key: nvm-cache-{{ checksum ".nvmrc" }}
@@ -134,13 +127,13 @@ commands:
           paths:
             - ~/.pnpm-store
       - run:
-          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          command: scripts/circleci/generate-dist-checksum.sh
           name: Generate dist libs checksum for cache key
       - save_cache:
           key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "/tmp/dist-libs-checksum.txt" }}
           name: Save node_modules Cache
           paths:
-            - ~/project/node_modules
+            - node_modules
   install-packer:
     description: Install Packer
     steps:
@@ -148,11 +141,11 @@ commands:
           command: |
             set -x
 
-            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 
-            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
-            sudo apt-get update && sudo apt-get install packer
+            apt-get update && apt-get install -y packer
           name: Install Packer
   install-pnpm:
     steps:
@@ -162,10 +155,10 @@ commands:
 
             # Install corepack using the correct path
             # https://github.com/pnpm/pnpm/issues/9029
-            sudo npm install -g corepack@0.31.0
+            npm install -g corepack@0.31.0
 
-            sudo corepack enable
-            sudo corepack prepare pnpm@9.15.5 --activate
+            corepack enable
+            corepack prepare pnpm@9.15.5 --activate
             pnpm config set store-dir ~/.pnpm-store
           name: Install pnpm package manager
   install-terraform:
@@ -175,23 +168,23 @@ commands:
           command: |
             set -x
 
-            sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+            apt-get update && apt-get install -y gnupg software-properties-common
 
             apt list upgrade
 
             wget -O- https://apt.releases.hashicorp.com/gpg | \
             gpg --dearmor | \
-            sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+            tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 
             echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-            sudo tee /etc/apt/sources.list.d/hashicorp.list
+            tee /etc/apt/sources.list.d/hashicorp.list
 
             gpg --no-default-keyring \
             --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
             --fingerprint
 
-            sudo apt update
-            sudo apt install terraform=1.7.0-*
+            apt update
+            apt install -y terraform=1.7.0-*
           name: Install Terraform
   load-nvm:
     steps:
@@ -207,6 +200,19 @@ commands:
           command: |
             echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
           name: Login to Docker Registry
+  restore-nx-cache:
+    description: Restore Nx << parameters.cache_name >> cache
+    parameters:
+      cache_name:
+        description: The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)
+        type: string
+    steps:
+      - restore_cache:
+          keys:
+            - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-
+          name: Restore Nx << parameters.cache_name >> Cache
   restore-workspace:
     description: Restore Workspace
     steps:
@@ -215,7 +221,7 @@ commands:
       - attach_workspace:
           at: ~/
       - run:
-          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          command: scripts/circleci/generate-dist-checksum.sh
           name: Generate dist libs checksum for cache key
       - restore_cache:
           keys:
@@ -236,7 +242,7 @@ commands:
       - attach_workspace:
           at: ~/
       - run:
-          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          command: scripts/circleci/generate-dist-checksum.sh
           name: Generate dist libs checksum for cache key
       - restore_cache:
           keys:
@@ -255,11 +261,47 @@ commands:
     steps:
       - restore-workspace
       - install-terraform
+  save-nx-cache:
+    description: Save Nx << parameters.cache_name >> cache
+    parameters:
+      cache_name:
+        description: The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)
+        type: string
+      extra_paths:
+        default: ''
+        description: Additional paths to cache (optional)
+        type: string
+    steps:
+      - when:
+          condition:
+            not:
+              equal:
+                - << parameters.extra_paths >>
+                - ''
+          steps:
+            - save_cache:
+                key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+                name: Save Nx << parameters.cache_name >> Cache
+                paths:
+                  - .nx/cache-<< parameters.cache_name >>
+                  - << parameters.extra_paths >>
+      - unless:
+          condition:
+            not:
+              equal:
+                - << parameters.extra_paths >>
+                - ''
+          steps:
+            - save_cache:
+                key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+                name: Save Nx << parameters.cache_name >> Cache
+                paths:
+                  - .nx/cache-<< parameters.cache_name >>
   setup-env:
     description: Setup Env
     steps:
       - run:
-          command: source ~/project/.circleci/config/env.sh
+          command: source .circleci/config/env.sh
           name: Setup Env
   setup-neo4j:
     description: Setup Neo4j
@@ -272,42 +314,36 @@ commands:
           command: |
             ./enable-cdc.sh
           name: Enable CDC
-          working_directory: ~/project/.docker/cypher/scripts
+          working_directory: .docker/cypher/scripts
       - run:
           command: |
             ./apply-constraints.sh
           name: Apply Neo4j Constraints
-          working_directory: ~/project/.docker/cypher/scripts
+          working_directory: .docker/cypher/scripts
+environment: null
 executors:
-  docker-node:
+  docker-node-arm64:
     docker:
-      - image: cimg/node:22.14.0-browsers
-  docker-node-neo4j:
+      - image: node:22
+  docker-node-neo4j-arm64:
     docker:
-      - image: cimg/node:22.14.0-browsers
+      - image: node:22
       - environment:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
-          NEO4J_dbms_logs_debug_level: DEBUG
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.3-enterprise
-  machine-ubuntu:
-    machine:
-      image: ubuntu-2004:2022.04.1
-  playwright:
+  docker-node-x86:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.50.0-noble
-  terraform:
-    docker:
-      - image: hashicorp/terraform:1.7.0
-    environment:
-      TF_WORKSPACE: prod
+      - image: cimg/node:22.14.0-browsers
 jobs:
   build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node
+      NX_CACHE_DIRECTORY: .nx/cache-apps
+      NX_VERBOSE_LOGGING: true
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -320,8 +356,8 @@ jobs:
   build-nx-libs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-      NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
-    executor: docker-node
+      NX_CACHE_DIRECTORY: .nx/cache-libs
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -332,7 +368,7 @@ jobs:
       - restore-workspace
       - build-nx-libs
   codegen:
-    executor: docker-node-neo4j
+    executor: docker-node-neo4j-arm64
     parameters:
       resource_class:
         type: string
@@ -347,67 +383,56 @@ jobs:
           command: pnpm cli tasks workspace-codegen --stage ci
           name: Check Generate Workspace
   docker-api:
-    executor: docker-node
-    resource_class: medium
+    executor: docker-node-arm64
+    resource_class: arm.medium
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-api.sh)
-          name: Build api Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push api
+          name: Build and Push API Docker Image
   docker-landing:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node
-    resource_class: large
+    executor: docker-node-arm64
+    resource_class: arm.large
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-landing.sh)
-          name: Build landing Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push landing
+          name: Build and Push Landing Docker Image
   docker-sites:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node
-    resource_class: large
+    executor: docker-node-arm64
+    resource_class: arm.large
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-sites.sh)
-          name: Build sites Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push sites
+          name: Build and Push Sites Docker Image
   docker-web:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node
-    resource_class: large
+    executor: docker-node-arm64
+    resource_class: arm.large
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: (./scripts/docker/prod/build-web.sh)
-          name: Build web Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
-          name: Push Docker Image
+          command: docker buildx bake --file .docker/docker-bake.hcl --push web
+          name: Build and Push Web Docker Image
   e2e:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node-neo4j
+      NX_CACHE_DIRECTORY: .nx/cache-e2e
+    executor: docker-node-neo4j-arm64
     parallelism: 4
     parameters:
       max_old_space_size:
@@ -419,6 +444,23 @@ jobs:
       - setup_remote_docker:
           version: default
       - restore-workspace-database
+      - restore-nx-cache:
+          cache_name: e2e
+      - run:
+          command: |
+            echo "=== Checking restored workspace ==="
+            echo "Current directory: $(pwd)"
+            echo ""
+            echo "Checking ~/project/dist/apps:"
+            ls -la ~/project/dist/apps/ 2>/dev/null || echo "No ~/project/dist/apps directory"
+            echo ""
+            echo "Checking dist/apps (relative):"
+            ls -la dist/apps/ 2>/dev/null || echo "No dist/apps directory"
+            echo ""
+            echo "Checking for web and api builds:"
+            ls -la dist/apps/web/ 2>/dev/null | head -10 || echo "No web build found"
+            ls -la dist/apps/api/ 2>/dev/null | head -10 || echo "No api build found"
+          name: Check workspace after restore
       - setup-neo4j
       - run: pnpm npx playwright install-deps
       - run:
@@ -432,27 +474,34 @@ jobs:
               --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
           no_output_timeout: 15m
+      - save-nx-cache:
+          cache_name: e2e
+      - run:
+          command: |
+            apt-get update && apt-get install -y docker.io
+          name: Install Docker CLI
       - run:
           command: |
             set -x
 
-            mkdir -p ~/project/tmp/logs
+            mkdir -p tmp/logs
 
-            docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+            docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > tmp/logs/neo4j.log 2>&1
           name: Capture Docker logs
           when: always
       - store_artifacts:
           destination: docker-logs
-          path: ~/project/tmp/logs
+          path: tmp/logs
       - store_artifacts:
           destination: playwright-report
-          path: ~/project/tmp/reports/e2e
+          path: tmp/reports/e2e
       - store_test_results:
-          path: ~/project/tmp/reports/e2e/junit
+          path: tmp/reports/e2e/junit
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node-neo4j
+      NX_CACHE_DIRECTORY: .nx/cache-integration
+    executor: docker-node-neo4j-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -460,9 +509,9 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
-      - setup_remote_docker:
-          version: default
       - restore-workspace-database
+      - restore-nx-cache:
+          cache_name: integration
       - setup-neo4j
       - run:
           command: pnpm cli tasks int --stage ci
@@ -470,6 +519,8 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
           name: Run Integration Tests
           no_output_timeout: 10m
+      - save-nx-cache:
+          cache_name: integration
       - store_test_results:
           path: ./tmp/reports/test-integration
   lint:
@@ -477,7 +528,8 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node
+      NX_CACHE_DIRECTORY: .nx/cache-lint
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -486,14 +538,18 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - restore-nx-cache:
+          cache_name: lint
       - run:
           command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
+      - save-nx-cache:
+          cache_name: lint
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
-    executor: machine-ubuntu
-    resource_class: small
+    executor: docker-node-x86
+    resource_class: medium
     steps:
       - swissknife/wait_for_job:
           job-name: install-and-build-workspace,lint,unit,e2e,codegen
@@ -502,11 +558,8 @@ jobs:
           event: fail
           template: basic_fail_1
   notify-success:
-    executor: docker-node
-    parameters:
-      resource_class:
-        type: string
-    resource_class: << parameters.resource_class >>
+    executor: docker-node-x86
+    resource_class: medium
     steps:
       - slack/notify:
           channel: $SLACK_CHANNEL_UPDATE
@@ -583,8 +636,8 @@ jobs:
             }
           event: pass
   packer-image:
-    executor: docker-node
-    resource_class: medium
+    executor: docker-node-arm64
+    resource_class: arm.medium
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -596,13 +649,16 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   setup-infra-workspace:
-    executor: docker-node
-    resource_class: large
+    executor: docker-node-arm64
+    resource_class: arm.large
     steps:
       - checkout
       - setup-env
       - install-nvm
+      - install-pnpm
+      - install-packages
       - install-terraform
+      - install-doctl
       - login-docker
       - persist_to_workspace:
           paths:
@@ -611,7 +667,7 @@ jobs:
   setup-workspace:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       max_old_space_size:
         type: integer
@@ -625,7 +681,7 @@ jobs:
       - install-pnpm
       - install-packages
   tf-apply:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       stage:
         enum:
@@ -641,7 +697,7 @@ jobs:
           command: pnpm cli terraform --stage << parameters.stage >> --autoApprove apply
           name: Terraform Apply
   tf-plan:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       stage:
         enum:
@@ -673,7 +729,7 @@ jobs:
             - project/terraform/.terraform
           root: ~/
   tsc-check:
-    executor: docker-node
+    executor: docker-node-arm64
     parameters:
       resource_class:
         type: string
@@ -684,18 +740,24 @@ jobs:
           command: pnpm nx run-many --target=tsc-check --target=tsc-check:spec
           name: Run tsc Check
   unit:
-    executor: docker-node
+    environment:
+      NX_CACHE_DIRECTORY: .nx/cache-unit
+    executor: docker-node-arm64
     parameters:
       resource_class:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - restore-nx-cache:
+          cache_name: unit
       - run:
           command: pnpm cli tasks unit --stage ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
           name: Run Unit Tests
+      - save-nx-cache:
+          cache_name: unit
       - store_test_results:
           path: ./tmp/reports/test-unit
 orbs:
@@ -715,7 +777,7 @@ workflows:
               only:
                 - master
           max_old_space_size: 6144
-          resource_class: large
+          resource_class: arm.large
       - hold-deploy:
           filters:
             branches:
@@ -823,7 +885,7 @@ workflows:
                 - master
                 - staging
           max_old_space_size: 6144
-          resource_class: large
+          resource_class: arm.large
       - lint:
           filters:
             branches:
@@ -833,7 +895,7 @@ workflows:
           max_old_space_size: 8192
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - build-nx-apps:
           filters:
             branches:
@@ -843,7 +905,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - build-nx-libs:
           filters:
             branches:
@@ -853,7 +915,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - tsc-check:
           filters:
             branches:
@@ -862,7 +924,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - codegen:
           filters:
             branches:
@@ -871,7 +933,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-          resource_class: medium
+          resource_class: arm.medium
       - unit:
           filters:
             branches:
@@ -880,7 +942,7 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - integration:
           filters:
             branches:
@@ -890,7 +952,7 @@ workflows:
           max_old_space_size: 8192
           requires:
             - setup-workspace
-          resource_class: large
+          resource_class: arm.large
       - e2e:
           filters:
             branches:
@@ -900,7 +962,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - build-nx-apps
-          resource_class: large
+          resource_class: arm.large
       - notify-success:
           filters:
             branches:
@@ -916,7 +978,6 @@ workflows:
             - build-nx-apps
             - tsc-check
             - e2e
-          resource_class: medium
   infra-pr:
     jobs:
       - setup-infra-workspace:
@@ -924,11 +985,15 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       - tf-plan:
           filters:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-plan-ci
           requires:
             - setup-infra-workspace
@@ -938,6 +1003,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-apply-ci
           requires:
             - tf-plan-ci
@@ -949,6 +1016,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - docker-api:
@@ -958,6 +1027,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - docker-sites:
@@ -967,6 +1038,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - docker-landing:
@@ -976,6 +1049,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - tf-plan:
@@ -983,6 +1058,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - docker-web
             - docker-api
@@ -994,6 +1071,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - tf-plan
           type: approval
@@ -1002,102 +1081,6 @@ workflows:
             branches:
               only:
                 - staging
-          requires:
-            - hold-apply
-          stage: prod
-  infra-pr-tag:
-    jobs:
-      - setup-infra-workspace:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-      - tf-plan:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          name: tf-plan-ci
-          requires:
-            - setup-infra-workspace
-          stage: ci
-      - tf-apply:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          name: tf-apply-ci
-          requires:
-            - tf-plan-ci
-          stage: ci
-      - docker-web:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - docker-api:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - docker-sites:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - docker-landing:
-          context:
-            - prod
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - setup-infra-workspace
-      - tf-plan:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - docker-web
-            - docker-api
-            - docker-sites
-            - docker-landing
-          stage: prod
-      - hold-apply:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
-          requires:
-            - tf-plan
-          type: approval
-      - tf-apply:
-          filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:

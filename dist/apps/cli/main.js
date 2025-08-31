@@ -689,31 +689,100 @@ var Stage;
 ;// external "path"
 const external_path_namespaceObject = require("path");
 var external_path_default = /*#__PURE__*/__webpack_require__.n(external_path_namespaceObject);
-;// external "execa"
-const external_execa_namespaceObject = require("execa");
-var external_execa_default = /*#__PURE__*/__webpack_require__.n(external_execa_namespaceObject);
-;// ../../libs/backend/infra/adapter/shell/src/exec-command.ts
+;// ../../libs/backend/infra/adapter/shell/src/handle-command.ts
+/**
+ * Create an HOC handler so we can have global teardown
+ */
+const globalHandler = (handler) => {
+    return async (args) => {
+        let exitCode = 0;
+        try {
+            await handler(args);
+        }
+        catch (error) {
+            console.error(error);
+            exitCode = 1;
+        }
+        finally {
+            process.exit(exitCode);
+        }
+    };
+};
 
-const execCommand = (command) => {
-    console.log(`Executing: ${command}`);
-    try {
-        // Only use shell on CI
-        const shell = process.env['CI'] ? true : false;
-        return external_execa_default().commandSync(command, {
-            shell: true,
-            stdio: 'inherit',
-        });
-    }
-    catch (error) {
-        console.error(error);
-        /**
-         * Serve doesn't detect exit code
-         *
-         *  https://github.com/nrwl/nx/issues/9239
-         */
-        process.exit(1);
+;// external "zx"
+const external_zx_namespaceObject = require("zx");
+;// ../../libs/backend/infra/adapter/shell/src/shell.ts
+
+// Configure zx to show commands being executed without verbose output
+// This logs only the commands, not the output (unless there's an error)
+external_zx_namespaceObject.$.verbose = false;
+external_zx_namespaceObject.$.log = (entry) => {
+    if (entry.kind === 'cmd') {
+        console.log(`$ ${entry.cmd}`);
     }
 };
+/**
+ * $ - Standard zx command execution
+ *
+ * - Captures stdout/stderr for parsing
+ * - Any non-zero exit code throws a ProcessOutput error
+ * - Error contains full stdout, stderr, and exitCode
+ * - Use for commands where you need to process output
+ */
+const $ = external_zx_namespaceObject.$;
+/**
+ * $stream - For long-running commands where you want to see output in real-time
+ *
+ * Use cases:
+ * - terraform apply/plan/destroy - see progress as it happens
+ * - docker build - see layer progress
+ * - npm install - see package download progress
+ * - test runners - see test results as they complete
+ * - any command that takes > 5 seconds and has progress output
+ *
+ * Note: Cannot capture output with stdio: 'inherit', so don't use for:
+ * - Commands where you need to parse stdout/stderr
+ * - Commands where you need the result.stdout value
+ *
+ * Error handling:
+ * - Any non-zero exit code will throw a ProcessOutput error
+ * - With stdio: 'inherit', the ProcessOutput will have:
+ *   - stdout: '' (empty - output went to terminal)
+ *   - stderr: '' (empty - output went to terminal)
+ *   - exitCode: null (can't be captured with stdio: 'inherit')
+ * - The actual command output is shown in terminal before the error
+ *
+ * Example:
+ *   $stream`terraform apply -auto-approve`
+ *   $stream.sync`terraform apply -auto-approve`
+ *   $stream.sync({ cwd: 'path/to/dir' })`packer init .`
+ *   $stream.syncWithEnv({ FOO: 'bar' })`npm run build`
+ */
+const $stream = Object.assign(
+// Main function for async execution with streaming
+(pieces, ...args) => {
+    return (0,external_zx_namespaceObject.$)({ stdio: 'inherit' })(pieces, ...args);
+}, {
+    // Sync method for synchronous execution with streaming
+    // Supports both direct template literal and options + template literal
+    sync: ((piecesOrOptions, ...args) => {
+        // If first arg is a template literal array, execute directly
+        if (Array.isArray(piecesOrOptions) && 'raw' in piecesOrOptions) {
+            return external_zx_namespaceObject.$.sync({ stdio: 'inherit' })(piecesOrOptions, ...args);
+        }
+        // If first arg is options object, return a function that accepts template literal
+        const options = piecesOrOptions;
+        return (pieces, ...templateArgs) => {
+            return external_zx_namespaceObject.$.sync({ stdio: 'inherit', ...options })(pieces, ...templateArgs);
+        };
+    }),
+    // Sync with env option - returns a function that accepts template literal
+    syncWithEnv: (env) => {
+        return (pieces, ...args) => {
+            return external_zx_namespaceObject.$.sync({ stdio: 'inherit', env })(pieces, ...args);
+        };
+    },
+});
 
 ;// ../../libs/shared/config/env/src/env.ts
 
@@ -734,6 +803,7 @@ const env = (0,external_env_var_namespaceObject.from)({
     AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
     CI: process.env['CI'],
     CIRCLE: process.env['CIRCLE'],
+    DIGITALOCEAN_API_TOKEN: process.env['DIGITALOCEAN_API_TOKEN'],
     E2E: process.env['E2E'],
     MAILCHIMP_API_KEY: process.env['MAILCHIMP_API_KEY'],
     MAILCHIMP_LIST_ID: process.env['MAILCHIMP_LIST_ID'],
@@ -750,11 +820,13 @@ const env = (0,external_env_var_namespaceObject.from)({
     NEXT_PUBLIC_INTERCOM_APP_ID: process.env['NEXT_PUBLIC_INTERCOM_APP_ID'],
     NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
     NODE_ENV: process.env['NODE_ENV'],
+    NEXT_PUBLIC_SUPABASE_KEY: process.env['NEXT_PUBLIC_SUPABASE_KEY'],
+    NEXT_PUBLIC_SUPABASE_URL: process.env['NEXT_PUBLIC_SUPABASE_URL'],
 });
 
 ;// ../../libs/shared/config/env/src/services/auth0.ts
 
-/* *
+/**
  * https://github.com/auth0/nextjs-auth0/issues/383
  */
 class Auth0EnvVars {
@@ -765,175 +837,67 @@ class Auth0EnvVars {
             writable: true,
             value: endpoint
         });
-        Object.defineProperty(this, "_audience", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_auth0Domain", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_clientId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_clientSecret", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_e2eUsername", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_e2ePassword", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_issuerBaseUrl", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_secret", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_sessionAutoSave", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_m2mClientId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_m2mClientSecret", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
     }
     get audience() {
-        return (this._audience ??= new URL('api/v2/', this.issuerBaseUrl).toString());
+        return new URL('api/v2/', this.issuerBaseUrl).toString();
     }
     get domain() {
-        return (this._auth0Domain ??= env.get('AUTH0_DOMAIN').required().asString());
+        return env.get('AUTH0_DOMAIN').required().asString();
     }
     get clientId() {
-        return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString());
+        return env.get('AUTH0_CLIENT_ID').required().asString();
     }
     get clientSecret() {
-        return (this._clientSecret ??= env
-            .get('AUTH0_CLIENT_SECRET')
-            .required()
-            .asString());
+        return env.get('AUTH0_CLIENT_SECRET').required().asString();
     }
     get auth0Username() {
-        return (this._e2eUsername ??= env
-            .get('AUTH0_E2E_USERNAME')
-            .required()
-            .asString());
+        return env.get('AUTH0_E2E_USERNAME').required().asString();
     }
     get auth0Password() {
-        return (this._e2ePassword ??= env
-            .get('AUTH0_E2E_PASSWORD')
-            .required()
-            .asString());
+        return env.get('AUTH0_E2E_PASSWORD').required().asString();
     }
     get issuerBaseUrl() {
-        const issuerBaseUrl = new URL('/', `https://${this.domain}`).toString();
-        return (this._issuerBaseUrl ??= issuerBaseUrl);
+        return new URL('/', `https://${this.domain}`).toString();
     }
     get secret() {
-        return (this._secret ??= env.get('AUTH0_SECRET').required().asString());
+        return env.get('AUTH0_SECRET').required().asString();
     }
     get sessionAutoSave() {
-        return (this._sessionAutoSave ??= env
-            .get('AUTH0_SESSION_AUTO_SAVE')
-            .required()
-            .asBool());
+        return env.get('AUTH0_SESSION_AUTO_SAVE').required().asBool();
     }
     get baseUrl() {
-        const auth0baseUrl = this.endpoint.webHost;
-        return auth0baseUrl;
+        return this.endpoint.webHost;
     }
     get m2mClientId() {
-        return (this._m2mClientId ??= env
-            .get('AUTH0_M2M_CLIENT_ID')
-            .required()
-            .asString());
+        return env.get('AUTH0_M2M_CLIENT_ID').required().asString();
     }
     get m2mClientSecret() {
-        return (this._m2mClientSecret ??= env
-            .get('AUTH0_M2M_CLIENT_SECRET')
-            .required()
-            .asString());
+        return env.get('AUTH0_M2M_CLIENT_SECRET').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/circleci.ts
 
 class CircleCIEnvVars {
-    constructor() {
-        // Vercel uses '1'
-        // Others may use 'true'
-        Object.defineProperty(this, "_ci", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_circleCi", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get ci() {
-        return (this._ci ??= env.get('CI').default('false').asBool());
+        return env.get('CI').default('false').asBool();
     }
     get circleCi() {
-        return (this._circleCi ??= env.get('CIRCLE').default('false').asBool());
+        return env.get('CIRCLE').default('false').asBool();
+    }
+}
+
+;// ../../libs/shared/config/env/src/services/digitalocean.ts
+
+class DigitalOceanEnvVars {
+    get digitalOceanApiToken() {
+        return env.get('DIGITALOCEAN_API_TOKEN').default('').asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/endpoint.ts
 
 class EndpointEnvVars {
-    constructor() {
-        Object.defineProperty(this, "_apiHost", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_webHost", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get admin() {
         const exportEndpoint = `${this.baseApiPath}/admin/export`;
         const importEndpoint = `${this.baseApiPath}/admin/import`;
@@ -956,12 +920,9 @@ class EndpointEnvVars {
      * http://127.0.0.1:4000
      */
     get apiHost() {
-        if (this._apiHost) {
-            return this._apiHost;
-        }
         const port = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber();
         const url = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject();
-        return (this._apiHost = new URL(`${url.origin}:${port}`).toString());
+        return new URL(`${url.origin}:${port}`).toString();
     }
     get apiUrl() {
         return new URL(this.baseApiPath, this.webHost).toString();
@@ -1015,135 +976,68 @@ class EndpointEnvVars {
      * This is used before module is initialized, so we must access process.env
      */
     get webHost() {
-        return (this._webHost ??= env
-            .get('NEXT_PUBLIC_WEB_HOST')
-            .required()
-            .asString());
+        return env.get('NEXT_PUBLIC_WEB_HOST').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/google-analytics.ts
 
 class GoogleAnalyticsEnvVars {
-    constructor() {
-        Object.defineProperty(this, "id", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.id = env.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
+    get id() {
+        return env.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/hotjar.ts
 
 class HotjarEnvVars {
-    constructor() {
-        Object.defineProperty(this, "id", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "version", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.id = env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
-        this.version = env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
+    get id() {
+        return env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
+    }
+    get version() {
+        return env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/intercom.ts
 
 class IntercomEnvVars {
-    constructor() {
-        Object.defineProperty(this, "appId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.appId = env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
+    get appId() {
+        return env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/mailchimp.ts
 
 class MailchimpEnvVars {
-    constructor() {
-        Object.defineProperty(this, "apiKey", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "listId", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "serverPrefix", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.apiKey = env.get('MAILCHIMP_API_KEY').required().asString();
-        this.listId = env.get('MAILCHIMP_LIST_ID').required().asString();
-        this.serverPrefix = env.get('MAILCHIMP_SERVER_PREFIX').required().asString();
+    get apiKey() {
+        return env.get('MAILCHIMP_API_KEY').required().asString();
+    }
+    get listId() {
+        return env.get('MAILCHIMP_LIST_ID').required().asString();
+    }
+    get serverPrefix() {
+        return env.get('MAILCHIMP_SERVER_PREFIX').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/neo4j.ts
 
 class Neo4jEnvVars {
-    constructor() {
-        Object.defineProperty(this, "_password", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_uri", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_user", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get password() {
-        return (this._password ??= env.get('NEO4J_PASSWORD').required().asString());
+        return env.get('NEO4J_PASSWORD').required().asString();
     }
     get uri() {
-        return (this._uri ??= env.get('NEO4J_URI').required().asUrlString());
+        return env.get('NEO4J_URI').required().asUrlString();
     }
     get user() {
-        return (this._user ??= env.get('NEO4J_USER').required().asString());
+        return env.get('NEO4J_USER').required().asString();
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/node.ts
 
 class NodeEnvVars {
-    constructor() {
-        Object.defineProperty(this, "_nodeEnv", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-    }
     get isCi() {
         return env.get('CI').default('false').asBool();
     }
@@ -1157,30 +1051,21 @@ class NodeEnvVars {
         return this.nodeEnv === 'test';
     }
     get nodeEnv() {
-        return (this._nodeEnv ??= env
+        return env
             .get('NODE_ENV')
             .default('development')
-            .asEnum(['development', 'production', 'test']));
+            .asEnum(['development', 'production', 'test']);
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/supabase.ts
+
 class SupabaseEnvVars {
-    constructor() {
-        Object.defineProperty(this, "key", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "url", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        this.key = process.env['NEXT_PUBLIC_SUPABASE_KEY'] || '';
-        this.url = process.env['NEXT_PUBLIC_SUPABASE_URL'] || '';
+    get key() {
+        return env.get('NEXT_PUBLIC_SUPABASE_KEY').default('').asString();
+    }
+    get url() {
+        return env.get('NEXT_PUBLIC_SUPABASE_URL').default('').asString();
     }
 }
 
@@ -1195,6 +1080,8 @@ class SupabaseEnvVars {
 
 
 
+
+/* eslint-disable @typescript-eslint/member-ordering */
 /**
  * Env works a bit different in Next.js for the browser, they inline the value by replacing all references process.env with a hard coded value
  *
@@ -1204,65 +1091,72 @@ class SupabaseEnvVars {
  */
 class EnvironmentVariables {
     constructor() {
-        Object.defineProperty(this, "_auth0", {
+        // Create endpoint first as auth0 depends on it
+        Object.defineProperty(this, "endpoint", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new EndpointEnvVars()
         });
-        Object.defineProperty(this, "_circleci", {
+        Object.defineProperty(this, "auth0", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new Auth0EnvVars(this.endpoint)
         });
-        Object.defineProperty(this, "_endpoint", {
+        Object.defineProperty(this, "circleci", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new CircleCIEnvVars()
         });
-        Object.defineProperty(this, "_googleAnalytics", {
+        Object.defineProperty(this, "digitalocean", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new DigitalOceanEnvVars()
         });
-        Object.defineProperty(this, "_hotjar", {
+        Object.defineProperty(this, "googleAnalytics", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new GoogleAnalyticsEnvVars()
         });
-        Object.defineProperty(this, "_intercom", {
+        Object.defineProperty(this, "hotjar", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new HotjarEnvVars()
         });
-        Object.defineProperty(this, "_mailchimp", {
+        Object.defineProperty(this, "intercom", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new IntercomEnvVars()
         });
-        Object.defineProperty(this, "_neo4j", {
+        Object.defineProperty(this, "mailchimp", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new MailchimpEnvVars()
         });
-        Object.defineProperty(this, "_node", {
+        Object.defineProperty(this, "neo4j", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new Neo4jEnvVars()
         });
-        Object.defineProperty(this, "_supabase", {
+        Object.defineProperty(this, "node", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: void 0
+            value: new NodeEnvVars()
+        });
+        Object.defineProperty(this, "supabase", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: new SupabaseEnvVars()
         });
     }
     static getInstance() {
@@ -1270,36 +1164,6 @@ class EnvironmentVariables {
             EnvironmentVariables.instance = new EnvironmentVariables();
         }
         return EnvironmentVariables.instance;
-    }
-    get auth0() {
-        return (this._auth0 ??= new Auth0EnvVars(this.endpoint));
-    }
-    get circleci() {
-        return (this._circleci ??= new CircleCIEnvVars());
-    }
-    get endpoint() {
-        return (this._endpoint ??= new EndpointEnvVars());
-    }
-    get googleAnalytics() {
-        return (this._googleAnalytics ??= new GoogleAnalyticsEnvVars());
-    }
-    get hotjar() {
-        return (this._hotjar ??= new HotjarEnvVars());
-    }
-    get intercom() {
-        return (this._intercom ??= new IntercomEnvVars());
-    }
-    get mailchimp() {
-        return (this._mailchimp ??= new MailchimpEnvVars());
-    }
-    get neo4j() {
-        return (this._neo4j ??= new Neo4jEnvVars());
-    }
-    get node() {
-        return (this._node ??= new NodeEnvVars());
-    }
-    get supabase() {
-        return (this._supabase ??= new SupabaseEnvVars());
     }
 }
 const getEnv = () => EnvironmentVariables.getInstance();
@@ -1352,6 +1216,427 @@ const getAutoApproveOptions = () => ({
     },
 });
 
+;// ../../libs/backend/infra/adapter/cli/src/commands/docker/docker.service.ts
+
+
+
+
+
+
+
+let DockerService = class DockerService {
+    constructor() {
+        Object.defineProperty(this, "command", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'docker'
+        });
+        Object.defineProperty(this, "describe", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'Docker commands'
+        });
+        // Middleware to fetch Docker tag version
+        Object.defineProperty(this, "fetchDockerTagVersion", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: (args) => {
+                const dockerTagVersion = args['dockerTagVersion'] ||
+                    (0,external_env_var_namespaceObject.get)('DOCKER_TAG_VERSION').default('latest').asString();
+                args['dockerTagVersion'] = dockerTagVersion;
+            }
+        });
+        this.builder = this.builder.bind(this);
+    }
+    builder(yargv) {
+        return yargv
+            .options({
+            ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
+        })
+            .middleware([loadStageMiddleware, this.fetchDockerTagVersion])
+            .command('build [service]', 'Build Docker images using Docker Bake', (argv) => argv
+            .positional('service', {
+            describe: 'Service to build (api, landing, web, sites). Omit to build all',
+            type: 'string',
+            choices: ['api', 'landing', 'web', 'sites'],
+        })
+            .option('push', {
+            describe: 'Push images to registry after building',
+            type: 'boolean',
+            default: false,
+        })
+            .option('dockerTagVersion', {
+            alias: 'tag',
+            describe: 'Docker tag version',
+            type: 'string',
+        }), globalHandler(({ dockerTagVersion, push, service }) => {
+            const pushFlag = push ? '--push' : '';
+            const targets = service ? [service] : [];
+            const env = { ...process.env, DOCKER_TAG_VERSION: dockerTagVersion };
+            if (pushFlag) {
+                $stream.syncWithEnv(env) `docker buildx bake --file .docker/docker-bake.hcl ${pushFlag} ${targets}`;
+            }
+            else {
+                $stream.syncWithEnv(env) `docker buildx bake --file .docker/docker-bake.hcl ${targets}`;
+            }
+        }))
+            .command('push [service]', 'Push Docker images to registry', (argv) => argv
+            .positional('service', {
+            describe: 'Service to push (api, landing, web, sites). Omit to push all',
+            type: 'string',
+            choices: ['api', 'landing', 'web', 'sites'],
+        })
+            .option('dockerTagVersion', {
+            alias: 'tag',
+            describe: 'Docker tag version',
+            type: 'string',
+        }), globalHandler(({ dockerTagVersion, service }) => {
+            const targets = service ? [service] : [];
+            const env = { ...process.env, DOCKER_TAG_VERSION: dockerTagVersion };
+            $stream.syncWithEnv(env) `docker buildx bake --file .docker/docker-bake.hcl --push ${targets}`;
+        }))
+            .command('cleanup', 'Clean up old Docker images from DigitalOcean registry (keeps last 3 versions)', (argv) => argv, globalHandler(() => {
+            const repositories = ['api', 'landing', 'web', 'sites'];
+            const keepLastN = 3;
+            for (const repo of repositories) {
+                console.log(`\nProcessing repository: ${repo}`);
+                // Get all tags sorted by date (newest first), excluding 'latest'
+                const result = $.sync `doctl registry repository list-tags ${repo} --format Tag,UpdatedAt --no-header | grep -v "^latest" | sort -k2 -r || true`;
+                const output = result.stdout.trim();
+                if (!output) {
+                    console.log(`No tags found for ${repo}`);
+                    continue;
+                }
+                const tagLines = output.split('\n').filter(Boolean);
+                if (tagLines.length <= keepLastN) {
+                    console.log(`Repository has ${tagLines.length} tags, keeping all (minimum: ${keepLastN})`);
+                    continue;
+                }
+                // Tags to delete (skip the first keepLastN)
+                const tagsToDelete = tagLines
+                    .slice(keepLastN)
+                    .map((line) => line.split(/\s+/)[0])
+                    .filter(Boolean);
+                if (tagsToDelete.length > 0) {
+                    console.log(`Deleting ${tagsToDelete.length} old tags from ${repo}...`);
+                    $stream.sync `doctl registry repository delete-tag ${repo} ${tagsToDelete} --force`;
+                    console.log(`Deleted ${tagsToDelete.length} tags from ${repo}`);
+                }
+            }
+            // Start garbage collection
+            console.log('\nStarting garbage collection to reclaim space...');
+            $stream.sync `doctl registry garbage-collection start --include-untagged-manifests --force`;
+            console.log('Garbage collection started');
+        }))
+            .demandCommand(1, 'Please provide a task');
+    }
+    handler() {
+        //
+    }
+};
+DockerService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
+], DockerService);
+
+
+;// external "fs"
+const external_fs_namespaceObject = require("fs");
+;// ../../libs/backend/infra/adapter/cli/src/commands/packer/packer.service.ts
+
+
+
+
+
+
+var PackerImage;
+(function (PackerImage) {
+    PackerImage["Services"] = "services";
+    PackerImage["ServicesBase"] = "services-base";
+})(PackerImage || (PackerImage = {}));
+let PackerService = class PackerService {
+    constructor() {
+        Object.defineProperty(this, "command", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'packer'
+        });
+        Object.defineProperty(this, "describe", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'Packer commands for building machine images'
+        });
+        // Reusable middleware functions
+        Object.defineProperty(this, "fetchConsulEncryptKey", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: (args) => {
+                console.log('Fetching CONSUL_ENCRYPT_KEY from prod-packer workspace...');
+                const result = $.sync({
+                    cwd: 'infra/terraform/environments/prod-packer',
+                }) `terraform output -raw consul_encrypt_key`;
+                args['consulEncryptKey'] = result.stdout.trim();
+                console.log('✓ CONSUL_ENCRYPT_KEY fetched successfully');
+            }
+        });
+        Object.defineProperty(this, "fetchDigitalOceanToken", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: (args) => {
+                const digitaloceanApiToken = (0,external_env_var_namespaceObject.get)('DIGITALOCEAN_API_TOKEN')
+                    .required()
+                    .asString();
+                args['digitaloceanApiToken'] = digitaloceanApiToken;
+            }
+        });
+        // Build order: services-base must be built first, then services (which includes all service images)
+        Object.defineProperty(this, "imageConfigs", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: [
+                {
+                    image: PackerImage.ServicesBase,
+                    config: {
+                        name: 'services-base',
+                        dir: 'modules/services-base',
+                        template: 'services-base.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.Services,
+                    config: {
+                        name: 'services',
+                        dir: 'modules/services',
+                        template: 'services.pkr.hcl',
+                    },
+                },
+            ]
+        });
+        Object.defineProperty(this, "packerDir", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 'infra/packer'
+        });
+        this.builder = this.builder.bind(this);
+    }
+    builder(yargv) {
+        return yargv
+            .command('build [images..]', 'Build Packer images', (argv) => argv
+            .middleware(this.fetchDigitalOceanToken)
+            .middleware(this.fetchConsulEncryptKey)
+            .positional('images', {
+            describe: 'Images to build (defaults to all)',
+            type: 'string',
+            array: true,
+            choices: Object.values(PackerImage),
+            default: Object.values(PackerImage),
+        }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
+            const buildOptions = {
+                consulEncryptKey,
+                digitaloceanApiToken,
+            };
+            // Build images in the order they appear in imageConfigs
+            for (const item of this.imageConfigs) {
+                if (images.includes(item.image)) {
+                    this.buildImage(item.config, buildOptions);
+                }
+            }
+        }))
+            .command('validate [images..]', 'Validate Packer templates', (argv) => argv
+            .middleware(this.fetchDigitalOceanToken)
+            .middleware(this.fetchConsulEncryptKey)
+            .positional('images', {
+            describe: 'Images to validate (defaults to all)',
+            type: 'string',
+            array: true,
+            choices: Object.values(PackerImage),
+            default: Object.values(PackerImage),
+        }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
+            const validateImage = (config) => {
+                const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, config.dir);
+                $stream.sync({ cwd: imageDir }) `packer init .`;
+                // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
+                $stream.sync `cd ${imageDir} && packer validate -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${config.template}`;
+            };
+            // Validate images in the order they appear in imageConfigs
+            for (const item of this.imageConfigs) {
+                if (images.includes(item.image)) {
+                    validateImage(item.config);
+                }
+            }
+        }))
+            .command('list-images', 'List Packer-built images in DigitalOcean', (argv) => argv, globalHandler(() => {
+            $stream.sync `doctl compute image list --public=false | grep "codelab-.*-base"`;
+        }))
+            .command('init', 'Initialize Packer configuration', (argv) => argv, globalHandler(() => {
+            // Initialize all Packer directories
+            for (const item of this.imageConfigs) {
+                const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, item.config.dir);
+                if ((0,external_fs_namespaceObject.existsSync)(imageDir)) {
+                    $stream.sync({ cwd: imageDir }) `packer init .`;
+                }
+            }
+        }))
+            .command('fmt', 'Format Packer configuration files', (argv) => argv.options({
+            check: {
+                describe: 'Check if files are formatted (exit 1 if not)',
+                type: 'boolean',
+                default: false,
+            },
+        }), globalHandler(({ check }) => {
+            if (check) {
+                $stream.sync `packer fmt -check ${this.packerDir}`;
+            }
+            else {
+                $stream.sync `packer fmt ${this.packerDir}`;
+            }
+        }))
+            .command('get-latest-snapshot', 'Get the latest snapshot ID', (argv) => argv.middleware(this.fetchDigitalOceanToken).option('service', {
+            describe: 'Service name (default: services-base)',
+            type: 'string',
+            default: 'services-base',
+        }), globalHandler(({ digitaloceanApiToken, service }) => {
+            const pattern = `codelab-${service}`;
+            const result = $.sync({
+                verbose: false,
+                env: {
+                    ...process.env,
+                    DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
+                },
+            }) `doctl compute snapshot list --format ID,Name,CreatedAt --no-header | grep ${pattern} | sort -k3 -r | head -1 | awk '{print $1}'`;
+            const output = result.stdout.trim();
+            if (!output) {
+                console.error(`Error: No snapshot found for service: ${service}`);
+                process.exit(1);
+            }
+            // Output JSON format for Packer's external data source
+            console.log(JSON.stringify({ id: output }));
+        }))
+            .command('cleanup', 'Clean up old Packer snapshots (keeps only latest)', (argv) => argv.middleware(this.fetchDigitalOceanToken), globalHandler(({ digitaloceanApiToken }) => {
+            const services = [
+                'codelab-services-base',
+                'codelab-consul-server',
+                'codelab-api-base',
+                'codelab-web-base',
+                'codelab-landing-base',
+                'codelab-sites-base',
+                'codelab-neo4j-base',
+            ];
+            const keepCount = 1;
+            for (const service of services) {
+                console.log(`\nProcessing: ${service}`);
+                // Get all snapshots for this service, sorted by name (includes timestamp)
+                const result = $.sync({
+                    verbose: false,
+                    env: {
+                        ...process.env,
+                        DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
+                    },
+                }) `doctl compute snapshot list --format ID,Name --no-header | grep "${service}-" | sort -k2 -r || true`;
+                const output = result.stdout.trim();
+                if (!output) {
+                    console.log(`  No snapshots found for ${service}`);
+                    continue;
+                }
+                const snapshots = output.split('\n').filter(Boolean);
+                let count = 0;
+                for (const line of snapshots) {
+                    count++;
+                    const [snapshotId, snapshotName] = line.split(/\s+/);
+                    if (count <= keepCount) {
+                        console.log(`  Keeping latest: ${snapshotName} (ID: ${snapshotId})`);
+                    }
+                    else {
+                        console.log(`  Deleting old: ${snapshotName} (ID: ${snapshotId})`);
+                        $.sync({
+                            verbose: false,
+                            env: {
+                                ...process.env,
+                                DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
+                            },
+                        }) `doctl compute snapshot delete ${snapshotId} --force || true`;
+                    }
+                }
+            }
+            console.log('\nCleanup completed!');
+            console.log('\nCurrent snapshots:');
+            $.sync({
+                verbose: false,
+                env: {
+                    ...process.env,
+                    DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
+                },
+            }) `doctl compute snapshot list --format Name,Size,CreatedAt | grep -E "(codelab-|Name)" || true`;
+        }))
+            .demandCommand(1, 'Please provide a command');
+    }
+    handler(_args) {
+        // Handler implementation if needed
+    }
+    /**
+     * Build a single image
+     */
+    buildImage(imageConfig, options) {
+        const { consulEncryptKey, digitaloceanApiToken } = options;
+        console.log(`Building ${imageConfig.name}...`);
+        // Clean up old snapshots before building to avoid hitting DigitalOcean limits
+        const cleanupResult = $.sync({
+            verbose: false,
+            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+        }) `doctl compute snapshot list --format ID,Name --no-header | grep "${imageConfig.name}-base-" | sort -k2 -r | tail -n +2 || true`;
+        const cleanupOutput = cleanupResult.stdout.trim();
+        if (cleanupOutput) {
+            const oldSnapshots = cleanupOutput.split('\n').filter(Boolean);
+            for (const snapshot of oldSnapshots) {
+                const [id] = snapshot.split(/\s+/);
+                console.log(`Deleting old snapshot: ${id}`);
+                $.sync({
+                    env: {
+                        ...process.env,
+                        DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
+                    },
+                }) `doctl compute snapshot delete ${id} --force || true`;
+            }
+        }
+        const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, imageConfig.dir);
+        // Set up cleanup handler for Ctrl+C
+        const cleanup = () => {
+            // Delete all packer build droplets (best effort)
+            $.sync `doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`;
+            process.exit(1);
+        };
+        // Register signal handlers
+        process.on('SIGINT', cleanup); // Ctrl+C
+        process.on('SIGTERM', cleanup); // Kill signal
+        try {
+            // Initialize Packer
+            $stream.sync `cd ${imageDir} && packer init .`;
+            // Build the image (Packer will fetch the latest snapshot automatically via external data source)
+            // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
+            $stream.sync `cd ${imageDir} && packer build -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${imageConfig.template}`;
+        }
+        finally {
+            // Remove signal handlers after completion
+            process.removeListener('SIGINT', cleanup);
+            process.removeListener('SIGTERM', cleanup);
+        }
+    }
+};
+PackerService = (0,external_tslib_namespaceObject.__decorate)([
+    (0,common_namespaceObject.Injectable)(),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
+], PackerService);
+
+
 ;// ../../libs/backend/infra/adapter/cli/src/commands/terraform/terraform.service.ts
 
 
@@ -1382,54 +1667,129 @@ let TerraformService = class TerraformService {
             ...getAutoApproveOptions(),
         })
             .middleware([loadStageMiddleware])
-            .command('init', 'terraform init', (argv) => argv, ({ stage }) => {
+            .command('init', 'terraform init', (argv) => argv, globalHandler(({ stage }) => {
             // Use `tfswitch` to change to specific versions
-            execCommand(`cd infra/terraform/environments/${stage} && ./symlink.sh`);
-            execCommand('cd infra/terraform/modules && ./symlink.sh');
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade;`);
-        })
-            .command('plan', 'terraform plan', (argv) => argv, ({ stage }) => {
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} plan`);
-        })
+            $stream.sync({
+                cwd: `infra/terraform/environments/${stage}`,
+            }) `./symlink.sh`;
+            $stream.sync({ cwd: 'infra/terraform/modules' }) `./symlink.sh`;
+            const env = { ...process.env, TF_WORKSPACE: stage };
+            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} init --upgrade`;
+        }))
+            .command('plan', 'terraform plan', (argv) => argv.option('tag', {
+            describe: 'Docker tag version',
+            type: 'string',
+        }), globalHandler(({ stage, tag }) => {
+            const env = {
+                ...process.env,
+                TF_WORKSPACE: stage,
+                ...(tag && { DOCKER_TAG_VERSION: tag }),
+            };
+            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} plan`;
+        }))
             /**
              * Import does not use Terraform cloud environment variables
              *
              * https://github.com/hashicorp/terraform/issues/23407
              */
-            .command('import', 'terraform import', (argv) => argv, ({ stage }) => {
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} import aws_lambda_function.nest_cli nest_cli`);
-        })
-            .command('apply', 'terraform apply', (argv) => argv, ({ autoApprove, stage }) => {
+            .command('import', 'terraform import', (argv) => argv, globalHandler(({ stage }) => {
+            const env = { ...process.env, TF_WORKSPACE: stage };
+            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} import aws_lambda_function.nest_cli nest_cli`;
+        }))
+            .command('apply', 'terraform apply', (argv) => argv.option('tag', {
+            describe: 'Docker tag version',
+            type: 'string',
+        }), globalHandler(({ autoApprove, stage, tag }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : '';
-            // Add export TF_LOG=DEBUG for verbose
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} apply ${autoApproveFlag}`);
-        })
-            .command('validate', 'terraform validate', (argv) => argv, ({ stage }) => {
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} validate`);
-        })
-            .command('destroy', 'terraform destroy', (argv) => argv, ({ stage }) => {
+            const tfDir = `infra/terraform/environments/${stage}`;
+            let consulAddr;
+            // Only prod stage requires consul two-stage apply
+            if (stage === 'prod') {
+                /**
+                 * Two-stage Terraform apply to solve the Consul provider bootstrap problem:
+                 *
+                 * Problem: The Consul provider needs the Consul server's IP address, but the server
+                 * doesn't exist until Terraform creates it. Providers are initialized before resources
+                 * are created, causing a chicken-and-egg problem.
+                 *
+                 * Solution: Apply in two stages:
+                 * 1. Create Consul server first using -target
+                 * 2. Set CONSUL_HTTP_ADDR environment variable with the server's IP
+                 * 3. Apply remaining resources (Consul provider now has correct address)
+                 */
+                // Stage 1: Create Consul server infrastructure only
+                this.applyConsulInfrastructure(stage, tfDir, autoApproveFlag, tag);
+                // Get Consul server IP and configure environment
+                const consulIP = this.getConsulServerIP();
+                consulAddr = `${consulIP}:8500`;
+            }
+            // Apply terraform with or without consul address
+            this.applyTerraform(stage, tfDir, autoApproveFlag, tag, consulAddr);
+            console.log('✨ Terraform apply completed successfully');
+        }))
+            .command('validate', 'terraform validate', (argv) => argv, globalHandler(({ stage }) => {
+            const env = { ...process.env, TF_WORKSPACE: stage };
+            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} validate`;
+        }))
+            .command('destroy', 'terraform destroy', (argv) => argv, globalHandler(({ stage }) => {
             // `terraform state rm`
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} destroy`);
-        })
-            .command('lint', 'terraform lint', (argv) => argv, ({ stage }) => {
-            execCommand(`tflint --config="${process.cwd()}/terraform/.tflint.hcl" --recursive`);
-            // execCommand(
+            const env = { ...process.env, TF_WORKSPACE: stage };
+            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} destroy`;
+        }))
+            .command('lint', 'terraform lint', (argv) => argv, globalHandler(() => {
+            const cwd = process.cwd();
+            $stream.sync `tflint --config="${cwd}/terraform/.tflint.hcl" --recursive`;
+            // exec(
             //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/ci`,
             // )
-            // execCommand(
+            // exec(
             //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/dev`,
             // )
-            // execCommand(
+            // exec(
             //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/prod`,
             // )
-            // execCommand(
+            // exec(
             //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=infra/terraform/environments/test`,
             // )
-        })
+        }))
             .demandCommand(1, 'Please provide a task'));
     }
-    handler(args) {
+    handler() {
         //
+    }
+    // Helper methods for two-stage Terraform apply
+    applyConsulInfrastructure(stage, tfDir, autoApproveFlag, tag) {
+        console.log('🔧 Stage 1/2: Creating Consul server infrastructure...');
+        const env = {
+            ...process.env,
+            TF_WORKSPACE: stage,
+            ...(tag && { DOCKER_TAG_VERSION: tag }),
+        };
+        $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`;
+    }
+    applyTerraform(stage, tfDir, autoApproveFlag, tag, consulAddr) {
+        if (consulAddr) {
+            console.log('🚀 Stage 2/2: Applying remaining infrastructure and configuration...');
+            console.log(`Setting CONSUL_HTTP_ADDR=${consulAddr}`);
+        }
+        const env = {
+            ...process.env,
+            TF_WORKSPACE: stage,
+            ...(tag && { DOCKER_TAG_VERSION: tag }),
+            ...(consulAddr && { CONSUL_HTTP_ADDR: consulAddr }),
+        };
+        $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply ${autoApproveFlag}`;
+    }
+    getConsulServerIP() {
+        console.log('🔍 Retrieving Consul server IP address...');
+        // Use doctl to get the Consul server's public IP by droplet name
+        const result = $.sync `doctl compute droplet get consul-server --format PublicIPv4 --no-header`;
+        const consulIP = result.stdout.trim();
+        if (!consulIP) {
+            throw new Error('Failed to retrieve Consul server IP address from DigitalOcean');
+        }
+        console.log(`✅ Consul server IP: ${consulIP}`);
+        return consulIP;
     }
 };
 TerraformService = (0,external_tslib_namespaceObject.__decorate)([
@@ -1437,25 +1797,6 @@ TerraformService = (0,external_tslib_namespaceObject.__decorate)([
     (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
 ], TerraformService);
 
-
-;// ../../libs/backend/infra/adapter/shell/src/handle-command.ts
-/**
- * Create an HOC handler so we can have global teardown
- */
-const globalHandler = (handler) => {
-    return async (args) => {
-        try {
-            await handler(args);
-        }
-        catch (error) {
-            console.error(error);
-            // Need this for finally to execute completely
-        }
-        finally {
-            process.exit(0);
-        }
-    };
-};
 
 ;// external "child_process"
 const external_child_process_namespaceObject = require("child_process");
@@ -1481,6 +1822,7 @@ var Tasks;
 ;// ../../libs/backend/infra/adapter/cli/src/commands/tasks/tasks.service.ts
 var tasks_service_a;
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 
 
 
@@ -1524,7 +1866,7 @@ let TaskService = class TaskService {
             if (stage === Stage.Test) {
                 // Added since many times can't find production build of next during push
                 // Maybe related? https://github.com/nrwl/nx/issues/2839
-                execCommand('nx affected --target=build -c test');
+                $stream.sync `nx affected --target=build -c test`;
             }
             if (stage === Stage.CI) {
                 this.logger.log('Building projects', {
@@ -1538,15 +1880,15 @@ let TaskService = class TaskService {
             if (stage === Stage.Test) {
                 // Added since many times can't find production build of next during push
                 // Maybe related? https://github.com/nrwl/nx/issues/2839
-                // execCommand(`nx build web -c test`)
-                execCommand('nx affected --target=test -c test.unit');
+                // $`nx build web -c test`
+                $stream.sync `nx affected --target=test -c test.unit`;
             }
             if (stage === Stage.CI) {
                 this.logger.log('Running unit tests', {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('pnpm nx affected --target=test -c ci.unit --ci');
+                $stream.sync `pnpm nx affected --target=test -c ci.unit --ci`;
             }
         }))
             .command(Tasks.Int, 'Run integration tests', (argv) => argv, globalHandler(({ stage }) => {
@@ -1555,14 +1897,14 @@ let TaskService = class TaskService {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('nx affected --target=test -c test.integration --parallel=1');
+                $stream.sync `nx affected --target=test -c test.integration --parallel=1`;
             }
             if (stage === Stage.CI) {
                 this.logger.log('Running integration tests', {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1');
+                $stream.sync `pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1`;
             }
         }))
             .command(Tasks.GraphqlCodegen, 'Run codegen', (argv) => argv, globalHandler(async ({ stage }) => {
@@ -1578,7 +1920,22 @@ let TaskService = class TaskService {
                     });
                     process.exit(0);
                 }
-                execCommand('pnpm graphql-codegen --config ./scripts/codegen/codegen.ts');
+                // Use spawn for streaming output
+                const codegenProcess = (0,external_child_process_namespaceObject.spawn)('pnpm', ['graphql-codegen', '--config', './scripts/codegen/codegen.ts'], {
+                    stdio: 'inherit',
+                    shell: true,
+                });
+                await new Promise((resolve, reject) => {
+                    codegenProcess.on('exit', (code) => {
+                        if (code === 0) {
+                            resolve();
+                        }
+                        else {
+                            reject(new Error(`Codegen failed with code ${code}`));
+                        }
+                    });
+                    codegenProcess.on('error', reject);
+                });
                 process.exit(0);
             }
             if (stage === Stage.CI) {
@@ -1622,7 +1979,7 @@ let TaskService = class TaskService {
                                     filename === 'schema.graphql');
                             }, false);
                             if (containsGeneratedFiles) {
-                                execCommand('git diff');
+                                $stream.sync `git diff`;
                                 this.logger.error('Generated files not committed', {
                                     context: 'TaskService',
                                     data: { containsGeneratedFiles },
@@ -1655,19 +2012,19 @@ let TaskService = class TaskService {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('pnpm cpack');
+                $stream.sync `pnpm cpack`;
                 this.logger.log('Generating workspace', {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive');
+                $stream.sync `pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive`;
                 const { unCommittedFiles } = await external_git_changed_files_default()();
                 this.logger.log('Checking workspace uncommitted files', {
                     context: 'TaskService',
                     data: { unCommittedFiles },
                 });
                 if (unCommittedFiles.length) {
-                    execCommand('git diff');
+                    $stream.sync `git diff`;
                     this.logger.error('Workspace changes not committed', {
                         context: 'TaskService',
                         data: { unCommittedFiles },
@@ -1682,22 +2039,20 @@ let TaskService = class TaskService {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('pnpm cross-env TIMING=1 lint-staged');
+                $stream.sync `pnpm cross-env TIMING=1 lint-staged`;
             }
             if (stage === Stage.CI) {
                 this.logger.log('Running lint', {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('pnpm nx affected --target=lint -c ci');
+                $stream.sync `pnpm nx affected --target=lint -c ci`;
                 // Below breaks cache
-                // execCommand(
-                //   'pnpm nx affected --target=lint -c ci --rule "unused-imports/no-unused-imports: error"',
-                // )
+                // $`pnpm nx affected --target=lint -c ci --rule "unused-imports/no-unused-imports: error"`
                 // https://github.com/nrwl/nx/discussions/8769
-                execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"');
+                $stream.sync `pnpm prettier --check "./**/*.{graphql,yaml,json}"`;
             }
-            execCommand('pnpm ls-lint');
+            $stream.sync `pnpm ls-lint`;
         }))
             .command(`${Tasks.Commitlint} [edit]`, 'Commitlint projects', (argv) => argv, globalHandler(({ edit, stage }) => {
             if (stage === Stage.Test) {
@@ -1705,14 +2060,14 @@ let TaskService = class TaskService {
                     context: 'TaskService',
                     data: { edit, stage },
                 });
-                execCommand(`pnpm --no-install commitlint --edit ${edit}`);
+                $.sync `pnpm --no-install commitlint --edit ${edit}`;
             }
             if (stage === Stage.CI) {
                 this.logger.log('Running commitlint', {
                     context: 'TaskService',
                     data: { stage },
                 });
-                execCommand('./scripts/lint/commitlint-ci.sh');
+                $.sync `./scripts/lint/commitlint-ci.sh`;
             }
         }))
             .demandCommand(1, 'Please provide a task');
@@ -1733,17 +2088,29 @@ var external_yargs_default = /*#__PURE__*/__webpack_require__.n(external_yargs_n
 ;// external "yargs/helpers"
 const helpers_namespaceObject = require("yargs/helpers");
 ;// ./src/commands/command.service.ts
-var command_service_a, command_service_b;
+var command_service_a, command_service_b, _c, _d;
 
 
 
 
 
 let CommandService = class CommandService {
-    constructor(
+    constructor(dockerService, packerService, 
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     terraformService, taskService) {
+        Object.defineProperty(this, "dockerService", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: dockerService
+        });
+        Object.defineProperty(this, "packerService", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: packerService
+        });
         Object.defineProperty(this, "terraformService", {
             enumerable: true,
             configurable: true,
@@ -1765,6 +2132,15 @@ let CommandService = class CommandService {
         // const args = hideBin(process.argv)[0]?.split(' ')
         void external_yargs_default()(args)
             .scriptName('cli')
+            // Add global stage option that's required
+            .option('stage', {
+            alias: 's',
+            describe: 'Deployment stage',
+            type: 'string',
+            choices: ['dev', 'test', 'ci', 'prod'],
+            demandOption: true,
+            global: true,
+        })
             /**
              * These scripts could act on different deployment environment, so we group under `data`
              */
@@ -1780,17 +2156,28 @@ let CommandService = class CommandService {
             //   argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
             // )
             /**
+             * Docker - Build and push images
+             */
+            .command(this.dockerService)
+            /**
+             * Packer - Machine image builder
+             */
+            .command(this.packerService)
+            /**
              * Terraform
              */
             .command(this.terraformService)
             .demandCommand(1)
             // Must add this to throw error for unknown arguments
-            .strict().argv;
+            .strict()
+            .showHelpOnFail(true)
+            .exitProcess(true) // Ensure yargs exits the process
+            .parse();
     }
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof DockerService !== "undefined" && DockerService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof PackerService !== "undefined" && PackerService) === "function" ? command_service_b : Object, typeof (_c = typeof TerraformService !== "undefined" && TerraformService) === "function" ? _c : Object, typeof (_d = typeof TaskService !== "undefined" && TaskService) === "function" ? _d : Object])
 ], CommandService);
 
 
@@ -1819,6 +2206,8 @@ CommandModule = (0,external_tslib_namespaceObject.__decorate)([
         imports: [],
         providers: [
             CommandService,
+            DockerService,
+            PackerService,
             // SeedService,
             // ScrapeAntdService,
             // ScrapeHtmlService,
@@ -1845,14 +2234,19 @@ const getEnvFilePath = () => {
         throw new Error('Missing or incorrect --stage flag');
     }
     const envFilePath = (file) => external_path_default().resolve(process.cwd(), 'apps/api', file);
-    if (stage === Stage.Dev) {
+    const cliEnvFilePath = (file) => external_path_default().resolve(process.cwd(), 'apps/cli', file);
+    if (stage === Stage.Dev || stage === 'dev') {
         return envFilePath('.env');
     }
-    if (stage === Stage.Test) {
+    if (stage === Stage.Test || stage === 'test') {
         return envFilePath('.env.test');
     }
-    if (stage === Stage.CI) {
+    if (stage === Stage.CI || stage === 'ci') {
         return '';
+    }
+    // For prod stage, use CLI's .env file for packer/terraform commands
+    if (stage === 'prod') {
+        return cliEnvFilePath('.env');
     }
 };
 let CliModule = class CliModule {
@@ -1877,7 +2271,8 @@ CliModule = (0,external_tslib_namespaceObject.__decorate)([
 
 const bootstrap = async () => {
     const app = await core_namespaceObject.NestFactory.createApplicationContext(CliModule, {
-        logger: false,
+        // logger: process.env.DEBUG ? ['error', 'warn'] : false,
+        logger: ['error'],
     });
     await app.init();
 };

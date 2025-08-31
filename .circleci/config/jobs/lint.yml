@@ -4,7 +4,7 @@ parameters:
   max_old_space_size:
     type: integer
 
-executor: docker-node
+executor: docker-node-arm64
 
 resource_class: << parameters.resource_class >>
 
@@ -12,14 +12,19 @@ environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
   CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   CIRCLE_REVISION: << pipeline.git.revision >>
+  NX_CACHE_DIRECTORY: .nx/cache-lint
 
 steps:
   - restore-workspace
+  - restore-nx-cache:
+      cache_name: lint
   - run:
       name: 'Run Lint on Repository'
       command: pnpm cli tasks lint --stage ci
   # - run:
   #     name: 'Commitlint'
   #     command: pnpm cli tasks commitlint --stage ci
+  - save-nx-cache:
+      cache_name: lint
   - store_test_results:
       path: ./tmp/reports/lint

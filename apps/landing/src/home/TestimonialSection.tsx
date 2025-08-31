@@ -1,13 +1,18 @@
-import type { Settings } from 'react-slick'
+'use client'
+
+import type { UseEmblaCarouselType } from 'embla-carousel-react'
 
 import { initials } from '@codelab/shared-utils'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
-import { Fragment } from 'react'
-import Slider from 'react-slick'
+import Autoplay from 'embla-carousel-autoplay'
+import useEmblaCarousel from 'embla-carousel-react'
+import { useCallback, useEffect, useState } from 'react'
 
-import styles from './customDots.module.css'
+import { CuiText } from '../components/CuiText'
+
+type EmblaCarouselType = UseEmblaCarouselType[1]
 
 const { Meta } = Card
 const { Text } = Typography
@@ -24,47 +29,48 @@ export const TestimonialItem = ({
   stakeholder,
 }: TestimonialItemProps) => {
   return (
-    <>
-      <div className="h-8" />
+    <div
+      className={`
+        flex size-full flex-col px-2
+        sm:px-3
+      `}
+    >
+      <div className="h-8 shrink-0" />
       <Card
         className={`
-          mx-2 max-w-[600px] rounded-lg bg-transparent p-2
+          flex max-w-[600px] flex-1 flex-col rounded-lg bg-transparent p-2
           sm:p-4
+          [&_.ant-card-body]:flex [&_.ant-card-body]:flex-1 [&_.ant-card-body]:flex-col
         `}
       >
         <div className="flex justify-center">
-          <span className="relative -mt-20 flex bg-slate-700 p-4">
+          <span className="relative -mt-20 flex p-4">
             <FontAwesomeIcon
-              className="[&_path]:fill-yellow-400"
-              color=""
+              className={`
+                size-20
+                [&_path]:fill-yellow-400
+              `}
               icon={faQuoteLeft}
-              size="5x"
+              style={{ maxWidth: '80px', maxHeight: '80px' }}
             />
           </span>
         </div>
-        {Array(5)
-          .fill(
-            <FontAwesomeIcon
-              className={`
-                pr-1.5
-                [&_path]:fill-yellow-400
-              `}
-              icon={faStar}
-              size="lg"
-            />,
-          )
-          .map((item, idx) => (
-            <Fragment key={idx}>{item}</Fragment>
-          ))}
-        <div
-          className={`
-            mt-3 min-h-[120px]
-            md:min-h-[200px]
-            lg:min-h-[144px]
-            xl:min-h-[170px]
-            2xl:min-h-[140px]
-          `}
-        >
+        <div className="flex items-center">
+          {Array(5)
+            .fill(null)
+            .map((_, idx) => (
+              <FontAwesomeIcon
+                className={`
+                  size-5 pr-1.5
+                  [&_path]:fill-yellow-400
+                `}
+                icon={faStar}
+                key={idx}
+                style={{ maxWidth: '20px', maxHeight: '20px' }}
+              />
+            ))}
+        </div>
+        <div className="mt-3 grow">
           <Text
             className={`
               text-sm text-slate-300
@@ -85,7 +91,7 @@ export const TestimonialItem = ({
           title={stakeholder}
         />
       </Card>
-    </>
+    </div>
   )
 }
 
@@ -110,51 +116,63 @@ const testimonialItems = [
   },
   {
     review:
-      "We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders.",
-    role: 'CEO @ KonvertLab',
-    stakeholder: 'Shelby Lewis',
+      'As a marketing agency, we needed to quickly prototype and deploy custom landing pages for our clients. This platform allowed us to deliver professional, interactive websites in a fraction of the time it would take with traditional development.',
+    role: 'Marketing Director @ Kea Digital',
+    stakeholder: 'Giselle Lo',
   },
 ]
 
 export const TestimonialSection = () => {
-  const settings: Settings = {
-    appendDots: (dots) => (
-      <div
-        className={`
-          ${styles['slick-dots']}
-          ${styles['slick-thumb']}
-        `}
-      >
-        {dots}
-      </div>
-    ),
-    centerMode: false,
-    dots: true,
-    infinite: true,
-    // dotsClass: 'slick-dots slick-thumb',
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToScroll: 1,
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToScroll: 1,
-          slidesToShow: 1,
-        },
-      },
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: 'start',
+      loop: true,
+      skipSnaps: false,
+      slidesToScroll: 1,
+      containScroll: false,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 5000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
     ],
+  )
 
-    slidesToScroll: 1,
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<Array<number>>([])
 
-    slidesToShow: 3,
+  const scrollTo = useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi],
+  )
 
-    speed: 500,
-  }
+  const onSelect = useCallback((emblaInstance: EmblaCarouselType) => {
+    if (!emblaInstance) {
+      return
+    }
+
+    const index = emblaInstance.selectedScrollSnap()
+    setSelectedIndex(index)
+  }, [])
+
+  useEffect(() => {
+    if (!emblaApi) {
+      return
+    }
+
+    setScrollSnaps(emblaApi.scrollSnapList())
+    emblaApi.on('select', onSelect)
+    emblaApi.on('reInit', onSelect)
+    onSelect(emblaApi)
+
+    return () => {
+      emblaApi.off('select', onSelect)
+      emblaApi.off('reInit', onSelect)
+    }
+  }, [emblaApi, onSelect])
 
   return (
     <div
@@ -163,35 +181,68 @@ export const TestimonialSection = () => {
         sm:pb-20
       `}
     >
-      <h1
+      <CuiText
+        align="center"
         className={`
-          mt-4 text-center text-xl !font-extrabold !text-white
-          sm:mt-14 sm:text-3xl
+          mt-4
+          sm:mt-14
           md:mt-28
-          lg:text-4xl
-          xl:!text-5xl
         `}
-        // level={2}
+        color="white"
+        variant="section-title"
       >
         Loved by startups
-      </h1>
-      <Slider
-        {...settings}
-        className={`
-          z-10 my-2 mt-8 pb-0
-          sm:my-8 sm:pb-8
-        `}
-      >
-        {testimonialItems.map((item, index) => (
-          <TestimonialItem
-            key={index}
-            review={item.review}
-            role={item.role}
-            stakeholder={item.stakeholder}
-          />
-        ))}
-      </Slider>
-      <div className="mt-12"></div>
+      </CuiText>
+
+      {/* Embla Carousel with CSS-based responsive slides */}
+      <div className="mx-auto mt-8 max-w-6xl">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex items-stretch">
+            {testimonialItems.map((item, index) => (
+              <div
+                className={`
+                  flex min-w-0 shrink-0 grow-0 basis-full
+                  md:basis-1/2
+                  lg:basis-1/3
+                `}
+                key={index}
+              >
+                <TestimonialItem
+                  review={item.review}
+                  role={item.role}
+                  stakeholder={item.stakeholder}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Custom Dots Navigation - only show 2 dots for large screens */}
+        <div className="mt-8 flex justify-center">
+          <div className="flex gap-2">
+            {scrollSnaps
+              .slice(0, Math.min(scrollSnaps.length, 2))
+              .map((_, index) => (
+                <button
+                  aria-label={`Go to slide ${index + 1}`}
+                  className={`
+                    size-2 rounded-full transition-all duration-300
+                    ${
+                      selectedIndex % 2 === index
+                        ? 'w-8 bg-amber-600'
+                        : 'bg-gray-400'
+                    }
+                  `}
+                  key={index}
+                  onClick={() => scrollTo(index)}
+                  type="button"
+                />
+              ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-12" />
     </div>
   )
 }

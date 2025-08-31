@@ -1,0 +1,24 @@
+description: Install DigitalOcean CLI (doctl)
+steps:
+  - run:
+      name: Install doctl
+      command: |
+        echo "Installing DigitalOcean CLI..."
+        
+        DOCTL_VERSION="1.104.0"
+        ARCH=$(uname -m)
+        if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+          DOCTL_ARCH="linux-arm64"
+        else
+          DOCTL_ARCH="linux-amd64"
+        fi
+        
+        cd /tmp
+        wget -q "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+        tar xf "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+        mv doctl /usr/local/bin
+        rm "doctl-${DOCTL_VERSION}-${DOCTL_ARCH}.tar.gz"
+        
+        # Verify installation
+        doctl version
+        echo "DigitalOcean CLI installation completed"

@@ -4,19 +4,38 @@ parameters:
   max_old_space_size:
     type: integer
 
-executor: docker-node-neo4j
+executor: docker-node-neo4j-arm64
 
 resource_class: << parameters.resource_class >>
 
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+  NX_CACHE_DIRECTORY: .nx/cache-e2e
 
 parallelism: 4
 steps:
-  # This increases memory by double
+  # All Docker commands execute locally on the same virtual machine that used to spin up the primary container.
+  # Needed for sidecars to interact with each other
   - setup_remote_docker:
       version: default
   - restore-workspace-database
+  - restore-nx-cache:
+      cache_name: e2e
+  - run:
+      name: 'Check workspace after restore'
+      command: |
+        echo "=== Checking restored workspace ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Checking ~/project/dist/apps:"
+        ls -la ~/project/dist/apps/ 2>/dev/null || echo "No ~/project/dist/apps directory"
+        echo ""
+        echo "Checking dist/apps (relative):"
+        ls -la dist/apps/ 2>/dev/null || echo "No dist/apps directory"
+        echo ""
+        echo "Checking for web and api builds:"
+        ls -la dist/apps/web/ 2>/dev/null | head -10 || echo "No web build found"
+        ls -la dist/apps/api/ 2>/dev/null | head -10 || echo "No api build found"
   - setup-neo4j
   # We use workspace so it has the latest build
   # - restore_cache:
@@ -55,38 +74,45 @@ steps:
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
 
+  - save-nx-cache:
+      cache_name: e2e
   # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
 
   # This needs a separate job
   # - run:
   #     name: 'Merge Playwright Reports'
   #     command: |
-  #       pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
+  #       pnpm playwright merge-reports --reporter html tmp/reports/e2e/all-blob-reports
   #     when: always
+  # Not installed with `node:22`
+  - run:
+      name: Install Docker CLI
+      command: |
+        apt-get update && apt-get install -y docker.io
   - run:
       name: Capture Docker logs
       command: |
         set -x
 
-        mkdir -p ~/project/tmp/logs
+        mkdir -p tmp/logs
 
-        docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+        docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > tmp/logs/neo4j.log 2>&1
       # This ensures logs are captured even if previous steps fail
       when: always
   - store_artifacts:
-      path: ~/project/tmp/logs
+      path: tmp/logs
       destination: docker-logs
   - store_artifacts:
-      path: ~/project/tmp/reports/e2e
+      path: tmp/reports/e2e
       destination: playwright-report
   # - store_artifacts:
-  #     path: ~/project/tmp/reports/e2e/html-report
+  #     path: tmp/reports/e2e/html-report
   #     destination: html-report
   #   - store_artifacts:
-  #       path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
+  #       path: dist/.playwright/apps/web-e2e/src/screenshots
   #       destination: playwright/screenshots
   #   - store_artifacts:
-  #       path: ~/project/dist/.playwright/apps/web-e2e/src/data
+  #       path: dist/.playwright/apps/web-e2e/src/data
   #       destination: playwright/data
   - store_test_results:
-      path: ~/project/tmp/reports/e2e/junit
+      path: tmp/reports/e2e/junit

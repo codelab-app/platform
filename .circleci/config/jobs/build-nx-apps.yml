@@ -5,12 +5,14 @@ parameters:
     type: integer
 
 # Can't build with machine image, causes build issues
-executor: docker-node
+executor: docker-node-arm64
 
 resource_class: << parameters.resource_class >>
 
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+  NX_CACHE_DIRECTORY: .nx/cache-apps
+  NX_VERBOSE_LOGGING: true
 
 steps:
   - restore-workspace

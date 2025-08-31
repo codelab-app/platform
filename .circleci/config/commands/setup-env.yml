@@ -2,4 +2,4 @@ description: 'Setup Env'
 steps:
   - run:
       name: 'Setup Env'
-      command: source ~/project/.circleci/config/env.sh
+      command: source .circleci/config/env.sh

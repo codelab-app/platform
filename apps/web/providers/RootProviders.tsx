@@ -22,7 +22,7 @@ export const RootProviders = ({
     store.rootStore.setUser(user)
 
     return store
-  }, [user.id])
+  }, [user.id]) // Only recreate if user ID changes, not on every render
 
   return (
     <Auth0Provider>

@@ -25,6 +25,8 @@ resource "circleci_environment_variable" "env_vars" {
     NEXT_PUBLIC_SUPABASE_URL     = var.next_public_supabase_url
     NEXT_PUBLIC_SUPABASE_KEY     = var.next_public_supabase_key
     NX_CLOUD_ACCESS_TOKEN        = var.nx_cloud_access_token
+    NX_DAEMON                    = var.nx_daemon
+    CI_CACHE_VERSION             = var.ci_cache_version
     API_LOG_LEVEL                = var.api_log_level
     DEBUG                        = var.debug
     DOCKERHUB_USERNAME           = var.dockerhub_username
@@ -32,7 +34,6 @@ resource "circleci_environment_variable" "env_vars" {
     DIGITALOCEAN_ACCESS_TOKEN    = var.digitalocean_access_token
     DIGITALOCEAN_API_TOKEN       = var.digitalocean_api_token
     DIGITALOCEAN_DROPLET_NAME    = var.digitalocean_droplet_name
-    DOCKER_TAG_VERSION           = var.docker_tag_version
     SENTRY_AUTH_TOKEN            = var.sentry_auth_token
   }
 

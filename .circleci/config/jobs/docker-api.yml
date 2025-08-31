@@ -1,16 +1,13 @@
-executor: docker-node
+executor: docker-node-arm64
 
-resource_class: medium
+resource_class: arm.medium
 
 steps:
   - restore-workspace
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
   - setup_remote_docker:
       docker_layer_caching: true
+  # Use Makefile for building and pushing Docker images
   - run:
-      name: 'Build api Docker image'
-      command: (./scripts/docker/prod/build-api.sh)
-      # command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build api
-  - run:
-      name: 'Push Docker Image'
-      command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
+      name: 'Build and Push API Docker Image'
+      command: docker buildx bake --file .docker/docker-bake.hcl --push api

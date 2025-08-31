@@ -2,16 +2,15 @@
 /examples
 
 .terraform
-.next
+.nx
 dist
 .idea
 .vscode
 
-/.nx/cache
+/.nx/
 
 pnpm-lock.yaml
 
-/.nx/workspace-data
 
 *.gen.ts
 graphql.ts

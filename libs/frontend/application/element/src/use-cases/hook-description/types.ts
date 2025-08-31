@@ -2,7 +2,6 @@ import type {
   IGraphqlHookConfig,
   IQueryConfigHookConfig,
   IQueryLambdaHookConfig,
-  IRecoilStateHookConfig,
   IRouterHookConfig,
 } from '@codelab/frontend-abstract-domain'
 
@@ -16,10 +15,6 @@ export interface QueryConfigDescriptionProps {
 
 export interface GraphqlDescriptionProps {
   config: IGraphqlHookConfig
-}
-
-export interface RecoilStateDescriptionProps {
-  config: IRecoilStateHookConfig
 }
 
 export interface RouterDescriptionProps {

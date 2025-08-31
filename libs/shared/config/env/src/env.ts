@@ -17,6 +17,7 @@ export const env = from({
   AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
   CI: process.env['CI'],
   CIRCLE: process.env['CIRCLE'],
+  DIGITALOCEAN_API_TOKEN: process.env['DIGITALOCEAN_API_TOKEN'],
   E2E: process.env['E2E'],
   MAILCHIMP_API_KEY: process.env['MAILCHIMP_API_KEY'],
   MAILCHIMP_LIST_ID: process.env['MAILCHIMP_LIST_ID'],
@@ -33,4 +34,6 @@ export const env = from({
   NEXT_PUBLIC_INTERCOM_APP_ID: process.env['NEXT_PUBLIC_INTERCOM_APP_ID'],
   NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
   NODE_ENV: process.env['NODE_ENV'],
+  NEXT_PUBLIC_SUPABASE_KEY: process.env['NEXT_PUBLIC_SUPABASE_KEY'],
+  NEXT_PUBLIC_SUPABASE_URL: process.env['NEXT_PUBLIC_SUPABASE_URL'],
 })

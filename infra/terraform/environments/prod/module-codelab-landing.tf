@@ -8,6 +8,8 @@ module "codelab_landing" {
 
   loki_url = var.LOKI_URL
 
+  next_public_web_host = var.NEXT_PUBLIC_WEB_HOST
+
   codelab_app_domain_id      = module.codelab.codelab_app_domain_id
   codelab_app_vpc_id         = module.codelab.codelab_app_vpc_id
   codelab_app_certificate_id = module.codelab.codelab_app_certificate_id

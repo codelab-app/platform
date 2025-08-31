@@ -6,6 +6,6 @@ variable "SLACK_DEFAULT_CHANNEL" {
   type = string
 }
 
-variable "NX_CLOUD_ACCESS_TOKEN" {
+variable "CI_CACHE_VERSION" {
   type = string
 }

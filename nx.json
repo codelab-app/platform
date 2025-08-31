@@ -2,7 +2,7 @@
   "defaultBase": "master",
   "useInferencePlugins": true,
   "defaultProject": "web",
-  "maxCacheSize": "2GB",
+  "maxCacheSize": "3GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
   "plugins": [
     "@codelab/tsc-check",
@@ -154,7 +154,7 @@
       }
     },
     "@nx/eslint:lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
       "cache": true,
       "outputs": ["{options.outputFile}"],
       "options": {
@@ -193,10 +193,9 @@
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
-      "{workspaceRoot}/workspace.json",
-      "{workspaceRoot}/tslint.json",
       "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/tsconfig.base.json"
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/pnpm-lock.yaml"
     ],
     "prod": [
       "default",

@@ -1,0 +1,31 @@
+description: 'Save Nx << parameters.cache_name >> cache'
+parameters:
+  cache_name:
+    type: string
+    description: 'The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)'
+  extra_paths:
+    type: string
+    default: ''
+    description: 'Additional paths to cache (optional)'
+steps:
+  - when:
+      condition:
+        not:
+          equal: [<< parameters.extra_paths >>, '']
+      steps:
+        - save_cache:
+            name: 'Save Nx << parameters.cache_name >> Cache'
+            key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            paths:
+              - .nx/cache-<< parameters.cache_name >>
+              - << parameters.extra_paths >>
+  - unless:
+      condition:
+        not:
+          equal: [<< parameters.extra_paths >>, '']
+      steps:
+        - save_cache:
+            name: 'Save Nx << parameters.cache_name >> Cache'
+            key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            paths:
+              - .nx/cache-<< parameters.cache_name >>

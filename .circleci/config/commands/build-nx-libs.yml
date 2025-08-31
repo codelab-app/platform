@@ -4,20 +4,10 @@ description: 'Build Nx Libs'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
-  - restore_cache:
-      name: 'Restore NX Cache'
-      keys:
-        - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
-        - nx-cache-libs-
+  - restore-nx-cache:
+      cache_name: libs
   - run:
+      name: 'Build Nx Libs'
       command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
-  # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
-  - save_cache:
-      name: 'Save NX Cache'
-      key:
-        nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        # nx doesn't use `lockfile.hash` anymore, so move the pnpm
-        # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
-      paths:
-        - ~/project/.nx/cache-libs
+  - save-nx-cache:
+      cache_name: libs

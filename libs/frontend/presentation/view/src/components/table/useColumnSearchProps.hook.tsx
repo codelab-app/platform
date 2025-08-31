@@ -7,7 +7,8 @@ import type { FilterDropdownProps } from 'antd/lib/table/interface'
 import type { AnyModel } from 'mobx-keystone'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
-import { Button, Input, Space } from 'antd'
+import { Space } from '@codelab/frontend-presentation-components-space'
+import { Button, Input } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends AnyModel>

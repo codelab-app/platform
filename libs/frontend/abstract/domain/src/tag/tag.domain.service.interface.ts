@@ -8,12 +8,14 @@ import type { IHydrateable } from '../shared'
 import type { ITagModel } from './tag.model.interface'
 
 export interface ITagDomainService extends IHydrateable<ITagDto, ITagModel> {
+  checkedTagIds: Array<string>
   expandedNodes: Array<string>
   selectedOption: LabeledValue | null
   tags: ObjectMap<ITagModel>
   tagsList: Array<ITagModel>
   tagsSelectOptions: Array<SelectOption>
 
+  setCheckedTagIds(ids: Array<string>): void
   setExpandedNodes(nodes: Array<string>): void
   setSelectedTag(tag: Nullish<Ref<ITagModel>>): void
   tag(id: string): Maybe<ITagModel>

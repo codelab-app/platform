@@ -21,3 +21,9 @@ orbs:
   terraform: circleci/terraform@3.2.1
 
 working_directory: ~/project
+
+# Global environment variables for all jobs
+# IMPORTANT: Jobs with their own environment: sections override global environment completely (no merging).
+# These variables are only inherited by jobs WITHOUT their own environment: section.
+# For jobs that define environment:, consider using CircleCI Contexts to share variables.
+environment:

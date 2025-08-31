@@ -31,6 +31,8 @@ module "circleci" {
   next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
 
   nx_cloud_access_token = var.NX_CLOUD_ACCESS_TOKEN
+  nx_daemon             = var.NX_DAEMON
+  ci_cache_version      = var.CI_CACHE_VERSION
   circleci_api_token    = var.CIRCLECI_TOKEN
 
   dockerhub_username     = var.DOCKERHUB_USERNAME
@@ -39,7 +41,6 @@ module "circleci" {
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
   digitalocean_api_token    = var.DIGITALOCEAN_API_TOKEN
   digitalocean_droplet_name = var.DIGITALOCEAN_DROPLET_NAME
-  docker_tag_version        = var.DOCKER_TAG_VERSION
 
   sentry_auth_token = var.SENTRY_AUTH_TOKEN
 }

@@ -4,7 +4,8 @@ import { CliModule } from './cli.module'
 
 const bootstrap = async () => {
   const app = await NestFactory.createApplicationContext(CliModule, {
-    logger: false,
+    // logger: process.env.DEBUG ? ['error', 'warn'] : false,
+    logger: ['error'],
   })
 
   await app.init()

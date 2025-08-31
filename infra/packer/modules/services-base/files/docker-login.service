@@ -1,0 +1,18 @@
+[Unit]
+Description=Login to DigitalOcean Docker Registry
+After=network-online.target docker.service docker-daemon-config.service docker-loki-plugin.service
+Before=consul-template.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+# Login to Docker registry using the pre-configured doctl
+ExecStart=/usr/local/bin/doctl registry login
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

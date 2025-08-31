@@ -1,0 +1,1 @@
+access-token: ${digitalocean_api_token}

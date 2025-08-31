@@ -7,7 +7,7 @@ steps:
       at: ~/
   - run:
       name: 'Generate dist libs checksum for cache key'
-      command: ~/project/scripts/circleci/generate-dist-checksum.sh
+      command: scripts/circleci/generate-dist-checksum.sh
   - restore_cache:
       name: 'Restore node_modules Cache'
       keys:

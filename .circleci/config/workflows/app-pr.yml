@@ -7,7 +7,7 @@
 
 jobs:
   - setup-workspace:
-      resource_class: large
+      resource_class: arm.large
       max_old_space_size: 6144
       filters:
         branches:
@@ -24,7 +24,7 @@ jobs:
   #       branches:
   #         ignore: /master/
   - lint:
-      resource_class: large
+      resource_class: arm.large
       max_old_space_size: 8192
       filters:
         branches:
@@ -34,7 +34,7 @@ jobs:
       requires:
         - setup-workspace
   - build-nx-apps:
-      resource_class: large
+      resource_class: arm.large
       max_old_space_size: 4096
       filters:
         branches:
@@ -44,7 +44,7 @@ jobs:
       requires:
         - setup-workspace
   - build-nx-libs:
-      resource_class: large
+      resource_class: arm.large
       max_old_space_size: 4096
       filters:
         branches:
@@ -54,7 +54,7 @@ jobs:
       requires:
         - setup-workspace
   - tsc-check:
-      resource_class: large
+      resource_class: arm.large
       filters:
         branches:
           ignore:
@@ -63,7 +63,7 @@ jobs:
       requires:
         - setup-workspace
   - codegen:
-      resource_class: medium
+      resource_class: arm.medium
       filters:
         branches:
           ignore:
@@ -72,7 +72,7 @@ jobs:
       requires:
         - setup-workspace
   - unit:
-      resource_class: large
+      resource_class: arm.large
       filters:
         branches:
           ignore:
@@ -83,7 +83,7 @@ jobs:
   - integration:
       # 4gb docker + 4gb node = 8gb large
       # 4gb for docker is not enough for high throughput tests
-      resource_class: large
+      resource_class: arm.large
       max_old_space_size: 8192
       filters:
         branches:
@@ -93,7 +93,7 @@ jobs:
       requires:
         - setup-workspace
   - e2e:
-      resource_class: large
+      resource_class: arm.large
       # nextjs + nestjs + playwright
       max_old_space_size: 4096
       filters:
@@ -104,7 +104,6 @@ jobs:
       requires:
         - build-nx-apps
   - notify-success:
-      resource_class: medium
       filters:
         branches:
           ignore:
