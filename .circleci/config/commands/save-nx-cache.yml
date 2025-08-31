@@ -5,11 +5,13 @@ parameters:
     description: 'The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)'
   extra_paths:
     type: string
-    required: false
+    default: ''
     description: 'Additional paths to cache (optional)'
 steps:
   - when:
-      condition: << parameters.extra_paths >>
+      condition:
+        not:
+          equal: [<< parameters.extra_paths >>, '']
       steps:
         - save_cache:
             name: 'Save Nx << parameters.cache_name >> Cache'
@@ -18,7 +20,9 @@ steps:
               - .nx/cache-<< parameters.cache_name >>
               - << parameters.extra_paths >>
   - unless:
-      condition: << parameters.extra_paths >>
+      condition:
+        not:
+          equal: [<< parameters.extra_paths >>, '']
       steps:
         - save_cache:
             name: 'Save Nx << parameters.cache_name >> Cache'

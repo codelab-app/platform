@@ -268,12 +268,16 @@ commands:
         description: The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)
         type: string
       extra_paths:
+        default: ''
         description: Additional paths to cache (optional)
-        required: false
         type: string
     steps:
       - when:
-          condition: << parameters.extra_paths >>
+          condition:
+            not:
+              equal:
+                - << parameters.extra_paths >>
+                - ''
           steps:
             - save_cache:
                 key: v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
@@ -282,7 +286,11 @@ commands:
                   - .nx/cache-<< parameters.cache_name >>
                   - << parameters.extra_paths >>
       - unless:
-          condition: << parameters.extra_paths >>
+          condition:
+            not:
+              equal:
+                - << parameters.extra_paths >>
+                - ''
           steps:
             - save_cache:
                 key: v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
