@@ -1,6 +1,8 @@
 # Can't use `pnpm cli` doesn't exist yet
 
 description: 'Build Nx Libs'
+environment:
+  NX_CACHE_DIRECTORY: .nx/cache-libs
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
@@ -12,10 +14,11 @@ steps:
         - nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-libs-cache-
   - run:
-      command: NX_CACHE_DIRECTORY=.nx/cache-libs pnpm nx run-many --target=build --all --exclude=web,api -c ci
+      name: 'Build Nx Libs'
+      command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
   # Save Nx libs cache
   - save_cache:
       name: 'Save Nx Libs Cache'
       key: nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
-        - .nx/cache-libs
+        - .nx/cache-libs # Must match NX_CACHE_DIRECTORY in command environment

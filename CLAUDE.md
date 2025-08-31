@@ -76,6 +76,7 @@
 - Stop providing defaults for configs
 - Never set default values unless asked to
 - Do not refactor code that isn't relevant to the task at hand
+- If working with circleci, before commit always run `pnpm cpack` first
 
 ## Research and Information Lookup
 

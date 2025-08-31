@@ -3,22 +3,19 @@
 # IMPORTANT: Do not use --nx-bail flag as it prevents Nx Cloud from properly storing cache artifacts
 
 description: 'Build Nx Apps'
+environment:
+  NX_CACHE_DIRECTORY: .nx/cache-apps
+  NX_VERBOSE_LOGGING: true
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
-  # Restore caches separately
+  # Restore Nx Apps cache (includes Next.js cache)
   - restore_cache:
       name: 'Restore Nx Apps Cache'
       keys:
         - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-apps-cache-
-  - restore_cache:
-      name: 'Restore Next.js Cache'
-      keys:
-        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - nextjs-cache-
   - run:
       name: 'Check cache after restore'
       command: |
@@ -33,7 +30,7 @@ steps:
         ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
   - run:
       name: 'Build Nx Apps (web, api)'
-      command: NX_CACHE_DIRECTORY=.nx/cache-apps NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
+      command: pnpm nx run-many --target=build --projects=web,api -c ci --verbose
   - run:
       name: 'Check build output sizes'
       command: |
@@ -56,16 +53,12 @@ steps:
         echo ""
         echo "Size without .next/cache:"
         du -sh --exclude=.next/cache dist/apps/web/ 2>/dev/null || echo "Cannot calculate"
-  # Save caches separately - Nx cache for Nx Cloud, Next.js cache for build optimization
+  # Save Nx Apps cache (includes Next.js cache)
   - save_cache:
       name: 'Save Nx Apps Cache'
       key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
-        - .nx/cache-apps
-  - save_cache:
-      name: 'Save Next.js Cache'
-      key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-      paths:
+        - .nx/cache-apps # Must match NX_CACHE_DIRECTORY in command environment
         - dist/apps/web/.next/cache
   - persist_to_workspace:
       root: ~/

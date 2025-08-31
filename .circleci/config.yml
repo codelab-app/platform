@@ -1,6 +1,9 @@
 commands:
   build-nx-apps:
     description: Build Nx Apps
+    environment:
+      NX_CACHE_DIRECTORY: .nx/cache-apps
+      NX_VERBOSE_LOGGING: true
     steps:
       - nx/set-shas:
           main-branch-name: master
@@ -10,12 +13,6 @@ commands:
             - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-apps-cache-
           name: Restore Nx Apps Cache
-      - restore_cache:
-          keys:
-            - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nextjs-cache-
-          name: Restore Next.js Cache
       - run:
           command: |
             echo "=== After cache restore ==="
@@ -29,7 +26,7 @@ commands:
             ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
           name: Check cache after restore
       - run:
-          command: NX_CACHE_DIRECTORY=.nx/cache-apps NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
+          command: pnpm nx run-many --target=build --projects=web,api -c ci --verbose
           name: Build Nx Apps (web, api)
       - run:
           command: |
@@ -58,10 +55,6 @@ commands:
           name: Save Nx Apps Cache
           paths:
             - .nx/cache-apps
-      - save_cache:
-          key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save Next.js Cache
-          paths:
             - dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
@@ -70,6 +63,8 @@ commands:
           root: ~/
   build-nx-libs:
     description: Build Nx Libs
+    environment:
+      NX_CACHE_DIRECTORY: .nx/cache-libs
     steps:
       - nx/set-shas:
           main-branch-name: master
@@ -80,7 +75,8 @@ commands:
             - nx-libs-cache-
           name: Restore Nx Libs Cache
       - run:
-          command: NX_CACHE_DIRECTORY=.nx/cache-libs pnpm nx run-many --target=build --all --exclude=web,api -c ci
+          command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
+          name: Build Nx Libs
       - save_cache:
           key: nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save Nx Libs Cache
