@@ -12,6 +12,9 @@ query GetTypes($ids: [ID!]) {
   actionTypes(where: { id_IN: $ids }) {
     ...Type
   }
+  anyTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
   appTypes(where: { id_IN: $ids }) {
     ...Type
   }
@@ -49,9 +52,6 @@ query GetTypes($ids: [ID!]) {
     ...Type
   }
   unionTypes(where: { id_IN: $ids }) {
-    ...Type
-  }
-  unknownTypes(where: { id_IN: $ids }) {
     ...Type
   }
 }
@@ -170,8 +170,8 @@ query GetCodeMirrorTypes(
   }
 }
 
-query GetUnknownTypes($options: UnknownTypeOptions, $where: UnknownTypeWhere) {
-  types: unknownTypes(options: $options, where: $where) {
+query GetAnyTypes($options: AnyTypeOptions, $where: AnyTypeWhere) {
+  types: anyTypes(options: $options, where: $where) {
     ...Type
   }
 }

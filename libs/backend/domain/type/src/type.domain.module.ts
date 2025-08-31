@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common'
 import { TypeFactory } from './factory'
 import {
   ActionTypeRepository,
+  AnyTypeRepository,
   ArrayTypeRepository,
   CodeMirrorTypeRepository,
   EnumTypeRepository,
@@ -15,7 +16,6 @@ import {
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
-  UnknownTypeRepository,
 } from './repository'
 import { TypeDomainService } from './service'
 
@@ -31,7 +31,7 @@ const typeRepositories = [
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
-  UnknownTypeRepository,
+  AnyTypeRepository,
 ]
 
 @Module({

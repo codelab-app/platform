@@ -1,8 +1,8 @@
 import type { ITypeDto } from '@codelab/shared-abstract-core'
 
 import {
+  type IAnyTypeModel,
   type ITypeTransformContext,
-  type IUnknownTypeModel,
   type JsonSchema,
   userRef,
 } from '@codelab/frontend-abstract-domain'
@@ -12,9 +12,9 @@ import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner }: ITypeDto) => {
-  assertIsTypeKind(kind, ITypeKind.UnknownType)
+  assertIsTypeKind(kind, ITypeKind.AnyType)
 
-  return new UnknownType({
+  return new AnyType({
     id,
     kind,
     name,
@@ -22,10 +22,10 @@ const create = ({ id, kind, name, owner }: ITypeDto) => {
   })
 }
 
-@model('@codelab/UnknownType')
-export class UnknownType
-  extends ExtendedModel(createBaseType(ITypeKind.UnknownType), {})
-  implements IUnknownTypeModel
+@model('@codelab/AnyType')
+export class AnyType
+  extends ExtendedModel(createBaseType(ITypeKind.AnyType), {})
+  implements IAnyTypeModel
 {
   public static create = create
 

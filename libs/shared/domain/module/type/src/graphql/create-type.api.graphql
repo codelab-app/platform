@@ -125,9 +125,9 @@ mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {
   }
 }
 
-mutation CreateUnknownTypes($input: [UnknownTypeCreateInput!]!) {
-  types: createUnknownTypes(input: $input) {
-    types: unknownTypes {
+mutation CreateAnyTypes($input: [AnyTypeCreateInput!]!) {
+  types: createAnyTypes(input: $input) {
+    types: anyTypes {
       __typename
       id
     }

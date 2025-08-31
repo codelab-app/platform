@@ -1,7 +1,13 @@
+/**
+ * Put all functions in same file so it's easier for LLM to refactor
+ */
 import type {
   ActionTypeCreateInput,
   ActionTypeDeleteInput,
   ActionTypeUpdateInput,
+  AnyTypeCreateInput,
+  AnyTypeDeleteInput,
+  AnyTypeUpdateInput,
   AppTypeCreateInput,
   AppTypeDeleteInput,
   AppTypeUpdateInput,
@@ -41,16 +47,11 @@ import type {
   UnionTypeCreateInput,
   UnionTypeDeleteInput,
   UnionTypeUpdateInput,
-  UnknownTypeCreateInput,
-  UnknownTypeDeleteInput,
-  UnknownTypeUpdateInput,
 } from '@codelab/shared-infra-gqlgen'
 
-/**
- * Put all functions in same file so it's easier for LLM to refactor
- */
 import {
   type IActionTypeDto,
+  type IAnyTypeDto,
   type IAppTypeDto,
   type IArrayTypeDto,
   type ICodeMirrorTypeDto,
@@ -66,7 +67,6 @@ import {
   type IRichTextTypeDto,
   ITypeKind,
   type IUnionTypeDto,
-  type IUnknownTypeDto,
 } from '@codelab/shared-abstract-core'
 import { connectNodeId, connectOwner } from '@codelab/shared-domain-orm'
 
@@ -93,22 +93,22 @@ export const actionTypeMapper: IMapper<
   toUpdateInput: createOrUpdateActionType,
 }
 
-const createOrUpdateUnknownType = (dto: IUnknownTypeDto) => ({
+const createOrUpdateAnyType = (dto: IAnyTypeDto) => ({
   id: dto.id,
   kind: dto.kind,
   name: dto.name,
   owner: connectOwner(dto.owner),
 })
 
-export const unknownTypeMapper: IMapper<
-  IUnknownTypeDto,
-  UnknownTypeCreateInput,
-  UnknownTypeUpdateInput,
-  UnknownTypeDeleteInput
+export const anyTypeMapper: IMapper<
+  IAnyTypeDto,
+  AnyTypeCreateInput,
+  AnyTypeUpdateInput,
+  AnyTypeDeleteInput
 > = {
-  toCreateInput: createOrUpdateUnknownType,
+  toCreateInput: createOrUpdateAnyType,
   toDeleteInput: () => ({}),
-  toUpdateInput: createOrUpdateUnknownType,
+  toUpdateInput: createOrUpdateAnyType,
 }
 
 const createOrUpdateAppType = (dto: IAppTypeDto) => ({
@@ -396,7 +396,7 @@ export const unionTypeMapper: IMapper<
  */
 export const typeMapperRecord = {
   [ITypeKind.ActionType]: actionTypeMapper,
-  [ITypeKind.UnknownType]: unknownTypeMapper,
+  [ITypeKind.AnyType]: anyTypeMapper,
   [ITypeKind.AppType]: appTypeMapper,
   [ITypeKind.ArrayType]: arrayTypeMapper,
   [ITypeKind.CodeMirrorType]: codeMirrorTypeMapper,

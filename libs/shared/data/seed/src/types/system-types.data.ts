@@ -126,10 +126,10 @@ export const systemTypesData = (owner: IRef): Array<ITypeDto> => [
     owner,
   },
   {
-    __typename: ITypeKind.UnknownType,
+    __typename: ITypeKind.AnyType,
     id: v4(),
-    kind: ITypeKind.UnknownType,
-    name: ITypeKind.UnknownType,
+    kind: ITypeKind.AnyType,
+    name: ITypeKind.AnyType,
     owner,
   },
 ]

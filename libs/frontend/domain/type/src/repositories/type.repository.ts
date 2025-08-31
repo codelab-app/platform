@@ -269,6 +269,23 @@ export const typeRepository: ITypeRepository = {
         return Validator.parseDefined(types[0])
       }
 
+      case ITypeKind.AnyType: {
+        const variables =
+          typeMapperRecord[input.__typename].toUpdateInput(input)
+
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
+
+        return Validator.parseDefined(types[0])
+      }
+
       case ITypeKind.AppType: {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
@@ -474,23 +491,6 @@ export const typeRepository: ITypeRepository = {
       }
 
       case ITypeKind.UnionType: {
-        const variables =
-          typeMapperRecord[input.__typename].toUpdateInput(input)
-
-        const action = await updateAction(ITypeKind[input.__typename])
-
-        const types = await action(
-          {
-            update: variables,
-            where: { id },
-          },
-          next,
-        )
-
-        return Validator.parseDefined(types[0])
-      }
-
-      case ITypeKind.UnknownType: {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 

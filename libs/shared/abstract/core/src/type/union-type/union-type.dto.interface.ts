@@ -2,7 +2,7 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { TypeRefSchema } from '../any-type.dto.interface'
+import { TypeRefSchema } from '../all-type.dto.interface'
 import { BaseTypeDtoSchema } from '../base-type.dto.interface'
 import { ITypeKind } from '../type-kind.enum'
 

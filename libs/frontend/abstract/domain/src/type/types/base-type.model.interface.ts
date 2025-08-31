@@ -19,6 +19,7 @@ import type { IModel } from '../../shared'
 import type { IStoreModel } from '../../store'
 import type { IUserModel } from '../../user'
 import type { IActionTypeModel } from './action-type.model.interface'
+import type { IAnyTypeModel } from './any-type.model.interface'
 import type { IAppTypeModel } from './app-type.model.interface'
 import type { IArrayTypeModel } from './array-type.model.interface'
 import type { ICodeMirrorTypeModel } from './code-mirror-type.model.interface'
@@ -32,7 +33,6 @@ import type { IReactNodeTypeModel } from './react-node-type.model.interface'
 import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
 import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
-import type { IUnknownTypeModel } from './unknown-type.model.interface'
 
 export interface JsonSchema extends JSONSchema7 {
   autocomplete?: IPropData
@@ -76,6 +76,7 @@ export interface IBaseTypeModel<IDto extends IBaseTypeDto>
 
 export type ITypeModel =
   | IActionTypeModel
+  | IAnyTypeModel
   | IAppTypeModel
   | IArrayTypeModel
   | ICodeMirrorTypeModel
@@ -89,4 +90,3 @@ export type ITypeModel =
   | IRenderPropTypeModel
   | IRichTextTypeModel
   | IUnionTypeModel
-  | IUnknownTypeModel

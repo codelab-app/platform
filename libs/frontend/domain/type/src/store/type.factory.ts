@@ -14,6 +14,7 @@ import { ITypeKind } from '@codelab/shared-abstract-core'
 import { TypeKind } from '@codelab/shared-infra-gqlgen'
 
 import { ActionType } from './action-type.model'
+import { AnyType } from './any-type.model'
 import { AppType } from './app-type.model'
 import { ArrayType } from './array-type.model'
 import { CodeMirrorType } from './code-mirror-type.model'
@@ -27,13 +28,15 @@ import { ReactNodeType } from './react-node-type.model'
 import { RenderPropType } from './render-prop-type.model'
 import { RichTextType } from './rich-text-type.model'
 import { UnionType } from './union-type.model'
-import { UnknownType } from './unknown-type.model'
 
 export class TypeFactory {
   static create(typeDto: ITypeDto): ITypeModel {
     switch (typeDto.__typename) {
       case ITypeKind.ActionType:
         return ActionType.create(typeDto)
+
+      case ITypeKind.AnyType:
+        return AnyType.create(typeDto)
 
       case ITypeKind.AppType:
         return AppType.create(typeDto)
@@ -67,9 +70,6 @@ export class TypeFactory {
 
       case ITypeKind.RichTextType:
         return RichTextType.create(typeDto)
-
-      case ITypeKind.UnknownType:
-        return UnknownType.create(typeDto)
 
       case TypeKind.InterfaceType:
         return InterfaceType.create(typeDto)

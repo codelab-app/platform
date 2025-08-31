@@ -20,7 +20,7 @@ import {
   GetAppTypesDocument,
   GetActionTypesDocument,
   GetCodeMirrorTypesDocument,
-  GetUnknownTypesDocument
+  GetAnyTypesDocument
 } from '@codelab/shared-infra-gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
@@ -58,6 +58,6 @@ export const getSdk = (client: GraphQLClient) => ({
     gqlRequest(client, GetActionTypesDocument.toString(), variables),
   GetCodeMirrorTypes: (variables: Types.GetCodeMirrorTypesQueryVariables) =>
     gqlRequest(client, GetCodeMirrorTypesDocument.toString(), variables),
-  GetUnknownTypes: (variables: Types.GetUnknownTypesQueryVariables) =>
-    gqlRequest(client, GetUnknownTypesDocument.toString(), variables),
+  GetAnyTypes: (variables: Types.GetAnyTypesQueryVariables) =>
+    gqlRequest(client, GetAnyTypesDocument.toString(), variables),
 })

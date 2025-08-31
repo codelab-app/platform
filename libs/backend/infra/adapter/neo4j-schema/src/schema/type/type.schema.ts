@@ -27,7 +27,7 @@ export const typeSchema = gql`
     AppType
     ActionType
     RichTextType
-    UnknownType
+    AnyType
   }
 
   type TypeReference {
@@ -120,7 +120,7 @@ export const typeSchema = gql`
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]! @customResolver(requires: "id")
-    typesOfUnionType: [AnyType!]!
+    typesOfUnionType: [AllType!]!
       @relationship(
         type: "UNION_TYPE_CHILD",
         direction: OUT,
@@ -298,9 +298,9 @@ export const typeSchema = gql`
   """
   Represents a type that can accept any value, similar to TypeScript's any type
   """
-  type UnknownType implements IBaseType @node(labels: ["Type", "UnknownType"]) ${authOwnerOrAdmin} {
+  type AnyType implements IBaseType @node(labels: ["Type", "AnyType"]) ${authOwnerOrAdmin} {
     id: ID!
-    kind: TypeKind! @default(value: UnknownType)
+    kind: TypeKind! @default(value: AnyType)
     name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
@@ -327,7 +327,7 @@ export const typeSchema = gql`
     CssInJs
   }
 
-  union AnyType =
+  union AllType =
     PrimitiveType |
     ArrayType |
     UnionType |
@@ -342,5 +342,5 @@ export const typeSchema = gql`
     AppType |
     RichTextType |
     CodeMirrorType |
-    UnknownType
+    AnyType
 `

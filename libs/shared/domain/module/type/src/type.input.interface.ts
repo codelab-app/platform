@@ -1,5 +1,6 @@
 import type {
   IActionTypeDto,
+  IAnyTypeDto,
   IAppTypeDto,
   IArrayTypeDto,
   ICodeMirrorTypeDto,
@@ -14,7 +15,6 @@ import type {
   IRichTextTypeDto,
   ITypeKind,
   IUnionTypeDto,
-  IUnknownTypeDto,
 } from '@codelab/shared-abstract-core'
 import type {
   ActionTypeConnectInput,
@@ -23,6 +23,12 @@ import type {
   ActionTypeDisconnectInput,
   ActionTypeUpdateInput,
   ActionTypeWhere,
+  AnyTypeConnectInput,
+  AnyTypeCreateInput,
+  AnyTypeDeleteInput,
+  AnyTypeDisconnectInput,
+  AnyTypeUpdateInput,
+  AnyTypeWhere,
   AppTypeConnectInput,
   AppTypeCreateInput,
   AppTypeDeleteInput,
@@ -102,13 +108,8 @@ import type {
   UnionTypeDisconnectInput,
   UnionTypeUpdateInput,
   UnionTypeWhere,
-  UnknownTypeConnectInput,
-  UnknownTypeCreateInput,
-  UnknownTypeDeleteInput,
-  UnknownTypeDisconnectInput,
-  UnknownTypeUpdateInput,
-  UnknownTypeWhere,
   UpdateActionTypesMutationVariables,
+  UpdateAnyTypesMutationVariables,
   UpdateAppTypesMutationVariables,
   UpdateArrayTypesMutationVariables,
   UpdateCodeMirrorTypesMutationVariables,
@@ -122,7 +123,6 @@ import type {
   UpdateRenderPropTypesMutationVariables,
   UpdateRichTextTypesMutationVariables,
   UpdateUnionTypesMutationVariables,
-  UpdateUnknownTypesMutationVariables,
 } from '@codelab/shared-infra-gqlgen'
 
 export interface ITypeUpdateArgs {
@@ -135,6 +135,7 @@ export interface ITypeUpdateArgs {
 
 export type ITypeWhere =
   | ActionTypeWhere
+  | AnyTypeWhere
   | AppTypeWhere
   | ArrayTypeWhere
   | CodeMirrorTypeWhere
@@ -148,10 +149,10 @@ export type ITypeWhere =
   | RenderPropTypeWhere
   | RichTextType
   | UnionTypeWhere
-  | UnknownTypeWhere
 
 export type ITypeCreateInput =
   | ActionTypeCreateInput
+  | AnyTypeCreateInput
   | AppTypeCreateInput
   | ArrayTypeCreateInput
   | CodeMirrorTypeCreateInput
@@ -165,10 +166,10 @@ export type ITypeCreateInput =
   | RenderPropTypeCreateInput
   | RichTextTypeCreateInput
   | UnionTypeCreateInput
-  | UnknownTypeCreateInput
 
 export type ITypeUpdateInput =
   | ActionTypeUpdateInput
+  | AnyTypeUpdateInput
   | AppTypeUpdateInput
   | ArrayTypeUpdateInput
   | CodeMirrorTypeUpdateInput
@@ -182,10 +183,10 @@ export type ITypeUpdateInput =
   | RenderPropTypeUpdateInput
   | RichTextTypeUpdateInput
   | UnionTypeUpdateInput
-  | UnknownTypeUpdateInput
 
 export type ITypeUpdateVars =
   | UpdateActionTypesMutationVariables
+  | UpdateAnyTypesMutationVariables
   | UpdateAppTypesMutationVariables
   | UpdateArrayTypesMutationVariables
   | UpdateCodeMirrorTypesMutationVariables
@@ -199,7 +200,6 @@ export type ITypeUpdateVars =
   | UpdateRenderPropTypesMutationVariables
   | UpdateRichTextTypesMutationVariables
   | UpdateUnionTypesMutationVariables
-  | UpdateUnknownTypesMutationVariables
 
 /**
  * Connect
@@ -207,6 +207,7 @@ export type ITypeUpdateVars =
 
 export type ITypeConnectInput =
   | ActionTypeConnectInput
+  | AnyTypeConnectInput
   | AppTypeConnectInput
   | ArrayTypeConnectInput
   | CodeMirrorTypeConnectInput
@@ -220,13 +221,13 @@ export type ITypeConnectInput =
   | RenderPropTypeConnectInput
   | RichTextTypeConnectInput
   | UnionTypeConnectInput
-  | UnknownTypeConnectInput
 
 /**
  * Disconnect
  */
 export type ITypeDisconnectInput =
   | ActionTypeDisconnectInput
+  | AnyTypeDisconnectInput
   | AppTypeDisconnectInput
   | ArrayTypeDisconnectInput
   | CodeMirrorTypeDisconnectInput
@@ -240,7 +241,6 @@ export type ITypeDisconnectInput =
   | RenderPropTypeDisconnectInput
   | RichTextTypeDisconnectInput
   | UnionTypeDisconnectInput
-  | UnknownTypeDisconnectInput
 
 /**
  * Delete
@@ -248,6 +248,7 @@ export type ITypeDisconnectInput =
 
 export type ITypeDeleteInput =
   | ActionTypeDeleteInput
+  | AnyTypeDeleteInput
   | AppTypeDeleteInput
   | ArrayTypeDeleteInput
   | CodeMirrorTypeDeleteInput
@@ -261,13 +262,13 @@ export type ITypeDeleteInput =
   | RenderPropTypeDeleteInput
   | RichTextTypeDeleteInput
   | UnionTypeDeleteInput
-  | UnknownTypeDeleteInput
 
 /**
  * Type mapping for different types
  */
 export interface TypeCreateMap {
   [ITypeKind.ActionType]: { dto: IActionTypeDto; where: ActionTypeWhere }
+  [ITypeKind.AnyType]: { dto: IAnyTypeDto; where: AnyTypeWhere }
   [ITypeKind.AppType]: { dto: IAppTypeDto; where: AppTypeWhere }
   [ITypeKind.ArrayType]: { dto: IArrayTypeDto; where: ArrayTypeWhere }
   [ITypeKind.CodeMirrorType]: {
@@ -299,5 +300,4 @@ export interface TypeCreateMap {
     where: RichTextTypeWhere
   }
   [ITypeKind.UnionType]: { dto: IUnionTypeDto; where: UnionTypeWhere }
-  [ITypeKind.UnknownType]: { dto: IUnknownTypeDto; where: UnknownTypeWhere }
 }

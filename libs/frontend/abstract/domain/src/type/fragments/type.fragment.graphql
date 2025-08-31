@@ -1,5 +1,6 @@
 fragment Type on IBaseType {
   ...ActionType
+  ...AnyType
   ...AppType
   ...ArrayType
   ...CodeMirrorType
@@ -13,5 +14,4 @@ fragment Type on IBaseType {
   ...RenderPropType
   ...RichTextType
   ...UnionType
-  ...UnknownType
 }

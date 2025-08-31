@@ -3,6 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { ActionTypeDtoSchema } from './action-type'
+import { AnyTypeDtoSchema } from './any-type/any-type.dto.interface'
 import { AppTypeDtoSchema } from './app-type/app-type.dto.interface'
 import { ArrayTypeDtoSchema } from './array-type'
 import { CodeMirrorTypeDtoSchema } from './code-mirror-type/code-mirror-type.dto.interface'
@@ -16,10 +17,10 @@ import { ReactNodeTypeDtoSchema } from './react-node-type'
 import { RenderPropTypeDtoSchema } from './render-prop-type/render-prop-type.dto.interface'
 import { RichTextTypeDtoSchema } from './rich-text-type'
 import { UnionTypeDtoSchema } from './union-type'
-import { UnknownTypeDtoSchema } from './unknown-type/unknown-type.dto.interface'
 
 export const typeDtoSchemas = [
   ActionTypeDtoSchema,
+  AnyTypeDtoSchema,
   AppTypeDtoSchema,
   ArrayTypeDtoSchema,
   CodeMirrorTypeDtoSchema,
@@ -33,7 +34,6 @@ export const typeDtoSchemas = [
   RenderPropTypeDtoSchema,
   RichTextTypeDtoSchema,
   UnionTypeDtoSchema,
-  UnknownTypeDtoSchema,
 ]
 
 export const TypeDtoSchema = Type.Union(typeDtoSchemas, {

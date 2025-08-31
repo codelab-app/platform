@@ -15,6 +15,7 @@ import { Injectable } from '@nestjs/common'
 
 import {
   ActionType,
+  AnyType,
   CodeMirrorType,
   EnumType,
   InterfaceType,
@@ -23,11 +24,11 @@ import {
   RenderPropType,
   RichTextType,
   UnionType,
-  UnknownType,
 } from '../model'
 import { ArrayType } from '../model/array-type.model'
 import {
   ActionTypeRepository,
+  AnyTypeRepository,
   ArrayTypeRepository,
   CodeMirrorTypeRepository,
   EnumTypeRepository,
@@ -37,7 +38,6 @@ import {
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
-  UnknownTypeRepository,
 } from '../repository'
 
 /**
@@ -55,7 +55,7 @@ export class TypeFactory {
     private readonly renderPropTypeRepository: RenderPropTypeRepository,
     private readonly richTextTypeRepository: RichTextTypeRepository,
     private readonly actionTypeRepository: ActionTypeRepository,
-    private readonly unknownTypeRepository: UnknownTypeRepository,
+    private readonly anyTypeRepository: AnyTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
@@ -80,6 +80,12 @@ export class TypeFactory {
         const actionType = new ActionType(type)
 
         return await this.actionTypeRepository.add(actionType)
+      }
+
+      case ITypeKind.AnyType: {
+        const anyType = new AnyType(type)
+
+        return await this.anyTypeRepository.add(anyType)
       }
 
       case ITypeKind.ArrayType: {
@@ -134,12 +140,6 @@ export class TypeFactory {
         const unionType = new UnionType(type)
 
         return await this.unionTypeRepository.add(unionType)
-      }
-
-      case ITypeKind.UnknownType: {
-        const unknownType = new UnknownType(type)
-
-        return await this.unknownTypeRepository.add(unknownType)
       }
 
       default: {
@@ -298,6 +298,12 @@ export class TypeFactory {
         return await this.actionTypeRepository.save(actionType, where)
       }
 
+      case ITypeKind.AnyType: {
+        const anyType = new AnyType(type)
+
+        return await this.anyTypeRepository.save(anyType, where)
+      }
+
       case ITypeKind.ArrayType: {
         const arrayType = new ArrayType(type)
 
@@ -350,12 +356,6 @@ export class TypeFactory {
         const unionType = new UnionType(type)
 
         return await this.unionTypeRepository.save(unionType, where)
-      }
-
-      case ITypeKind.UnknownType: {
-        const unknownType = new UnknownType(type)
-
-        return await this.unknownTypeRepository.save(unknownType, where)
       }
 
       default: {

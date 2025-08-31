@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared-infra-gqlgen';
 
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
-import { UpdatePrimitiveTypesDocument, UpdateArrayTypesDocument, UpdateUnionTypesDocument, UpdateInterfaceTypesDocument, UpdateReactNodeTypesDocument, UpdateElementTypesDocument, UpdateRenderPropTypesDocument, UpdateEnumTypesDocument, UpdateLambdaTypesDocument, UpdatePageTypesDocument, UpdateAppTypesDocument, UpdateRichTextTypesDocument, UpdateActionTypesDocument, UpdateCodeMirrorTypesDocument, UpdateUnknownTypesDocument } from '@codelab/shared-infra-gqlgen'
+import { UpdatePrimitiveTypesDocument, UpdateArrayTypesDocument, UpdateUnionTypesDocument, UpdateInterfaceTypesDocument, UpdateReactNodeTypesDocument, UpdateElementTypesDocument, UpdateRenderPropTypesDocument, UpdateEnumTypesDocument, UpdateLambdaTypesDocument, UpdatePageTypesDocument, UpdateAppTypesDocument, UpdateRichTextTypesDocument, UpdateActionTypesDocument, UpdateCodeMirrorTypesDocument, UpdateAnyTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const UpdatePrimitiveTypes = (variables: Types.UpdatePrimitiveTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdatePrimitiveTypesDocument.toString(), variables, next)
 export const UpdateArrayTypes = (variables: Types.UpdateArrayTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateArrayTypesDocument.toString(), variables, next)
@@ -18,4 +18,4 @@ export const UpdateAppTypes = (variables: Types.UpdateAppTypesMutationVariables,
 export const UpdateRichTextTypes = (variables: Types.UpdateRichTextTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateRichTextTypesDocument.toString(), variables, next)
 export const UpdateActionTypes = (variables: Types.UpdateActionTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateActionTypesDocument.toString(), variables, next)
 export const UpdateCodeMirrorTypes = (variables: Types.UpdateCodeMirrorTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateCodeMirrorTypesDocument.toString(), variables, next)
-export const UpdateUnknownTypes = (variables: Types.UpdateUnknownTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateUnknownTypesDocument.toString(), variables, next)
+export const UpdateAnyTypes = (variables: Types.UpdateAnyTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateAnyTypesDocument.toString(), variables, next)

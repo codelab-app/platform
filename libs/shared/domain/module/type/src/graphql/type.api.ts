@@ -2,6 +2,7 @@ import type { IRef } from '@codelab/shared-abstract-core'
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   ActionTypeCreateInput,
+  AnyTypeCreateInput,
   AppTypeCreateInput,
   ArrayTypeCreateInput,
   CodeMirrorTypeCreateInput,
@@ -15,7 +16,6 @@ import type {
   RenderPropTypeCreateInput,
   RichTextTypeCreateInput,
   UnionTypeCreateInput,
-  UnknownTypeCreateInput,
 } from '@codelab/shared-infra-gqlgen'
 import type { ArrayOrSingle } from 'ts-essentials'
 
@@ -28,6 +28,7 @@ import type { ITypeWhere } from '../type.where.interface'
 import { getSdk as getCreateSdk } from './create-type.api.graphql.api.gen'
 import {
   CreateActionTypes,
+  CreateAnyTypes,
   CreateAppTypes,
   CreateArrayTypes,
   CreateCodeMirrorTypes,
@@ -41,11 +42,11 @@ import {
   CreateRenderPropTypes,
   CreateRichTextTypes,
   CreateUnionTypes,
-  CreateUnknownTypes,
 } from './create-type.api.graphql.web.gen'
 import { getSdk as getDeleteSdk } from './delete-type.api.graphql.api.gen'
 import {
   DeleteActionTypes,
+  DeleteAnyTypes,
   DeleteAppTypes,
   DeleteArrayTypes,
   DeleteCodeMirrorTypes,
@@ -59,7 +60,6 @@ import {
   DeleteRenderPropTypes,
   DeleteRichTextTypes,
   DeleteUnionTypes,
-  DeleteUnknownTypes,
 } from './delete-type.api.graphql.web.gen'
 import { getSdk as getFindSdk } from './get-type.api.graphql.api.gen'
 import {
@@ -74,6 +74,7 @@ import {
 import { getSdk as getUpdateSdk } from './update-type.api.graphql.api.gen'
 import {
   UpdateActionTypes,
+  UpdateAnyTypes,
   UpdateAppTypes,
   UpdateArrayTypes,
   UpdateCodeMirrorTypes,
@@ -87,7 +88,6 @@ import {
   UpdateRenderPropTypes,
   UpdateRichTextTypes,
   UpdateUnionTypes,
-  UpdateUnknownTypes,
 } from './update-type.api.graphql.web.gen'
 
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
@@ -178,9 +178,9 @@ export const createTypeServerActions: CreateTypes = {
       { input: input as ArrayOrSingle<UnionTypeCreateInput> },
       next,
     ).then(({ types }) => types.types),
-  [ITypeKind.UnknownType]: (input, next) =>
-    CreateUnknownTypes(
-      { input: input as ArrayOrSingle<UnknownTypeCreateInput> },
+  [ITypeKind.AnyType]: (input, next) =>
+    CreateAnyTypes(
+      { input: input as ArrayOrSingle<AnyTypeCreateInput> },
       next,
     ).then(({ types }) => types.types),
 }
@@ -200,6 +200,7 @@ export const getAllTypes = async (
 ) => {
   const {
     actionTypes,
+    anyTypes,
     appTypes,
     arrayTypes,
     codeMirrorTypes,
@@ -213,7 +214,6 @@ export const getAllTypes = async (
     renderPropTypes,
     richTextTypes,
     unionTypes,
-    unknownTypes,
   } = await GetTypes({ ids }, next)
 
   const targetEnum = enumTypes.find(
@@ -223,6 +223,7 @@ export const getAllTypes = async (
   return [
     ...primitiveTypes,
     ...arrayTypes,
+    ...anyTypes,
     ...unionTypes,
     ...interfaceTypes,
     ...elementTypes,
@@ -235,7 +236,6 @@ export const getAllTypes = async (
     ...appTypes,
     ...actionTypes,
     ...codeMirrorTypes,
-    ...unknownTypes,
   ]
 }
 
@@ -314,11 +314,10 @@ export const updateTypeServerActions: UpdateTypesRecord = {
     UpdateUnionTypes(vars as Parameters<typeof UpdateUnionTypes>[0], next).then(
       ({ types }) => types.types,
     ),
-  [ITypeKind.UnknownType]: (vars, next) =>
-    UpdateUnknownTypes(
-      vars as Parameters<typeof UpdateUnknownTypes>[0],
-      next,
-    ).then(({ types }) => types.types),
+  [ITypeKind.AnyType]: (vars, next) =>
+    UpdateAnyTypes(vars as Parameters<typeof UpdateAnyTypes>[0], next).then(
+      ({ types }) => types.types,
+    ),
 }
 
 //
@@ -378,10 +377,8 @@ export const deleteTypeServerActions: DeleteTypesRecord = {
     ),
   [ITypeKind.UnionType]: (vars, next) =>
     DeleteUnionTypes(vars, next).then((results) => results.deleteUnionTypes),
-  [ITypeKind.UnknownType]: (vars, next) =>
-    DeleteUnknownTypes(vars, next).then(
-      (results) => results.deleteUnknownTypes,
-    ),
+  [ITypeKind.AnyType]: (vars, next) =>
+    DeleteAnyTypes(vars, next).then((results) => results.deleteAnyTypes),
 }
 
 export const createTypeApi = () => getCreateSdk(graphqlClient)

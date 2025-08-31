@@ -34,11 +34,11 @@ export const TypeResolverProvider: FactoryProvider<
      * Don't rely on __typename to resolve
      */
     return {
-      AnyType: {
+      AllType: {
         __resolveType: (type: Partial<TypeFragment>) => {
           if (!type.__typename && !type.kind) {
             throw new Error(
-              'Either __typename or kind is required for resolving AnyType',
+              'Either __typename or kind is required for resolving AllType',
             )
           }
 

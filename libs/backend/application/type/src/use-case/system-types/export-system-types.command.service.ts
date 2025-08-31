@@ -3,23 +3,23 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
   ActionTypeRepository,
+  AnyTypeRepository,
   CodeMirrorTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
-  UnknownTypeRepository,
 } from '@codelab/backend-domain-type'
 import {
   ActionTypeSchema,
+  AnyTypeSchema,
   CodeMirrorTypeSchema,
   PrimitiveTypeSchema,
   ReactNodeTypeSchema,
   RenderPropTypeSchema,
   RichTextTypeSchema,
   UnionTypeSchema,
-  UnknownTypeSchema,
 } from '@codelab/shared-abstract-core'
 import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -55,7 +55,7 @@ export class ExportSystemTypesHandler
     private actionTypeRepository: ActionTypeRepository,
     private codeMirrorTypeRepository: CodeMirrorTypeRepository,
     private unionTypeRepository: UnionTypeRepository,
-    private unknownTypeRepository: UnknownTypeRepository,
+    private anyTypeRepository: AnyTypeRepository,
   ) {}
 
   async execute() {
@@ -134,11 +134,11 @@ export class ExportSystemTypesHandler
       },
     })
 
-    const unknownTypes = await this.unknownTypeRepository.find({
+    const anyTypes = await this.anyTypeRepository.find({
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
-      schema: Type.Omit(UnknownTypeSchema, ['owner']),
+      schema: Type.Omit(AnyTypeSchema, ['owner']),
     })
 
     /**
@@ -154,7 +154,7 @@ export class ExportSystemTypesHandler
       ...richTextTypes,
       ...codeMirrorTypes,
       ...unionTypes,
-      ...unknownTypes,
+      ...anyTypes,
     ]
   }
 }

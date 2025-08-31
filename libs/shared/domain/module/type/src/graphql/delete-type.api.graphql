@@ -132,11 +132,8 @@ mutation DeleteCodeMirrorTypes(
   }
 }
 
-mutation DeleteUnknownTypes(
-  $delete: UnknownTypeDeleteInput
-  $where: UnknownTypeWhere
-) {
-  deleteUnknownTypes(delete: $delete, where: $where) {
+mutation DeleteAnyTypes($delete: AnyTypeDeleteInput, $where: AnyTypeWhere) {
+  deleteAnyTypes(delete: $delete, where: $where) {
     nodesDeleted
     relationshipsDeleted
   }

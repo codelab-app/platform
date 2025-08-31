@@ -498,17 +498,11 @@ type ActionTypesConnection {
   totalCount: Int!
 }
 
-union AnyAction = ApiAction | CodeAction
+union AllType = ActionType | AnyType | AppType | ArrayType | CodeMirrorType | ElementType | EnumType | InterfaceType | LambdaType | PageType | PrimitiveType | ReactNodeType | RenderPropType | RichTextType | UnionType
 
-input AnyActionWhere {
-  ApiAction: ApiActionWhere
-  CodeAction: CodeActionWhere
-}
-
-union AnyType = ActionType | AppType | ArrayType | CodeMirrorType | ElementType | EnumType | InterfaceType | LambdaType | PageType | PrimitiveType | ReactNodeType | RenderPropType | RichTextType | UnionType | UnknownType
-
-input AnyTypeWhere {
+input AllTypeWhere {
   ActionType: ActionTypeWhere
+  AnyType: AnyTypeWhere
   AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
   CodeMirrorType: CodeMirrorTypeWhere
@@ -522,7 +516,507 @@ input AnyTypeWhere {
   RenderPropType: RenderPropTypeWhere
   RichTextType: RichTextTypeWhere
   UnionType: UnionTypeWhere
-  UnknownType: UnknownTypeWhere
+}
+
+union AnyAction = ApiAction | CodeAction
+
+input AnyActionWhere {
+  ApiAction: ApiActionWhere
+  CodeAction: CodeActionWhere
+}
+
+"""
+Represents a type that can accept any value, similar to TypeScript's any type
+"""
+type AnyType implements IBaseType {
+  fieldRefs(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: FieldOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [FieldSort!], where: FieldWhere): [Field!]!
+  fieldRefsAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: FieldWhere): AnyTypeFieldFieldRefsAggregationSelection
+  fieldRefsConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeFieldRefsConnectionSort!], where: IBaseTypeFieldRefsConnectionWhere): IBaseTypeFieldRefsConnection!
+  id: ID!
+  kind: TypeKind!
+  name: String!
+  owner(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: UserOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UserSort!], where: UserWhere): User!
+  ownerAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: UserWhere): AnyTypeUserOwnerAggregationSelection
+  ownerConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeOwnerConnectionSort!], where: IBaseTypeOwnerConnectionWhere): IBaseTypeOwnerConnection!
+}
+
+type AnyTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+}
+
+input AnyTypeConnectInput {
+  fieldRefs: [AnyTypeFieldRefsConnectFieldInput!]
+  owner: AnyTypeOwnerConnectFieldInput
+}
+
+input AnyTypeConnectWhere {
+  node: AnyTypeWhere!
+}
+
+input AnyTypeCreateInput {
+  fieldRefs: AnyTypeFieldRefsFieldInput
+  id: ID!
+  kind: TypeKind! = AnyType
+  name: String!
+  owner: AnyTypeOwnerFieldInput
+}
+
+type AnyTypeCreatedEvent {
+  createdAnyType: AnyTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+input AnyTypeDeleteInput {
+  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
+  owner: IBaseTypeOwnerDeleteFieldInput
+}
+
+type AnyTypeDeletedEvent {
+  deletedAnyType: AnyTypeEventPayload!
+  event: EventType!
+  timestamp: Float!
+}
+
+input AnyTypeDisconnectInput {
+  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  owner: IBaseTypeOwnerDisconnectFieldInput
+}
+
+type AnyTypeEdge {
+  cursor: String!
+  node: AnyType!
+}
+
+type AnyTypeEventPayload {
+  id: ID!
+  kind: TypeKind!
+  name: String!
+}
+
+type AnyTypeFieldFieldRefsAggregationSelection {
+  count: Int!
+  node: AnyTypeFieldFieldRefsNodeAggregateSelection
+}
+
+type AnyTypeFieldFieldRefsNodeAggregateSelection {
+  defaultValues: StringAggregateSelection!
+  description: StringAggregateSelection!
+  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  key: StringAggregateSelection!
+  name: StringAggregateSelection!
+  validationRules: StringAggregateSelection!
+}
+
+input AnyTypeFieldRefsAggregateInput {
+  AND: [AnyTypeFieldRefsAggregateInput!]
+  NOT: AnyTypeFieldRefsAggregateInput
+  OR: [AnyTypeFieldRefsAggregateInput!]
+  count: Int @deprecated(reason: "Please use the explicit _EQ version")
+  count_EQ: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AnyTypeFieldRefsNodeAggregationWhereInput
+}
+
+input AnyTypeFieldRefsConnectFieldInput {
+  connect: [FieldConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true @deprecated(reason: "The overwrite argument is deprecated and will be removed")
+  where: FieldConnectWhere
+}
+
+input AnyTypeFieldRefsCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input AnyTypeFieldRefsFieldInput {
+  connect: [AnyTypeFieldRefsConnectFieldInput!]
+  create: [AnyTypeFieldRefsCreateFieldInput!]
+}
+
+input AnyTypeFieldRefsNodeAggregationWhereInput {
+  AND: [AnyTypeFieldRefsNodeAggregationWhereInput!]
+  NOT: AnyTypeFieldRefsNodeAggregationWhereInput
+  OR: [AnyTypeFieldRefsNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  id_MAX_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+input AnyTypeFieldRefsUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input AnyTypeFieldRefsUpdateFieldInput {
+  connect: [AnyTypeFieldRefsConnectFieldInput!]
+  create: [AnyTypeFieldRefsCreateFieldInput!]
+  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
+  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
+  update: AnyTypeFieldRefsUpdateConnectionInput
+  where: IBaseTypeFieldRefsConnectionWhere
+}
+
+input AnyTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more AnyTypeSort objects to sort AnyTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [AnyTypeSort!]
+}
+
+input AnyTypeOwnerAggregateInput {
+  AND: [AnyTypeOwnerAggregateInput!]
+  NOT: AnyTypeOwnerAggregateInput
+  OR: [AnyTypeOwnerAggregateInput!]
+  count: Int @deprecated(reason: "Please use the explicit _EQ version")
+  count_EQ: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AnyTypeOwnerNodeAggregationWhereInput
+}
+
+input AnyTypeOwnerConnectFieldInput {
+  connect: UserConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true @deprecated(reason: "The overwrite argument is deprecated and will be removed")
+  where: UserConnectWhere
+}
+
+input AnyTypeOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AnyTypeOwnerFieldInput {
+  connect: AnyTypeOwnerConnectFieldInput
+  create: AnyTypeOwnerCreateFieldInput
+}
+
+input AnyTypeOwnerNodeAggregationWhereInput {
+  AND: [AnyTypeOwnerNodeAggregationWhereInput!]
+  NOT: AnyTypeOwnerNodeAggregationWhereInput
+  OR: [AnyTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  id_MAX_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MAX_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
+}
+
+input AnyTypeOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AnyTypeOwnerUpdateFieldInput {
+  connect: AnyTypeOwnerConnectFieldInput
+  create: AnyTypeOwnerCreateFieldInput
+  delete: IBaseTypeOwnerDeleteFieldInput
+  disconnect: IBaseTypeOwnerDisconnectFieldInput
+  update: AnyTypeOwnerUpdateConnectionInput
+  where: IBaseTypeOwnerConnectionWhere
+}
+
+"""
+Fields to sort AnyTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AnyTypeSort object.
+"""
+input AnyTypeSort {
+  id: SortDirection
+  kind: SortDirection
+  name: SortDirection
+}
+
+input AnyTypeSubscriptionWhere {
+  AND: [AnyTypeSubscriptionWhere!]
+  NOT: AnyTypeSubscriptionWhere
+  OR: [AnyTypeSubscriptionWhere!]
+  id: ID @deprecated(reason: "Please use the explicit _EQ version")
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_EQ: ID
+  id_IN: [ID!]
+  id_STARTS_WITH: ID
+  kind: TypeKind @deprecated(reason: "Please use the explicit _EQ version")
+  kind_EQ: TypeKind
+  kind_IN: [TypeKind!]
+  name: String @deprecated(reason: "Please use the explicit _EQ version")
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_EQ: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+}
+
+input AnyTypeUpdateInput {
+  fieldRefs: [AnyTypeFieldRefsUpdateFieldInput!]
+  id: ID @deprecated(reason: "Please use the explicit _SET field")
+  id_SET: ID
+  kind: TypeKind @deprecated(reason: "Please use the explicit _SET field")
+  kind_SET: TypeKind
+  name: String @deprecated(reason: "Please use the explicit _SET field")
+  name_SET: String
+  owner: AnyTypeOwnerUpdateFieldInput
+}
+
+type AnyTypeUpdatedEvent {
+  event: EventType!
+  previousState: AnyTypeEventPayload!
+  timestamp: Float!
+  updatedAnyType: AnyTypeEventPayload!
+}
+
+type AnyTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: AnyTypeUserOwnerNodeAggregateSelection
+}
+
+type AnyTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
+  username: StringAggregateSelection!
+}
+
+input AnyTypeWhere {
+  AND: [AnyTypeWhere!]
+  NOT: AnyTypeWhere
+  OR: [AnyTypeWhere!]
+  fieldRefsAggregate: AnyTypeFieldRefsAggregateInput
+
+  """
+  Return AnyTypes where all of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AnyTypes where none of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AnyTypes where one of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
+
+  """
+  Return AnyTypes where some of the related IBaseTypeFieldRefsConnections match this filter
+  """
+  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
+
+  """Return AnyTypes where all of the related Fields match this filter"""
+  fieldRefs_ALL: FieldWhere
+
+  """Return AnyTypes where none of the related Fields match this filter"""
+  fieldRefs_NONE: FieldWhere
+
+  """Return AnyTypes where one of the related Fields match this filter"""
+  fieldRefs_SINGLE: FieldWhere
+
+  """Return AnyTypes where some of the related Fields match this filter"""
+  fieldRefs_SOME: FieldWhere
+  id: ID @deprecated(reason: "Please use the explicit _EQ version")
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_EQ: ID
+  id_IN: [ID!]
+  id_STARTS_WITH: ID
+  kind: TypeKind @deprecated(reason: "Please use the explicit _EQ version")
+  kind_EQ: TypeKind
+  kind_IN: [TypeKind!]
+  name: String @deprecated(reason: "Please use the explicit _EQ version")
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_EQ: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: AnyTypeOwnerAggregateInput
+  ownerConnection: IBaseTypeOwnerConnectionWhere
+}
+
+type AnyTypesConnection {
+  edges: [AnyTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type ApiAction implements BaseAction {
@@ -7479,7 +7973,7 @@ type Component implements WithOwner {
   apiAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: InterfaceTypeWhere): ComponentInterfaceTypeApiAggregationSelection
   apiConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [ComponentApiConnectionSort!], where: ComponentApiConnectionWhere): ComponentApiConnection!
   compositeKey: String!
-  dependantTypes: [AnyType!]!
+  dependantTypes: [AllType!]!
   elements: [Element!]!
   id: ID!
   name: String!
@@ -8363,6 +8857,11 @@ type CreateActionTypesMutationResponse {
   info: CreateInfo!
 }
 
+type CreateAnyTypesMutationResponse {
+  anyTypes: [AnyType!]!
+  info: CreateInfo!
+}
+
 type CreateApiActionsMutationResponse {
   apiActions: [ApiAction!]!
   info: CreateInfo!
@@ -8529,11 +9028,6 @@ type CreateTypeReferencesMutationResponse {
 type CreateUnionTypesMutationResponse {
   info: CreateInfo!
   unionTypes: [UnionType!]!
-}
-
-type CreateUnknownTypesMutationResponse {
-  info: CreateInfo!
-  unknownTypes: [UnknownType!]!
 }
 
 type CreateUsersMutationResponse {
@@ -13775,6 +14269,7 @@ input IBaseTypeConnectWhere {
 
 input IBaseTypeCreateInput {
   ActionType: ActionTypeCreateInput
+  AnyType: AnyTypeCreateInput
   AppType: AppTypeCreateInput
   ArrayType: ArrayTypeCreateInput
   CodeMirrorType: CodeMirrorTypeCreateInput
@@ -13788,7 +14283,6 @@ input IBaseTypeCreateInput {
   RenderPropType: RenderPropTypeCreateInput
   RichTextType: RichTextTypeCreateInput
   UnionType: UnionTypeCreateInput
-  UnknownType: UnknownTypeCreateInput
 }
 
 input IBaseTypeDeleteInput {
@@ -13971,6 +14465,7 @@ input IBaseTypeFieldRefsUpdateFieldInput {
 
 enum IBaseTypeImplementation {
   ActionType
+  AnyType
   AppType
   ArrayType
   CodeMirrorType
@@ -13984,7 +14479,6 @@ enum IBaseTypeImplementation {
   RenderPropType
   RichTextType
   UnionType
-  UnknownType
 }
 
 input IBaseTypeOptions {
@@ -15704,6 +16198,7 @@ type LambdaTypesConnection {
 
 type Mutation {
   createActionTypes(input: [ActionTypeCreateInput!]!): CreateActionTypesMutationResponse!
+  createAnyTypes(input: [AnyTypeCreateInput!]!): CreateAnyTypesMutationResponse!
   createApiActions(input: [ApiActionCreateInput!]!): CreateApiActionsMutationResponse!
   createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
@@ -15736,9 +16231,9 @@ type Mutation {
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(input: [TypeReferenceCreateInput!]!): CreateTypeReferencesMutationResponse!
   createUnionTypes(input: [UnionTypeCreateInput!]!): CreateUnionTypesMutationResponse!
-  createUnknownTypes(input: [UnknownTypeCreateInput!]!): CreateUnknownTypesMutationResponse!
   createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
   deleteActionTypes(delete: ActionTypeDeleteInput, where: ActionTypeWhere): DeleteInfo!
+  deleteAnyTypes(delete: AnyTypeDeleteInput, where: AnyTypeWhere): DeleteInfo!
   deleteApiActions(delete: ApiActionDeleteInput, where: ApiActionWhere): DeleteInfo!
   deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
@@ -15771,9 +16266,9 @@ type Mutation {
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
   deleteUnionTypes(delete: UnionTypeDeleteInput, where: UnionTypeWhere): DeleteInfo!
-  deleteUnknownTypes(delete: UnknownTypeDeleteInput, where: UnknownTypeWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   updateActionTypes(update: ActionTypeUpdateInput, where: ActionTypeWhere): UpdateActionTypesMutationResponse!
+  updateAnyTypes(update: AnyTypeUpdateInput, where: AnyTypeWhere): UpdateAnyTypesMutationResponse!
   updateApiActions(update: ApiActionUpdateInput, where: ApiActionWhere): UpdateApiActionsMutationResponse!
   updateAppTypes(update: AppTypeUpdateInput, where: AppTypeWhere): UpdateAppTypesMutationResponse!
   updateApps(update: AppUpdateInput, where: AppWhere): UpdateAppsMutationResponse!
@@ -15806,7 +16301,6 @@ type Mutation {
   updateTags(update: TagUpdateInput, where: TagWhere): UpdateTagsMutationResponse!
   updateTypeReferences(update: TypeReferenceUpdateInput, where: TypeReferenceWhere): UpdateTypeReferencesMutationResponse!
   updateUnionTypes(update: UnionTypeUpdateInput, where: UnionTypeWhere): UpdateUnionTypesMutationResponse!
-  updateUnknownTypes(update: UnknownTypeUpdateInput, where: UnknownTypeWhere): UpdateUnknownTypesMutationResponse!
   updateUsers(update: UserUpdateInput, where: UserWhere): UpdateUsersMutationResponse!
 }
 
@@ -15815,7 +16309,7 @@ type Page {
   appAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: AppWhere): PageAppAppAggregationSelection
   appConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [PageAppConnectionSort!], where: PageAppConnectionWhere): PageAppConnection!
   compositeKey: String!
-  dependantTypes: [AnyType!]!
+  dependantTypes: [AllType!]!
   elements: [Element!]!
   id: ID!
   kind: PageKind!
@@ -18243,7 +18737,9 @@ type Query {
   actionTypesAggregate(where: ActionTypeWhere): ActionTypeAggregateSelection!
   actionTypesConnection(after: String, first: Int, sort: [ActionTypeSort!], where: ActionTypeWhere): ActionTypesConnection!
   anyActions(limit: Int, offset: Int, options: QueryOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), where: AnyActionWhere): [AnyAction!]!
-  anyTypes(limit: Int, offset: Int, options: QueryOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), where: AnyTypeWhere): [AnyType!]!
+  anyTypes(limit: Int, offset: Int, options: AnyTypeOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [AnyTypeSort!], where: AnyTypeWhere): [AnyType!]!
+  anyTypesAggregate(where: AnyTypeWhere): AnyTypeAggregateSelection!
+  anyTypesConnection(after: String, first: Int, sort: [AnyTypeSort!], where: AnyTypeWhere): AnyTypesConnection!
   apiActions(limit: Int, offset: Int, options: ApiActionOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ApiActionSort!], where: ApiActionWhere): [ApiAction!]!
   apiActionsAggregate(where: ApiActionWhere): ApiActionAggregateSelection!
   apiActionsConnection(after: String, first: Int, sort: [ApiActionSort!], where: ApiActionWhere): ApiActionsConnection!
@@ -18359,9 +18855,6 @@ type Query {
   unionTypes(limit: Int, offset: Int, options: UnionTypeOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UnionTypeSort!], where: UnionTypeWhere): [UnionType!]!
   unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
   unionTypesConnection(after: String, first: Int, sort: [UnionTypeSort!], where: UnionTypeWhere): UnionTypesConnection!
-  unknownTypes(limit: Int, offset: Int, options: UnknownTypeOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UnknownTypeSort!], where: UnknownTypeWhere): [UnknownType!]!
-  unknownTypesAggregate(where: UnknownTypeWhere): UnknownTypeAggregateSelection!
-  unknownTypesConnection(after: String, first: Int, sort: [UnknownTypeSort!], where: UnknownTypeWhere): UnknownTypesConnection!
   users(limit: Int, offset: Int, options: UserOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UserSort!], where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
   usersConnection(after: String, first: Int, sort: [UserSort!], where: UserWhere): UsersConnection!
@@ -21347,6 +21840,9 @@ type Subscription {
   actionTypeCreated(where: ActionTypeSubscriptionWhere): ActionTypeCreatedEvent!
   actionTypeDeleted(where: ActionTypeSubscriptionWhere): ActionTypeDeletedEvent!
   actionTypeUpdated(where: ActionTypeSubscriptionWhere): ActionTypeUpdatedEvent!
+  anyTypeCreated(where: AnyTypeSubscriptionWhere): AnyTypeCreatedEvent!
+  anyTypeDeleted(where: AnyTypeSubscriptionWhere): AnyTypeDeletedEvent!
+  anyTypeUpdated(where: AnyTypeSubscriptionWhere): AnyTypeUpdatedEvent!
   apiActionCreated(where: ApiActionSubscriptionWhere): ApiActionCreatedEvent!
   apiActionDeleted(where: ApiActionSubscriptionWhere): ApiActionDeletedEvent!
   apiActionUpdated(where: ApiActionSubscriptionWhere): ApiActionUpdatedEvent!
@@ -21446,9 +21942,6 @@ type Subscription {
   unionTypeCreated(where: UnionTypeSubscriptionWhere): UnionTypeCreatedEvent!
   unionTypeDeleted(where: UnionTypeSubscriptionWhere): UnionTypeDeletedEvent!
   unionTypeUpdated(where: UnionTypeSubscriptionWhere): UnionTypeUpdatedEvent!
-  unknownTypeCreated(where: UnknownTypeSubscriptionWhere): UnknownTypeCreatedEvent!
-  unknownTypeDeleted(where: UnknownTypeSubscriptionWhere): UnknownTypeDeletedEvent!
-  unknownTypeUpdated(where: UnknownTypeSubscriptionWhere): UnknownTypeUpdatedEvent!
   userCreated(where: UserSubscriptionWhere): UserCreatedEvent!
   userDeleted(where: UserSubscriptionWhere): UserDeletedEvent!
   userUpdated(where: UserSubscriptionWhere): UserUpdatedEvent!
@@ -22254,6 +22747,7 @@ type TagsConnection {
 
 enum TypeKind {
   ActionType
+  AnyType
   AppType
   ArrayType
   CodeMirrorType
@@ -22267,7 +22761,6 @@ enum TypeKind {
   RenderPropType
   RichTextType
   UnionType
-  UnknownType
 }
 
 type TypeReference {
@@ -22404,7 +22897,7 @@ type UnionType implements IBaseType & WithDescendants {
   owner(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: UserOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UserSort!], where: UserWhere): User!
   ownerAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: UserWhere): UnionTypeUserOwnerAggregationSelection
   ownerConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeOwnerConnectionSort!], where: IBaseTypeOwnerConnectionWhere): IBaseTypeOwnerConnection!
-  typesOfUnionType(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: QueryOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), where: AnyTypeWhere): [AnyType!]!
+  typesOfUnionType(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: QueryOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), where: AllTypeWhere): [AllType!]!
   typesOfUnionTypeConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, where: UnionTypeTypesOfUnionTypeConnectionWhere): UnionTypeTypesOfUnionTypeConnection!
 }
 
@@ -22839,6 +23332,50 @@ input UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeActionTypeConnectionWhere
 }
 
+input UnionTypeTypesOfUnionTypeAnyTypeConnectFieldInput {
+  connect: [AnyTypeConnectInput!]
+  where: AnyTypeConnectWhere
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere {
+  AND: [UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere!]
+  NOT: UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere
+  OR: [UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere!]
+  node: AnyTypeWhere
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeCreateFieldInput {
+  node: AnyTypeCreateInput!
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeDeleteFieldInput {
+  delete: AnyTypeDeleteInput
+  where: UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeDisconnectFieldInput {
+  disconnect: AnyTypeDisconnectInput
+  where: UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeAnyTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeAnyTypeCreateFieldInput!]
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeUpdateConnectionInput {
+  node: AnyTypeUpdateInput
+}
+
+input UnionTypeTypesOfUnionTypeAnyTypeUpdateFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeAnyTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeAnyTypeCreateFieldInput!]
+  delete: [UnionTypeTypesOfUnionTypeAnyTypeDeleteFieldInput!]
+  disconnect: [UnionTypeTypesOfUnionTypeAnyTypeDisconnectFieldInput!]
+  update: UnionTypeTypesOfUnionTypeAnyTypeUpdateConnectionInput
+  where: UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere
+}
+
 input UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput {
   connect: [AppTypeConnectInput!]
   where: AppTypeConnectWhere
@@ -22973,6 +23510,7 @@ input UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput {
 
 input UnionTypeTypesOfUnionTypeConnectInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput!]
+  AnyType: [UnionTypeTypesOfUnionTypeAnyTypeConnectFieldInput!]
   AppType: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
   CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
@@ -22986,7 +23524,6 @@ input UnionTypeTypesOfUnionTypeConnectInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput!]
-  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
 }
 
 type UnionTypeTypesOfUnionTypeConnection {
@@ -22997,6 +23534,7 @@ type UnionTypeTypesOfUnionTypeConnection {
 
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   ActionType: UnionTypeTypesOfUnionTypeActionTypeConnectionWhere
+  AnyType: UnionTypeTypesOfUnionTypeAnyTypeConnectionWhere
   AppType: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
   ArrayType: UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere
   CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
@@ -23010,11 +23548,11 @@ input UnionTypeTypesOfUnionTypeConnectionWhere {
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
   RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeConnectionWhere
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere
-  UnknownType: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypeCreateInput {
   ActionType: UnionTypeTypesOfUnionTypeActionTypeFieldInput
+  AnyType: UnionTypeTypesOfUnionTypeAnyTypeFieldInput
   AppType: UnionTypeTypesOfUnionTypeAppTypeFieldInput
   ArrayType: UnionTypeTypesOfUnionTypeArrayTypeFieldInput
   CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput
@@ -23028,11 +23566,11 @@ input UnionTypeTypesOfUnionTypeCreateInput {
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput
   RichTextType: UnionTypeTypesOfUnionTypeRichTextTypeFieldInput
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeFieldInput
-  UnknownType: UnionTypeTypesOfUnionTypeUnknownTypeFieldInput
 }
 
 input UnionTypeTypesOfUnionTypeDeleteInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput!]
+  AnyType: [UnionTypeTypesOfUnionTypeAnyTypeDeleteFieldInput!]
   AppType: [UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput!]
   CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput!]
@@ -23046,11 +23584,11 @@ input UnionTypeTypesOfUnionTypeDeleteInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput!]
-  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput!]
 }
 
 input UnionTypeTypesOfUnionTypeDisconnectInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput!]
+  AnyType: [UnionTypeTypesOfUnionTypeAnyTypeDisconnectFieldInput!]
   AppType: [UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput!]
   CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput!]
@@ -23064,7 +23602,6 @@ input UnionTypeTypesOfUnionTypeDisconnectInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput!]
-  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput!]
 }
 
 input UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput {
@@ -23377,7 +23914,7 @@ input UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput {
 
 type UnionTypeTypesOfUnionTypeRelationship {
   cursor: String!
-  node: AnyType!
+  node: AllType!
 }
 
 input UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput {
@@ -23512,52 +24049,9 @@ input UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput {
-  connect: [UnknownTypeConnectInput!]
-  where: UnknownTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere!]
-  node: UnknownTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput {
-  node: UnknownTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput {
-  delete: UnknownTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput {
-  disconnect: UnknownTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeUpdateConnectionInput {
-  node: UnknownTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeUnknownTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere
-}
-
 input UnionTypeTypesOfUnionTypeUpdateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput!]
+  AnyType: [UnionTypeTypesOfUnionTypeAnyTypeUpdateFieldInput!]
   AppType: [UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput!]
   CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput!]
@@ -23571,7 +24065,6 @@ input UnionTypeTypesOfUnionTypeUpdateInput {
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput!]
   RichTextType: [UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput!]
-  UnknownType: [UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput!]
 }
 
 input UnionTypeUpdateInput {
@@ -23684,17 +24177,17 @@ input UnionTypeWhere {
   """
   typesOfUnionTypeConnection_SOME: UnionTypeTypesOfUnionTypeConnectionWhere
 
-  """Return UnionTypes where all of the related AnyTypes match this filter"""
-  typesOfUnionType_ALL: AnyTypeWhere
+  """Return UnionTypes where all of the related AllTypes match this filter"""
+  typesOfUnionType_ALL: AllTypeWhere
 
-  """Return UnionTypes where none of the related AnyTypes match this filter"""
-  typesOfUnionType_NONE: AnyTypeWhere
+  """Return UnionTypes where none of the related AllTypes match this filter"""
+  typesOfUnionType_NONE: AllTypeWhere
 
-  """Return UnionTypes where one of the related AnyTypes match this filter"""
-  typesOfUnionType_SINGLE: AnyTypeWhere
+  """Return UnionTypes where one of the related AllTypes match this filter"""
+  typesOfUnionType_SINGLE: AllTypeWhere
 
-  """Return UnionTypes where some of the related AnyTypes match this filter"""
-  typesOfUnionType_SOME: AnyTypeWhere
+  """Return UnionTypes where some of the related AllTypes match this filter"""
+  typesOfUnionType_SOME: AllTypeWhere
 }
 
 type UnionTypesConnection {
@@ -23703,502 +24196,13 @@ type UnionTypesConnection {
   totalCount: Int!
 }
 
-"""
-Represents a type that can accept any value, similar to TypeScript's any type
-"""
-type UnknownType implements IBaseType {
-  fieldRefs(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: FieldOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [FieldSort!], where: FieldWhere): [Field!]!
-  fieldRefsAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: FieldWhere): UnknownTypeFieldFieldRefsAggregationSelection
-  fieldRefsConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeFieldRefsConnectionSort!], where: IBaseTypeFieldRefsConnectionWhere): IBaseTypeFieldRefsConnection!
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: UserOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [UserSort!], where: UserWhere): User!
-  ownerAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: UserWhere): UnknownTypeUserOwnerAggregationSelection
-  ownerConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [IBaseTypeOwnerConnectionSort!], where: IBaseTypeOwnerConnectionWhere): IBaseTypeOwnerConnection!
-}
-
-type UnknownTypeAggregateSelection {
-  count: Int!
-  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  name: StringAggregateSelection!
-}
-
-input UnknownTypeConnectInput {
-  fieldRefs: [UnknownTypeFieldRefsConnectFieldInput!]
-  owner: UnknownTypeOwnerConnectFieldInput
-}
-
-input UnknownTypeConnectWhere {
-  node: UnknownTypeWhere!
-}
-
-input UnknownTypeCreateInput {
-  fieldRefs: UnknownTypeFieldRefsFieldInput
-  id: ID!
-  kind: TypeKind! = UnknownType
-  name: String!
-  owner: UnknownTypeOwnerFieldInput
-}
-
-type UnknownTypeCreatedEvent {
-  createdUnknownType: UnknownTypeEventPayload!
-  event: EventType!
-  timestamp: Float!
-}
-
-input UnknownTypeDeleteInput {
-  fieldRefs: [IBaseTypeFieldRefsDeleteFieldInput!]
-  owner: IBaseTypeOwnerDeleteFieldInput
-}
-
-type UnknownTypeDeletedEvent {
-  deletedUnknownType: UnknownTypeEventPayload!
-  event: EventType!
-  timestamp: Float!
-}
-
-input UnknownTypeDisconnectInput {
-  fieldRefs: [IBaseTypeFieldRefsDisconnectFieldInput!]
-  owner: IBaseTypeOwnerDisconnectFieldInput
-}
-
-type UnknownTypeEdge {
-  cursor: String!
-  node: UnknownType!
-}
-
-type UnknownTypeEventPayload {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-}
-
-type UnknownTypeFieldFieldRefsAggregationSelection {
-  count: Int!
-  node: UnknownTypeFieldFieldRefsNodeAggregateSelection
-}
-
-type UnknownTypeFieldFieldRefsNodeAggregateSelection {
-  defaultValues: StringAggregateSelection!
-  description: StringAggregateSelection!
-  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  key: StringAggregateSelection!
-  name: StringAggregateSelection!
-  validationRules: StringAggregateSelection!
-}
-
-input UnknownTypeFieldRefsAggregateInput {
-  AND: [UnknownTypeFieldRefsAggregateInput!]
-  NOT: UnknownTypeFieldRefsAggregateInput
-  OR: [UnknownTypeFieldRefsAggregateInput!]
-  count: Int @deprecated(reason: "Please use the explicit _EQ version")
-  count_EQ: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: UnknownTypeFieldRefsNodeAggregationWhereInput
-}
-
-input UnknownTypeFieldRefsConnectFieldInput {
-  connect: [FieldConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true @deprecated(reason: "The overwrite argument is deprecated and will be removed")
-  where: FieldConnectWhere
-}
-
-input UnknownTypeFieldRefsCreateFieldInput {
-  node: FieldCreateInput!
-}
-
-input UnknownTypeFieldRefsFieldInput {
-  connect: [UnknownTypeFieldRefsConnectFieldInput!]
-  create: [UnknownTypeFieldRefsCreateFieldInput!]
-}
-
-input UnknownTypeFieldRefsNodeAggregationWhereInput {
-  AND: [UnknownTypeFieldRefsNodeAggregationWhereInput!]
-  NOT: UnknownTypeFieldRefsNodeAggregationWhereInput
-  OR: [UnknownTypeFieldRefsNodeAggregationWhereInput!]
-  defaultValues_AVERAGE_LENGTH_EQUAL: Float
-  defaultValues_AVERAGE_LENGTH_GT: Float
-  defaultValues_AVERAGE_LENGTH_GTE: Float
-  defaultValues_AVERAGE_LENGTH_LT: Float
-  defaultValues_AVERAGE_LENGTH_LTE: Float
-  defaultValues_LONGEST_LENGTH_EQUAL: Int
-  defaultValues_LONGEST_LENGTH_GT: Int
-  defaultValues_LONGEST_LENGTH_GTE: Int
-  defaultValues_LONGEST_LENGTH_LT: Int
-  defaultValues_LONGEST_LENGTH_LTE: Int
-  defaultValues_SHORTEST_LENGTH_EQUAL: Int
-  defaultValues_SHORTEST_LENGTH_GT: Int
-  defaultValues_SHORTEST_LENGTH_GTE: Int
-  defaultValues_SHORTEST_LENGTH_LT: Int
-  defaultValues_SHORTEST_LENGTH_LTE: Int
-  description_AVERAGE_LENGTH_EQUAL: Float
-  description_AVERAGE_LENGTH_GT: Float
-  description_AVERAGE_LENGTH_GTE: Float
-  description_AVERAGE_LENGTH_LT: Float
-  description_AVERAGE_LENGTH_LTE: Float
-  description_LONGEST_LENGTH_EQUAL: Int
-  description_LONGEST_LENGTH_GT: Int
-  description_LONGEST_LENGTH_GTE: Int
-  description_LONGEST_LENGTH_LT: Int
-  description_LONGEST_LENGTH_LTE: Int
-  description_SHORTEST_LENGTH_EQUAL: Int
-  description_SHORTEST_LENGTH_GT: Int
-  description_SHORTEST_LENGTH_GTE: Int
-  description_SHORTEST_LENGTH_LT: Int
-  description_SHORTEST_LENGTH_LTE: Int
-  id_MAX_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  key_AVERAGE_LENGTH_EQUAL: Float
-  key_AVERAGE_LENGTH_GT: Float
-  key_AVERAGE_LENGTH_GTE: Float
-  key_AVERAGE_LENGTH_LT: Float
-  key_AVERAGE_LENGTH_LTE: Float
-  key_LONGEST_LENGTH_EQUAL: Int
-  key_LONGEST_LENGTH_GT: Int
-  key_LONGEST_LENGTH_GTE: Int
-  key_LONGEST_LENGTH_LT: Int
-  key_LONGEST_LENGTH_LTE: Int
-  key_SHORTEST_LENGTH_EQUAL: Int
-  key_SHORTEST_LENGTH_GT: Int
-  key_SHORTEST_LENGTH_GTE: Int
-  key_SHORTEST_LENGTH_LT: Int
-  key_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-  validationRules_AVERAGE_LENGTH_EQUAL: Float
-  validationRules_AVERAGE_LENGTH_GT: Float
-  validationRules_AVERAGE_LENGTH_GTE: Float
-  validationRules_AVERAGE_LENGTH_LT: Float
-  validationRules_AVERAGE_LENGTH_LTE: Float
-  validationRules_LONGEST_LENGTH_EQUAL: Int
-  validationRules_LONGEST_LENGTH_GT: Int
-  validationRules_LONGEST_LENGTH_GTE: Int
-  validationRules_LONGEST_LENGTH_LT: Int
-  validationRules_LONGEST_LENGTH_LTE: Int
-  validationRules_SHORTEST_LENGTH_EQUAL: Int
-  validationRules_SHORTEST_LENGTH_GT: Int
-  validationRules_SHORTEST_LENGTH_GTE: Int
-  validationRules_SHORTEST_LENGTH_LT: Int
-  validationRules_SHORTEST_LENGTH_LTE: Int
-}
-
-input UnknownTypeFieldRefsUpdateConnectionInput {
-  node: FieldUpdateInput
-}
-
-input UnknownTypeFieldRefsUpdateFieldInput {
-  connect: [UnknownTypeFieldRefsConnectFieldInput!]
-  create: [UnknownTypeFieldRefsCreateFieldInput!]
-  delete: [IBaseTypeFieldRefsDeleteFieldInput!]
-  disconnect: [IBaseTypeFieldRefsDisconnectFieldInput!]
-  update: UnknownTypeFieldRefsUpdateConnectionInput
-  where: IBaseTypeFieldRefsConnectionWhere
-}
-
-input UnknownTypeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more UnknownTypeSort objects to sort UnknownTypes by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [UnknownTypeSort!]
-}
-
-input UnknownTypeOwnerAggregateInput {
-  AND: [UnknownTypeOwnerAggregateInput!]
-  NOT: UnknownTypeOwnerAggregateInput
-  OR: [UnknownTypeOwnerAggregateInput!]
-  count: Int @deprecated(reason: "Please use the explicit _EQ version")
-  count_EQ: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: UnknownTypeOwnerNodeAggregationWhereInput
-}
-
-input UnknownTypeOwnerConnectFieldInput {
-  connect: UserConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true @deprecated(reason: "The overwrite argument is deprecated and will be removed")
-  where: UserConnectWhere
-}
-
-input UnknownTypeOwnerCreateFieldInput {
-  node: UserCreateInput!
-}
-
-input UnknownTypeOwnerFieldInput {
-  connect: UnknownTypeOwnerConnectFieldInput
-  create: UnknownTypeOwnerCreateFieldInput
-}
-
-input UnknownTypeOwnerNodeAggregationWhereInput {
-  AND: [UnknownTypeOwnerNodeAggregationWhereInput!]
-  NOT: UnknownTypeOwnerNodeAggregationWhereInput
-  OR: [UnknownTypeOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_LENGTH_EQUAL: Float
-  auth0Id_AVERAGE_LENGTH_GT: Float
-  auth0Id_AVERAGE_LENGTH_GTE: Float
-  auth0Id_AVERAGE_LENGTH_LT: Float
-  auth0Id_AVERAGE_LENGTH_LTE: Float
-  auth0Id_LONGEST_LENGTH_EQUAL: Int
-  auth0Id_LONGEST_LENGTH_GT: Int
-  auth0Id_LONGEST_LENGTH_GTE: Int
-  auth0Id_LONGEST_LENGTH_LT: Int
-  auth0Id_LONGEST_LENGTH_LTE: Int
-  auth0Id_SHORTEST_LENGTH_EQUAL: Int
-  auth0Id_SHORTEST_LENGTH_GT: Int
-  auth0Id_SHORTEST_LENGTH_GTE: Int
-  auth0Id_SHORTEST_LENGTH_LT: Int
-  auth0Id_SHORTEST_LENGTH_LTE: Int
-  email_AVERAGE_LENGTH_EQUAL: Float
-  email_AVERAGE_LENGTH_GT: Float
-  email_AVERAGE_LENGTH_GTE: Float
-  email_AVERAGE_LENGTH_LT: Float
-  email_AVERAGE_LENGTH_LTE: Float
-  email_LONGEST_LENGTH_EQUAL: Int
-  email_LONGEST_LENGTH_GT: Int
-  email_LONGEST_LENGTH_GTE: Int
-  email_LONGEST_LENGTH_LT: Int
-  email_LONGEST_LENGTH_LTE: Int
-  email_SHORTEST_LENGTH_EQUAL: Int
-  email_SHORTEST_LENGTH_GT: Int
-  email_SHORTEST_LENGTH_GTE: Int
-  email_SHORTEST_LENGTH_LT: Int
-  email_SHORTEST_LENGTH_LTE: Int
-  id_MAX_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MAX_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_EQUAL: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_GT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-  picture_AVERAGE_LENGTH_EQUAL: Float
-  picture_AVERAGE_LENGTH_GT: Float
-  picture_AVERAGE_LENGTH_GTE: Float
-  picture_AVERAGE_LENGTH_LT: Float
-  picture_AVERAGE_LENGTH_LTE: Float
-  picture_LONGEST_LENGTH_EQUAL: Int
-  picture_LONGEST_LENGTH_GT: Int
-  picture_LONGEST_LENGTH_GTE: Int
-  picture_LONGEST_LENGTH_LT: Int
-  picture_LONGEST_LENGTH_LTE: Int
-  picture_SHORTEST_LENGTH_EQUAL: Int
-  picture_SHORTEST_LENGTH_GT: Int
-  picture_SHORTEST_LENGTH_GTE: Int
-  picture_SHORTEST_LENGTH_LT: Int
-  picture_SHORTEST_LENGTH_LTE: Int
-  username_AVERAGE_LENGTH_EQUAL: Float
-  username_AVERAGE_LENGTH_GT: Float
-  username_AVERAGE_LENGTH_GTE: Float
-  username_AVERAGE_LENGTH_LT: Float
-  username_AVERAGE_LENGTH_LTE: Float
-  username_LONGEST_LENGTH_EQUAL: Int
-  username_LONGEST_LENGTH_GT: Int
-  username_LONGEST_LENGTH_GTE: Int
-  username_LONGEST_LENGTH_LT: Int
-  username_LONGEST_LENGTH_LTE: Int
-  username_SHORTEST_LENGTH_EQUAL: Int
-  username_SHORTEST_LENGTH_GT: Int
-  username_SHORTEST_LENGTH_GTE: Int
-  username_SHORTEST_LENGTH_LT: Int
-  username_SHORTEST_LENGTH_LTE: Int
-}
-
-input UnknownTypeOwnerUpdateConnectionInput {
-  node: UserUpdateInput
-}
-
-input UnknownTypeOwnerUpdateFieldInput {
-  connect: UnknownTypeOwnerConnectFieldInput
-  create: UnknownTypeOwnerCreateFieldInput
-  delete: IBaseTypeOwnerDeleteFieldInput
-  disconnect: IBaseTypeOwnerDisconnectFieldInput
-  update: UnknownTypeOwnerUpdateConnectionInput
-  where: IBaseTypeOwnerConnectionWhere
-}
-
-"""
-Fields to sort UnknownTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnknownTypeSort object.
-"""
-input UnknownTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-}
-
-input UnknownTypeSubscriptionWhere {
-  AND: [UnknownTypeSubscriptionWhere!]
-  NOT: UnknownTypeSubscriptionWhere
-  OR: [UnknownTypeSubscriptionWhere!]
-  id: ID @deprecated(reason: "Please use the explicit _EQ version")
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_EQ: ID
-  id_IN: [ID!]
-  id_STARTS_WITH: ID
-  kind: TypeKind @deprecated(reason: "Please use the explicit _EQ version")
-  kind_EQ: TypeKind
-  kind_IN: [TypeKind!]
-  name: String @deprecated(reason: "Please use the explicit _EQ version")
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_EQ: String
-  name_IN: [String!]
-  name_MATCHES: String
-  name_STARTS_WITH: String
-}
-
-input UnknownTypeUpdateInput {
-  fieldRefs: [UnknownTypeFieldRefsUpdateFieldInput!]
-  id: ID @deprecated(reason: "Please use the explicit _SET field")
-  id_SET: ID
-  kind: TypeKind @deprecated(reason: "Please use the explicit _SET field")
-  kind_SET: TypeKind
-  name: String @deprecated(reason: "Please use the explicit _SET field")
-  name_SET: String
-  owner: UnknownTypeOwnerUpdateFieldInput
-}
-
-type UnknownTypeUpdatedEvent {
-  event: EventType!
-  previousState: UnknownTypeEventPayload!
-  timestamp: Float!
-  updatedUnknownType: UnknownTypeEventPayload!
-}
-
-type UnknownTypeUserOwnerAggregationSelection {
-  count: Int!
-  node: UnknownTypeUserOwnerNodeAggregateSelection
-}
-
-type UnknownTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelection!
-  email: StringAggregateSelection!
-  id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
-  name: StringAggregateSelection!
-  picture: StringAggregateSelection!
-  username: StringAggregateSelection!
-}
-
-input UnknownTypeWhere {
-  AND: [UnknownTypeWhere!]
-  NOT: UnknownTypeWhere
-  OR: [UnknownTypeWhere!]
-  fieldRefsAggregate: UnknownTypeFieldRefsAggregateInput
-
-  """
-  Return UnknownTypes where all of the related IBaseTypeFieldRefsConnections match this filter
-  """
-  fieldRefsConnection_ALL: IBaseTypeFieldRefsConnectionWhere
-
-  """
-  Return UnknownTypes where none of the related IBaseTypeFieldRefsConnections match this filter
-  """
-  fieldRefsConnection_NONE: IBaseTypeFieldRefsConnectionWhere
-
-  """
-  Return UnknownTypes where one of the related IBaseTypeFieldRefsConnections match this filter
-  """
-  fieldRefsConnection_SINGLE: IBaseTypeFieldRefsConnectionWhere
-
-  """
-  Return UnknownTypes where some of the related IBaseTypeFieldRefsConnections match this filter
-  """
-  fieldRefsConnection_SOME: IBaseTypeFieldRefsConnectionWhere
-
-  """Return UnknownTypes where all of the related Fields match this filter"""
-  fieldRefs_ALL: FieldWhere
-
-  """Return UnknownTypes where none of the related Fields match this filter"""
-  fieldRefs_NONE: FieldWhere
-
-  """Return UnknownTypes where one of the related Fields match this filter"""
-  fieldRefs_SINGLE: FieldWhere
-
-  """Return UnknownTypes where some of the related Fields match this filter"""
-  fieldRefs_SOME: FieldWhere
-  id: ID @deprecated(reason: "Please use the explicit _EQ version")
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_EQ: ID
-  id_IN: [ID!]
-  id_STARTS_WITH: ID
-  kind: TypeKind @deprecated(reason: "Please use the explicit _EQ version")
-  kind_EQ: TypeKind
-  kind_IN: [TypeKind!]
-  name: String @deprecated(reason: "Please use the explicit _EQ version")
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_EQ: String
-  name_IN: [String!]
-  name_MATCHES: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: UnknownTypeOwnerAggregateInput
-  ownerConnection: IBaseTypeOwnerConnectionWhere
-}
-
-type UnknownTypesConnection {
-  edges: [UnknownTypeEdge!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
 type UpdateActionTypesMutationResponse {
   actionTypes: [ActionType!]!
+  info: UpdateInfo!
+}
+
+type UpdateAnyTypesMutationResponse {
+  anyTypes: [AnyType!]!
   info: UpdateInfo!
 }
 
@@ -24370,11 +24374,6 @@ type UpdateTypeReferencesMutationResponse {
 type UpdateUnionTypesMutationResponse {
   info: UpdateInfo!
   unionTypes: [UnionType!]!
-}
-
-type UpdateUnknownTypesMutationResponse {
-  info: UpdateInfo!
-  unknownTypes: [UnknownType!]!
 }
 
 type UpdateUsersMutationResponse {
