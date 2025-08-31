@@ -209,9 +209,9 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-
+            - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-
           name: Restore Nx << parameters.cache_name >> Cache
   restore-workspace:
     description: Restore Workspace
@@ -280,7 +280,7 @@ commands:
                 - ''
           steps:
             - save_cache:
-                key: v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+                key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
                 name: Save Nx << parameters.cache_name >> Cache
                 paths:
                   - .nx/cache-<< parameters.cache_name >>
@@ -293,7 +293,7 @@ commands:
                 - ''
           steps:
             - save_cache:
-                key: v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+                key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
                 name: Save Nx << parameters.cache_name >> Cache
                 paths:
                   - .nx/cache-<< parameters.cache_name >>
@@ -320,9 +320,7 @@ commands:
             ./apply-constraints.sh
           name: Apply Neo4j Constraints
           working_directory: .docker/cypher/scripts
-environment:
-  CACHE_VERSION: '0.1'
-  NX_DAEMON: false
+environment: null
 executors:
   docker-node-arm64:
     docker:
