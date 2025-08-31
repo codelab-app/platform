@@ -33,7 +33,7 @@ steps:
         ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
   - run:
       name: 'Build Nx Apps (web, api)'
-      command: pnpm nx run-many --target=build --projects=web,api -c ci
+      command: NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
   - run:
       name: 'Check build output sizes'
       command: |
