@@ -15,7 +15,7 @@ steps:
             name: 'Save Nx << parameters.cache_name >> Cache'
             key: nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             paths:
-              - ${NX_CACHE_DIRECTORY}
+              - .nx/cache-<< parameters.cache_name >>
               - << parameters.extra_paths >>
   - unless:
       condition: << parameters.extra_paths >>
@@ -24,4 +24,4 @@ steps:
             name: 'Save Nx << parameters.cache_name >> Cache'
             key: nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             paths:
-              - ${NX_CACHE_DIRECTORY}
+              - .nx/cache-<< parameters.cache_name >>

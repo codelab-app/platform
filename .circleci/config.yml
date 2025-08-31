@@ -279,7 +279,7 @@ commands:
                 key: nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
                 name: Save Nx << parameters.cache_name >> Cache
                 paths:
-                  - ${NX_CACHE_DIRECTORY}
+                  - .nx/cache-<< parameters.cache_name >>
                   - << parameters.extra_paths >>
       - unless:
           condition: << parameters.extra_paths >>
@@ -288,7 +288,7 @@ commands:
                 key: nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
                 name: Save Nx << parameters.cache_name >> Cache
                 paths:
-                  - ${NX_CACHE_DIRECTORY}
+                  - .nx/cache-<< parameters.cache_name >>
   setup-env:
     description: Setup Env
     steps:
