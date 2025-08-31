@@ -1,8 +1,6 @@
 # Can't use `pnpm cli` doesn't exist yet
 
 description: 'Build Nx Libs'
-environment:
-  NX_CACHE_DIRECTORY: .nx/cache-libs
 steps:
   - nx/set-shas:
       main-branch-name: 'master'

@@ -3,9 +3,6 @@
 # IMPORTANT: Do not use --nx-bail flag as it prevents Nx Cloud from properly storing cache artifacts
 
 description: 'Build Nx Apps'
-environment:
-  NX_CACHE_DIRECTORY: .nx/cache-apps
-  NX_VERBOSE_LOGGING: true
 steps:
   - nx/set-shas:
       main-branch-name: 'master'

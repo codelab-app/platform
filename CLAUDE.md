@@ -58,7 +58,7 @@
 ### Commit Messages
 
 - Never add Generated with [Claude Code](https://claude.ai/code)
-- Never git push unless specifically asked to, when pushing use no-verify unless asked otherwise
+- Never git push unless specifically asked to, when pushing always use no-verify unless asked otherwise
 - Never commit until I say to
 
 ## Claude fine-tuning
