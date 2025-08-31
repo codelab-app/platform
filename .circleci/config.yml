@@ -6,10 +6,10 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-
-          name: Restore Nx Cache
+            - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-apps-cache-
+          name: Restore Nx Apps Cache
       - restore_cache:
           keys:
             - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
@@ -19,17 +19,17 @@ commands:
       - run:
           command: |
             echo "=== After cache restore ==="
-            echo "Checking .nx/cache:"
-            ls -lah .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+            echo "Checking .nx/cache-apps:"
+            ls -lah .nx/cache-apps/ 2>/dev/null | head -20 || echo "No .nx/cache-apps directory"
             echo ""
             echo "Cache size:"
-            du -sh .nx/cache/ 2>/dev/null || echo "0"
+            du -sh .nx/cache-apps/ 2>/dev/null || echo "0"
             echo ""
             echo "Checking Next.js cache:"
             ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
           name: Check cache after restore
       - run:
-          command: NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
+          command: NX_CACHE_DIRECTORY=.nx/cache-apps NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
           name: Build Nx Apps (web, api)
       - run:
           command: |
@@ -54,10 +54,10 @@ commands:
             du -sh --exclude=.next/cache dist/apps/web/ 2>/dev/null || echo "Cannot calculate"
           name: Check build output sizes
       - save_cache:
-          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save Nx Cache
+          key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save Nx Apps Cache
           paths:
-            - .nx/cache
+            - .nx/cache-apps
       - save_cache:
           key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save Next.js Cache
@@ -73,8 +73,19 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
+      - restore_cache:
+          keys:
+            - nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-libs-cache-
+          name: Restore Nx Libs Cache
       - run:
-          command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
+          command: NX_CACHE_DIRECTORY=.nx/cache-libs pnpm nx run-many --target=build --all --exclude=web,api -c ci
+      - save_cache:
+          key: nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save Nx Libs Cache
+          paths:
+            - .nx/cache-libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:

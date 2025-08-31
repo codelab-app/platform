@@ -8,11 +8,11 @@ steps:
       main-branch-name: 'master'
   # Restore caches separately
   - restore_cache:
-      name: 'Restore Nx Cache'
+      name: 'Restore Nx Apps Cache'
       keys:
-        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - nx-cache-
+        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - nx-apps-cache-
   - restore_cache:
       name: 'Restore Next.js Cache'
       keys:
@@ -23,17 +23,17 @@ steps:
       name: 'Check cache after restore'
       command: |
         echo "=== After cache restore ==="
-        echo "Checking .nx/cache:"
-        ls -lah .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+        echo "Checking .nx/cache-apps:"
+        ls -lah .nx/cache-apps/ 2>/dev/null | head -20 || echo "No .nx/cache-apps directory"
         echo ""
         echo "Cache size:"
-        du -sh .nx/cache/ 2>/dev/null || echo "0"
+        du -sh .nx/cache-apps/ 2>/dev/null || echo "0"
         echo ""
         echo "Checking Next.js cache:"
         ls -lah dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
   - run:
       name: 'Build Nx Apps (web, api)'
-      command: NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
+      command: NX_CACHE_DIRECTORY=.nx/cache-apps NX_VERBOSE_LOGGING=true pnpm nx run-many --target=build --projects=web,api -c ci --verbose
   - run:
       name: 'Check build output sizes'
       command: |
@@ -58,10 +58,10 @@ steps:
         du -sh --exclude=.next/cache dist/apps/web/ 2>/dev/null || echo "Cannot calculate"
   # Save caches separately - Nx cache for Nx Cloud, Next.js cache for build optimization
   - save_cache:
-      name: 'Save Nx Cache'
-      key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+      name: 'Save Nx Apps Cache'
+      key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
-        - .nx/cache
+        - .nx/cache-apps
   - save_cache:
       name: 'Save Next.js Cache'
       key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
