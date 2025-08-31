@@ -124,6 +124,7 @@ export const pageBuilderQuery: IPageBuilderQuery = async ({
 
   const systemTypes = [
     ...data.codeMirrorTypes,
+    ...data.anyTypes,
     ...data.primitiveTypes,
     ...data.reactNodeTypes,
     ...data.richTextTypes,

@@ -124,6 +124,11 @@ export class TypeFactory {
 
         return model
 
+      case ITypeKind.AnyType:
+        model.kind === ITypeKind.AnyType && model.writeCache(typeDto)
+
+        return model
+
       case ITypeKind.AppType:
         model.kind === ITypeKind.AppType && model.writeCache(typeDto)
 

@@ -11,6 +11,9 @@ query GetComponentBuilder {
   codeMirrorTypes {
     ...CodeMirrorType
   }
+  anyTypes {
+    ...AnyType
+  }
   # Need to load all dependent components
   components {
     ...ComponentBuilder

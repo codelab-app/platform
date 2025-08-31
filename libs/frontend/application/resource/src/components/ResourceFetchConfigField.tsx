@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRef } from '@codelab/shared-abstract-core'
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { Context } from 'uniforms'
