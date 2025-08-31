@@ -321,7 +321,7 @@ commands:
           name: Apply Neo4j Constraints
           working_directory: .docker/cypher/scripts
 environment:
-  CACHE_VERSION: 0.1
+  CACHE_VERSION: '0.1'
   NX_DAEMON: false
 executors:
   docker-node-arm64:
