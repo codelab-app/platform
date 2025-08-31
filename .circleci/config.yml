@@ -4,21 +4,14 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
-      - restore_cache:
-          keys:
-            - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-apps-cache-
-          name: Restore Nx Apps Cache
+      - restore-nx-cache:
+          cache_name: apps
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci
           name: Build Nx Apps (web, api)
-      - save_cache:
-          key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save Nx Apps Cache
-          paths:
-            - .nx/cache-apps
-            - dist/apps/web/.next/cache
+      - save-nx-cache:
+          cache_name: apps
+          extra_paths: dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
             - project/dist/apps/web
@@ -29,20 +22,13 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
-      - restore_cache:
-          keys:
-            - nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-libs-cache-
-          name: Restore Nx Libs Cache
+      - restore-nx-cache:
+          cache_name: libs
       - run:
           command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
           name: Build Nx Libs
-      - save_cache:
-          key: nx-libs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-          name: Save Nx Libs Cache
-          paths:
-            - .nx/cache-libs
+      - save-nx-cache:
+          cache_name: libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -214,6 +200,19 @@ commands:
           command: |
             echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
           name: Login to Docker Registry
+  restore-nx-cache:
+    description: Restore Nx << parameters.cache_name >> cache
+    parameters:
+      cache_name:
+        description: The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)
+        type: string
+    steps:
+      - restore_cache:
+          keys:
+            - nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-<< parameters.cache_name >>-cache-
+          name: Restore Nx << parameters.cache_name >> Cache
   restore-workspace:
     description: Restore Workspace
     steps:
@@ -262,6 +261,34 @@ commands:
     steps:
       - restore-workspace
       - install-terraform
+  save-nx-cache:
+    description: Save Nx << parameters.cache_name >> cache
+    parameters:
+      cache_name:
+        description: The name of the cache (e.g., lint, unit, integration, e2e, apps, libs)
+        type: string
+      extra_paths:
+        default: ''
+        description: Additional paths to cache (optional)
+        type: string
+    steps:
+      - when:
+          condition: << parameters.extra_paths >>
+          steps:
+            - save_cache:
+                key: nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+                name: Save Nx << parameters.cache_name >> Cache
+                paths:
+                  - ${NX_CACHE_DIRECTORY}
+                  - << parameters.extra_paths >>
+      - unless:
+          condition: << parameters.extra_paths >>
+          steps:
+            - save_cache:
+                key: nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+                name: Save Nx << parameters.cache_name >> Cache
+                paths:
+                  - ${NX_CACHE_DIRECTORY}
   setup-env:
     description: Setup Env
     steps:
@@ -397,6 +424,7 @@ jobs:
   e2e:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+      NX_CACHE_DIRECTORY: .nx/cache-e2e
     executor: docker-node-neo4j-arm64
     parallelism: 4
     parameters:
@@ -409,6 +437,8 @@ jobs:
       - setup_remote_docker:
           version: default
       - restore-workspace-database
+      - restore-nx-cache:
+          cache_name: e2e
       - run:
           command: |
             echo "=== Checking restored workspace ==="
@@ -437,6 +467,8 @@ jobs:
               --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
           no_output_timeout: 15m
+      - save-nx-cache:
+          cache_name: e2e
       - run:
           command: |
             apt-get update && apt-get install -y docker.io
@@ -461,6 +493,7 @@ jobs:
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+      NX_CACHE_DIRECTORY: .nx/cache-integration
     executor: docker-node-neo4j-arm64
     parameters:
       max_old_space_size:
@@ -470,6 +503,8 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace-database
+      - restore-nx-cache:
+          cache_name: integration
       - setup-neo4j
       - run:
           command: pnpm cli tasks int --stage ci
@@ -477,6 +512,8 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
           name: Run Integration Tests
           no_output_timeout: 10m
+      - save-nx-cache:
+          cache_name: integration
       - store_test_results:
           path: ./tmp/reports/test-integration
   lint:
@@ -484,6 +521,7 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+      NX_CACHE_DIRECTORY: .nx/cache-lint
     executor: docker-node-arm64
     parameters:
       max_old_space_size:
@@ -493,9 +531,13 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - restore-nx-cache:
+          cache_name: lint
       - run:
           command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
+      - save-nx-cache:
+          cache_name: lint
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
@@ -691,6 +733,8 @@ jobs:
           command: pnpm nx run-many --target=tsc-check --target=tsc-check:spec
           name: Run tsc Check
   unit:
+    environment:
+      NX_CACHE_DIRECTORY: .nx/cache-unit
     executor: docker-node-arm64
     parameters:
       resource_class:
@@ -698,11 +742,15 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - restore-nx-cache:
+          cache_name: unit
       - run:
           command: pnpm cli tasks unit --stage ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
           name: Run Unit Tests
+      - save-nx-cache:
+          cache_name: unit
       - store_test_results:
           path: ./tmp/reports/test-unit
 orbs:

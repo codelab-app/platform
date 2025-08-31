@@ -6,23 +6,14 @@ description: 'Build Nx Apps'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
-  # Restore Nx Apps cache (includes Next.js cache)
-  - restore_cache:
-      name: 'Restore Nx Apps Cache'
-      keys:
-        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - nx-apps-cache-
+  - restore-nx-cache:
+      cache_name: apps
   - run:
       name: 'Build Nx Apps (web, api)'
       command: pnpm nx run-many --target=build --projects=web,api -c ci
-  # Save Nx Apps cache (includes Next.js cache)
-  - save_cache:
-      name: 'Save Nx Apps Cache'
-      key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-      paths:
-        - .nx/cache-apps # Must match NX_CACHE_DIRECTORY in command environment
-        - dist/apps/web/.next/cache
+  - save-nx-cache:
+      cache_name: apps
+      extra_paths: dist/apps/web/.next/cache
   - persist_to_workspace:
       root: ~/
       paths:

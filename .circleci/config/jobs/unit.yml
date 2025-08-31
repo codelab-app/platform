@@ -6,8 +6,13 @@ executor: docker-node-arm64
 
 resource_class: << parameters.resource_class >>
 
+environment:
+  NX_CACHE_DIRECTORY: .nx/cache-unit
+
 steps:
   - restore-workspace
+  - restore-nx-cache:
+      cache_name: unit
   # - clear-jest-cache
   - run:
       name: 'Run Unit Tests'
@@ -15,6 +20,8 @@ steps:
       environment:
         JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
         # JEST_JUNIT_OUTPUT_NAME: 'unit-specs-results.xml'
+  - save-nx-cache:
+      cache_name: unit
   # https://discuss.circleci.com/t/insights-test-panel-doesnt-show-any-information/45070/13
   - store_test_results:
       path: ./tmp/reports/test-unit
