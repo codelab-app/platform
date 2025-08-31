@@ -309,7 +309,7 @@ importers:
         specifier: 1.0.1
         version: 1.0.1
       '@storybook/react':
-        specifier: ^9.1.1
+        specifier: 9.1.1
         version: 9.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@9.0.9(@testing-library/dom@10.4.0)(prettier@2.8.8))(typescript@5.5.4)
       '@supabase/supabase-js':
         specifier: 2.1.1
