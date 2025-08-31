@@ -10,7 +10,10 @@
     "build": {
       "defaultConfiguration": "dev",
       "executor": "@nx/next:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}",
+        "!{options.outputPath}/.next/cache"
+      ],
       "options": {
         "outputPath": "dist/apps/web",
         "postcssConfig": "apps/web/postcss.config.js"

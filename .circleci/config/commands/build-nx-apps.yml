@@ -6,24 +6,69 @@ description: 'Build Nx Apps'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
-  # Only restore Next.js cache (libs build fast enough with just Nx Cloud)
+  # Restore caches separately
   - restore_cache:
-      name: 'Restore Nx Apps Cache'
+      name: 'Restore Nx Cache'
       keys:
-        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - nx-apps-cache-
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - nx-cache-
+  - restore_cache:
+      name: 'Restore Next.js Cache'
+      keys:
+        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - nextjs-cache-
   - run:
+      name: 'Check cache after restore'
+      command: |
+        echo "=== After cache restore ==="
+        echo "Checking .nx/cache:"
+        ls -la .nx/cache/ 2>/dev/null | head -20 || echo "No .nx/cache directory"
+        echo ""
+        echo "Cache size:"
+        du -sh .nx/cache/ 2>/dev/null || echo "0"
+        echo ""
+        echo "Checking Next.js cache:"
+        ls -la dist/apps/web/.next/cache/ 2>/dev/null | head -10 || echo "No Next.js cache"
+  - run:
+      name: 'Build Nx Apps (web, api)'
       command: pnpm nx run-many --target=build --projects=web,api -c ci
-  # Save Nx cache for local caching (works alongside Nx Cloud)
+  - run:
+      name: 'Check build output sizes'
+      command: |
+        echo "=== Build output sizes ==="
+        echo "Total web build size:"
+        du -sh dist/apps/web/ 2>/dev/null || echo "No web build"
+        echo ""
+        echo "Web build breakdown:"
+        du -sh dist/apps/web/* 2>/dev/null | sort -hr || echo "No files"
+        echo ""
+        echo "Next.js directories:"
+        du -sh dist/apps/web/.next/* 2>/dev/null | sort -hr || echo "No .next directory"
+        echo ""
+        echo "Total API build size:"
+        du -sh dist/apps/api/ 2>/dev/null || echo "No api build"
+        echo ""
+        echo "=== Check what Nx is trying to cache ==="
+        echo "Files in dist/apps/web (excluding .next/cache):"
+        find dist/apps/web -type f -not -path "*/\.next/cache/*" | wc -l
+        echo ""
+        echo "Size without .next/cache:"
+        du -sh --exclude=.next/cache dist/apps/web/ 2>/dev/null || echo "Cannot calculate"
+  # Save caches separately - Nx cache for Nx Cloud, Next.js cache for build optimization
   - save_cache:
-      name: 'Save Nx Apps Cache'
-      key: nx-apps-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+      name: 'Save Nx Cache'
+      key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - .nx/cache
+  - save_cache:
+      name: 'Save Next.js Cache'
+      key: nextjs-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+      paths:
         - dist/apps/web/.next/cache
   - persist_to_workspace:
-      root: .
+      root: ~/
       paths:
-        - dist/apps/web
-        - dist/apps/api
+        - project/dist/apps/web
+        - project/dist/apps/api
