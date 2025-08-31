@@ -2,7 +2,7 @@
   "defaultBase": "master",
   "useInferencePlugins": true,
   "defaultProject": "web",
-  "maxCacheSize": "2GB",
+  "maxCacheSize": "3GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
   "plugins": [
     "@codelab/tsc-check",
