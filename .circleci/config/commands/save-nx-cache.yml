@@ -15,7 +15,7 @@ steps:
       steps:
         - save_cache:
             name: 'Save Nx << parameters.cache_name >> Cache'
-            key: v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             paths:
               - .nx/cache-<< parameters.cache_name >>
               - << parameters.extra_paths >>
@@ -26,6 +26,6 @@ steps:
       steps:
         - save_cache:
             name: 'Save Nx << parameters.cache_name >> Cache'
-            key: v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            key: v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             paths:
               - .nx/cache-<< parameters.cache_name >>

@@ -7,6 +7,6 @@ steps:
   - restore_cache:
       name: 'Restore Nx << parameters.cache_name >> Cache'
       keys:
-        - v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - v{{ .Environment.CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-
+        - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - v{{ .Environment.CI_CACHE_VERSION }}-nx-<< parameters.cache_name >>-cache-

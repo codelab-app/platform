@@ -95,34 +95,33 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             const autoApproveFlag = autoApprove ? '-auto-approve' : ''
             const tfDir = `infra/terraform/environments/${stage}`
 
-            /**
-             * Two-stage Terraform apply to solve the Consul provider bootstrap problem:
-             *
-             * Problem: The Consul provider needs the Consul server's IP address, but the server
-             * doesn't exist until Terraform creates it. Providers are initialized before resources
-             * are created, causing a chicken-and-egg problem.
-             *
-             * Solution: Apply in two stages:
-             * 1. Create Consul server first using -target
-             * 2. Set CONSUL_HTTP_ADDR environment variable with the server's IP
-             * 3. Apply remaining resources (Consul provider now has correct address)
-             */
+            let consulAddr: string | undefined
 
-            // Stage 1: Create Consul server infrastructure only
-            this.applyConsulInfrastructure(stage, tfDir, autoApproveFlag, tag)
+            // Only prod stage requires consul two-stage apply
+            if (stage === 'prod') {
+              /**
+               * Two-stage Terraform apply to solve the Consul provider bootstrap problem:
+               *
+               * Problem: The Consul provider needs the Consul server's IP address, but the server
+               * doesn't exist until Terraform creates it. Providers are initialized before resources
+               * are created, causing a chicken-and-egg problem.
+               *
+               * Solution: Apply in two stages:
+               * 1. Create Consul server first using -target
+               * 2. Set CONSUL_HTTP_ADDR environment variable with the server's IP
+               * 3. Apply remaining resources (Consul provider now has correct address)
+               */
 
-            // Get Consul server IP and configure environment
-            const consulIP = this.getConsulServerIP()
-            const consulAddr = `${consulIP}:8500`
+              // Stage 1: Create Consul server infrastructure only
+              this.applyConsulInfrastructure(stage, tfDir, autoApproveFlag, tag)
 
-            // Stage 2: Apply all remaining infrastructure and Consul configuration
-            this.applyRemainingInfrastructure(
-              stage,
-              tfDir,
-              consulAddr,
-              autoApproveFlag,
-              tag,
-            )
+              // Get Consul server IP and configure environment
+              const consulIP = this.getConsulServerIP()
+              consulAddr = `${consulIP}:8500`
+            }
+
+            // Apply terraform with or without consul address
+            this.applyTerraform(stage, tfDir, autoApproveFlag, tag, consulAddr)
 
             console.log('✨ Terraform apply completed successfully')
           }),
@@ -198,23 +197,25 @@ export class TerraformService implements CommandModule<unknown, unknown> {
     )`terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`
   }
 
-  private applyRemainingInfrastructure(
+  private applyTerraform(
     stage: string,
     tfDir: string,
-    consulAddr: string,
     autoApproveFlag: string,
     tag?: string,
+    consulAddr?: string,
   ) {
-    console.log(
-      '🚀 Stage 2/2: Applying remaining infrastructure and configuration...',
-    )
-    console.log(`Setting CONSUL_HTTP_ADDR=${consulAddr}`)
+    if (consulAddr) {
+      console.log(
+        '🚀 Stage 2/2: Applying remaining infrastructure and configuration...',
+      )
+      console.log(`Setting CONSUL_HTTP_ADDR=${consulAddr}`)
+    }
 
     const env = {
       ...process.env,
       TF_WORKSPACE: stage,
-      CONSUL_HTTP_ADDR: consulAddr,
       ...(tag && { DOCKER_TAG_VERSION: tag }),
+      ...(consulAddr && { CONSUL_HTTP_ADDR: consulAddr }),
     }
     $stream.syncWithEnv(env)`terraform -chdir=${tfDir} apply ${autoApproveFlag}`
   }
