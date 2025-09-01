@@ -1,10 +1,11 @@
-import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type {
+  SchemaBuilder,
+  SelectOption,
+} from '@codelab/frontend-abstract-types'
 import type {
   IAuthGuardDto,
   IResourceFetchConfig,
 } from '@codelab/shared-abstract-core'
-
-import type { SchemaBuilder } from '../atom'
 
 export type IAuthGuardCreateFormData = Omit<IAuthGuardDto, 'config'> & {
   config: {
