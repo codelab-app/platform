@@ -13,7 +13,7 @@ import {
   StringValidationRules,
 } from '@codelab/shared-abstract-core'
 import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
-import { HiddenField, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 
 export const createFieldSchema: JSONSchemaType<IFieldCreateFormData> = {
   properties: {
@@ -26,7 +26,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateFormData> = {
       type: 'object',
       properties: {
         ...idSchema({
-          component: SelectField,
+          uniforms: { component: SelectField },
           disabled: false,
           label: 'Type',
         }),
@@ -37,9 +37,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateFormData> = {
       type: 'object',
       label: '',
       properties: {
-        ...idSchema({
-          component: HiddenField,
-        }),
+        ...idSchema(),
       },
       required: ['id'],
     },

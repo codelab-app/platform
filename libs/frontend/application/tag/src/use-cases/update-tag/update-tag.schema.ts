@@ -1,29 +1,38 @@
-import type { IUpdateTagData } from '@codelab/shared-abstract-core'
-import type { JSONSchemaType } from 'ajv'
+import type { IUpdateTagSchemaBuilder } from '@codelab/frontend-abstract-domain'
 
 import {
   idSchema,
   refSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
+import { SelectField } from 'uniforms-antd'
 
-export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
-  properties: {
-    ...idSchema(),
-    name: {
-      autoFocus: true,
-      type: 'string',
-    },
-    parent: {
-      nullable: true,
-      properties: {
-        ...idSchema(),
+export const updateTagSchema: IUpdateTagSchemaBuilder = ({ tags }) =>
+  ({
+    properties: {
+      ...idSchema(),
+      name: {
+        autoFocus: true,
+        type: 'string',
       },
-      required: [],
-      type: 'object',
+      parent: {
+        type: 'object',
+        nullable: true,
+        properties: {
+          ...idSchema({
+            disabled: false,
+            label: 'Parent Tag',
+            uniforms: {
+              component: SelectField,
+              options: tags,
+            },
+          }),
+        },
+        label: '',
+        required: ['id'],
+      },
+      ...refSchema('owner'),
     },
-    ...refSchema('owner'),
-  },
-  required: ['name', 'owner'],
-  title: 'Update Tag Input',
-  type: 'object',
-} as const
+    required: ['name', 'owner'],
+    title: 'Update Tag Input',
+    type: 'object',
+  } as const)

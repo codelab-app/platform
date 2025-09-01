@@ -12,7 +12,8 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAuthGuardService } from '../../services'
@@ -33,21 +34,24 @@ export const CreateAuthGuardForm = ({
     owner: { id: user.id },
   } as IAuthGuardCreateFormData
 
+  const resources = resourceDomainService.getSelectOption()
+
+  const schema = useMemo(
+    () => createAuthGuardSchema({ resources }),
+    [resources],
+  )
+
   return (
     <Form<IAuthGuardCreateFormData>
       errorMessage="Error while creating resource"
       model={model}
       onSubmit={authGuardService.create}
       onSubmitSuccess={onSubmitSuccess}
-      schema={createAuthGuardSchema}
+      schema={schema}
       submitRef={submitRef}
       uiKey={UiKey.AuthGuardFormCreate}
     >
-      <AutoFields omitFields={['config', 'resource']} />
-      <SelectField
-        name="resource.id"
-        options={resourceDomainService.getSelectOption()}
-      />
+      <AutoFields omitFields={['config']} />
       <ResourceFetchConfigField />
       <ResourceTestRequest
         fetchConfigDataFieldName="config.data"

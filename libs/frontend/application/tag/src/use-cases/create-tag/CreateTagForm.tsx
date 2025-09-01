@@ -11,6 +11,7 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
+import { useMemo } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
@@ -33,18 +34,22 @@ export const CreateTagForm = observer<IFormController>(
         : undefined,
     } as ICreateTagData
 
+    const tags = tagDomainService.tagsSelectOptions
+
+    const schema = useMemo(() => createTagSchema({ tags }), [tags])
+
     return (
       <Form<ICreateTagData>
         errorMessage="Error while creating tag"
         model={model}
         onSubmit={onSubmit}
         onSubmitSuccess={onSubmitSuccess}
-        schema={createTagSchema}
+        schema={schema}
         submitRef={submitRef}
         uiKey={UiKey.TagFormCreate}
       >
         <AutoFields omitFields={['parent', 'owner']} />
-        {model.parent && <AutoField label="Parent Tag" name="parent.id" />}
+        {model.parent && <AutoField name="parent.id" />}
         <DisplayIf condition={showFormControl}>
           <FormController submitLabel="Create Tag" />
         </DisplayIf>

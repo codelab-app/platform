@@ -1,7 +1,7 @@
 import type { IRef } from '@codelab/shared-abstract-core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 
-import { showFieldOnDev } from './show-field-on-dev'
+import { showFieldOnDev } from './show-field-on-dev.schema'
 
 /**
  * This is used to allow user to assign reference

@@ -12,7 +12,8 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { useTagService } from '../../services'
 import { updateTagSchema } from './update-tag.schema'
@@ -26,7 +27,7 @@ export const UpdateTagForm = observer((props: IUpdateTagFormProps) => {
   const { tagDomainService } = useDomainStore()
   const { onSubmitSuccess, showFormControl = true, submitRef, tag } = props
 
-  const options = tagDomainService.tagsSelectOptions.filter(
+  const tags = tagDomainService.tagsSelectOptions.filter(
     (option) => option.value !== tag.id,
   )
 
@@ -39,27 +40,21 @@ export const UpdateTagForm = observer((props: IUpdateTagFormProps) => {
 
   const onSubmit = (tagDto: IUpdateTagData) => tagService.update(tagDto)
 
+  const schema = useMemo(() => updateTagSchema({ tags }), [tags])
+
   return (
     <Form<IUpdateTagData>
       errorMessage="Error while updating tag"
       model={model}
       onSubmit={onSubmit}
       onSubmitSuccess={onSubmitSuccess}
-      schema={updateTagSchema}
+      schema={schema}
       submitRef={submitRef}
       uiKey={UiKey.TagFormUpdate}
     >
       <AutoFields omitFields={['id', 'parent', 'owner']} />
 
-      {model.parent && (
-        <SelectField
-          label="Parent Tag"
-          name="parent.id"
-          optionFilterProp="label"
-          options={options}
-          showSearch
-        />
-      )}
+      {model.parent && <AutoField name="parent.id" />}
 
       <DisplayIf condition={showFormControl}>
         <FormController submitLabel="Update Tag" />

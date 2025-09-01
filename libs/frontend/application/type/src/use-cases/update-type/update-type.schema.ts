@@ -4,7 +4,6 @@ import type { ITypeUpdateDto } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  hideField,
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
@@ -21,6 +20,7 @@ export const updateTypeSchema: JSONSchemaType<
   Omit<ITypeUpdateDto, 'defaultValue'>
 > = {
   properties: {
+    ...idSchema(),
     allowedValues: {
       items: {
         properties: {
@@ -43,11 +43,8 @@ export const updateTypeSchema: JSONSchemaType<
     elementKind: {
       enum: Object.values(IElementTypeKind),
       nullable: true,
+      label: 'Element Kind',
       type: 'string',
-    },
-    id: {
-      ...idSchema().id,
-      ...hideField,
     },
     kind: { enum: Object.values(ITypeKind), type: 'string' },
     language: {

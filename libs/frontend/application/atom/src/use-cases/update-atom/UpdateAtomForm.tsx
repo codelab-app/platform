@@ -16,7 +16,7 @@ import { DisplayIf } from '@codelab/frontend-presentation-view/components/condit
 import { IAtomType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
-import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { useAtomService } from '../../services'
 import { updateAtomSchema } from './update-atom.schema'
@@ -24,15 +24,6 @@ import { updateAtomSchema } from './update-atom.schema'
 interface UpdateAtomFormProps extends IFormController {
   atom: IAtomModel
 }
-
-const omitFields = [
-  'tags',
-  'suggestedChildren',
-  'requiredParents',
-  'externalCssSource',
-  'externalJsSource',
-  'externalSourceType',
-]
 
 export const UpdateAtomForm = observer<UpdateAtomFormProps>(
   ({ atom, onSubmitSuccess, showFormControl = true, submitRef }) => {
@@ -61,44 +52,40 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
       [atom, tags],
     )
 
+    const tagsOptions = tagDomainService.tagsSelectOptions
+    const atoms = atomDomainService.getSelectOptions()
+
+    const schema = useMemo(
+      () => updateAtomSchema({ atoms: atoms, tags: tagsOptions }),
+      [atoms, tags],
+    )
+
     return (
       <Form<IUpdateAtomData>
         errorMessage="Error while updating atom"
         model={model}
         onSubmit={atomService.update}
         onSubmitSuccess={onSubmitSuccess}
-        schema={updateAtomSchema}
+        schema={schema}
         submitRef={submitRef}
         uiKey={UiKey.AtomFormUpdate}
       >
-        <AutoFields omitFields={omitFields} />
+        <AutoFields
+          omitFields={[
+            'externalCssSource',
+            'externalJsSource',
+            'externalSourceType',
+          ]}
+        />
         <DisplayIfField<IUpdateAtomData>
           condition={(context) =>
             context.model.type === IAtomType.ExternalComponent
           }
         >
-          <TextField name="externalCssSource" />
-          <TextField name="externalJsSource" required />
-          <TextField name="externalSourceType" required />
+          <AutoField name="externalCssSource" />
+          <AutoField name="externalJsSource" />
+          <AutoField name="externalSourceType" />
         </DisplayIfField>
-        <SelectField
-          label="Connect Tag"
-          mode="multiple"
-          name="tags"
-          optionFilterProp="label"
-          options={tagListOption}
-          showSearch={true}
-        />
-        <SelectField
-          label="Suggested Children"
-          name="suggestedChildren"
-          options={atomDomainService.getSelectOptions()}
-        />
-        <SelectField
-          label="Required Parents"
-          name="requiredParents"
-          options={atomDomainService.getSelectOptions()}
-        />
 
         <DisplayIf condition={showFormControl}>
           <FormController submitLabel="Update Atom" />

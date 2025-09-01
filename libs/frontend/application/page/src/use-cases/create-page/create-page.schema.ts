@@ -4,7 +4,7 @@ import type { JSONSchemaType } from 'ajv'
 
 import {
   appSchema,
-  hideField,
+  hiddenField,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
@@ -28,7 +28,7 @@ export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
     kind: {
       type: 'string',
       default: IPageKind.Regular,
-      ...hideField,
+      ...hiddenField,
     },
     name: {
       autoFocus: true,

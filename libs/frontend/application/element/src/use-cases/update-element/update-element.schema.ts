@@ -37,7 +37,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'object',
         properties: {
           ...idSchema({
-            component: SelectField,
+            uniforms: { component: SelectField },
             label: 'Post Render action',
           }),
         },
@@ -51,7 +51,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'object',
         properties: {
           ...idSchema({
-            component: SelectField,
+            uniforms: { component: SelectField },
             label: 'Pre Render action',
           }),
         },
@@ -64,7 +64,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         ...idSchema({
           disabled: false,
           label: 'Component',
-          component: SelectField,
+          uniforms: { component: SelectField },
           extra:
             'The component to render based on the length of the data source',
         }),
@@ -77,7 +77,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       properties: {
         ...idSchema({
           disabled: false,
-          component: SelectField,
+          uniforms: { component: SelectField },
           label: 'Render next to',
           extra: 'Component instances will be rendered next to this element',
         }),

@@ -1,9 +1,8 @@
-import type { IRedirectUpdateFormData } from '@codelab/frontend-abstract-domain'
-import type { JSONSchemaType } from 'ajv'
+import type { IUpdateRedirectSchemaBuilder } from '@codelab/frontend-abstract-domain'
 
 import { createRedirectSchema } from '../create-redirect'
 
-export const updateRedirectSchema: JSONSchemaType<IRedirectUpdateFormData> = {
-  ...createRedirectSchema,
+export const updateRedirectSchema: IUpdateRedirectSchemaBuilder = (input) => ({
+  ...createRedirectSchema(input),
   title: 'Update Redirect',
-}
+})

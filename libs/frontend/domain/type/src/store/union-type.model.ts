@@ -9,10 +9,11 @@ import type { Ref } from 'mobx-keystone'
 
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { ExpressionUnionField } from '@codelab/frontend-presentation-components-form'
+import { hiddenField } from '@codelab/frontend-presentation-components-form/schema'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { unique } from 'remeda'
-import { HiddenField, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 
 import { createBaseType } from './base-type.model'
 
@@ -75,13 +76,13 @@ export class UnionType
             __isTypedProp: {
               default: true,
               type: 'boolean',
-              uniforms: { component: HiddenField },
+              ...hiddenField,
             },
             kind: {
               default: type.current.kind,
               enum: kinds,
               type: 'string',
-              uniforms: { component: HiddenField },
+              ...hiddenField,
             },
             type: {
               const: type.id,

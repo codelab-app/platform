@@ -19,7 +19,8 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoFields } from 'uniforms-antd'
 
 import { useAuthGuardService } from '../../services'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
@@ -45,21 +46,24 @@ export const UpdateAuthGuardForm = observer<UpdateAuthGuardFormProps>(
       responseTransformer: authGuard.responseTransformer,
     } as IAuthGuardUpdateFormData
 
+    const resources = resourceDomainService.getSelectOption()
+
+    const schema = useMemo(
+      () => updateAuthGuardSchema({ resources }),
+      [resources],
+    )
+
     return (
       <Form<IAuthGuardUpdateFormData>
         errorMessage="Error while updating auth guard"
         model={model}
         onSubmit={authGuardService.update}
         onSubmitSuccess={onSubmitSuccess}
-        schema={updateAuthGuardSchema}
+        schema={schema}
         submitRef={submitRef}
         uiKey={UiKey.AuthGuardFormUpdate}
       >
-        <AutoFields omitFields={['config', 'owner', 'resource']} />
-        <SelectField
-          name="resource.id"
-          options={resourceDomainService.getSelectOption()}
-        />
+        <AutoFields omitFields={['config', 'owner']} />
         <ResourceFetchConfigField />
         <ResourceTestRequest
           fetchConfigDataFieldName="config.data"

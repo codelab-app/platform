@@ -1,7 +1,7 @@
 import type { IOwner } from '@codelab/shared-abstract-core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 
-import { showFieldOnDev } from './show-field-on-dev'
+import { showFieldOnDev } from './show-field-on-dev.schema'
 
 export const ownerSchema: PropertiesSchema<IOwner> = {
   owner: {

@@ -12,7 +12,7 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
       properties: {
         ...idSchema({
           label: 'Parent Element',
-          component: SelectField,
+          uniforms: { component: SelectField, options: [] },
           disabled: false,
         }),
       },
@@ -23,7 +23,8 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
       properties: {
         ...idSchema({
           disabled: false,
-          component: SelectField,
+          uniforms: { component: SelectField, options: [] },
+
           label: 'Prev Sibling',
         }),
       },
