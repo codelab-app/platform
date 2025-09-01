@@ -52,9 +52,11 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       nullable: true,
       properties: {
         ...idSchema({
-          component: SelectField,
-          disabled: false,
-          label: 'Parent element',
+          uniforms: {
+            component: SelectField,
+            disabled: false,
+            label: 'Parent element',
+          },
         }),
       },
       required: ['id'],
@@ -67,9 +69,11 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         type: 'object',
         properties: {
           ...idSchema({
-            disabled: false,
-            component: SelectField,
-            label: 'Post Render action',
+            uniforms: {
+              disabled: false,
+              component: SelectField,
+              label: 'Post Render action',
+            },
           }),
         },
         required: [],
@@ -82,9 +86,11 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         type: 'object',
         properties: {
           ...idSchema({
-            disabled: false,
-            component: SelectField,
-            label: 'Pre Render action',
+            uniforms: {
+              disabled: false,
+              component: SelectField,
+              label: 'Pre Render action',
+            },
           }),
         },
         required: [],
