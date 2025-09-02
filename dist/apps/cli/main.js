@@ -1343,10 +1343,7 @@ DockerService = (0,external_tslib_namespaceObject.__decorate)([
 ], DockerService);
 
 
-;// external "fs"
-const external_fs_namespaceObject = require("fs");
 ;// ../../libs/backend/infra/adapter/cli/src/commands/packer/packer.service.ts
-
 
 
 
@@ -1354,8 +1351,8 @@ const external_fs_namespaceObject = require("fs");
 
 var PackerImage;
 (function (PackerImage) {
-    PackerImage["Base"] = "base";
     PackerImage["Api"] = "api";
+    PackerImage["Base"] = "base";
     PackerImage["ConsulServer"] = "consul-server";
     PackerImage["Grafana"] = "grafana";
     PackerImage["Landing"] = "landing";
@@ -1402,78 +1399,6 @@ let PackerService = class PackerService {
                 args['digitaloceanApiToken'] = digitaloceanApiToken;
             }
         });
-        // Build order: base must be built first, then services
-        Object.defineProperty(this, "imageConfigs", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: [
-                {
-                    image: PackerImage.Base,
-                    config: {
-                        name: 'base',
-                        dir: 'images/base',
-                        template: 'base.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.Api,
-                    config: {
-                        name: 'api',
-                        dir: 'images/services',
-                        template: 'api.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.ConsulServer,
-                    config: {
-                        name: 'consul_server',
-                        dir: 'images/services',
-                        template: 'consul-server.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.Grafana,
-                    config: {
-                        name: 'grafana',
-                        dir: 'images/services',
-                        template: 'grafana.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.Landing,
-                    config: {
-                        name: 'landing',
-                        dir: 'images/services',
-                        template: 'landing.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.Neo4j,
-                    config: {
-                        name: 'neo4j',
-                        dir: 'images/services',
-                        template: 'neo4j.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.Sites,
-                    config: {
-                        name: 'sites',
-                        dir: 'images/services',
-                        template: 'sites.pkr.hcl',
-                    },
-                },
-                {
-                    image: PackerImage.Web,
-                    config: {
-                        name: 'web',
-                        dir: 'images/services',
-                        template: 'web.pkr.hcl',
-                    },
-                },
-            ]
-        });
         Object.defineProperty(this, "packerDir", {
             enumerable: true,
             configurable: true,
@@ -1492,19 +1417,15 @@ let PackerService = class PackerService {
             type: 'string',
             array: true,
             choices: Object.values(PackerImage),
-            default: [],
+            default: Object.values(PackerImage),
         }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
             const buildOptions = {
                 consulEncryptKey,
                 digitaloceanApiToken,
             };
-            // If no images specified, build all
-            const imagesToBuild = images.length === 0 ? Object.values(PackerImage) : images;
-            // Build images in the order they appear in imageConfigs
-            for (const item of this.imageConfigs) {
-                if (imagesToBuild.includes(item.image)) {
-                    this.buildImage(item.config, buildOptions);
-                }
+            // Build images in order from enum (base is first)
+            for (const image of images) {
+                this.buildImage(image, buildOptions);
             }
         }))
             .command('validate [images..]', 'Validate Packer templates', (argv) => argv
@@ -1515,34 +1436,28 @@ let PackerService = class PackerService {
             type: 'string',
             array: true,
             choices: Object.values(PackerImage),
-            default: [],
+            default: Object.values(PackerImage),
         }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-            const validateImage = (config) => {
-                const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, config.dir);
-                $stream.sync({ cwd: imageDir }) `packer init .`;
-                // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
-                $stream.sync `cd ${imageDir} && packer validate -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${config.template}`;
-            };
-            // If no images specified, validate all
-            const imagesToValidate = images.length === 0 ? Object.values(PackerImage) : images;
-            // Validate images in the order they appear in imageConfigs
-            for (const item of this.imageConfigs) {
-                if (imagesToValidate.includes(item.image)) {
-                    validateImage(item.config);
-                }
-            }
+            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images/services');
+            // Initialize once for all validations
+            $stream.sync({ cwd: servicesDir }) `packer init .`;
+            // Build the -only flag for validation
+            const onlyFlags = images
+                .map((image) => {
+                return `digitalocean.${image}`;
+            })
+                .join(',');
+            console.log(`Validating ${images.length} image(s)...`);
+            // Validate all requested images at once
+            $stream.sync `cd ${servicesDir} && packer validate -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
         }))
             .command('list-images', 'List Packer-built images in DigitalOcean', (argv) => argv, globalHandler(() => {
             $stream.sync `doctl compute image list --public=false | grep "codelab-.*-base"`;
         }))
             .command('init', 'Initialize Packer configuration', (argv) => argv, globalHandler(() => {
-            // Initialize all Packer directories
-            for (const item of this.imageConfigs) {
-                const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, item.config.dir);
-                if ((0,external_fs_namespaceObject.existsSync)(imageDir)) {
-                    $stream.sync({ cwd: imageDir }) `packer init .`;
-                }
-            }
+            // Initialize the services directory (all images are now here)
+            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images/services');
+            $stream.sync({ cwd: servicesDir }) `packer init .`;
         }))
             .command('fmt', 'Format Packer configuration files', (argv) => argv.options({
             check: {
@@ -1580,16 +1495,10 @@ let PackerService = class PackerService {
             console.log(JSON.stringify({ id: output }));
         }))
             .command('cleanup', 'Clean up old Packer snapshots (keeps only latest)', (argv) => argv.middleware(this.fetchDigitalOceanToken), globalHandler(({ digitaloceanApiToken }) => {
-            const services = [
-                { pattern: 'codelab-base-', name: 'base' },
-                { pattern: 'codelab-consul-server-', name: 'consul-server' },
-                { pattern: 'codelab-api-base-', name: 'api' },
-                { pattern: 'codelab-web-base-', name: 'web' },
-                { pattern: 'codelab-landing-base-', name: 'landing' },
-                { pattern: 'codelab-sites-base-', name: 'sites' },
-                { pattern: 'codelab-neo4j-base-', name: 'neo4j' },
-                { pattern: 'codelab-grafana-base-', name: 'grafana' },
-            ];
+            const services = Object.values(PackerImage).map((image) => ({
+                pattern: `codelab-${image}-`,
+                name: image,
+            }));
             const keepCount = 1;
             for (const service of services) {
                 console.log(`\nProcessing: ${service.name}`);
@@ -1644,14 +1553,15 @@ let PackerService = class PackerService {
     /**
      * Build a single image
      */
-    buildImage(imageConfig, options) {
+    buildImage(image, options) {
         const { consulEncryptKey, digitaloceanApiToken } = options;
-        console.log(`Building ${imageConfig.name}...`);
+        console.log(`Building ${image}...`);
         // Clean up old snapshots before building to avoid hitting DigitalOcean limits
+        const cleanupPattern = `codelab-${image}-`;
         const cleanupResult = $.sync({
             verbose: false,
             env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format ID,Name --no-header | grep "codelab-${imageConfig.name}-" | sort -k2 -r | tail -n +2 || true`;
+        }) `doctl compute snapshot list --format ID,Name --no-header | grep "${cleanupPattern}" | sort -k2 -r | tail -n +2 || true`;
         const cleanupOutput = cleanupResult.stdout.trim();
         if (cleanupOutput) {
             const oldSnapshots = cleanupOutput.split('\n').filter(Boolean);
@@ -1666,7 +1576,7 @@ let PackerService = class PackerService {
                 }) `doctl compute snapshot delete ${id} --force || true`;
             }
         }
-        const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, imageConfig.dir);
+        const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images/services');
         // Set up cleanup handler for Ctrl+C
         const cleanup = () => {
             // Delete all packer build droplets (best effort)
@@ -1679,12 +1589,9 @@ let PackerService = class PackerService {
         try {
             // Initialize Packer
             $stream.sync `cd ${imageDir} && packer init .`;
-            // Build the image (Packer will fetch the latest snapshot automatically via external data source)
-            // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
-            // For services, build all files in directory but use -only to specify which source
-            const onlyFlag = imageConfig.dir === 'images/services' ? `-only='digitalocean.${imageConfig.name}'` : '';
-            const template = imageConfig.dir === 'images/services' ? '.' : imageConfig.template;
-            $stream.sync `cd ${imageDir} && packer build ${onlyFlag} -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${template}`;
+            // Build the image with -only flag to specify which source
+            // All images are now in the same directory, using -only to select specific source
+            $stream.sync `cd ${imageDir} && packer build -only='digitalocean.${image}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
         }
         finally {
             // Remove signal handlers after completion
