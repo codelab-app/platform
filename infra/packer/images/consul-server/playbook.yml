@@ -1,0 +1,36 @@
+---
+- name: Provision Consul server image
+  hosts: default
+  become: yes
+
+  tasks:
+    # Add consul-server.hcl for server nodes
+    - name: Copy Consul server configuration
+      copy:
+        src: '../../modules/consul-server/consul-server.hcl'
+        dest: /etc/consul.d/consul-server.hcl
+        owner: consul
+        group: consul
+        mode: '0640'
+
+    # Fix permissions for Consul configuration files
+    - name: Set Consul configuration permissions
+      file:
+        path: /etc/consul.d
+        owner: consul
+        group: consul
+        recurse: yes
+
+    # Clean up temporary files
+    - name: Clean temporary files
+      file:
+        path: '{{ item }}'
+        state: absent
+      loop:
+        - /tmp/*
+        - /var/tmp/*
+      failed_when: false
+
+    # Trim filesystem to minimize snapshot size
+    - name: Trim filesystem
+      command: fstrim -av

@@ -1,0 +1,58 @@
+---
+- name: Provision Neo4j service image
+  hosts: default
+  become: yes
+  vars:
+    digitalocean_api_token: '{{ digitalocean_api_token }}'
+    region: "{{ region | default('sgp1') }}"
+
+  tasks:
+    # Neo4j-specific Docker Compose template
+    - name: Copy Neo4j Docker Compose template
+      copy:
+        src: 'docker-compose.ctmpl'
+        dest: /etc/consul-template/docker-compose.ctmpl
+
+    # Add consul-client.hcl for Neo4j service
+    - name: Configure Consul client
+      copy:
+        content: |
+          # Consul Client Configuration
+          # This file configures Consul to run as a client (not a server)
+
+          # Bind to localhost only for client nodes (security best practice)
+          # This prevents external access to the Consul API on client nodes
+          client_addr = "127.0.0.1"
+
+          # Automatically join the Consul cluster using DigitalOcean tags
+          retry_join = ["provider=digitalocean region={{ region }} tag_name=consul-server api_token={{ digitalocean_api_token }}"]
+
+          # Retry joining forever (useful for auto-scaling scenarios)
+          retry_interval = "30s"
+          retry_max = 0
+        dest: /etc/consul.d/consul-client.hcl
+        owner: consul
+        group: consul
+        mode: '0640'
+
+    # Fix permissions for Consul configuration files
+    - name: Set Consul configuration permissions
+      file:
+        path: /etc/consul.d
+        owner: consul
+        group: consul
+        recurse: yes
+
+    # Clean up temporary files
+    - name: Clean temporary files
+      file:
+        path: '{{ item }}'
+        state: absent
+      loop:
+        - /tmp/*
+        - /var/tmp/*
+      failed_when: false
+
+    # Trim filesystem to minimize snapshot size
+    - name: Trim filesystem
+      command: fstrim -av
