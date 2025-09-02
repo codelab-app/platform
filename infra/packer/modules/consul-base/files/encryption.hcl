@@ -1,1 +1,0 @@
-encrypt = "${consul_encrypt_key}"

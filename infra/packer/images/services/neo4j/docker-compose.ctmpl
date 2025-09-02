@@ -1,0 +1,142 @@
+version: '3.8'
+
+networks:
+  codelab:
+    driver: bridge
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    networks:
+      - codelab
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    # Proxy HTTPS to Neo4j browser UI
+    command: caddy reverse-proxy --from neo4j.{{ key "config/domain" }} --to neo4j:7474
+    restart: unless-stopped
+    depends_on:
+      - neo4j
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  neo4j:
+    image: neo4j:{{ keyOrDefault "config/neo4j/version" "5.26.3-enterprise" }}
+    container_name: neo4j
+    networks:
+      - codelab
+    volumes:
+      - codelab-neo4j:/data
+    ports:
+      # Browser UI now accessible via Caddy on HTTPS
+      - '7474:7474'  # Keep for direct access if needed
+      - '7687:7687'  # Bolt protocol (database connections)
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_apoc_export_file_enabled: "true"
+      NEO4J_apoc_import_file_enabled: "true"
+      NEO4J_apoc_import_file_use__neo4j__config: "true"
+      NEO4J_server_default__listen__address: "0.0.0.0"
+      NEO4J_server_jvm_additional: "-XX:NativeMemoryTracking=detail"
+      NEO4J_dbms.security.procedures.unrestricted: "apoc.*"
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_AUTH: "neo4j/{{ key "config/neo4j/password" }}"
+      
+      # Memory configuration from Consul (optional)
+      {{ if keyExists "config/neo4j/heap_initial_size" }}
+      NEO4J_server_memory_heap_initial__size: "{{ key "config/neo4j/heap_initial_size" }}"
+      {{ end }}
+      {{ if keyExists "config/neo4j/heap_max_size" }}
+      NEO4J_server_memory_heap_max__size: "{{ key "config/neo4j/heap_max_size" }}"
+      {{ end }}
+      {{ if keyExists "config/neo4j/pagecache_size" }}
+      NEO4J_server_memory_pagecache_size: "{{ key "config/neo4j/pagecache_size" }}"
+      {{ end }}
+      
+      # Additional environment variables from Consul KV
+      {{ range ls "config/neo4j/env" }}
+      NEO4J_{{ .Key }}: "{{ .Value }}"
+      {{ end }}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -O /dev/null -q http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+  # Optional: Neo4j initialization for configuration
+  {{ if keyExists "config/neo4j/init_commands" }}
+  neo4j-init:
+    image: neo4j:{{ keyOrDefault "config/neo4j/version" "5.26.3-enterprise" }}
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    command: >
+      bash -c "
+        {{ range ls "config/neo4j/init_commands" }}
+        cypher-shell -a neo4j:7687 -u neo4j -p {{ key "config/neo4j/password" }} '{{ .Value }}'
+        {{ end }}
+      "
+  {{ end }}
+
+  # Grafana Alloy for monitoring (if enabled)
+  {{ if keyExists "config/monitoring/enabled" }}
+  {{ if eq (key "config/monitoring/enabled") "true" }}
+  grafana-alloy:
+    image: grafana/alloy:latest
+    container_name: grafana-alloy
+    networks:
+      - codelab
+    volumes:
+      - /etc/alloy/config.alloy:/etc/alloy/config.alloy
+      - codelab-alloy:/var/lib/alloy/data
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    command:
+      - run
+      - '--server.http.listen-addr=0.0.0.0:12345'
+      - '--storage.path=/var/lib/alloy/data'
+      - /etc/alloy/config.alloy
+    restart: unless-stopped
+  {{ end }}
+  {{ end }}
+
+volumes:
+  caddy-data:
+    name: caddy-data
+    driver: local
+  caddy-config:
+    name: caddy-config
+    driver: local
+  codelab-neo4j:
+    name: codelab-neo4j
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/codelab_neo4j_volumes
+  {{ if keyExists "config/monitoring/enabled" }}
+  {{ if eq (key "config/monitoring/enabled") "true" }}
+  codelab-alloy:
+    name: codelab-neo4j-alloy
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/codelab_neo4j_alloy_volumes
+  {{ end }}
+  {{ end }}

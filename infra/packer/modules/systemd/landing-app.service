@@ -1,0 +1,12 @@
+[Unit]
+Description=Landing App Docker Container
+After=docker-login.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/root/docker
+ExecStart=/usr/local/bin/docker-compose up -d
+
+[Install]
+WantedBy=multi-user.target

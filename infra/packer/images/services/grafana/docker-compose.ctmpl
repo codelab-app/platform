@@ -1,0 +1,101 @@
+version: '3.8'
+
+networks:
+  monitoring:
+    driver: bridge
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    networks:
+      - monitoring
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    command: caddy reverse-proxy --from grafana.{{ key "config/domain" }} --to grafana:3000
+    restart: unless-stopped
+    depends_on:
+      - grafana
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  loki:
+    image: grafana/loki:{{ keyOrDefault "config/loki/version" "3.0.0" }}
+    container_name: loki
+    networks:
+      - monitoring
+    ports:
+      - '3100:3100'
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - loki-data:/loki
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  grafana:
+    image: grafana/grafana:{{ keyOrDefault "config/grafana/version" "11.1.0" }}
+    container_name: grafana
+    networks:
+      - monitoring
+    # No external ports - only accessible through Caddy
+    expose:
+      - '3000'
+    environment:
+      GF_SECURITY_ADMIN_USER: {{ keyOrDefault "config/grafana/admin_user" "admin" }}
+      GF_SECURITY_ADMIN_PASSWORD: {{ key "config/grafana/admin_password" }}
+      GF_INSTALL_PLUGINS: {{ keyOrDefault "config/grafana/plugins" "" }}
+      # Tell Grafana it's behind a proxy
+      GF_SERVER_DOMAIN: grafana.{{ key "config/domain" }}
+      GF_SERVER_ROOT_URL: https://grafana.{{ key "config/domain" }}
+      GF_SERVER_ENFORCE_DOMAIN: 'true'
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-provisioning:/etc/grafana/provisioning
+    restart: unless-stopped
+    depends_on:
+      - loki
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  caddy-data:
+    name: caddy-data
+    driver: local
+  caddy-config:
+    name: caddy-config
+    driver: local
+  loki-data:
+    name: loki-data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/loki_data
+  grafana-data:
+    name: grafana-data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/grafana_data
+  grafana-provisioning:
+    name: grafana-provisioning
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/grafana_provisioning

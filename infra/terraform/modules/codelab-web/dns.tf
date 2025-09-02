@@ -2,7 +2,8 @@ resource "digitalocean_record" "web_a_record" {
   domain = var.codelab_app_domain_id
   type   = "A"
   name   = "dev"
-  value  = digitalocean_loadbalancer.web.ip
+  # Changed from load balancer IP to droplet IP (using Caddy for SSL)
+  value  = digitalocean_droplet.codelab_web.ipv4_address
   ttl    = 3600
 }
 

@@ -1,0 +1,12 @@
+[Unit]
+Description=Login to DigitalOcean Docker Registry
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment="HOME=/root"
+ExecStart=/usr/local/bin/doctl registry login
+
+[Install]
+WantedBy=multi-user.target

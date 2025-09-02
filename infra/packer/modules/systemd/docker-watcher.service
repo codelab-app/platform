@@ -1,0 +1,21 @@
+[Unit]
+Description=Docker Configuration Watcher (Consul-Template)
+Documentation=https://github.com/hashicorp/consul-template
+Requires=network-online.target consul.service docker.service
+After=network-online.target consul.service docker.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+ExecStart=/usr/bin/consul-template -config=/etc/consul-template/docker.consul-template.hcl
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=Install Docker Loki Plugin
+After=docker.service
+Before=docker-watcher.service
+Wants=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+# Install Loki plugin (ignore error if already exists)
+ExecStart=-/usr/bin/docker plugin install grafana/loki-docker-driver:2.9.2 --alias loki --grant-all-permissions
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common'
 import type { StageParam } from '../../shared/options'
 
 import { loadStageMiddleware } from '../../shared/middleware'
-import { getAutoApproveOptions, getStageOptions } from '../../shared/options'
+import { getStageOptions } from '../../shared/options'
 
 interface TerraformParams extends StageParam {
   tag?: string
@@ -28,7 +28,6 @@ export class TerraformService implements CommandModule<unknown, unknown> {
       yargv
         .options({
           ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
-          ...getAutoApproveOptions(),
         })
         .middleware([loadStageMiddleware])
         .command<StageParam>(
@@ -87,10 +86,16 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'apply',
           'terraform apply',
           (argv) =>
-            argv.option('tag', {
-              describe: 'Docker tag version',
-              type: 'string',
-            }),
+            argv
+              .option('tag', {
+                describe: 'Docker tag version',
+                type: 'string',
+              })
+              .option('autoApprove', {
+                describe: 'Automatically approve terraform changes',
+                type: 'boolean',
+                default: true,
+              }),
           globalHandler(({ autoApprove, stage, tag }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : ''
             const tfDir = `infra/terraform/environments/${stage}`

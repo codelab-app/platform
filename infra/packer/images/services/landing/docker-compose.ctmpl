@@ -1,0 +1,48 @@
+version: '3.8'
+
+networks:
+  landing:
+    driver: bridge
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    networks:
+      - landing
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    # Handle both root domain and www subdomain
+    command: caddy reverse-proxy --from {{ key "config/domain" }},www.{{ key "config/domain" }} --to landing:{{ key "config/landing/port" }}
+    restart: unless-stopped
+    depends_on:
+      - landing
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  landing:
+    image: registry.digitalocean.com/codelabapp/landing:{{ key "config/docker/landing_tag_version" }}
+    container_name: codelab-landing
+    networks:
+      - landing
+    restart: unless-stopped
+    # No external ports - only accessible through Caddy
+    expose:
+      - '{{ key "config/landing/port" }}'
+    environment:
+      - NEXT_PUBLIC_WEB_HOST={{ key "config/web/host" }}
+
+volumes:
+  caddy-data:
+    name: caddy-data
+    driver: local
+  caddy-config:
+    name: caddy-config
+    driver: local

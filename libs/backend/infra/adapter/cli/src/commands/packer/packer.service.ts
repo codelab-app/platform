@@ -3,12 +3,17 @@ import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { $, $stream, globalHandler } from '@codelab/backend-infra-adapter-shell'
 import { Injectable } from '@nestjs/common'
 import { get } from 'env-var'
-import { existsSync } from 'fs'
 import { join } from 'path'
 
 enum PackerImage {
-  Services = 'services',
-  ServicesBase = 'services-base',
+  Api = 'api',
+  Base = 'base', // Must be first - services depend on it
+  ConsulServer = 'consul-server',
+  Grafana = 'grafana',
+  Landing = 'landing',
+  Neo4j = 'neo4j',
+  Sites = 'sites',
+  Web = 'web',
 }
 
 interface PackerBaseOptions {
@@ -32,12 +37,6 @@ interface PackerGetLatestSnapshotOptions {
 
 interface PackerCleanupOptions {
   digitaloceanApiToken: string
-}
-
-interface ImageConfig {
-  dir: string
-  name: string
-  template: string
 }
 
 @Injectable()
@@ -72,11 +71,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
             digitaloceanApiToken,
           }
 
-          // Build images in the order they appear in imageConfigs
-          for (const item of this.imageConfigs) {
-            if (images.includes(item.image)) {
-              this.buildImage(item.config, buildOptions)
-            }
+          // Build images in order from enum (base is first)
+          for (const image of images) {
+            this.buildImage(image, buildOptions)
           }
         }),
       )
@@ -95,20 +92,22 @@ export class PackerService implements CommandModule<unknown, unknown> {
               default: Object.values(PackerImage),
             }),
         globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-          const validateImage = (config: ImageConfig) => {
-            const imageDir = join(this.packerDir, config.dir)
-            $stream.sync({ cwd: imageDir })`packer init .`
+          const servicesDir = join(this.packerDir, 'images/services')
 
-            // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
-            $stream.sync`cd ${imageDir} && packer validate -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${config.template}`
-          }
+          // Initialize once for all validations
+          $stream.sync({ cwd: servicesDir })`packer init .`
 
-          // Validate images in the order they appear in imageConfigs
-          for (const item of this.imageConfigs) {
-            if (images.includes(item.image)) {
-              validateImage(item.config)
-            }
-          }
+          // Build the -only flag for validation
+          const onlyFlags = images
+            .map((image) => {
+              return `digitalocean.${image}`
+            })
+            .join(',')
+
+          console.log(`Validating ${images.length} image(s)...`)
+
+          // Validate all requested images at once
+          $stream.sync`cd ${servicesDir} && packer validate -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`
         }),
       )
       .command(
@@ -124,14 +123,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
         'Initialize Packer configuration',
         (argv) => argv,
         globalHandler(() => {
-          // Initialize all Packer directories
-          for (const item of this.imageConfigs) {
-            const imageDir = join(this.packerDir, item.config.dir)
-
-            if (existsSync(imageDir)) {
-              $stream.sync({ cwd: imageDir })`packer init .`
-            }
-          }
+          // Initialize the services directory (all images are now here)
+          const servicesDir = join(this.packerDir, 'images/services')
+          $stream.sync({ cwd: servicesDir })`packer init .`
         }),
       )
       .command(
@@ -158,9 +152,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
         'Get the latest snapshot ID',
         (argv) =>
           argv.middleware(this.fetchDigitalOceanToken).option('service', {
-            describe: 'Service name (default: services-base)',
+            describe: 'Service name (default: base)',
             type: 'string',
-            default: 'services-base',
+            default: 'base',
           }),
         globalHandler(({ digitaloceanApiToken, service }) => {
           const pattern = `codelab-${service}`
@@ -187,19 +181,14 @@ export class PackerService implements CommandModule<unknown, unknown> {
         'Clean up old Packer snapshots (keeps only latest)',
         (argv) => argv.middleware(this.fetchDigitalOceanToken),
         globalHandler(({ digitaloceanApiToken }) => {
-          const services = [
-            'codelab-services-base',
-            'codelab-consul-server',
-            'codelab-api-base',
-            'codelab-web-base',
-            'codelab-landing-base',
-            'codelab-sites-base',
-            'codelab-neo4j-base',
-          ]
+          const services = Object.values(PackerImage).map((image) => ({
+            pattern: `codelab-${image}-`,
+            name: image,
+          }))
           const keepCount = 1
 
           for (const service of services) {
-            console.log(`\nProcessing: ${service}`)
+            console.log(`\nProcessing: ${service.name}`)
 
             // Get all snapshots for this service, sorted by name (includes timestamp)
             const result = $.sync({
@@ -208,11 +197,11 @@ export class PackerService implements CommandModule<unknown, unknown> {
                 ...process.env,
                 DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
               },
-            })`doctl compute snapshot list --format ID,Name --no-header | grep "${service}-" | sort -k2 -r || true`
+            })`doctl compute snapshot list --format ID,Name --no-header | grep "${service.pattern}" | sort -k2 -r || true`
             const output = result.stdout.trim()
 
             if (!output) {
-              console.log(`  No snapshots found for ${service}`)
+              console.log(`  No snapshots found for ${service.name}`)
               continue
             }
 
@@ -264,7 +253,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
    * Build a single image
    */
   private buildImage(
-    imageConfig: ImageConfig,
+    image: PackerImage,
     options: {
       consulEncryptKey: string
       digitaloceanApiToken: string
@@ -272,13 +261,14 @@ export class PackerService implements CommandModule<unknown, unknown> {
   ): void {
     const { consulEncryptKey, digitaloceanApiToken } = options
 
-    console.log(`Building ${imageConfig.name}...`)
+    console.log(`Building ${image}...`)
 
     // Clean up old snapshots before building to avoid hitting DigitalOcean limits
+    const cleanupPattern = `codelab-${image}-`
     const cleanupResult = $.sync({
       verbose: false,
       env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-    })`doctl compute snapshot list --format ID,Name --no-header | grep "${imageConfig.name}-base-" | sort -k2 -r | tail -n +2 || true`
+    })`doctl compute snapshot list --format ID,Name --no-header | grep "${cleanupPattern}" | sort -k2 -r | tail -n +2 || true`
     const cleanupOutput = cleanupResult.stdout.trim()
 
     if (cleanupOutput) {
@@ -295,7 +285,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
       }
     }
 
-    const imageDir = join(this.packerDir, imageConfig.dir)
+    const imageDir = join(this.packerDir, 'images/services')
 
     // Set up cleanup handler for Ctrl+C
     const cleanup = () => {
@@ -312,9 +302,9 @@ export class PackerService implements CommandModule<unknown, unknown> {
       // Initialize Packer
       $stream.sync`cd ${imageDir} && packer init .`
 
-      // Build the image (Packer will fetch the latest snapshot automatically via external data source)
-      // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
-      $stream.sync`cd ${imageDir} && packer build -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${imageConfig.template}`
+      // Build the image with -only flag to specify which source
+      // All images are now in the same directory, using -only to select specific source
+      $stream.sync`cd ${imageDir} && packer build -only='digitalocean.${image}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`
     } finally {
       // Remove signal handlers after completion
       process.removeListener('SIGINT', cleanup)
@@ -338,27 +328,5 @@ export class PackerService implements CommandModule<unknown, unknown> {
       .asString()
     args['digitaloceanApiToken'] = digitaloceanApiToken
   }
-  // Build order: services-base must be built first, then services (which includes all service images)
-  private readonly imageConfigs: Array<{
-    image: PackerImage
-    config: ImageConfig
-  }> = [
-    {
-      image: PackerImage.ServicesBase,
-      config: {
-        name: 'services-base',
-        dir: 'modules/services-base',
-        template: 'services-base.pkr.hcl',
-      },
-    },
-    {
-      image: PackerImage.Services,
-      config: {
-        name: 'services',
-        dir: 'modules/services',
-        template: 'services.pkr.hcl',
-      },
-    },
-  ]
   private readonly packerDir = 'infra/packer'
 }

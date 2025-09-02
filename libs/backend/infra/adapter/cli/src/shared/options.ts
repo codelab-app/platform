@@ -25,7 +25,7 @@ export interface StageParam {
 
 export const getAutoApproveOptions = (): { autoApprove: Options } => ({
   autoApprove: {
-    default: false,
+    default: true,
     type: 'boolean',
   },
 })

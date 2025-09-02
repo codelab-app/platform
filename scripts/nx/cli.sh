@@ -11,6 +11,11 @@
 # 4. When run in separate shell sessions, each gets a fresh daemon state
 # The shared daemon state in a single process causes cache corruption/misses
 
+# Skip build on CircleCI
+if [ -z "$CIRCLECI" ]; then
+  nx build cli
+fi
+
 # Extract the arguments after "pnpm cli"
 args=${@#pnpm cli}
 

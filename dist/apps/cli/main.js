@@ -1211,7 +1211,7 @@ const getStageOptions = (stages) => ({
 });
 const getAutoApproveOptions = () => ({
     autoApprove: {
-        default: false,
+        default: true,
         type: 'boolean',
     },
 });
@@ -1354,8 +1354,14 @@ const external_fs_namespaceObject = require("fs");
 
 var PackerImage;
 (function (PackerImage) {
-    PackerImage["Services"] = "services";
-    PackerImage["ServicesBase"] = "services-base";
+    PackerImage["Base"] = "base";
+    PackerImage["Api"] = "api";
+    PackerImage["ConsulServer"] = "consul-server";
+    PackerImage["Grafana"] = "grafana";
+    PackerImage["Landing"] = "landing";
+    PackerImage["Neo4j"] = "neo4j";
+    PackerImage["Sites"] = "sites";
+    PackerImage["Web"] = "web";
 })(PackerImage || (PackerImage = {}));
 let PackerService = class PackerService {
     constructor() {
@@ -1396,26 +1402,74 @@ let PackerService = class PackerService {
                 args['digitaloceanApiToken'] = digitaloceanApiToken;
             }
         });
-        // Build order: services-base must be built first, then services (which includes all service images)
+        // Build order: base must be built first, then services
         Object.defineProperty(this, "imageConfigs", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: [
                 {
-                    image: PackerImage.ServicesBase,
+                    image: PackerImage.Base,
                     config: {
-                        name: 'services-base',
-                        dir: 'modules/services-base',
-                        template: 'services-base.pkr.hcl',
+                        name: 'base',
+                        dir: 'images/base',
+                        template: 'base.pkr.hcl',
                     },
                 },
                 {
-                    image: PackerImage.Services,
+                    image: PackerImage.Api,
                     config: {
-                        name: 'services',
-                        dir: 'modules/services',
-                        template: 'services.pkr.hcl',
+                        name: 'api',
+                        dir: 'images/services',
+                        template: 'api.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.ConsulServer,
+                    config: {
+                        name: 'consul_server',
+                        dir: 'images/services',
+                        template: 'consul-server.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.Grafana,
+                    config: {
+                        name: 'grafana',
+                        dir: 'images/services',
+                        template: 'grafana.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.Landing,
+                    config: {
+                        name: 'landing',
+                        dir: 'images/services',
+                        template: 'landing.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.Neo4j,
+                    config: {
+                        name: 'neo4j',
+                        dir: 'images/services',
+                        template: 'neo4j.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.Sites,
+                    config: {
+                        name: 'sites',
+                        dir: 'images/services',
+                        template: 'sites.pkr.hcl',
+                    },
+                },
+                {
+                    image: PackerImage.Web,
+                    config: {
+                        name: 'web',
+                        dir: 'images/services',
+                        template: 'web.pkr.hcl',
                     },
                 },
             ]
@@ -1438,15 +1492,17 @@ let PackerService = class PackerService {
             type: 'string',
             array: true,
             choices: Object.values(PackerImage),
-            default: Object.values(PackerImage),
+            default: [],
         }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
             const buildOptions = {
                 consulEncryptKey,
                 digitaloceanApiToken,
             };
+            // If no images specified, build all
+            const imagesToBuild = images.length === 0 ? Object.values(PackerImage) : images;
             // Build images in the order they appear in imageConfigs
             for (const item of this.imageConfigs) {
-                if (images.includes(item.image)) {
+                if (imagesToBuild.includes(item.image)) {
                     this.buildImage(item.config, buildOptions);
                 }
             }
@@ -1459,7 +1515,7 @@ let PackerService = class PackerService {
             type: 'string',
             array: true,
             choices: Object.values(PackerImage),
-            default: Object.values(PackerImage),
+            default: [],
         }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
             const validateImage = (config) => {
                 const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, config.dir);
@@ -1467,9 +1523,11 @@ let PackerService = class PackerService {
                 // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
                 $stream.sync `cd ${imageDir} && packer validate -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${config.template}`;
             };
+            // If no images specified, validate all
+            const imagesToValidate = images.length === 0 ? Object.values(PackerImage) : images;
             // Validate images in the order they appear in imageConfigs
             for (const item of this.imageConfigs) {
-                if (images.includes(item.image)) {
+                if (imagesToValidate.includes(item.image)) {
                     validateImage(item.config);
                 }
             }
@@ -1501,9 +1559,9 @@ let PackerService = class PackerService {
             }
         }))
             .command('get-latest-snapshot', 'Get the latest snapshot ID', (argv) => argv.middleware(this.fetchDigitalOceanToken).option('service', {
-            describe: 'Service name (default: services-base)',
+            describe: 'Service name (default: base)',
             type: 'string',
-            default: 'services-base',
+            default: 'base',
         }), globalHandler(({ digitaloceanApiToken, service }) => {
             const pattern = `codelab-${service}`;
             const result = $.sync({
@@ -1523,17 +1581,18 @@ let PackerService = class PackerService {
         }))
             .command('cleanup', 'Clean up old Packer snapshots (keeps only latest)', (argv) => argv.middleware(this.fetchDigitalOceanToken), globalHandler(({ digitaloceanApiToken }) => {
             const services = [
-                'codelab-services-base',
-                'codelab-consul-server',
-                'codelab-api-base',
-                'codelab-web-base',
-                'codelab-landing-base',
-                'codelab-sites-base',
-                'codelab-neo4j-base',
+                { pattern: 'codelab-base-', name: 'base' },
+                { pattern: 'codelab-consul-server-', name: 'consul-server' },
+                { pattern: 'codelab-api-base-', name: 'api' },
+                { pattern: 'codelab-web-base-', name: 'web' },
+                { pattern: 'codelab-landing-base-', name: 'landing' },
+                { pattern: 'codelab-sites-base-', name: 'sites' },
+                { pattern: 'codelab-neo4j-base-', name: 'neo4j' },
+                { pattern: 'codelab-grafana-base-', name: 'grafana' },
             ];
             const keepCount = 1;
             for (const service of services) {
-                console.log(`\nProcessing: ${service}`);
+                console.log(`\nProcessing: ${service.name}`);
                 // Get all snapshots for this service, sorted by name (includes timestamp)
                 const result = $.sync({
                     verbose: false,
@@ -1541,10 +1600,10 @@ let PackerService = class PackerService {
                         ...process.env,
                         DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
                     },
-                }) `doctl compute snapshot list --format ID,Name --no-header | grep "${service}-" | sort -k2 -r || true`;
+                }) `doctl compute snapshot list --format ID,Name --no-header | grep "${service.pattern}" | sort -k2 -r || true`;
                 const output = result.stdout.trim();
                 if (!output) {
-                    console.log(`  No snapshots found for ${service}`);
+                    console.log(`  No snapshots found for ${service.name}`);
                     continue;
                 }
                 const snapshots = output.split('\n').filter(Boolean);
@@ -1592,7 +1651,7 @@ let PackerService = class PackerService {
         const cleanupResult = $.sync({
             verbose: false,
             env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format ID,Name --no-header | grep "${imageConfig.name}-base-" | sort -k2 -r | tail -n +2 || true`;
+        }) `doctl compute snapshot list --format ID,Name --no-header | grep "codelab-${imageConfig.name}-" | sort -k2 -r | tail -n +2 || true`;
         const cleanupOutput = cleanupResult.stdout.trim();
         if (cleanupOutput) {
             const oldSnapshots = cleanupOutput.split('\n').filter(Boolean);
@@ -1622,7 +1681,10 @@ let PackerService = class PackerService {
             $stream.sync `cd ${imageDir} && packer init .`;
             // Build the image (Packer will fetch the latest snapshot automatically via external data source)
             // Pass CONSUL_ENCRYPT_KEY to all images (ignored if not used by some)
-            $stream.sync `cd ${imageDir} && packer build -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${imageConfig.template}`;
+            // For services, build all files in directory but use -only to specify which source
+            const onlyFlag = imageConfig.dir === 'images/services' ? `-only='digitalocean.${imageConfig.name}'` : '';
+            const template = imageConfig.dir === 'images/services' ? '.' : imageConfig.template;
+            $stream.sync `cd ${imageDir} && packer build ${onlyFlag} -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} ${template}`;
         }
         finally {
             // Remove signal handlers after completion
@@ -1664,7 +1726,6 @@ let TerraformService = class TerraformService {
         return (yargv
             .options({
             ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
-            ...getAutoApproveOptions(),
         })
             .middleware([loadStageMiddleware])
             .command('init', 'terraform init', (argv) => argv, globalHandler(({ stage }) => {
@@ -1696,9 +1757,15 @@ let TerraformService = class TerraformService {
             const env = { ...process.env, TF_WORKSPACE: stage };
             $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} import aws_lambda_function.nest_cli nest_cli`;
         }))
-            .command('apply', 'terraform apply', (argv) => argv.option('tag', {
+            .command('apply', 'terraform apply', (argv) => argv
+            .option('tag', {
             describe: 'Docker tag version',
             type: 'string',
+        })
+            .option('autoApprove', {
+            describe: 'Automatically approve terraform changes',
+            type: 'boolean',
+            default: true,
         }), globalHandler(({ autoApprove, stage, tag }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : '';
             const tfDir = `infra/terraform/environments/${stage}`;
