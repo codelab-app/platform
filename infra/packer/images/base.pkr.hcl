@@ -132,14 +132,14 @@ build {
   
   # Configure doctl with DigitalOcean token
   provisioner "file" {
-    content     = templatefile("../../modules/doctl/config.yaml.tpl", {
+    content     = templatefile("../modules/doctl/config.yaml.tpl", {
       digitalocean_api_token = var.digitalocean_api_token
     })
     destination = "/root/.config/doctl/config.yaml"
   }
 
   provisioner "file" {
-    source      = "../../modules/consul-base/consul-base.hcl"
+    source      = "../modules/consul-base/consul-base.hcl"
     destination = "/etc/consul.d/consul-base.hcl"
   }
 
@@ -174,32 +174,32 @@ build {
   # - Server node is accessible (API on all interfaces for Terraform/UI access)
 
   provisioner "file" {
-    source      = "../../modules/consul-base/docker.consul-template.hcl"
+    source      = "../modules/consul-base/docker.consul-template.hcl"
     destination = "/etc/consul-template/docker.consul-template.hcl"
   }
 
   provisioner "file" {
-    source      = "../../modules/docker/daemon.json.ctmpl"
+    source      = "../modules/docker/daemon.json.ctmpl"
     destination = "/etc/consul-template/daemon.json.ctmpl"
   }
 
   provisioner "file" {
-    source      = "../../modules/systemd/consul.service"
+    source      = "../modules/systemd/consul.service"
     destination = "/etc/systemd/system/consul.service"
   }
 
   provisioner "file" {
-    source      = "../../modules/systemd/docker-watcher.service"
+    source      = "../modules/systemd/docker-watcher.service"
     destination = "/etc/systemd/system/docker-watcher.service"
   }
 
   provisioner "file" {
-    source      = "../../modules/systemd/docker-loki-plugin.service"
+    source      = "../modules/systemd/docker-loki-plugin.service"
     destination = "/etc/systemd/system/docker-loki-plugin.service"
   }
 
   provisioner "file" {
-    source      = "../../modules/systemd/docker-login.service"
+    source      = "../modules/systemd/docker-login.service"
     destination = "/etc/systemd/system/docker-login.service"
   }
 

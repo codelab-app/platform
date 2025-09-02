@@ -1,27 +1,27 @@
-source "digitalocean" "sites" {
+source "digitalocean" "landing" {
   api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
   size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
   ssh_username = "root"
-  snapshot_name = "codelab-sites-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-landing-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-sites-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
-  tags         = ["packer", "sites", "service"]
+  droplet_name = "packer-codelab-landing-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  tags         = ["packer", "landing", "service"]
 }
 
 build {
-  sources = ["source.digitalocean.sites"]
+  sources = ["source.digitalocean.landing"]
 
-  # Sites-specific template
+  # Landing-specific template
   provisioner "file" {
-    source      = "sites/docker-compose.ctmpl"
+    source      = "landing/docker-compose.ctmpl"
     destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
-  # Add consul-client.hcl for Sites service
+  # Add consul-client.hcl for Landing service
   provisioner "file" {
-    content     = templatefile("../../modules/consul-client/consul-client.hcl.tpl", {
+    content     = templatefile("../modules/consul-client/consul-client.hcl.tpl", {
       digitalocean_api_token = var.digitalocean_api_token
       region                 = var.do_region
     })
@@ -46,7 +46,7 @@ build {
   # Clean up and optimize snapshot size
   provisioner "shell" {
     inline = [
-      "echo 'Sites service image built successfully'",
+      "echo 'Landing service image built successfully'",
       "",
       "# Clean up temporary files only (no apt operations needed)",
       "rm -rf /tmp/* /var/tmp/*",

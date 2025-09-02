@@ -18,7 +18,7 @@ build {
   # - Consul UI access from browsers
   # - CLI access for administration
   provisioner "file" {
-    source      = "../../modules/consul-server/consul-server.hcl"
+    source      = "../modules/consul-server/consul-server.hcl"
     destination = "/etc/consul.d/consul-server.hcl"
   }
 

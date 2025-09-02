@@ -92,7 +92,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
               default: Object.values(PackerImage),
             }),
         globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-          const servicesDir = join(this.packerDir, 'images/services')
+          const servicesDir = join(this.packerDir, 'images')
 
           // Initialize once for all validations
           $stream.sync({ cwd: servicesDir })`packer init .`
@@ -123,8 +123,8 @@ export class PackerService implements CommandModule<unknown, unknown> {
         'Initialize Packer configuration',
         (argv) => argv,
         globalHandler(() => {
-          // Initialize the services directory (all images are now here)
-          const servicesDir = join(this.packerDir, 'images/services')
+          // Initialize the images directory
+          const servicesDir = join(this.packerDir, 'images')
           $stream.sync({ cwd: servicesDir })`packer init .`
         }),
       )
@@ -285,7 +285,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
       }
     }
 
-    const imageDir = join(this.packerDir, 'images/services')
+    const imageDir = join(this.packerDir, 'images')
 
     // Set up cleanup handler for Ctrl+C
     const cleanup = () => {

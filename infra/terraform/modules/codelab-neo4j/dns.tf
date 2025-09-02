@@ -3,7 +3,7 @@ resource "digitalocean_record" "neo4j_a_record" {
   type   = "A"
   name   = "neo4j"
   # Changed from load balancer IP to droplet IP (using Caddy for SSL)
-  value  = digitalocean_droplet.codelab_neo4j.ipv4_address
+  value  = digitalocean_droplet.neo4j.ipv4_address
   ttl    = 3600
 }
 

@@ -1,27 +1,27 @@
-source "digitalocean" "neo4j" {
+source "digitalocean" "sites" {
   api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
-  size         = "s-1vcpu-2gb-intel"  # Match Terraform deployment size (needs more RAM)
+  size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
   ssh_username = "root"
-  snapshot_name = "codelab-neo4j-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-sites-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-neo4j-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
-  tags         = ["packer", "neo4j", "service"]
+  droplet_name = "packer-codelab-sites-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  tags         = ["packer", "sites", "service"]
 }
 
 build {
-  sources = ["source.digitalocean.neo4j"]
+  sources = ["source.digitalocean.sites"]
 
-  # Neo4j-specific template
+  # Sites-specific template
   provisioner "file" {
-    source      = "neo4j/docker-compose.ctmpl"
+    source      = "sites/docker-compose.ctmpl"
     destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
-  # Add consul-client.hcl for Neo4j service
+  # Add consul-client.hcl for Sites service
   provisioner "file" {
-    content     = templatefile("../../modules/consul-client/consul-client.hcl.tpl", {
+    content     = templatefile("../modules/consul-client/consul-client.hcl.tpl", {
       digitalocean_api_token = var.digitalocean_api_token
       region                 = var.do_region
     })
@@ -36,10 +36,17 @@ build {
     ]
   }
 
+  # Setup Docker registry authentication
+  provisioner "shell" {
+    inline = [
+      "doctl registry login"
+    ]
+  }
+
   # Clean up and optimize snapshot size
   provisioner "shell" {
     inline = [
-      "echo 'Neo4j service image built successfully'",
+      "echo 'Sites service image built successfully'",
       "",
       "# Clean up temporary files only (no apt operations needed)",
       "rm -rf /tmp/* /var/tmp/*",

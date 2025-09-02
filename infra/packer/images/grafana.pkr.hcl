@@ -1,27 +1,36 @@
-source "digitalocean" "web" {
+source "digitalocean" "grafana" {
   api_token    = var.digitalocean_api_token
   image        = local.base_image_id
   region       = var.do_region
-  size         = "s-1vcpu-1gb-intel"  # Match Terraform deployment size
+  size         = "s-1vcpu-2gb-intel"  # Grafana/Loki needs more RAM
   ssh_username = "root"
-  snapshot_name = "codelab-web-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-grafana-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-web-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
-  tags         = ["packer", "web", "service"]
+  droplet_name = "packer-codelab-grafana-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  tags         = ["packer", "grafana", "monitoring", "service"]
 }
 
 build {
-  sources = ["source.digitalocean.web"]
+  sources = ["source.digitalocean.grafana"]
 
-  # Web-specific template
+  # Grafana-specific template (includes Loki)
   provisioner "file" {
-    source      = "web/docker-compose.ctmpl"
+    source      = "grafana/docker-compose.ctmpl"
     destination = "/etc/consul-template/docker-compose.ctmpl"
   }
 
-  # Add consul-client.hcl for Web service
+  # Create volume directories for Grafana/Loki
+  provisioner "shell" {
+    inline = [
+      "mkdir -p /mnt/loki_data",
+      "mkdir -p /mnt/grafana_data",
+      "mkdir -p /mnt/grafana_provisioning"
+    ]
+  }
+
+  # Add consul-client.hcl for Grafana service
   provisioner "file" {
-    content     = templatefile("../../modules/consul-client/consul-client.hcl.tpl", {
+    content     = templatefile("../modules/consul-client/consul-client.hcl.tpl", {
       digitalocean_api_token = var.digitalocean_api_token
       region                 = var.do_region
     })
@@ -36,17 +45,10 @@ build {
     ]
   }
 
-  # Setup Docker registry authentication
-  provisioner "shell" {
-    inline = [
-      "doctl registry login"
-    ]
-  }
-
   # Clean up and optimize snapshot size
   provisioner "shell" {
     inline = [
-      "echo 'Web service image built successfully'",
+      "echo 'Grafana service image built successfully'",
       "",
       "# Clean up temporary files only (no apt operations needed)",
       "rm -rf /tmp/* /var/tmp/*",

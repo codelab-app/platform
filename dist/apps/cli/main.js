@@ -1438,7 +1438,7 @@ let PackerService = class PackerService {
             choices: Object.values(PackerImage),
             default: Object.values(PackerImage),
         }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images/services');
+            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images');
             // Initialize once for all validations
             $stream.sync({ cwd: servicesDir }) `packer init .`;
             // Build the -only flag for validation
@@ -1455,8 +1455,8 @@ let PackerService = class PackerService {
             $stream.sync `doctl compute image list --public=false | grep "codelab-.*-base"`;
         }))
             .command('init', 'Initialize Packer configuration', (argv) => argv, globalHandler(() => {
-            // Initialize the services directory (all images are now here)
-            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images/services');
+            // Initialize the images directory
+            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images');
             $stream.sync({ cwd: servicesDir }) `packer init .`;
         }))
             .command('fmt', 'Format Packer configuration files', (argv) => argv.options({
@@ -1576,7 +1576,7 @@ let PackerService = class PackerService {
                 }) `doctl compute snapshot delete ${id} --force || true`;
             }
         }
-        const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images/services');
+        const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images');
         // Set up cleanup handler for Ctrl+C
         const cleanup = () => {
             // Delete all packer build droplets (best effort)
