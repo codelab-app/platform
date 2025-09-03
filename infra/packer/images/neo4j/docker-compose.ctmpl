@@ -1,4 +1,5 @@
-version: '3.8'
+include:
+  - ../../modules/caddy/docker-compose.caddy.yaml
 
 networks:
   codelab:
@@ -6,26 +7,11 @@ networks:
 
 services:
   caddy:
-    image: caddy:2-alpine
-    container_name: caddy
     networks:
       - codelab
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - caddy-data:/data
-      - caddy-config:/config
-    # Proxy HTTPS to Neo4j browser UI
     command: caddy reverse-proxy --from neo4j.{{ key "config/domain" }} --to neo4j:7474
-    restart: unless-stopped
     depends_on:
       - neo4j
-    healthcheck:
-      test: ["CMD", "wget", "-O", "-", "http://localhost:80/"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   neo4j:
     image: neo4j:{{ keyOrDefault "config/neo4j/version" "5.26.3-enterprise" }}
@@ -116,12 +102,6 @@ services:
   {{ end }}
 
 volumes:
-  caddy-data:
-    name: caddy-data
-    driver: local
-  caddy-config:
-    name: caddy-config
-    driver: local
   codelab-neo4j:
     name: codelab-neo4j
     driver: local

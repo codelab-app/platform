@@ -47,6 +47,19 @@
     - name: Authenticate with DigitalOcean registry
       command: doctl registry login
 
+    # Copy and enable web-app service
+    - name: Copy web-app systemd service
+      copy:
+        src: 'web-app.service'
+        dest: /etc/systemd/system/web-app.service
+        mode: '0644'
+
+    - name: Enable web-app service
+      systemd:
+        name: web-app
+        enabled: yes
+        daemon_reload: yes
+
     # Clean up temporary files
     - name: Clean temporary files
       file:

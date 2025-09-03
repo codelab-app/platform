@@ -47,6 +47,19 @@
     - name: Authenticate with DigitalOcean registry
       command: doctl registry login
 
+    # Copy and enable api-app service
+    - name: Copy api-app systemd service
+      copy:
+        src: 'api-app.service'
+        dest: /etc/systemd/system/api-app.service
+        mode: '0644'
+
+    - name: Enable api-app service
+      systemd:
+        name: api-app
+        enabled: yes
+        daemon_reload: yes
+
     # Clean up temporary files
     - name: Clean temporary files
       file:

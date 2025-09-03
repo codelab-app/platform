@@ -1,0 +1,49 @@
+discovery.docker "docker_containers" {
+  host = "unix:///var/run/docker.sock"
+  refresh_interval = "5s"
+}
+
+loki.source.docker "docker_logs" {
+  host = "unix:///var/run/docker.sock"
+  targets = discovery.docker.docker_containers.targets
+  forward_to = [loki.process.docker_labels.receiver]
+  refresh_interval = "5s"
+  relabel_rules = loki.relabel.docker_labels.rules
+}
+
+loki.relabel "docker_labels" {
+  forward_to = []
+  
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    target_label  = "container_name"
+  }
+  
+  rule {
+    source_labels = ["__meta_docker_container_image"]
+    target_label  = "image"
+  }
+  
+  rule {
+    source_labels = ["__meta_docker_container_id"]
+    target_label  = "container_id"
+  }
+}
+
+loki.process "docker_labels" {
+  forward_to = [loki.write.loki_output.receiver]
+  
+  stage.static_labels {
+    values = {
+      job = "docker"
+      hostname = "{{ env "HOSTNAME" }}"
+    }
+  }
+}
+
+loki.write "loki_output" {
+  endpoint {
+    url = "{{ key "config/loki/url" }}"
+    batch_size = 400
+  }
+}

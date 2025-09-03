@@ -2,7 +2,7 @@
 data "digitalocean_images" "grafana_base" {
   filter {
     key      = "name"
-    values   = ["codelab-grafana-base"]
+    values   = ["codelab-grafana"]
     match_by = "substring"
   }
   filter {

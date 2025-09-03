@@ -7,13 +7,7 @@
     region: "{{ region | default('sgp1') }}"
 
   tasks:
-    # Grafana-specific Docker Compose template
-    - name: Copy Grafana Docker Compose template
-      copy:
-        src: 'docker-compose.ctmpl'
-        dest: /etc/consul-template/docker-compose.ctmpl
-
-    # Create volume directories for Grafana/Loki
+    # Create volume directories for Grafana/Loki first
     - name: Create monitoring volume directories
       file:
         path: '{{ item }}'
@@ -23,6 +17,33 @@
         - /mnt/loki_data
         - /mnt/grafana_data
         - /mnt/grafana_provisioning
+        - /mnt/grafana_provisioning/datasources
+        - /mnt/grafana_provisioning/dashboards
+
+    # Grafana-specific Docker Compose template
+    - name: Copy Grafana Docker Compose template
+      copy:
+        src: 'docker-compose.ctmpl'
+        dest: /etc/consul-template/docker-compose.ctmpl
+
+    # Copy Grafana provisioning files
+    - name: Copy datasource provisioning
+      copy:
+        src: 'datasources.yml'
+        dest: /mnt/grafana_provisioning/datasources/datasources.yml
+        mode: '0644'
+
+    - name: Copy dashboard provisioning config
+      copy:
+        src: 'dashboards.yml'
+        dest: /mnt/grafana_provisioning/dashboards/dashboards.yml
+        mode: '0644'
+
+    - name: Copy Docker logs dashboard
+      copy:
+        src: 'docker-logs-dashboard.json'
+        dest: /mnt/grafana_provisioning/dashboards/docker-logs-dashboard.json
+        mode: '0644'
 
     # Add consul-client.hcl for Grafana service
     - name: Configure Consul client
@@ -54,6 +75,19 @@
         group: consul
         recurse: yes
         mode: '0640'
+
+    # Copy and enable grafana-app service
+    - name: Copy grafana-app systemd service
+      copy:
+        src: 'grafana-app.service'
+        dest: /etc/systemd/system/grafana-app.service
+        mode: '0644'
+
+    - name: Enable grafana-app service
+      systemd:
+        name: grafana-app
+        enabled: yes
+        daemon_reload: yes
 
     # Service completion message
     - name: Display completion message

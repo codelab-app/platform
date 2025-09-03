@@ -5,39 +5,14 @@ import { Injectable } from '@nestjs/common'
 import { get } from 'env-var'
 import { join } from 'path'
 
-enum PackerImage {
-  Api = 'api',
-  Base = 'base', // Must be first - services depend on it
-  ConsulServer = 'consul-server',
-  Grafana = 'grafana',
-  Landing = 'landing',
-  Neo4j = 'neo4j',
-  Sites = 'sites',
-  Web = 'web',
-}
+import type {
+  PackerBuildOptions,
+  PackerCleanupOptions,
+  PackerGetLatestSnapshotOptions,
+  PackerValidateOptions,
+} from './packer.types'
 
-interface PackerBaseOptions {
-  consulEncryptKey: string
-}
-
-interface PackerBuildOptions extends PackerBaseOptions {
-  digitaloceanApiToken: string
-  images: Array<PackerImage>
-}
-
-interface PackerValidateOptions extends PackerBaseOptions {
-  digitaloceanApiToken: string
-  images: Array<PackerImage>
-}
-
-interface PackerGetLatestSnapshotOptions {
-  digitaloceanApiToken: string
-  service: string
-}
-
-interface PackerCleanupOptions {
-  digitaloceanApiToken: string
-}
+import { PackerImage } from './packer.types'
 
 @Injectable()
 export class PackerService implements CommandModule<unknown, unknown> {
@@ -66,14 +41,41 @@ export class PackerService implements CommandModule<unknown, unknown> {
               default: Object.values(PackerImage),
             }),
         globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-          const buildOptions = {
-            consulEncryptKey,
-            digitaloceanApiToken,
+          const imageDir = join(this.packerDir, 'images')
+
+          // Set up cleanup handler for Ctrl+C
+          const cleanup = () => {
+            this.cleanupDroplets(digitaloceanApiToken)
+            this.cleanupSnapshots(images, digitaloceanApiToken)
           }
 
-          // Build images in order from enum (base is first)
-          for (const image of images) {
-            this.buildImage(image, buildOptions)
+          try {
+            $stream.sync`cd ${imageDir} && packer init .`
+
+            // Check if base image is in the list and needs to be built first
+            const hasBase = images.includes(PackerImage.Base)
+            const otherImages = images.filter((img) => img !== PackerImage.Base)
+
+            if (hasBase) {
+              // Build base image first
+              console.log('Building base image first...')
+              this.createImages(
+                [PackerImage.Base],
+                imageDir,
+                consulEncryptKey,
+                digitaloceanApiToken,
+              )
+            }
+
+            // Build remaining images in parallel
+            this.createImages(
+              otherImages,
+              imageDir,
+              consulEncryptKey,
+              digitaloceanApiToken,
+            )
+          } finally {
+            cleanup()
           }
         }),
       )
@@ -181,65 +183,10 @@ export class PackerService implements CommandModule<unknown, unknown> {
         'Clean up old Packer snapshots (keeps only latest)',
         (argv) => argv.middleware(this.fetchDigitalOceanToken),
         globalHandler(({ digitaloceanApiToken }) => {
-          const services = Object.values(PackerImage).map((image) => ({
-            pattern: `codelab-${image}-`,
-            name: image,
-          }))
-          const keepCount = 1
-
-          for (const service of services) {
-            console.log(`\nProcessing: ${service.name}`)
-
-            // Get all snapshots for this service, sorted by name (includes timestamp)
-            const result = $.sync({
-              verbose: false,
-              env: {
-                ...process.env,
-                DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-              },
-            })`doctl compute snapshot list --format ID,Name --no-header | grep "${service.pattern}" | sort -k2 -r || true`
-            const output = result.stdout.trim()
-
-            if (!output) {
-              console.log(`  No snapshots found for ${service.name}`)
-              continue
-            }
-
-            const snapshots = output.split('\n').filter(Boolean)
-            let count = 0
-
-            for (const line of snapshots) {
-              count++
-              const [snapshotId, snapshotName] = line.split(/\s+/)
-
-              if (count <= keepCount) {
-                console.log(
-                  `  Keeping latest: ${snapshotName} (ID: ${snapshotId})`,
-                )
-              } else {
-                console.log(
-                  `  Deleting old: ${snapshotName} (ID: ${snapshotId})`,
-                )
-                $.sync({
-                  verbose: false,
-                  env: {
-                    ...process.env,
-                    DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-                  },
-                })`doctl compute snapshot delete ${snapshotId} --force || true`
-              }
-            }
-          }
-
-          console.log('\nCleanup completed!')
-          console.log('\nCurrent snapshots:')
-          $.sync({
-            verbose: false,
-            env: {
-              ...process.env,
-              DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-            },
-          })`doctl compute snapshot list --format Name,Size,CreatedAt | grep -E "(codelab-|Name)" || true`
+          this.cleanupSnapshots(
+            Object.values(PackerImage),
+            digitaloceanApiToken,
+          )
         }),
       )
       .demandCommand(1, 'Please provide a command')
@@ -250,66 +197,75 @@ export class PackerService implements CommandModule<unknown, unknown> {
   }
 
   /**
-   * Build a single image
+   * Clean up Packer droplets
    */
-  private buildImage(
-    image: PackerImage,
-    options: {
-      consulEncryptKey: string
-      digitaloceanApiToken: string
-    },
+  private cleanupDroplets(digitaloceanApiToken: string): void {
+    $.sync({
+      env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+    })`doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`
+  }
+
+  /**
+   * Clean up old snapshots for given images
+   */
+  private cleanupSnapshots(
+    images: Array<PackerImage>,
+    digitaloceanApiToken: string,
   ): void {
-    const { consulEncryptKey, digitaloceanApiToken } = options
-
-    console.log(`Building ${image}...`)
-
-    // Clean up old snapshots before building to avoid hitting DigitalOcean limits
-    const cleanupPattern = `codelab-${image}-`
-    const cleanupResult = $.sync({
+    // Get all snapshots once
+    const allSnapshots = $.sync({
       verbose: false,
       env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-    })`doctl compute snapshot list --format ID,Name --no-header | grep "${cleanupPattern}" | sort -k2 -r | tail -n +2 || true`
-    const cleanupOutput = cleanupResult.stdout.trim()
+    })`doctl compute snapshot list --format ID,Name --no-header`
 
-    if (cleanupOutput) {
-      const oldSnapshots = cleanupOutput.split('\n').filter(Boolean)
-      for (const snapshot of oldSnapshots) {
-        const [id] = snapshot.split(/\s+/)
-        console.log(`Deleting old snapshot: ${id}`)
-        $.sync({
-          env: {
-            ...process.env,
-            DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-          },
-        })`doctl compute snapshot delete ${id} --force || true`
-      }
+    const snapshotLines = allSnapshots.stdout
+      .trim()
+      .split('\n')
+      .filter((line) => line)
+
+    // Group snapshots by image type and collect old ones to delete
+    const idsToDelete = images.flatMap(
+      (image) =>
+        snapshotLines
+          .filter((line) => line.includes(`codelab-${image}-`))
+          .sort((a, b) => b.localeCompare(a)) // Sort by name descending (newest first)
+          .slice(1) // Skip the first (newest) one
+          .map((line) => line.split(/\s+/)[0]!), // Extract the ID
+    )
+
+    // Delete all snapshots in a single command
+    if (idsToDelete.length > 0) {
+      console.log(
+        `Deleting ${idsToDelete.length} old snapshots: ${idsToDelete.join(
+          ' ',
+        )}`,
+      )
+      $.sync({
+        env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+      })`doctl compute snapshot delete ${idsToDelete.join(' ')} --force || true`
     }
 
-    const imageDir = join(this.packerDir, 'images')
+    console.log('\nCurrent snapshots:')
+    const pattern = images.map((img) => `codelab-${img}-`).join('\\|')
+    $.sync({
+      env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+    })`doctl compute snapshot list --format Name,Size,CreatedAt | grep "${pattern}" || true`
+  }
 
-    // Set up cleanup handler for Ctrl+C
-    const cleanup = () => {
-      // Delete all packer build droplets (best effort)
-      $.sync`doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`
-      process.exit(1)
-    }
-
-    // Register signal handlers
-    process.on('SIGINT', cleanup) // Ctrl+C
-    process.on('SIGTERM', cleanup) // Kill signal
-
-    try {
-      // Initialize Packer
-      $stream.sync`cd ${imageDir} && packer init .`
-
-      // Build the image with -only flag to specify which source
-      // All images are now in the same directory, using -only to select specific source
-      $stream.sync`cd ${imageDir} && packer build -only='digitalocean.${image}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`
-    } finally {
-      // Remove signal handlers after completion
-      process.removeListener('SIGINT', cleanup)
-      process.removeListener('SIGTERM', cleanup)
-    }
+  /**
+   * Create Packer images
+   */
+  private createImages(
+    images: Array<PackerImage>,
+    imageDir: string,
+    consulEncryptKey: string,
+    digitaloceanApiToken: string,
+  ): void {
+    $stream.sync`cd ${imageDir} && packer build -only='${images
+      .map((img) => `digitalocean.${img}`)
+      .join(
+        ',',
+      )}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`
   }
 
   // Reusable middleware functions

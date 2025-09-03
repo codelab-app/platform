@@ -1,4 +1,5 @@
-version: '3.8'
+include:
+  - ../../modules/caddy/docker-compose.caddy.yaml
 
 networks:
   web:
@@ -6,25 +7,11 @@ networks:
 
 services:
   caddy:
-    image: caddy:2-alpine
-    container_name: caddy
     networks:
       - web
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - caddy-data:/data
-      - caddy-config:/config
     command: caddy reverse-proxy --from dev.{{ key "config/domain" }} --to web:{{ key "config/web/port" }}
-    restart: unless-stopped
     depends_on:
       - web
-    healthcheck:
-      test: ["CMD", "wget", "-O", "-", "http://localhost:80/"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   web:
     image: registry.digitalocean.com/codelabapp/web:{{ key "config/docker/web_tag_version" }}
@@ -32,7 +19,6 @@ services:
     networks:
       - web
     restart: unless-stopped
-    # No external ports - only accessible through Caddy
     expose:
       - '{{ key "config/web/port" }}'
     environment:
@@ -43,11 +29,3 @@ services:
       - AUTH0_DOMAIN={{ key "config/auth0/domain" }}
       - AUTH0_CLIENT_ID={{ key "config/auth0/web_client_id" }}
       - AUTH0_CLIENT_SECRET={{ key "config/auth0/web_client_secret" }}
-
-volumes:
-  caddy-data:
-    name: caddy-data
-    driver: local
-  caddy-config:
-    name: caddy-config
-    driver: local

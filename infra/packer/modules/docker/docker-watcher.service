@@ -1,3 +1,5 @@
+# Uses consul to dynamically watch docker-compose and update them as they change
+
 [Unit]
 Description=Docker Configuration Watcher (Consul-Template)
 Documentation=https://github.com/hashicorp/consul-template

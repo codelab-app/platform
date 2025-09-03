@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '-O', '-', 'http://localhost:80/']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  caddy-data:
+    name: caddy-data
+    driver: local
+  caddy-config:
+    name: caddy-config
+    driver: local

@@ -41,9 +41,10 @@
 
     - name: Add Docker repository
       apt_repository:
-        repo: 'deb [arch={{ ansible_architecture }} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
+        repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
         state: present
         filename: docker
+        update_cache: yes
 
     - name: Install Docker packages
       apt:
@@ -89,6 +90,25 @@
         state: present
         update_cache: yes
 
+    # Grafana Alloy installation
+    - name: Add Grafana GPG key
+      apt_key:
+        url: https://apt.grafana.com/gpg.key
+        keyring: /usr/share/keyrings/grafana.gpg
+        state: present
+
+    - name: Add Grafana repository
+      apt_repository:
+        repo: 'deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main'
+        state: present
+        filename: grafana
+
+    - name: Install Grafana Alloy
+      apt:
+        name: alloy
+        state: present
+        update_cache: yes
+
     - name: Enable Consul bash completion
       command: consul -autocomplete-install
       failed_when: false
@@ -117,8 +137,8 @@
       file:
         path: '{{ item }}'
         state: directory
-        owner: "{{ item.split('/')[2] | default('root') }}"
-        group: "{{ item.split('/')[2] | default('root') }}"
+        owner: root
+        group: root
         mode: '0755'
       loop:
         - /etc/consul.d
@@ -128,6 +148,7 @@
         - /root/docker
         - /root/.config/doctl
         - /etc/systemd/system
+        - /etc/alloy
 
     # Configure doctl
     - name: Configure doctl
@@ -153,26 +174,39 @@
         group: consul
         mode: '0640'
 
-    - name: Copy Consul-Template configuration
+    - name: Copy Consul-Template configurations
       copy:
-        src: '../../modules/consul-base/docker.consul-template.hcl'
-        dest: /etc/consul-template/docker.consul-template.hcl
+        src: '../../modules/consul-base/{{ item }}'
+        dest: '/etc/consul-template/{{ item }}'
+      loop:
+        - docker.consul-template.hcl
+        - alloy.consul-template.hcl
 
-    - name: Copy Docker daemon template
+    - name: Copy Alloy configuration template
       copy:
-        src: '../../modules/docker/daemon.json.ctmpl'
-        dest: /etc/consul-template/daemon.json.ctmpl
+        src: '../../modules/alloy/alloy-config.ctmpl'
+        dest: /etc/consul-template/alloy-config.ctmpl
 
     # Copy systemd service files
-    - name: Copy systemd service files
+    - name: Copy Consul service file
       copy:
-        src: '../../modules/systemd/{{ item }}'
-        dest: '/etc/systemd/system/{{ item }}'
-      loop:
-        - consul.service
-        - docker-watcher.service
-        - docker-loki-plugin.service
-        - docker-login.service
+        src: '../../modules/consul-base/consul.service'
+        dest: '/etc/systemd/system/consul.service'
+
+    - name: Copy Docker watcher service
+      copy:
+        src: '../../modules/docker/docker-watcher.service'
+        dest: '/etc/systemd/system/docker-watcher.service'
+
+    - name: Copy Alloy service file
+      copy:
+        src: '../../modules/alloy/alloy.service'
+        dest: '/etc/systemd/system/alloy.service'
+
+    - name: Copy doctl docker-login service
+      copy:
+        src: '../../modules/doctl/docker-login.service'
+        dest: '/etc/systemd/system/docker-login.service'
 
     - name: Set Consul directory permissions
       file:
@@ -196,9 +230,11 @@
       loop:
         - docker
         - consul
-        - docker-loki-plugin
         - docker-login
         - docker-watcher
+        - alloy
+      loop_control:
+        label: '{{ item }}'
 
     # Kernel tuning
     - name: Set kernel parameters for containers
@@ -237,36 +273,13 @@
         - /var/tmp/*
       failed_when: false
 
-    - name: Find and remove documentation files
-      find:
-        paths:
-          - /usr/share/doc
-          - /usr/share/man
-          - /usr/share/info
-        file_type: file
-      register: doc_files
-
-    - name: Remove documentation files
-      file:
-        path: '{{ item.path }}'
-        state: absent
-      loop: '{{ doc_files.files }}'
-      failed_when: false
-
-    - name: Find and remove cache files
-      find:
-        paths:
-          - /var/cache
-          - /var/log
-        file_type: file
-      register: cache_files
-
-    - name: Remove cache files
-      file:
-        path: '{{ item.path }}'
-        state: absent
-      loop: '{{ cache_files.files }}'
-      failed_when: false
+    - name: Remove documentation and cache files
+      shell: |
+        rm -rf /usr/share/doc/* /usr/share/man/* /usr/share/info/*
+        find /var/cache -type f -delete 2>/dev/null || true
+        find /var/log -type f -delete 2>/dev/null || true
+      args:
+        warn: false
 
     - name: Trim filesystem
       command: fstrim -av

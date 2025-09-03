@@ -1,5 +1,5 @@
 # Consul-Template configuration for Docker
-# Manages both Docker daemon configuration and container orchestration
+# Manages Docker container orchestration
 
 consul {
   address = "127.0.0.1:8500"
@@ -11,26 +11,7 @@ consul {
   }
 }
 
-# Docker daemon configuration template
-# This must be processed first as containers depend on daemon settings
-template {
-  source = "/etc/consul-template/daemon.json.ctmpl"
-  destination = "/etc/docker/daemon.json"
-  perms = 0644
-  backup = true
-  
-  # Restart Docker when daemon.json changes
-  command = "systemctl reload docker || systemctl restart docker"
-  command_timeout = "30s"
-  
-  wait {
-    min = "2s"
-    max = "10s"
-  }
-}
-
 # Docker Compose template for service containers
-# Processed after daemon configuration to ensure Docker is ready
 template {
   source = "/etc/consul-template/docker-compose.ctmpl"
   destination = "/root/docker/docker-compose.yml"

@@ -70,6 +70,14 @@ resource "consul_key_prefix" "app_config" {
     # Environment settings
     "environment"        = var.ENVIRONMENT
     "monitoring/enabled" = "true"
+    
+    # Domain configuration (needed by all services for Caddy reverse proxy)
+    "domain" = "codelab.app"
+    
+    # Port configurations (needed by docker-compose templates)
+    "landing/port" = "3000"
+    "web/port"     = "3000"
+    "sites/port"   = "3000"
 
     # Feature flags (can be overridden in Consul UI)
     "features/new_ui"    = "false"
