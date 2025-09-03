@@ -17,10 +17,17 @@
     sysctl_file: /etc/sysctl.conf
     reload: yes
 
-- name: Mask automatic update services
+- name: Mask apt-daily service
   systemd:
-    name:
-      - apt-daily.service
-      - apt-daily-upgrade.service
-      - unattended-upgrades.service
+    name: apt-daily.service
+    masked: yes
+
+- name: Mask apt-daily-upgrade service
+  systemd:
+    name: apt-daily-upgrade.service
+    masked: yes
+
+- name: Mask unattended-upgrades service
+  systemd:
+    name: unattended-upgrades.service
     masked: yes

@@ -1,21 +1,7 @@
 ---
 # Setup APT repositories and GPG keys
 
-- name: Install prerequisite packages
-  apt:
-    name:
-      - curl
-      - wget
-      - gnupg
-      - lsb-release
-      - software-properties-common
-      - ca-certificates
-      - apt-transport-https
-      - unzip
-    state: present
-    update_cache: yes
-    install_recommends: no
-
+# Add all GPG keys first (no apt needed, uses urllib internally)
 - name: Add Docker GPG key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
@@ -34,26 +20,51 @@
     keyring: /usr/share/keyrings/grafana.gpg
     state: present
 
+# Add all repositories WITHOUT updating cache
+# Why: apt_repository by default runs 'apt-get update' after adding each repo
+# This would download all package lists (Ubuntu + Docker + HashiCorp + Grafana)
+# multiple times. By skipping updates here, we just add the repo config files
+# and download all package lists once at the end (saves ~30 seconds)
 - name: Add Docker repository
   apt_repository:
     repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
     state: present
     filename: docker
-  notify: update apt cache
+    update_cache: no # Just add repo config, don't download package lists yet
 
 - name: Add HashiCorp repository
   apt_repository:
     repo: 'deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main'
     state: present
     filename: hashicorp
-  notify: update apt cache
+    update_cache: no # Just add repo config, don't download package lists yet
 
 - name: Add Grafana repository
   apt_repository:
     repo: 'deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main'
     state: present
     filename: grafana
-  notify: update apt cache
+    update_cache: no # Just add repo config, don't download package lists yet
 
-- name: Flush handlers to update cache
-  meta: flush_handlers
+# Now update cache ONCE with all repositories configured
+# This downloads all package lists (Ubuntu + Docker + HashiCorp + Grafana) in one go
+# Result: 1 update (10s) instead of 4 updates (40s)
+- name: Update apt cache once for all repositories
+  apt:
+    update_cache: yes
+
+# Install prerequisites using the cache (no update needed)
+- name: Install prerequisite packages
+  apt:
+    name:
+      - curl
+      - wget
+      - gnupg
+      - lsb-release
+      - software-properties-common
+      - ca-certificates
+      - apt-transport-https
+      - unzip
+    state: present
+    update_cache: no # Use existing cache from above
+    install_recommends: no

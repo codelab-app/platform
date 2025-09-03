@@ -10,11 +10,22 @@
     state: started
     enabled: yes
 
-- name: Enable all services
+- name: Enable Consul service
   systemd:
-    name:
-      - consul
-      - docker-login
-      - docker-consul-template
-      - alloy
+    name: consul
+    enabled: yes
+
+- name: Enable Docker login service
+  systemd:
+    name: docker-login
+    enabled: yes
+
+- name: Enable Docker Consul-Template service
+  systemd:
+    name: docker-consul-template
+    enabled: yes
+
+- name: Enable Alloy service
+  systemd:
+    name: alloy
     enabled: yes
