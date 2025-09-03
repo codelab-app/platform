@@ -51,3 +51,6 @@
   failed_when: false
   changed_when: false
   tags: ['cleanup', 'always']
+# Note: We do NOT remove the packer_build marker here
+# It needs to stay until after the snapshot to prevent services from starting during shutdown
+# The marker will be removed on first boot in production via cloud-init or startup script

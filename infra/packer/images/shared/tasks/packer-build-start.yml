@@ -1,0 +1,9 @@
+---
+# Shared task to mark Packer build environment
+# Include this at the start of any image playbook that builds on base
+# This prevents systemd services from starting during build
+
+- name: Mark as Packer build environment
+  file:
+    path: /etc/packer_build
+    state: touch

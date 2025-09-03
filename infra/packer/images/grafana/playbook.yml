@@ -7,6 +7,9 @@
     region: "{{ region | default('sgp1') }}"
 
   tasks:
+    # Prevent services from starting during build
+    - include_tasks: ../shared/tasks/packer-build-start.yml
+
     # Create volume directories for Grafana/Loki first
     - name: Create monitoring volume directories
       file:
@@ -65,8 +68,16 @@
         group: consul
         mode: '0640'
 
-    # Fix permissions for Consul configuration files
-    - name: Set Consul configuration permissions
+    # Fix permissions for Consul configuration
+    - name: Set Consul directory permissions
+      file:
+        path: /etc/consul.d
+        state: directory
+        owner: consul
+        group: consul
+        mode: '0750'
+
+    - name: Set Consul files permissions
       file:
         path: /etc/consul.d
         owner: consul
@@ -88,11 +99,14 @@
         dest: /etc/systemd/system/docker-compose.service
         mode: '0644'
 
-    # Enable docker-compose service
-    - name: Enable docker-compose service
+    # Enable docker-compose service (but don't start during build)
+    - name: Enable docker-compose service (but don't start)
       systemd:
         name: docker-compose
         enabled: yes
+        state:
+          stopped # Don't start during build - has After=consul.service dependency
+          # which could trigger service startup chains
         daemon_reload: yes
 
     # Service completion message
@@ -113,3 +127,7 @@
     # Trim filesystem to minimize snapshot size
     - name: Trim filesystem
       command: fstrim -av
+
+    # Note: We do NOT remove the packer_build marker here
+    # It needs to stay until after the snapshot to prevent services from starting
+    # It will be removed on first boot in production via cloud-init

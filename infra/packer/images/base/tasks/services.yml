@@ -10,22 +10,37 @@
     state: started
     enabled: yes
 
-- name: Enable Consul service
+- name: Enable Consul service (but don't start)
   systemd:
     name: consul
     enabled: yes
+    state:
+      stopped # Don't start during Packer build - Consul would try to join a
+      # non-existent cluster and hang for 5 minutes during shutdown.
+      # Service will auto-start on first boot in production.
 
-- name: Enable Docker login service
+- name: Enable Docker login service (but don't start)
   systemd:
     name: docker-login
     enabled: yes
+    state: stopped # Don't start during build - prevents triggering dependencies
 
-- name: Enable Docker Consul-Template service
+- name: Enable Docker Consul-Template service (but don't start)
   systemd:
     name: docker-consul-template
     enabled: yes
+    state:
+      stopped # Don't start during build - has Requires=consul.service which
+      # would trigger Consul to start and cause 5-minute shutdown delay
 
-- name: Enable Alloy service
+- name: Enable Alloy service (but don't start)
   systemd:
     name: alloy
     enabled: yes
+    state: stopped # Don't start during build - may have service dependencies
+
+- name: Enable remove-packer-marker service for first boot
+  systemd:
+    name: remove-packer-marker
+    enabled: yes
+    state: stopped # Will run once on first boot to remove the marker

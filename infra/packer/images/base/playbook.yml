@@ -20,10 +20,24 @@
     - name: restart consul
       systemd:
         name: consul
-        state: restarted
-        enabled: yes
+        state: stopped # Don't actually restart during Packer build. If we started Consul,
+        enabled:
+          yes # it would try to gracefully leave its cluster during shutdown,
+          # timing out after 5 minutes since no cluster exists in build env.
 
   pre_tasks:
+    # Create a marker file to prevent services from starting during Packer builds.
+    # Why not use environment variables like PACKER_BUILD_NAME?
+    # - Packer sets env vars only in its provisioner shell session, not globally
+    # - Systemd services run in their own environment context and won't see these vars
+    # - Even if we wrote them to /etc/environment, systemd doesn't automatically reload
+    # - File markers persist across all processes and are visible to systemd immediately
+    # This file will be removed in cleanup.yml before the final snapshot.
+    - name: Mark as Packer build environment
+      file:
+        path: /etc/packer_build
+        state: touch
+
     - name: Wait for cloud-init to complete
       command: cloud-init status --wait
       failed_when: false

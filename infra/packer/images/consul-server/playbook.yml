@@ -4,6 +4,9 @@
   become: yes
 
   tasks:
+    # Prevent services from starting during build
+    - include_tasks: ../shared/tasks/packer-build-start.yml
+
     # Add consul-server.hcl for server nodes
     - name: Copy Consul server configuration
       copy:
@@ -34,3 +37,7 @@
     # Trim filesystem to minimize snapshot size
     - name: Trim filesystem
       command: fstrim -av
+
+    # Note: We do NOT remove the packer_build marker here
+    # It needs to stay until after the snapshot to prevent services from starting
+    # It will be removed on first boot in production via cloud-init

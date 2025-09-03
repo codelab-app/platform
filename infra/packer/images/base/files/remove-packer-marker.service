@@ -1,0 +1,13 @@
+[Unit]
+Description=Remove Packer build marker on first boot
+After=cloud-init.target
+Before=consul.service docker-consul-template.service alloy.service docker-login.service
+ConditionPathExists=/etc/packer_build
+
+[Service]
+Type=oneshot
+ExecStart=/bin/rm -f /etc/packer_build
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

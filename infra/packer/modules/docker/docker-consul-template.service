@@ -16,6 +16,9 @@ Description=Docker Configuration Watcher (Consul-Template)
 Documentation=https://github.com/hashicorp/consul-template
 Requires=network-online.target consul.service docker.service
 After=network-online.target consul.service docker.service
+# Only start this service in production (not during Packer builds)
+# The /etc/packer_build marker exists during builds and is removed before snapshot
+ConditionPathExists=!/etc/packer_build
 
 [Service]
 Type=simple

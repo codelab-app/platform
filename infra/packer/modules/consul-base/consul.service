@@ -4,6 +4,9 @@ Documentation=https://www.consul.io/
 Requires=network-online.target
 After=network-online.target
 ConditionFileNotEmpty=/etc/consul.d/consul-base.hcl
+# Only start this service in production (not during Packer builds)
+# The /etc/packer_build marker exists during builds and is removed before snapshot
+ConditionPathExists=!/etc/packer_build
 
 [Service]
 Type=simple

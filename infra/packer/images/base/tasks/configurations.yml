@@ -64,3 +64,10 @@
     dest: /etc/systemd/system/docker-login.service
     mode: '0644'
   notify: reload systemd
+
+- name: Deploy remove-packer-marker service for first boot
+  copy:
+    src: files/remove-packer-marker.service
+    dest: /etc/systemd/system/remove-packer-marker.service
+    mode: '0644'
+  notify: reload systemd
