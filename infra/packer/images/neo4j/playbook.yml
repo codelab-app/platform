@@ -43,19 +43,6 @@
         group: consul
         recurse: yes
 
-    # Copy and enable neo4j-app service
-    - name: Copy neo4j-app systemd service
-      copy:
-        src: 'neo4j-app.service'
-        dest: /etc/systemd/system/neo4j-app.service
-        mode: '0644'
-
-    - name: Enable neo4j-app service
-      systemd:
-        name: neo4j-app
-        enabled: yes
-        daemon_reload: yes
-
     # Clean up temporary files
     - name: Clean temporary files
       file:

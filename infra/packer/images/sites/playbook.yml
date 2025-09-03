@@ -47,19 +47,6 @@
     - name: Authenticate with DigitalOcean registry
       command: doctl registry login
 
-    # Copy and enable sites-app service
-    - name: Copy sites-app systemd service
-      copy:
-        src: 'sites-app.service'
-        dest: /etc/systemd/system/sites-app.service
-        mode: '0644'
-
-    - name: Enable sites-app service
-      systemd:
-        name: sites-app
-        enabled: yes
-        daemon_reload: yes
-
     # Clean up temporary files
     - name: Clean temporary files
       file:

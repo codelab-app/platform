@@ -47,19 +47,6 @@
     - name: Authenticate with DigitalOcean registry
       command: doctl registry login
 
-    # Copy and enable landing-app service
-    - name: Copy landing-app systemd service
-      copy:
-        src: 'landing-app.service'
-        dest: /etc/systemd/system/landing-app.service
-        mode: '0644'
-
-    - name: Enable landing-app service
-      systemd:
-        name: landing-app
-        enabled: yes
-        daemon_reload: yes
-
     # Clean up temporary files
     - name: Clean temporary files
       file:

@@ -13,8 +13,8 @@ This module provides the base Consul configuration and Consul-Template orchestra
    - Renders docker-compose.yml from templates
    - Automatically updates running containers when configuration changes
 
-2. **docker-watcher.service** - Systemd service that:
-   - Runs consul-template as a long-running process
+2. **docker-consul-template.service** - Systemd service that:
+   - Runs consul-template as a long-running daemon process
    - Uses the docker.consul-template.hcl configuration explicitly via `-config` flag
    - Note: The `.hcl` extension is NOT auto-discovered - it must be explicitly specified
 

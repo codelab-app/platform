@@ -1,0 +1,38 @@
+# Alloy Configuration Watcher using Consul-Template
+#
+# This is a long-running daemon that continuously monitors Consul KV store for changes.
+# When Consul values change (particularly config/grafana/vpc_ip), this service:
+# 1. Detects the change (via consul-template's watch mechanism)
+# 2. Regenerates /etc/alloy/config.alloy from the .ctmpl template
+# 3. Executes 'systemctl reload alloy' to make Alloy pick up the new Loki endpoint
+#
+# This ensures Alloy always has the correct Loki URL for log shipping, dynamically
+# updating if the Grafana droplet's IP changes.
+
+[Unit]
+Description=Alloy Configuration Watcher (Consul-Template)
+Documentation=https://github.com/hashicorp/consul-template
+Requires=network-online.target consul.service
+After=network-online.target consul.service
+Before=alloy.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+# Runs consul-template as a daemon process
+ExecStart=/usr/bin/consul-template -config=/etc/consul-template/alloy.consul-template.hcl
+
+# Allows reloading the consul-template daemon itself without stopping it
+# Useful when the consul-template config changes or to force re-read templates
+ExecReload=/bin/kill -HUP $MAINPID
+
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

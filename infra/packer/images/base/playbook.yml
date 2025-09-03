@@ -191,10 +191,10 @@
         src: '../../modules/consul-base/consul.service'
         dest: '/etc/systemd/system/consul.service'
 
-    - name: Copy Docker watcher service
+    - name: Copy Docker consul-template service
       copy:
-        src: '../../modules/docker/docker-watcher.service'
-        dest: '/etc/systemd/system/docker-watcher.service'
+        src: '../../modules/docker/docker-consul-template.service'
+        dest: '/etc/systemd/system/docker-consul-template.service'
 
     - name: Copy Alloy service file
       copy:
@@ -229,7 +229,7 @@
         - docker
         - consul
         - docker-login
-        - docker-watcher
+        - docker-consul-template
         - alloy
       loop_control:
         label: '{{ item }}'

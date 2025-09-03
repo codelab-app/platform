@@ -6,6 +6,7 @@ resource "consul_key_prefix" "grafana_config" {
     "admin_user"     = "admin"
     "admin_password" = var.grafana_admin_password
     "version"        = "11.1.0"
+    "vpc_ip"         = digitalocean_droplet.grafana.ipv4_address_private
   }
 }
 

@@ -76,19 +76,6 @@
         recurse: yes
         mode: '0640'
 
-    # Copy and enable grafana-app service
-    - name: Copy grafana-app systemd service
-      copy:
-        src: 'grafana-app.service'
-        dest: /etc/systemd/system/grafana-app.service
-        mode: '0644'
-
-    - name: Enable grafana-app service
-      systemd:
-        name: grafana-app
-        enabled: yes
-        daemon_reload: yes
-
     # Service completion message
     - name: Display completion message
       debug:
