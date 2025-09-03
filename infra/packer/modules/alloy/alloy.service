@@ -1,12 +1,14 @@
 [Unit]
 Description=Grafana Alloy
 Documentation=https://grafana.com/docs/alloy/
-After=docker.service consul.service consul-template.service
-Wants=docker.service consul.service consul-template.service
+After=docker.service
+Wants=docker.service
 
 [Service]
 Type=simple
 User=root
+# Set Loki URL - this should be configured during deployment
+Environment="LOKI_URL=http://loki:3100/loki/api/v1/push"
 ExecStart=/usr/bin/alloy run /etc/alloy/config.alloy
 Restart=always
 RestartSec=10

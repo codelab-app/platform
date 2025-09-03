@@ -36,14 +36,15 @@ loki.process "docker_labels" {
   stage.static_labels {
     values = {
       job = "docker"
-      hostname = "{{ env "HOSTNAME" }}"
     }
   }
 }
 
 loki.write "loki_output" {
   endpoint {
-    url = "{{ key "config/loki/url" }}"
+    // This will need to be updated with actual Loki URL during deployment
+    // For now using placeholder that can be replaced via Terraform or environment variable
+    url = "${LOKI_URL:-http://loki:3100/loki/api/v1/push}"
     batch_size = 400
   }
 }

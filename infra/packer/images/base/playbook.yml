@@ -174,18 +174,16 @@
         group: consul
         mode: '0640'
 
-    - name: Copy Consul-Template configurations
+    - name: Copy Consul-Template configuration
       copy:
-        src: '../../modules/consul-base/{{ item }}'
-        dest: '/etc/consul-template/{{ item }}'
-      loop:
-        - docker.consul-template.hcl
-        - alloy.consul-template.hcl
+        src: '../../modules/consul-base/docker.consul-template.hcl'
+        dest: '/etc/consul-template/docker.consul-template.hcl'
 
-    - name: Copy Alloy configuration template
+    - name: Copy Alloy configuration
       copy:
-        src: '../../modules/alloy/alloy-config.ctmpl'
-        dest: /etc/consul-template/alloy-config.ctmpl
+        src: '../../modules/alloy/config.alloy'
+        dest: /etc/alloy/config.alloy
+        mode: '0644'
 
     # Copy systemd service files
     - name: Copy Consul service file
@@ -278,8 +276,6 @@
         rm -rf /usr/share/doc/* /usr/share/man/* /usr/share/info/*
         find /var/cache -type f -delete 2>/dev/null || true
         find /var/log -type f -delete 2>/dev/null || true
-      args:
-        warn: false
 
     - name: Trim filesystem
       command: fstrim -av

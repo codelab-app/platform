@@ -1520,12 +1520,12 @@ let PackerService = class PackerService {
         // Handler implementation if needed
     }
     /**
-     * Create Packer images
+     * Clean up Packer droplets
      */
-    createImages(images, imageDir, consulEncryptKey, digitaloceanApiToken) {
-        $stream.sync `cd ${imageDir} && packer build -only='${images
-            .map((img) => `digitalocean.${img}`)
-            .join(',')}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
+    cleanupDroplets(digitaloceanApiToken) {
+        $.sync({
+            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+        }) `doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`;
     }
     /**
      * Clean up old snapshots for given images
@@ -1560,12 +1560,12 @@ let PackerService = class PackerService {
         }) `doctl compute snapshot list --format Name,Size,CreatedAt | grep "${pattern}" || true`;
     }
     /**
-     * Clean up Packer droplets
+     * Create Packer images
      */
-    cleanupDroplets(digitaloceanApiToken) {
-        $.sync({
-            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`;
+    createImages(images, imageDir, consulEncryptKey, digitaloceanApiToken) {
+        $stream.sync `cd ${imageDir} && packer build -only='${images
+            .map((img) => `digitalocean.${img}`)
+            .join(',')}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
     }
 };
 PackerService = (0,external_tslib_namespaceObject.__decorate)([
