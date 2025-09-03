@@ -12,8 +12,9 @@
 
 - name: Enable all services
   systemd:
-    name: '{{ item }}'
+    name:
+      - consul
+      - docker-login
+      - docker-consul-template
+      - alloy
     enabled: yes
-  loop: '{{ enabled_services }}'
-  loop_control:
-    label: '{{ item }}'

@@ -1466,7 +1466,7 @@ let PackerService = class PackerService {
                 .join(',');
             console.log(`Validating ${images.length} image(s)...`);
             // Validate all requested images at once
-            $stream.sync `cd ${servicesDir} && packer validate -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
+            $stream.sync `cd ${servicesDir} && packer validate -timestamp-ui -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
         }))
             .command('list-images', 'List Packer-built images in DigitalOcean', (argv) => argv, globalHandler(() => {
             $stream.sync `doctl compute image list --public=false | grep "codelab-.*-base"`;
@@ -1563,7 +1563,7 @@ let PackerService = class PackerService {
      * Create Packer images
      */
     createImages(images, imageDir, consulEncryptKey, digitaloceanApiToken) {
-        $stream.sync `cd ${imageDir} && packer build -only='${images
+        $stream.sync `cd ${imageDir} && packer build -timestamp-ui -only='${images
             .map((img) => `digitalocean.${img}`)
             .join(',')}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
     }

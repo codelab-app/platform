@@ -3,28 +3,56 @@
 
 - name: Install prerequisite packages
   apt:
-    name: '{{ prerequisite_packages }}'
+    name:
+      - curl
+      - wget
+      - gnupg
+      - lsb-release
+      - software-properties-common
+      - ca-certificates
+      - apt-transport-https
+      - unzip
     state: present
     update_cache: yes
     install_recommends: no
 
-- name: Add all GPG keys
+- name: Add Docker GPG key
   apt_key:
-    url: '{{ item.url }}'
-    keyring: '{{ item.keyring }}'
+    url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
     state: present
-  loop: '{{ gpg_keys }}'
-  loop_control:
-    label: '{{ item.name }}'
 
-- name: Add all repositories
-  apt_repository:
-    repo: '{{ item.repo }}'
+- name: Add HashiCorp GPG key
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
     state: present
-    filename: '{{ item.filename }}'
-  loop: '{{ apt_repositories }}'
-  loop_control:
-    label: '{{ item.filename }}'
+
+- name: Add Grafana GPG key
+  apt_key:
+    url: https://apt.grafana.com/gpg.key
+    keyring: /usr/share/keyrings/grafana.gpg
+    state: present
+
+- name: Add Docker repository
+  apt_repository:
+    repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
+    state: present
+    filename: docker
+  notify: update apt cache
+
+- name: Add HashiCorp repository
+  apt_repository:
+    repo: 'deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main'
+    state: present
+    filename: hashicorp
+  notify: update apt cache
+
+- name: Add Grafana repository
+  apt_repository:
+    repo: 'deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main'
+    state: present
+    filename: grafana
   notify: update apt cache
 
 - name: Flush handlers to update cache

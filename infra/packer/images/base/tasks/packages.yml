@@ -3,7 +3,17 @@
 
 - name: Install all service packages
   apt:
-    name: '{{ docker_packages + hashicorp_packages + monitoring_packages }}'
+    name:
+      # Docker packages
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+      # HashiCorp packages
+      - consul
+      - consul-template
+      # Monitoring packages
+      - alloy
     state: present
     install_recommends: no
   notify:

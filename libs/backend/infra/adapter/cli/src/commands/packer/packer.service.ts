@@ -109,7 +109,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
           console.log(`Validating ${images.length} image(s)...`)
 
           // Validate all requested images at once
-          $stream.sync`cd ${servicesDir} && packer validate -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`
+          $stream.sync`cd ${servicesDir} && packer validate -timestamp-ui -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`
         }),
       )
       .command(
@@ -261,7 +261,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
     consulEncryptKey: string,
     digitaloceanApiToken: string,
   ): void {
-    $stream.sync`cd ${imageDir} && packer build -only='${images
+    $stream.sync`cd ${imageDir} && packer build -timestamp-ui -only='${images
       .map((img) => `digitalocean.${img}`)
       .join(
         ',',

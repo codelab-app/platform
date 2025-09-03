@@ -37,12 +37,30 @@
     dest: /etc/alloy/config.alloy
     mode: '0644'
 
-- name: Deploy all systemd service files
+- name: Deploy Consul systemd service
   copy:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
+    src: '../../modules/consul-base/consul.service'
+    dest: /etc/systemd/system/consul.service
     mode: '0644'
-  loop: '{{ systemd_services }}'
-  loop_control:
-    label: '{{ item.name }}'
+  notify: reload systemd
+
+- name: Deploy Docker Consul-Template systemd service
+  copy:
+    src: '../../modules/docker/docker-consul-template.service'
+    dest: /etc/systemd/system/docker-consul-template.service
+    mode: '0644'
+  notify: reload systemd
+
+- name: Deploy Alloy systemd service
+  copy:
+    src: '../../modules/alloy/alloy.service'
+    dest: /etc/systemd/system/alloy.service
+    mode: '0644'
+  notify: reload systemd
+
+- name: Deploy Docker login systemd service
+  copy:
+    src: '../../modules/doctl/docker-login.service'
+    dest: /etc/systemd/system/docker-login.service
+    mode: '0644'
   notify: reload systemd

@@ -1,21 +1,26 @@
 ---
 # System optimization
 
-- name: Apply kernel parameters for containers
+- name: Set vm.max_map_count for Elasticsearch
   sysctl:
-    name: '{{ item.key }}'
-    value: '{{ item.value }}'
+    name: vm.max_map_count
+    value: '262144'
     state: present
     sysctl_file: /etc/sysctl.conf
     reload: yes
-  loop: '{{ kernel_parameters }}'
-  loop_control:
-    label: '{{ item.key }}={{ item.value }}'
+
+- name: Set net.core.somaxconn for high connection workloads
+  sysctl:
+    name: net.core.somaxconn
+    value: '1024'
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    reload: yes
 
 - name: Mask automatic update services
   systemd:
-    name: '{{ item }}'
+    name:
+      - apt-daily.service
+      - apt-daily-upgrade.service
+      - unattended-upgrades.service
     masked: yes
-  loop: '{{ masked_services }}'
-  loop_control:
-    label: '{{ item }}'

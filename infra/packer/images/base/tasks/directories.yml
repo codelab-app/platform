@@ -1,13 +1,58 @@
 ---
 # Create required directory structure
 
-- name: Create all required directories
+- name: Create Consul configuration directory
   file:
-    path: '{{ item.path }}'
+    path: /etc/consul.d
     state: directory
-    owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('0755') }}"
-  loop: '{{ required_directories }}'
-  loop_control:
-    label: '{{ item.path }}'
+    owner: consul
+    group: consul
+    mode: '0755'
+
+- name: Create Consul data directory
+  file:
+    path: /opt/consul
+    state: directory
+    owner: consul
+    group: consul
+    mode: '0755'
+
+- name: Create Consul log directory
+  file:
+    path: /var/log/consul
+    state: directory
+    owner: consul
+    group: consul
+    mode: '0755'
+
+- name: Create Consul-Template directory
+  file:
+    path: /etc/consul-template
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create Docker directory
+  file:
+    path: /root/docker
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create doctl config directory
+  file:
+    path: /root/.config/doctl
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create Alloy directory
+  file:
+    path: /etc/alloy
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
