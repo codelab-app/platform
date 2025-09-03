@@ -17,7 +17,7 @@ import { SelectField } from 'uniforms-antd'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     name: {
       autoFocus: true,
       ...nonEmptyString,

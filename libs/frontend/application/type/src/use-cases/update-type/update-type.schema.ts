@@ -20,7 +20,7 @@ export const updateTypeSchema: JSONSchemaType<
   Omit<ITypeUpdateDto, 'defaultValue'>
 > = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     allowedValues: {
       items: {
         properties: {

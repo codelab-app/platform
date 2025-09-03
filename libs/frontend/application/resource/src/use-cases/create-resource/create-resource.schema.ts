@@ -13,7 +13,7 @@ import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     config: {
       label: '',
       properties: {
@@ -40,7 +40,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
       showSearch: true,
       type: 'string',
     },
-    ...refSchema('owner'),
+    ...refSchema('owner', 'Owner'),
   },
   required: ['name', 'type', 'owner'],
   title: 'Create Resource',

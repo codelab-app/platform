@@ -22,7 +22,7 @@ export const createAuthGuardSchema: ICreateAuthGuardSchemaBuilder = ({
 }) =>
   ({
     properties: {
-      ...idSchema(),
+      ...idSchema,
       ...ownerSchema,
       name: {
         autoFocus: true,
@@ -32,7 +32,7 @@ export const createAuthGuardSchema: ICreateAuthGuardSchemaBuilder = ({
       config: {
         label: '',
         properties: {
-          ...idSchema(),
+          ...idSchema,
           data: {
             type: 'object',
             properties: {

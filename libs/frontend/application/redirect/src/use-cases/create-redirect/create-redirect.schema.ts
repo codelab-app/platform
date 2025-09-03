@@ -10,7 +10,7 @@ export const createRedirectSchema: ICreateRedirectSchemaBuilder = ({
 }) => {
   return {
     properties: {
-      ...idSchema(),
+      ...idSchema,
       source: {
         // auto selected
         type: 'object',

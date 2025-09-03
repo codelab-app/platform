@@ -8,7 +8,7 @@ import {
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     name: {
       type: 'string',
       autoFocus: true,

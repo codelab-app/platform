@@ -24,7 +24,7 @@ export const createAtomSchema: ICreateAtomSchemaBuilder = ({
     type: 'object',
     required: ['name', 'type'],
     properties: {
-      ...idSchema(),
+      ...idSchema,
       name: {
         autoFocus: true,
         ...nonEmptyString,

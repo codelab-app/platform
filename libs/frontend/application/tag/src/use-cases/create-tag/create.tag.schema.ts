@@ -10,7 +10,7 @@ import { SelectField } from 'uniforms-antd'
 export const createTagSchema: ICreateTagSchemaBuilder = ({ tags }) =>
   ({
     properties: {
-      ...idSchema(),
+      ...idSchema,
       name: {
         autoFocus: true,
         ...nonEmptyString,
@@ -29,7 +29,7 @@ export const createTagSchema: ICreateTagSchemaBuilder = ({ tags }) =>
         required: [],
         type: 'object',
       },
-      ...refSchema('owner'),
+      ...refSchema('owner', 'Owner'),
     },
     required: ['id', 'name', 'owner'],
     title: 'Create Tag Input',

@@ -17,7 +17,7 @@ import { SelectField } from 'uniforms-antd'
 
 export const updateFieldSchema: JSONSchemaType<IFieldUpdateFormData> = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     description: {
       nullable: true,
       type: 'string',
@@ -49,7 +49,7 @@ export const updateFieldSchema: JSONSchemaType<IFieldUpdateFormData> = {
       type: 'object',
       label: '',
       properties: {
-        ...idSchema(),
+        ...idSchema,
       },
       required: ['id'],
     },

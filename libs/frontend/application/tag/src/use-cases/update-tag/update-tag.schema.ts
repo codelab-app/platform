@@ -9,7 +9,7 @@ import { SelectField } from 'uniforms-antd'
 export const updateTagSchema: IUpdateTagSchemaBuilder = ({ tags }) =>
   ({
     properties: {
-      ...idSchema(),
+      ...idSchema,
       name: {
         autoFocus: true,
         type: 'string',
@@ -30,7 +30,7 @@ export const updateTagSchema: IUpdateTagSchemaBuilder = ({ tags }) =>
         label: '',
         required: ['id'],
       },
-      ...refSchema('owner'),
+      ...refSchema('owner', 'Owner'),
     },
     required: ['name', 'owner'],
     title: 'Update Tag Input',

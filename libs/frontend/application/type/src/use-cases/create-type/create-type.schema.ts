@@ -21,7 +21,7 @@ import { TypeSelect } from '../select-types/TypeSelect'
  */
 export const createTypeSchema: JSONSchemaType<ITypeCreateFormData> = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     allowedValues: {
       items: {
         properties: {

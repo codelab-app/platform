@@ -26,7 +26,7 @@ export const createActionSchema: ICreateActionSchemaBuilder = ({
 }) =>
   ({
     properties: {
-      ...idSchema(),
+      ...idSchema,
       code: {
         type: 'string',
         uniforms: {
@@ -37,7 +37,7 @@ export const createActionSchema: ICreateActionSchemaBuilder = ({
       config: {
         label: '',
         properties: {
-          ...idSchema(),
+          ...idSchema,
           data: {
             type: 'object',
             properties: {
@@ -119,7 +119,7 @@ export const createActionSchema: ICreateActionSchemaBuilder = ({
         label: '',
         required: ['id'],
       },
-      ...refSchema('store', { disabled: true }),
+      ...refSchema('store', 'Store'),
       errorAction: {
         type: 'object',
         nullable: true,

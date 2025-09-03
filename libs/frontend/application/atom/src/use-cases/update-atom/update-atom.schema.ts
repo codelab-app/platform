@@ -15,12 +15,12 @@ export const updateAtomSchema: IUpdateAtomSchemaBuilder = ({ atoms, tags }) => {
 
   return {
     properties: {
-      ...idSchema(),
+      ...idSchema,
       name: {
         autoFocus: true,
         ...nonEmptyString,
       },
-      ...refSchema('api', { disabled: true }),
+      ...refSchema('api', 'API'),
       // Hide field for now, added only to implement the interface
       // api: {
       //   type: 'string',

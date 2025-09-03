@@ -11,8 +11,8 @@ export const createComponentSchema: JSONSchemaType<
   Omit<ICreateComponentData, 'rootElement'>
 > = {
   properties: {
-    ...idSchema(),
-    ...refSchema('owner'),
+    ...idSchema,
+    ...refSchema('owner', 'Owner'),
     name: {
       type: 'string',
       autoFocus: true,
