@@ -90,6 +90,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
 
   const systemTypes = [
     ...data.codeMirrorTypes,
+    ...data.anyTypes,
     ...data.primitiveTypes,
     ...data.reactNodeTypes,
     ...data.richTextTypes,

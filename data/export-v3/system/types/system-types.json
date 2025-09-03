@@ -110,5 +110,11 @@
         "name": "Typescript Code"
       }
     ]
+  },
+  {
+    "__typename": "AnyType",
+    "id": "f9a12d48-8b7e-4c3a-9f2d-5e6a7b8c9d0e",
+    "kind": "AnyType",
+    "name": "AnyType"
   }
 ]

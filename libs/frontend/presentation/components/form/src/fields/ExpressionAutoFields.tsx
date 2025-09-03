@@ -1,3 +1,5 @@
+'use client'
+
 import type { ComponentType } from 'react'
 
 import { createElement, Fragment } from 'react'

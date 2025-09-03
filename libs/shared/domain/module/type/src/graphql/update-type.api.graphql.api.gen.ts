@@ -17,6 +17,7 @@ import {
   UpdateRichTextTypesDocument,
   UpdateActionTypesDocument,
   UpdateCodeMirrorTypesDocument,
+  UpdateAnyTypesDocument,
 } from '@codelab/shared-infra-gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
@@ -54,4 +55,7 @@ export const getSdk = (client: GraphQLClient) => ({
   UpdateCodeMirrorTypes: (
     variables: Types.UpdateCodeMirrorTypesMutationVariables,
   ) => gqlRequest(client, UpdateCodeMirrorTypesDocument.toString(), variables),
+  UpdateAnyTypes: (
+    variables: Types.UpdateAnyTypesMutationVariables,
+  ) => gqlRequest(client, UpdateAnyTypesDocument.toString(), variables),
 })

@@ -19,6 +19,7 @@ import type { IModel } from '../../shared'
 import type { IStoreModel } from '../../store'
 import type { IUserModel } from '../../user'
 import type { IActionTypeModel } from './action-type.model.interface'
+import type { IAnyTypeModel } from './any-type.model.interface'
 import type { IAppTypeModel } from './app-type.model.interface'
 import type { IArrayTypeModel } from './array-type.model.interface'
 import type { ICodeMirrorTypeModel } from './code-mirror-type.model.interface'
@@ -75,6 +76,7 @@ export interface IBaseTypeModel<IDto extends IBaseTypeDto>
 
 export type ITypeModel =
   | IActionTypeModel
+  | IAnyTypeModel
   | IAppTypeModel
   | IArrayTypeModel
   | ICodeMirrorTypeModel

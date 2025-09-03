@@ -156,3 +156,12 @@ mutation UpdateCodeMirrorTypes(
     }
   }
 }
+
+mutation UpdateAnyTypes($update: AnyTypeUpdateInput, $where: AnyTypeWhere) {
+  types: updateAnyTypes(update: $update, where: $where) {
+    types: anyTypes {
+      __typename
+      id
+    }
+  }
+}

@@ -12,6 +12,9 @@ query GetTypes($ids: [ID!]) {
   actionTypes(where: { id_IN: $ids }) {
     ...Type
   }
+  anyTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
   appTypes(where: { id_IN: $ids }) {
     ...Type
   }
@@ -163,6 +166,12 @@ query GetCodeMirrorTypes(
   $where: CodeMirrorTypeWhere
 ) {
   types: codeMirrorTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetAnyTypes($options: AnyTypeOptions, $where: AnyTypeWhere) {
+  types: anyTypes(options: $options, where: $where) {
     ...Type
   }
 }

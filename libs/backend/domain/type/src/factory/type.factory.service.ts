@@ -1,4 +1,7 @@
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared-abstract-core'
+import type { TypeCreateMap } from '@codelab/shared-domain-module-type'
+import type { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
+import type { TAnySchema } from '@sinclair/typebox'
 
 import { UserRepository } from '@codelab/backend-domain-user'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
@@ -8,13 +11,11 @@ import {
 } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { NotFoundError } from '@codelab/shared-domain-errors'
-import { TypeCreateMap } from '@codelab/shared-domain-module-type'
-import { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
-import { TAnySchema } from '@sinclair/typebox'
 
 import {
   ActionType,
+  AnyType,
   CodeMirrorType,
   EnumType,
   InterfaceType,
@@ -27,6 +28,7 @@ import {
 import { ArrayType } from '../model/array-type.model'
 import {
   ActionTypeRepository,
+  AnyTypeRepository,
   ArrayTypeRepository,
   CodeMirrorTypeRepository,
   EnumTypeRepository,
@@ -53,6 +55,7 @@ export class TypeFactory {
     private readonly renderPropTypeRepository: RenderPropTypeRepository,
     private readonly richTextTypeRepository: RichTextTypeRepository,
     private readonly actionTypeRepository: ActionTypeRepository,
+    private readonly anyTypeRepository: AnyTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
@@ -77,6 +80,12 @@ export class TypeFactory {
         const actionType = new ActionType(type)
 
         return await this.actionTypeRepository.add(actionType)
+      }
+
+      case ITypeKind.AnyType: {
+        const anyType = new AnyType(type)
+
+        return await this.anyTypeRepository.add(anyType)
       }
 
       case ITypeKind.ArrayType: {
@@ -287,6 +296,12 @@ export class TypeFactory {
         const actionType = new ActionType(type)
 
         return await this.actionTypeRepository.save(actionType, where)
+      }
+
+      case ITypeKind.AnyType: {
+        const anyType = new AnyType(type)
+
+        return await this.anyTypeRepository.save(anyType, where)
       }
 
       case ITypeKind.ArrayType: {

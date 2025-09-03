@@ -131,3 +131,10 @@ mutation DeleteCodeMirrorTypes(
     relationshipsDeleted
   }
 }
+
+mutation DeleteAnyTypes($delete: AnyTypeDeleteInput, $where: AnyTypeWhere) {
+  deleteAnyTypes(delete: $delete, where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}

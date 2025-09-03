@@ -1,4 +1,5 @@
 export type { ActionTypeFragment } from './action-type.fragment.graphql.gen'
+export type { AnyTypeFragment } from './any-type.fragment.graphql.gen'
 export type { AppTypeFragment } from './app-type.fragment.graphql.gen'
 export type { ArrayTypeFragment } from './array-type.fragment.graphql.gen'
 export type { CodeMirrorTypeFragment } from './code-mirror-type.fragment.graphql.gen'

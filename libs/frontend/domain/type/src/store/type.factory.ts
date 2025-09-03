@@ -14,6 +14,7 @@ import { ITypeKind } from '@codelab/shared-abstract-core'
 import { TypeKind } from '@codelab/shared-infra-gqlgen'
 
 import { ActionType } from './action-type.model'
+import { AnyType } from './any-type.model'
 import { AppType } from './app-type.model'
 import { ArrayType } from './array-type.model'
 import { CodeMirrorType } from './code-mirror-type.model'
@@ -33,6 +34,9 @@ export class TypeFactory {
     switch (typeDto.__typename) {
       case ITypeKind.ActionType:
         return ActionType.create(typeDto)
+
+      case ITypeKind.AnyType:
+        return AnyType.create(typeDto)
 
       case ITypeKind.AppType:
         return AppType.create(typeDto)
@@ -117,6 +121,11 @@ export class TypeFactory {
     switch (typeDto.__typename) {
       case ITypeKind.ActionType:
         model.kind === ITypeKind.ActionType && model.writeCache(typeDto)
+
+        return model
+
+      case ITypeKind.AnyType:
+        model.kind === ITypeKind.AnyType && model.writeCache(typeDto)
 
         return model
 

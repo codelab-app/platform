@@ -1,5 +1,6 @@
 export * from './action-type'
-export * from './any-type.dto.interface'
+export * from './all-type.dto.interface'
+export * from './any-type/any-type.dto.interface'
 export * from './app-type/app-type.dto.interface'
 export * from './array-type'
 export * from './base-type.dto.interface'

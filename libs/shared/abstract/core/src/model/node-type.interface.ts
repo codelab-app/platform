@@ -27,6 +27,7 @@ export enum INodeType {
    * Type System Types
    */
   ActionType = 'ActionType',
+  AnyType = 'AnyType',
   AppType = 'AppType',
   ArrayType = 'ArrayType',
   CodeMirrorType = 'CodeMirrorType',

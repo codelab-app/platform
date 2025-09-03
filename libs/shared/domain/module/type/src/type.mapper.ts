@@ -1,81 +1,57 @@
+/**
+ * Put all functions in same file so it's easier for LLM to refactor
+ */
 import type {
   ActionTypeCreateInput,
   ActionTypeDeleteInput,
   ActionTypeUpdateInput,
-  ActionTypeWhere,
+  AnyTypeCreateInput,
+  AnyTypeDeleteInput,
+  AnyTypeUpdateInput,
   AppTypeCreateInput,
   AppTypeDeleteInput,
   AppTypeUpdateInput,
-  AppTypeWhere,
   ArrayTypeCreateInput,
   ArrayTypeDeleteInput,
   ArrayTypeUpdateInput,
-  ArrayTypeWhere,
   CodeMirrorTypeCreateInput,
   CodeMirrorTypeDeleteInput,
   CodeMirrorTypeUpdateInput,
-  CodeMirrorTypeWhere,
   ElementTypeCreateInput,
   ElementTypeDeleteInput,
   ElementTypeUpdateInput,
-  ElementTypeWhere,
   EnumTypeCreateInput,
   EnumTypeDeleteInput,
   EnumTypeUpdateInput,
-  EnumTypeWhere,
   InterfaceTypeCreateInput,
   InterfaceTypeDeleteInput,
   InterfaceTypeUpdateInput,
-  InterfaceTypeWhere,
   LambdaTypeCreateInput,
   LambdaTypeDeleteInput,
   LambdaTypeUpdateInput,
-  LambdaTypeWhere,
   PageTypeCreateInput,
   PageTypeDeleteInput,
   PageTypeUpdateInput,
-  PageTypeWhere,
   PrimitiveTypeCreateInput,
   PrimitiveTypeDeleteInput,
   PrimitiveTypeUpdateInput,
-  PrimitiveTypeWhere,
   ReactNodeTypeCreateInput,
   ReactNodeTypeDeleteInput,
   ReactNodeTypeUpdateInput,
-  ReactNodeTypeWhere,
   RenderPropTypeCreateInput,
   RenderPropTypeDeleteInput,
   RenderPropTypeUpdateInput,
-  RenderPropTypeWhere,
   RichTextTypeCreateInput,
   RichTextTypeDeleteInput,
   RichTextTypeUpdateInput,
-  RichTextTypeWhere,
   UnionTypeCreateInput,
   UnionTypeDeleteInput,
   UnionTypeUpdateInput,
-  UnionTypeWhere,
-  UpdateActionTypesMutationVariables,
-  UpdateAppTypesMutationVariables,
-  UpdateArrayTypesMutationVariables,
-  UpdateCodeMirrorTypesMutationVariables,
-  UpdateElementTypesMutationVariables,
-  UpdateEnumTypesMutationVariables,
-  UpdateInterfaceTypesMutationVariables,
-  UpdateLambdaTypesMutationVariables,
-  UpdatePageTypesMutationVariables,
-  UpdatePrimitiveTypesMutationVariables,
-  UpdateReactNodeTypesMutationVariables,
-  UpdateRenderPropTypesMutationVariables,
-  UpdateRichTextTypesMutationVariables,
-  UpdateUnionTypesMutationVariables,
 } from '@codelab/shared-infra-gqlgen'
 
-/**
- * Put all functions in same file so it's easier for LLM to refactor
- */
 import {
   type IActionTypeDto,
+  type IAnyTypeDto,
   type IAppTypeDto,
   type IArrayTypeDto,
   type ICodeMirrorTypeDto,
@@ -115,6 +91,24 @@ export const actionTypeMapper: IMapper<
   toCreateInput: createOrUpdateActionType,
   toDeleteInput: () => ({}),
   toUpdateInput: createOrUpdateActionType,
+}
+
+const createOrUpdateAnyType = (dto: IAnyTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const anyTypeMapper: IMapper<
+  IAnyTypeDto,
+  AnyTypeCreateInput,
+  AnyTypeUpdateInput,
+  AnyTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateAnyType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateAnyType,
 }
 
 const createOrUpdateAppType = (dto: IAppTypeDto) => ({
@@ -402,6 +396,7 @@ export const unionTypeMapper: IMapper<
  */
 export const typeMapperRecord = {
   [ITypeKind.ActionType]: actionTypeMapper,
+  [ITypeKind.AnyType]: anyTypeMapper,
   [ITypeKind.AppType]: appTypeMapper,
   [ITypeKind.ArrayType]: arrayTypeMapper,
   [ITypeKind.CodeMirrorType]: codeMirrorTypeMapper,

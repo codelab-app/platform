@@ -3,6 +3,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
   ActionTypeRepository,
+  AnyTypeRepository,
   CodeMirrorTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
@@ -12,6 +13,7 @@ import {
 } from '@codelab/backend-domain-type'
 import {
   ActionTypeSchema,
+  AnyTypeSchema,
   CodeMirrorTypeSchema,
   PrimitiveTypeSchema,
   ReactNodeTypeSchema,
@@ -53,6 +55,7 @@ export class ExportSystemTypesHandler
     private actionTypeRepository: ActionTypeRepository,
     private codeMirrorTypeRepository: CodeMirrorTypeRepository,
     private unionTypeRepository: UnionTypeRepository,
+    private anyTypeRepository: AnyTypeRepository,
   ) {}
 
   async execute() {
@@ -131,6 +134,13 @@ export class ExportSystemTypesHandler
       },
     })
 
+    const anyTypes = await this.anyTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: Type.Omit(AnyTypeSchema, ['owner']),
+    })
+
     /**
      * Here we create the interface dependency tree order
      *
@@ -144,6 +154,7 @@ export class ExportSystemTypesHandler
       ...richTextTypes,
       ...codeMirrorTypes,
       ...unionTypes,
+      ...anyTypes,
     ]
   }
 }

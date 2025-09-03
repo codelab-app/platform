@@ -1,5 +1,6 @@
 import type {
   IActionTypeDto,
+  IAnyTypeDto,
   IAppTypeDto,
   IArrayTypeDto,
   ICodeMirrorTypeDto,
@@ -22,6 +23,12 @@ import type {
   ActionTypeDisconnectInput,
   ActionTypeUpdateInput,
   ActionTypeWhere,
+  AnyTypeConnectInput,
+  AnyTypeCreateInput,
+  AnyTypeDeleteInput,
+  AnyTypeDisconnectInput,
+  AnyTypeUpdateInput,
+  AnyTypeWhere,
   AppTypeConnectInput,
   AppTypeCreateInput,
   AppTypeDeleteInput,
@@ -102,6 +109,7 @@ import type {
   UnionTypeUpdateInput,
   UnionTypeWhere,
   UpdateActionTypesMutationVariables,
+  UpdateAnyTypesMutationVariables,
   UpdateAppTypesMutationVariables,
   UpdateArrayTypesMutationVariables,
   UpdateCodeMirrorTypesMutationVariables,
@@ -127,6 +135,7 @@ export interface ITypeUpdateArgs {
 
 export type ITypeWhere =
   | ActionTypeWhere
+  | AnyTypeWhere
   | AppTypeWhere
   | ArrayTypeWhere
   | CodeMirrorTypeWhere
@@ -143,6 +152,7 @@ export type ITypeWhere =
 
 export type ITypeCreateInput =
   | ActionTypeCreateInput
+  | AnyTypeCreateInput
   | AppTypeCreateInput
   | ArrayTypeCreateInput
   | CodeMirrorTypeCreateInput
@@ -159,6 +169,7 @@ export type ITypeCreateInput =
 
 export type ITypeUpdateInput =
   | ActionTypeUpdateInput
+  | AnyTypeUpdateInput
   | AppTypeUpdateInput
   | ArrayTypeUpdateInput
   | CodeMirrorTypeUpdateInput
@@ -175,6 +186,7 @@ export type ITypeUpdateInput =
 
 export type ITypeUpdateVars =
   | UpdateActionTypesMutationVariables
+  | UpdateAnyTypesMutationVariables
   | UpdateAppTypesMutationVariables
   | UpdateArrayTypesMutationVariables
   | UpdateCodeMirrorTypesMutationVariables
@@ -195,6 +207,7 @@ export type ITypeUpdateVars =
 
 export type ITypeConnectInput =
   | ActionTypeConnectInput
+  | AnyTypeConnectInput
   | AppTypeConnectInput
   | ArrayTypeConnectInput
   | CodeMirrorTypeConnectInput
@@ -214,6 +227,7 @@ export type ITypeConnectInput =
  */
 export type ITypeDisconnectInput =
   | ActionTypeDisconnectInput
+  | AnyTypeDisconnectInput
   | AppTypeDisconnectInput
   | ArrayTypeDisconnectInput
   | CodeMirrorTypeDisconnectInput
@@ -234,6 +248,7 @@ export type ITypeDisconnectInput =
 
 export type ITypeDeleteInput =
   | ActionTypeDeleteInput
+  | AnyTypeDeleteInput
   | AppTypeDeleteInput
   | ArrayTypeDeleteInput
   | CodeMirrorTypeDeleteInput
@@ -253,6 +268,7 @@ export type ITypeDeleteInput =
  */
 export interface TypeCreateMap {
   [ITypeKind.ActionType]: { dto: IActionTypeDto; where: ActionTypeWhere }
+  [ITypeKind.AnyType]: { dto: IAnyTypeDto; where: AnyTypeWhere }
   [ITypeKind.AppType]: { dto: IAppTypeDto; where: AppTypeWhere }
   [ITypeKind.ArrayType]: { dto: IArrayTypeDto; where: ArrayTypeWhere }
   [ITypeKind.CodeMirrorType]: {

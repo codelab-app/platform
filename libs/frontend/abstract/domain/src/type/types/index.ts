@@ -1,4 +1,5 @@
 export * from './action-type.model.interface'
+export * from './any-type.model.interface'
 export * from './app-type.model.interface'
 export * from './array-type.model.interface'
 export * from './base-type.model.interface'

@@ -1,4 +1,5 @@
 export * from './action-type.repo.service'
+export * from './any-type.repo.service'
 export * from './array-type.repo.service'
 export * from './code-mirror-type.repo.service'
 export * from './enum-type.repo.service'

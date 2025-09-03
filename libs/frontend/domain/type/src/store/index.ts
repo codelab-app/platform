@@ -1,4 +1,5 @@
 export * from './action-type.model'
+export * from './any-type.model'
 export * from './app-type.model'
 export * from './array-type.model'
 export * from './code-mirror-type.model'

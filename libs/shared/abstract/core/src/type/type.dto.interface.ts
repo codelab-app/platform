@@ -3,6 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { ActionTypeDtoSchema } from './action-type'
+import { AnyTypeDtoSchema } from './any-type/any-type.dto.interface'
 import { AppTypeDtoSchema } from './app-type/app-type.dto.interface'
 import { ArrayTypeDtoSchema } from './array-type'
 import { CodeMirrorTypeDtoSchema } from './code-mirror-type/code-mirror-type.dto.interface'
@@ -19,6 +20,7 @@ import { UnionTypeDtoSchema } from './union-type'
 
 export const typeDtoSchemas = [
   ActionTypeDtoSchema,
+  AnyTypeDtoSchema,
   AppTypeDtoSchema,
   ArrayTypeDtoSchema,
   CodeMirrorTypeDtoSchema,

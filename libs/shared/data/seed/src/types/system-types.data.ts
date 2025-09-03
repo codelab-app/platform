@@ -125,4 +125,11 @@ export const systemTypesData = (owner: IRef): Array<ITypeDto> => [
     name: ITypeKind.RichTextType,
     owner,
   },
+  {
+    __typename: ITypeKind.AnyType,
+    id: v4(),
+    kind: ITypeKind.AnyType,
+    name: ITypeKind.AnyType,
+    owner,
+  },
 ]
