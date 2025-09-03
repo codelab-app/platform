@@ -1,0 +1,31 @@
+---
+# Setup APT repositories and GPG keys
+
+- name: Install prerequisite packages
+  apt:
+    name: '{{ prerequisite_packages }}'
+    state: present
+    update_cache: yes
+    install_recommends: no
+
+- name: Add all GPG keys
+  apt_key:
+    url: '{{ item.url }}'
+    keyring: '{{ item.keyring }}'
+    state: present
+  loop: '{{ gpg_keys }}'
+  loop_control:
+    label: '{{ item.name }}'
+
+- name: Add all repositories
+  apt_repository:
+    repo: '{{ item.repo }}'
+    state: present
+    filename: '{{ item.filename }}'
+  loop: '{{ apt_repositories }}'
+  loop_control:
+    label: '{{ item.filename }}'
+  notify: update apt cache
+
+- name: Flush handlers to update cache
+  meta: flush_handlers

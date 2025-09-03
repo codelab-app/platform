@@ -20,7 +20,9 @@ build {
       "--extra-vars",
       "digitalocean_api_token=${var.digitalocean_api_token}",
       "--extra-vars",
-      "region=${var.do_region}"
+      "region=${var.do_region}",
+      "--extra-vars",
+      "consul_encrypt_key=${var.consul_encrypt_key}"
     ]
   }
 }

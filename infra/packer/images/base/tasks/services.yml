@@ -1,0 +1,19 @@
+---
+# Service management
+
+- name: Flush handlers before enabling services
+  meta: flush_handlers
+
+- name: Start and enable Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Enable all services
+  systemd:
+    name: '{{ item }}'
+    enabled: yes
+  loop: '{{ enabled_services }}'
+  loop_control:
+    label: '{{ item }}'

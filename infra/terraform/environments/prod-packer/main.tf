@@ -7,13 +7,8 @@ terraform {
   }
 }
 
-# Allow other workspaces to read our state
-# This needs to be configured in Terraform Cloud UI:
-# Settings -> General -> Remote state sharing
-# Add: prod, ci, dev workspaces as consumers
+# Create an env solely for the purpose of fetching env values
 
-# Variable for Consul encryption key
-# This is set in Terraform Cloud workspace variables
 variable "CONSUL_ENCRYPT_KEY" {
   type        = string
   description = "Consul gossip encryption key for Packer builds"

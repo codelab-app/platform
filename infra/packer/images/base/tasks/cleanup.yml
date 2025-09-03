@@ -1,0 +1,53 @@
+---
+# System cleanup for minimal image
+
+- name: System cleanup for minimal image
+  shell: |
+    set -e
+
+    # Clean package manager
+    apt-get clean
+    apt-get autoremove -y --purge
+    apt-get autoclean
+
+    # Remove package lists (will be regenerated on first apt update)
+    rm -rf /var/lib/apt/lists/*
+
+    # Remove documentation
+    rm -rf /usr/share/doc/*
+    rm -rf /usr/share/man/*
+    rm -rf /usr/share/info/*
+    rm -rf /usr/share/lintian/*
+
+    # Keep only essential locales
+    find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'en' -exec rm -rf {} +
+
+    # Clean caches
+    find /var/cache -type f -delete 2>/dev/null || true
+
+    # Truncate logs (preserve files for services)
+    find /var/log -type f -exec truncate -s 0 {} \;
+
+    # Remove temporary files
+    rm -rf /tmp/* /var/tmp/*
+
+    # Clear bash history
+    cat /dev/null > ~/.bash_history
+    history -c || true
+
+    # Zero out free space for better compression
+    dd if=/dev/zero of=/EMPTY bs=1M 2>/dev/null || true
+    rm -f /EMPTY
+
+    # Sync filesystem
+    sync
+  args:
+    executable: /bin/bash
+  changed_when: false
+  tags: ['cleanup', 'always']
+
+- name: Trim filesystem for snapshot compression
+  command: fstrim -av
+  failed_when: false
+  changed_when: false
+  tags: ['cleanup', 'always']

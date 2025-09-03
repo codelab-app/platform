@@ -1,0 +1,48 @@
+---
+# Deploy configuration files
+
+- name: Configure doctl
+  template:
+    src: templates/doctl-config.yaml.j2
+    dest: /root/.config/doctl/config.yaml
+    mode: '0600'
+
+- name: Copy Consul base configuration
+  copy:
+    src: '../../modules/consul-base/consul-base.hcl'
+    dest: /etc/consul.d/consul-base.hcl
+    owner: consul
+    group: consul
+    mode: '0640'
+  notify: restart consul
+
+- name: Create Consul encryption configuration
+  copy:
+    content: 'encrypt = "{{ consul_encrypt_key }}"'
+    dest: /etc/consul.d/encryption.hcl
+    owner: consul
+    group: consul
+    mode: '0640'
+  notify: restart consul
+
+- name: Copy Consul-Template configuration
+  copy:
+    src: '../../modules/consul-base/docker.consul-template.hcl'
+    dest: /etc/consul-template/docker.consul-template.hcl
+    mode: '0644'
+
+- name: Copy Alloy configuration
+  copy:
+    src: '../../modules/alloy/config.alloy'
+    dest: /etc/alloy/config.alloy
+    mode: '0644'
+
+- name: Deploy all systemd service files
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    mode: '0644'
+  loop: '{{ systemd_services }}'
+  loop_control:
+    label: '{{ item.name }}'
+  notify: reload systemd

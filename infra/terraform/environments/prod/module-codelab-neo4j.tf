@@ -4,6 +4,8 @@ module "codelab_neo4j" {
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
   digitalocean_region       = local.digitalocean_region
 
+  docker_tag_version = var.DOCKER_TAG_VERSION
+  
   loki_url = var.LOKI_URL
 
   neo4j_user     = var.NEO4J_USER

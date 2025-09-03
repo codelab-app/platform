@@ -33,7 +33,15 @@
         dest: /mnt/grafana_provisioning/datasources/datasources.yml
         mode: '0644'
 
-    # Note: Dashboard provisioning removed - dashboards are now managed via Terraform
+    # Copy dashboard provisioning config
+    - name: Copy dashboard provisioning config
+      copy:
+        src: '../../modules/grafana/dashboards.yml'
+        dest: /mnt/grafana_provisioning/dashboards/dashboards.yml
+        mode: '0644'
+
+    # Dashboard JSON files will be uploaded via Terraform file provisioner
+    # and Grafana will automatically load them on startup/reload
 
     # Add consul-client.hcl for Grafana service
     - name: Configure Consul client
@@ -65,6 +73,27 @@
         group: consul
         recurse: yes
         mode: '0640'
+
+    # Create docker directory for compose files
+    - name: Create docker directory
+      file:
+        path: /root/docker
+        state: directory
+        mode: '0755'
+
+    # Copy docker-compose systemd service
+    - name: Copy docker-compose systemd service
+      copy:
+        src: '../../modules/grafana/docker-compose.service'
+        dest: /etc/systemd/system/docker-compose.service
+        mode: '0644'
+
+    # Enable docker-compose service
+    - name: Enable docker-compose service
+      systemd:
+        name: docker-compose
+        enabled: yes
+        daemon_reload: yes
 
     # Service completion message
     - name: Display completion message

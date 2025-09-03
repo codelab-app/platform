@@ -1,0 +1,21 @@
+---
+# System optimization
+
+- name: Apply kernel parameters for containers
+  sysctl:
+    name: '{{ item.key }}'
+    value: '{{ item.value }}'
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    reload: yes
+  loop: '{{ kernel_parameters }}'
+  loop_control:
+    label: '{{ item.key }}={{ item.value }}'
+
+- name: Mask automatic update services
+  systemd:
+    name: '{{ item }}'
+    masked: yes
+  loop: '{{ masked_services }}'
+  loop_control:
+    label: '{{ item }}'

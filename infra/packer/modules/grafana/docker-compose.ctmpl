@@ -1,17 +1,20 @@
-include:
-  - ../../modules/caddy/docker-compose.caddy.yaml
-
 networks:
   monitoring:
     driver: bridge
 
 services:
   caddy:
+    image: caddy:2-alpine
+    container_name: caddy
     networks:
       - monitoring
-    command: caddy reverse-proxy --from grafana.{{ key "config/domain" }} --to grafana:3000
+    ports:
+      - '80:80'
+      - '443:443'
+    command: caddy reverse-proxy --from :80 --to grafana:3000
     depends_on:
       - grafana
+    restart: unless-stopped
 
   loki:
     image: grafana/loki:{{ keyOrDefault "config/loki/version" "3.0.0" }}
@@ -46,6 +49,7 @@ services:
       GF_SERVER_DOMAIN: grafana.{{ key "config/domain" }}
       GF_SERVER_ROOT_URL: https://grafana.{{ key "config/domain" }}
       GF_SERVER_ENFORCE_DOMAIN: 'true'
+      GF_SERVER_BEHIND_PROXY: 'true'
     volumes:
       - grafana-data:/var/lib/grafana
       - grafana-provisioning:/etc/grafana/provisioning

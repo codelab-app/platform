@@ -29,60 +29,43 @@ module "consul" {
  * Maintains all application configuration in Consul KV store.
  * Values are sourced from Terraform Cloud variables and modules.
  */
-resource "consul_key_prefix" "app_config" {
-  path_prefix = "config/"
-
-  subkeys = {
-    # Docker versions - Service-specific tags allow independent updates
-    "docker/api_tag_version"     = var.DOCKER_TAG_VERSION
-    "docker/web_tag_version"     = var.DOCKER_TAG_VERSION
-    "docker/neo4j_tag_version"   = var.DOCKER_TAG_VERSION
-    "docker/landing_tag_version" = var.DOCKER_TAG_VERSION
-    "docker/sites_tag_version"   = var.DOCKER_TAG_VERSION
-
-    # API configuration
-    "api/port"     = var.NEXT_PUBLIC_API_PORT
-    "api/hostname" = module.codelab_api.codelab_api_hostname
-
-    # Web configuration
-    "web/host" = var.NEXT_PUBLIC_WEB_HOST
-
-    # Auth0 configuration
-    "auth0/domain"            = var.AUTH0_DOMAIN
-    "auth0/secret"            = var.AUTH0_SECRET
-    "auth0/m2m_client_id"     = var.AUTH0_M2M_CLIENT_ID
-    "auth0/m2m_client_secret" = var.AUTH0_M2M_CLIENT_SECRET
-    "auth0/web_client_id"     = module.auth0.web_client.id
-    "auth0/web_client_secret" = module.auth0.web_client.client_secret
-
-    # Neo4j configuration
-    "neo4j/uri"               = module.codelab_neo4j.neo4j_uri
-    "neo4j/user"              = var.NEO4J_USER
-    "neo4j/password"          = var.NEO4J_PASSWORD
-    "neo4j/version"           = "enterprise"
-    "neo4j/heap_initial_size" = "1G"
-    "neo4j/heap_max_size"     = "2G"
-    "neo4j/pagecache_size"    = "512M"
-
-    # DigitalOcean configuration
-    "digitalocean/api_token" = var.DIGITALOCEAN_API_TOKEN
-
-    # Environment settings
-    "environment"        = var.ENVIRONMENT
-    "monitoring/enabled" = "true"
-    
-    # Domain configuration (needed by all services for Caddy reverse proxy)
-    "domain" = "codelab.app"
-    
-    # Port configurations (needed by docker-compose templates)
-    "landing/port" = "3000"
-    "web/port"     = "3000"
-    "sites/port"   = "3000"
-
-    # Feature flags (can be overridden in Consul UI)
-    "features/new_ui"    = "false"
-    "features/dark_mode" = "false"
-    "features/beta_api"  = "false"
+resource "consul_keys" "global_config" {
+  # Global/shared configuration used by multiple services
+  key {
+    path  = "config/domain"
+    value = "codelab.app"
+  }
+  
+  key {
+    path  = "config/environment"
+    value = var.ENVIRONMENT
+  }
+  
+  key {
+    path  = "config/digitalocean/api_token"
+    value = var.DIGITALOCEAN_API_TOKEN
+  }
+  
+  # Global monitoring settings
+  key {
+    path  = "config/monitoring/enabled"
+    value = "true"
+  }
+  
+  # Feature flags (can be overridden in Consul UI)
+  key {
+    path  = "config/features/new_ui"
+    value = "false"
+  }
+  
+  key {
+    path  = "config/features/dark_mode"
+    value = "false"
+  }
+  
+  key {
+    path  = "config/features/beta_api"
+    value = "false"
   }
 
   depends_on = [module.consul]

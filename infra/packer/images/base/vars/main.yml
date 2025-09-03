@@ -1,0 +1,105 @@
+---
+# Version configurations
+docker_compose_version: "{{ docker_compose_version | default('2.24.0') }}"
+doctl_version: "{{ doctl_version | default('1.104.0') }}"
+
+# Security configurations
+consul_encrypt_key: '{{ consul_encrypt_key }}'
+digitalocean_api_token: '{{ digitalocean_api_token }}'
+region: "{{ region | default('sgp1') }}"
+
+# Package lists
+prerequisite_packages:
+  - curl
+  - wget
+  - gnupg
+  - lsb-release
+  - software-properties-common
+  - ca-certificates
+  - apt-transport-https
+  - unzip
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+
+hashicorp_packages:
+  - consul
+  - consul-template
+
+monitoring_packages:
+  - alloy
+
+# Repository configurations
+gpg_keys:
+  - url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+    name: Docker
+  - url: https://apt.releases.hashicorp.com/gpg
+    keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    name: HashiCorp
+  - url: https://apt.grafana.com/gpg.key
+    keyring: /usr/share/keyrings/grafana.gpg
+    name: Grafana
+
+apt_repositories:
+  - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
+    filename: docker
+  - repo: 'deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main'
+    filename: hashicorp
+  - repo: 'deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main'
+    filename: grafana
+
+# Directory configurations
+required_directories:
+  - path: /etc/consul.d
+    owner: consul
+    group: consul
+    mode: '0755'
+  - path: /opt/consul
+    owner: consul
+    group: consul
+  - path: /var/log/consul
+    owner: consul
+    group: consul
+  - path: /etc/consul-template
+  - path: /root/docker
+  - path: /root/.config/doctl
+  - path: /etc/alloy
+
+# Systemd service files
+systemd_services:
+  - src: '../../modules/consul-base/consul.service'
+    dest: /etc/systemd/system/consul.service
+    name: consul.service
+  - src: '../../modules/docker/docker-consul-template.service'
+    dest: /etc/systemd/system/docker-consul-template.service
+    name: docker-consul-template.service
+  - src: '../../modules/alloy/alloy.service'
+    dest: /etc/systemd/system/alloy.service
+    name: alloy.service
+  - src: '../../modules/doctl/docker-login.service'
+    dest: /etc/systemd/system/docker-login.service
+    name: docker-login.service
+
+# Services to enable
+enabled_services:
+  - consul
+  - docker-login
+  - docker-consul-template
+  - alloy
+
+# Kernel parameters
+kernel_parameters:
+  - key: vm.max_map_count
+    value: '262144'
+  - key: net.core.somaxconn
+    value: '1024'
+
+# Services to mask
+masked_services:
+  - apt-daily.service
+  - apt-daily-upgrade.service
+  - unattended-upgrades.service

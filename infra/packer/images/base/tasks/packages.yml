@@ -1,0 +1,32 @@
+---
+# Install all required packages
+
+- name: Install all service packages
+  apt:
+    name: '{{ docker_packages + hashicorp_packages + monitoring_packages }}'
+    state: present
+    install_recommends: no
+  notify:
+    - reload systemd
+    - restart docker
+    - restart consul
+
+- name: Create Docker Compose symlink
+  file:
+    src: /usr/libexec/docker/cli-plugins/docker-compose
+    dest: /usr/local/bin/docker-compose
+    state: link
+
+- name: Enable Consul bash completion
+  command: consul -autocomplete-install
+  failed_when: false
+  changed_when: false
+
+- name: Download and extract doctl
+  unarchive:
+    src: 'https://github.com/digitalocean/doctl/releases/download/v{{ doctl_version }}/doctl-{{ doctl_version }}-linux-amd64.tar.gz'
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: '0755'
+    owner: root
+    group: root

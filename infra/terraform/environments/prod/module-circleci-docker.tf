@@ -10,7 +10,7 @@ module "circleci" {
   auth0_secret = var.AUTH0_SECRET
 
   auth0_web_client_id     = module.auth0.web_client.id
-  auth0_web_client_secret = module.auth0.web_client.client_secret
+  auth0_web_client_secret = module.auth0.web_client_secret
 
   circleci_token = var.CIRCLECI_TOKEN
 

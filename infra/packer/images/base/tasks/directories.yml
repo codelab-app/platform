@@ -1,0 +1,13 @@
+---
+# Create required directory structure
+
+- name: Create all required directories
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  loop: '{{ required_directories }}'
+  loop_control:
+    label: '{{ item.path }}'

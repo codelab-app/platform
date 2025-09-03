@@ -2,280 +2,74 @@
 - name: Provision base image
   hosts: default
   become: yes
-  vars:
-    docker_compose_version: "{{ docker_compose_version | default('2.24.0') }}"
-    doctl_version: "{{ doctl_version | default('1.104.0') }}"
-    consul_encrypt_key: '{{ consul_encrypt_key }}'
-    digitalocean_api_token: '{{ digitalocean_api_token }}'
-    region: "{{ region | default('sgp1') }}"
+  gather_facts: yes
+  vars_files:
+    - vars/main.yml
 
-  tasks:
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: restart docker
+      systemd:
+        name: docker
+        state: restarted
+        enabled: yes
+
+    - name: restart consul
+      systemd:
+        name: consul
+        state: restarted
+        enabled: yes
+
+    - name: update apt cache
+      apt:
+        update_cache: yes
+
+  pre_tasks:
     - name: Wait for cloud-init to complete
       command: cloud-init status --wait
       failed_when: false
+      changed_when: false
 
     - name: Configure dpkg
       command: dpkg --configure -a
       failed_when: false
+      changed_when: false
 
-    - name: Install essential packages
-      apt:
-        name:
-          - curl
-          - wget
-          - gnupg
-          - lsb-release
-          - software-properties-common
-          - ca-certificates
-          - apt-transport-https
-          - unzip
-        state: present
-        update_cache: yes
+  tasks:
+    # Phase 1: Repository Setup
+    - name: Setup repositories
+      include_tasks: tasks/repositories.yml
+      tags: ['repositories']
 
-    # Docker installation
-    - name: Add Docker GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        keyring: /usr/share/keyrings/docker-archive-keyring.gpg
-        state: present
+    # Phase 2: Package Installation
+    - name: Install packages
+      include_tasks: tasks/packages.yml
+      tags: ['packages']
 
-    - name: Add Docker repository
-      apt_repository:
-        repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
-        state: present
-        filename: docker
-        update_cache: yes
+    # Phase 3: Directory Structure
+    - name: Create directory structure
+      include_tasks: tasks/directories.yml
+      tags: ['directories']
 
-    - name: Install Docker packages
-      apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-compose-plugin
-        state: present
-        update_cache: yes
-        install_recommends: no
+    # Phase 4: Configuration Files
+    - name: Deploy configurations
+      include_tasks: tasks/configurations.yml
+      tags: ['configurations']
 
-    - name: Create Docker Compose symlink for backward compatibility
-      file:
-        src: /usr/libexec/docker/cli-plugins/docker-compose
-        dest: /usr/local/bin/docker-compose
-        state: link
+    # Phase 5: Service Management
+    - name: Setup services
+      include_tasks: tasks/services.yml
+      tags: ['services']
 
-    - name: Start and enable Docker service
-      systemd:
-        name: docker
-        state: started
-        enabled: yes
+    # Phase 6: System Optimization
+    - name: Optimize system
+      include_tasks: tasks/optimization.yml
+      tags: ['optimization']
 
-    # HashiCorp Consul installation
-    - name: Add HashiCorp GPG key
-      apt_key:
-        url: https://apt.releases.hashicorp.com/gpg
-        keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
-        state: present
-
-    - name: Add HashiCorp repository
-      apt_repository:
-        repo: 'deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main'
-        state: present
-        filename: hashicorp
-
-    - name: Install Consul and Consul-Template
-      apt:
-        name:
-          - consul
-          - consul-template
-        state: present
-        update_cache: yes
-
-    # Grafana Alloy installation
-    - name: Add Grafana GPG key
-      apt_key:
-        url: https://apt.grafana.com/gpg.key
-        keyring: /usr/share/keyrings/grafana.gpg
-        state: present
-
-    - name: Add Grafana repository
-      apt_repository:
-        repo: 'deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main'
-        state: present
-        filename: grafana
-
-    - name: Install Grafana Alloy
-      apt:
-        name: alloy
-        state: present
-        update_cache: yes
-
-    - name: Enable Consul bash completion
-      command: consul -autocomplete-install
-      failed_when: false
-
-    # DigitalOcean CLI installation
-    - name: Download doctl
-      get_url:
-        url: 'https://github.com/digitalocean/doctl/releases/download/v{{ doctl_version }}/doctl-{{ doctl_version }}-linux-amd64.tar.gz'
-        dest: /tmp/doctl.tar.gz
-        mode: '0644'
-
-    - name: Extract doctl
-      unarchive:
-        src: /tmp/doctl.tar.gz
-        dest: /usr/local/bin
-        remote_src: yes
-        mode: '0755'
-
-    - name: Clean up doctl archive
-      file:
-        path: /tmp/doctl.tar.gz
-        state: absent
-
-    # Create directory structure
-    - name: Create required directories
-      file:
-        path: '{{ item }}'
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
-      loop:
-        - /etc/consul.d
-        - /opt/consul
-        - /var/log/consul
-        - /etc/consul-template
-        - /root/docker
-        - /root/.config/doctl
-        - /etc/systemd/system
-        - /etc/alloy
-
-    # Configure doctl
-    - name: Configure doctl
-      template:
-        src: templates/doctl-config.yaml.j2
-        dest: /root/.config/doctl/config.yaml
-        mode: '0600'
-
-    # Copy Consul configuration files
-    - name: Copy Consul base configuration
-      copy:
-        src: '../../modules/consul-base/consul-base.hcl'
-        dest: /etc/consul.d/consul-base.hcl
-        owner: consul
-        group: consul
-        mode: '0640'
-
-    - name: Create Consul encryption configuration
-      copy:
-        content: 'encrypt = "{{ consul_encrypt_key }}"'
-        dest: /etc/consul.d/encryption.hcl
-        owner: consul
-        group: consul
-        mode: '0640'
-
-    - name: Copy Consul-Template configuration
-      copy:
-        src: '../../modules/consul-base/docker.consul-template.hcl'
-        dest: '/etc/consul-template/docker.consul-template.hcl'
-
-    - name: Copy Alloy configuration
-      copy:
-        src: '../../modules/alloy/config.alloy'
-        dest: /etc/alloy/config.alloy
-        mode: '0644'
-
-    # Copy systemd service files
-    - name: Copy Consul service file
-      copy:
-        src: '../../modules/consul-base/consul.service'
-        dest: '/etc/systemd/system/consul.service'
-
-    - name: Copy Docker consul-template service
-      copy:
-        src: '../../modules/docker/docker-consul-template.service'
-        dest: '/etc/systemd/system/docker-consul-template.service'
-
-    - name: Copy Alloy service file
-      copy:
-        src: '../../modules/alloy/alloy.service'
-        dest: '/etc/systemd/system/alloy.service'
-
-    - name: Copy doctl docker-login service
-      copy:
-        src: '../../modules/doctl/docker-login.service'
-        dest: '/etc/systemd/system/docker-login.service'
-
-    - name: Set Consul directory permissions
-      file:
-        path: '{{ item }}'
-        owner: consul
-        group: consul
-        recurse: yes
-      loop:
-        - /etc/consul.d
-        - /opt/consul
-        - /var/log/consul
-
-    - name: Reload systemd daemon
-      systemd:
-        daemon_reload: yes
-
-    - name: Enable services
-      systemd:
-        name: '{{ item }}'
-        enabled: yes
-      loop:
-        - docker
-        - consul
-        - docker-login
-        - docker-consul-template
-        - alloy
-      loop_control:
-        label: '{{ item }}'
-
-    # Kernel tuning
-    - name: Set kernel parameters for containers
-      sysctl:
-        name: '{{ item.key }}'
-        value: '{{ item.value }}'
-        state: present
-        sysctl_file: /etc/sysctl.conf
-      loop:
-        - { key: 'vm.max_map_count', value: '262144' }
-        - { key: 'net.core.somaxconn', value: '1024' }
-
-    # Disable automatic updates
-    - name: Mask automatic update services
-      systemd:
-        name: '{{ item }}'
-        masked: yes
-      loop:
-        - apt-daily.service
-        - apt-daily-upgrade.service
-        - unattended-upgrades.service
-
-    # Cleanup
-    - name: Clean apt cache
-      apt:
-        autoclean: yes
-        autoremove: yes
-
-    - name: Remove unnecessary files
-      file:
-        path: '{{ item }}'
-        state: absent
-      loop:
-        - /var/lib/apt/lists/*
-        - /tmp/*
-        - /var/tmp/*
-      failed_when: false
-
-    - name: Remove documentation and cache files
-      shell: |
-        rm -rf /usr/share/doc/* /usr/share/man/* /usr/share/info/*
-        find /var/cache -type f -delete 2>/dev/null || true
-        find /var/log -type f -delete 2>/dev/null || true
-
-    - name: Trim filesystem
-      command: fstrim -av
+    # Phase 7: Cleanup
+    - name: Clean system
+      include_tasks: tasks/cleanup.yml
+      tags: ['cleanup']
