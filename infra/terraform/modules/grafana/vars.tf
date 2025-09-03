@@ -24,3 +24,15 @@ variable "grafana_admin_password" {
   description = "Grafana admin password"
   sensitive   = true
 }
+
+variable "grafana_api_key" {
+  type        = string
+  description = "API key for Grafana provider"
+  sensitive   = true
+  default     = ""
+}
+
+variable "domain" {
+  type        = string
+  description = "Base domain for services"
+}

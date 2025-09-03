@@ -33,34 +33,66 @@ local services = [
   graphTooltip: 0,
   links: [],
   panels: [
-    // Dynamic container logs panel (row 0)
-    panels.logPanel(
-      'Container Logs - $container on $hostname',
-      '{hostname="$hostname", container_name="$container"}',
+    // Row 0: Overview panels
+    // Log rate graph (left)
+    panels.logRateGraph(
+      'Log Rate Over Time',
+      'sum by(container_name) (rate({hostname="$hostname"}[5m]))',
       panels.gridPos(0, 0, 12, 8)
     ),
     
-    // Log volume pie chart (row 0)
+    // Log volume pie chart (right)
     panels.logVolumePieChart(
       'Log Volume by Container',
       '$hostname',
       panels.gridPos(12, 0, 12, 8)
     ),
     
-    // All errors panel (row 1)
-    panels.errorLogPanel(
-      'Error Logs - All Containers on $hostname',
+    // Row 1: Health and distribution
+    // Container health table (left)
+    panels.containerHealthTable(
+      'Container Health Status',
       '$hostname',
-      panels.gridPos(0, 8, 24, 8)
+      panels.gridPos(0, 8, 12, 8)
+    ),
+    
+    // Log level distribution (right)
+    panels.logLevelDistribution(
+      'Log Level Distribution (5m)',
+      '$hostname',
+      panels.gridPos(12, 8, 12, 8)
+    ),
+    
+    // Row 2: Container logs
+    // Dynamic container logs panel
+    panels.logPanel(
+      'Container Logs - $container on $hostname',
+      '{hostname="$hostname", container_name="$container"}',
+      panels.gridPos(0, 16, 24, 8)
+    ),
+    
+    // Row 3: Error and warning logs
+    // Error logs panel (left)
+    panels.errorLogPanel(
+      'Error Logs - All Containers',
+      '$hostname',
+      panels.gridPos(0, 24, 12, 8)
+    ),
+    
+    // Warning/Alert logs panel (right)
+    panels.alertWarningLogPanel(
+      'Warning & Alert Logs - All Containers',
+      '$hostname',
+      panels.gridPos(12, 24, 12, 8)
     ),
   ] + [
-    // Generate service-specific panels (starting at row 2)
+    // Generate service-specific panels (starting at row 4)
     panels.logPanel(
       services[i].title + ' Logs',
-      '{hostname="' + services[i].name + '"}',
+      '{hostname="' + services[i].name + '"} | container_name="' + services[i].name + '"',
       panels.gridPos(
         (i % 2) * 12,  // x position: 0 or 12
-        16 + std.floor(i / 2) * 8,  // y position: start at row 2 (y=16)
+        32 + std.floor(i / 2) * 8,  // y position: start at row 4 (y=32)
         12,  // width
         8  // height
       )

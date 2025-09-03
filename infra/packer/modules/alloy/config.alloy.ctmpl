@@ -36,7 +36,7 @@ loki.process "docker_labels" {
   stage.static_labels {
     values = {
       job = "docker"
-      host = "{{ env "HOSTNAME" }}"
+      hostname = "{{ env "HOSTNAME" }}"
     }
   }
 }

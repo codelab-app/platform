@@ -23,27 +23,17 @@
     # Grafana-specific Docker Compose template
     - name: Copy Grafana Docker Compose template
       copy:
-        src: 'docker-compose.ctmpl'
+        src: '../../modules/grafana/docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
 
     # Copy Grafana provisioning files
     - name: Copy datasource provisioning
       copy:
-        src: 'datasources.yml'
+        src: '../../modules/grafana/datasources.yml'
         dest: /mnt/grafana_provisioning/datasources/datasources.yml
         mode: '0644'
 
-    - name: Copy dashboard provisioning config
-      copy:
-        src: 'dashboards.yml'
-        dest: /mnt/grafana_provisioning/dashboards/dashboards.yml
-        mode: '0644'
-
-    - name: Copy Docker logs dashboard
-      copy:
-        src: 'docker-logs-dashboard.json'
-        dest: /mnt/grafana_provisioning/dashboards/docker-logs-dashboard.json
-        mode: '0644'
+    # Note: Dashboard provisioning removed - dashboards are now managed via Terraform
 
     # Add consul-client.hcl for Grafana service
     - name: Configure Consul client
