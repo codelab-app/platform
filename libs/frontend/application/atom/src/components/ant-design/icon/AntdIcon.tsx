@@ -2,22 +2,40 @@
 import type AntdIcons from '@ant-design/icons'
 import type { IconProps } from '@ant-design/icons/lib/components/IconBase'
 
-import { createElement } from 'react'
+import { createElement, useEffect, useState } from 'react'
 
 type _IconProps = IconProps & {
   /**
    * Name of destructured icon to use
    */
-  name: keyof typeof AntdIcons | null
+  name: keyof typeof AntdIcons
 }
 
+const iconCache: Record<
+  keyof typeof AntdIcons,
+  React.ComponentType<IconProps>
+> = {} as never
+
 export const AntdIcon: React.FC<_IconProps> = ({ name, ...props }) => {
-  // const icon = name && AntdIcons[name]
+  const [IconComponent, setIconComponent] =
+    useState<React.ComponentType<IconProps> | null>(iconCache[name])
 
-  // if (!icon) {
-  //   return null
-  // }
+  useEffect(() => {
+    const loadIcon = async () => {
+      const iconImport = await import(`@ant-design/icons/es/icons/${name}`)
+      const Component = iconImport?.default
 
-  // return createElement(icon as (props: IconProps) => ReactElement, props)
-  return createElement('ReactFragment', props)
+      if (Component) {
+        iconCache[name] = Component as React.ComponentType<IconProps>
+        setIconComponent(Component as React.ComponentType<IconProps>)
+        return
+      } else {
+        setIconComponent(null)
+      }
+    }
+
+    void loadIcon()
+  }, [name])
+
+  return IconComponent ? createElement(IconComponent, props) : null
 }
