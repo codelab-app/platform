@@ -61,6 +61,9 @@ export class TerraformService implements CommandModule<unknown, unknown> {
               type: 'string',
             }),
           globalHandler(({ stage, tag }) => {
+            // Build dashboards for prod-runtime before planning
+            this.buildDashboardsIfNeeded(stage)
+
             const env = {
               ...process.env,
               TF_WORKSPACE: stage,
@@ -104,6 +107,9 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           globalHandler(({ autoApprove, stage, tag }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : ''
             const tfDir = `infra/terraform/environments/${stage}`
+
+            // Build dashboards for prod-runtime before applying
+            this.buildDashboardsIfNeeded(stage)
 
             let consulAddr: string | undefined
 
@@ -157,7 +163,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             const env = { ...process.env, TF_WORKSPACE: stage }
             $stream.syncWithEnv(
               env,
-            )`terraform -chdir=infra/terraform/environments/${stage} destroy`
+            )`terraform -chdir=infra/terraform/environments/${stage} destroy -auto-approve`
           }),
         )
         .command<StageParam>(
@@ -228,6 +234,16 @@ export class TerraformService implements CommandModule<unknown, unknown> {
       ...(consulAddr && { CONSUL_HTTP_ADDR: consulAddr }),
     }
     $stream.syncWithEnv(env)`terraform -chdir=${tfDir} apply ${autoApproveFlag}`
+  }
+
+  private buildDashboardsIfNeeded(stage: string) {
+    // Build dashboards for prod-runtime before terraform operations
+    if (stage === 'prod-runtime' || stage === Stage.ProdRuntime) {
+      console.log('📊 Building Grafana dashboards...')
+      $stream.sync({
+        cwd: 'infra/terraform/modules/grafana-dashboards',
+      })`make build`
+    }
   }
 
   private getConsulServerIP(): string {

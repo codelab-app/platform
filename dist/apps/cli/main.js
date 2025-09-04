@@ -1602,7 +1602,13 @@ let TerraformService = class TerraformService {
     builder(yargv) {
         return (yargv
             .options({
-            ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.ProdRuntime, Stage.Test]),
+            ...getStageOptions([
+                Stage.Dev,
+                Stage.CI,
+                Stage.Prod,
+                Stage.ProdRuntime,
+                Stage.Test,
+            ]),
         })
             .middleware([loadStageMiddleware])
             .command('init', 'terraform init', (argv) => argv, globalHandler(({ stage }) => {
@@ -1617,6 +1623,8 @@ let TerraformService = class TerraformService {
             describe: 'Docker tag version',
             type: 'string',
         }), globalHandler(({ stage, tag }) => {
+            // Build dashboards for prod-runtime before planning
+            this.buildDashboardsIfNeeded(stage);
             const env = {
                 ...process.env,
                 TF_WORKSPACE: stage,
@@ -1645,6 +1653,8 @@ let TerraformService = class TerraformService {
         }), globalHandler(({ autoApprove, stage, tag }) => {
             const autoApproveFlag = autoApprove ? '-auto-approve' : '';
             const tfDir = `infra/terraform/environments/${stage}`;
+            // Build dashboards for prod-runtime before applying
+            this.buildDashboardsIfNeeded(stage);
             let consulAddr;
             // Only prod stage requires consul two-stage apply
             if (stage === 'prod') {
@@ -1677,7 +1687,7 @@ let TerraformService = class TerraformService {
             .command('destroy', 'terraform destroy', (argv) => argv, globalHandler(({ stage }) => {
             // `terraform state rm`
             const env = { ...process.env, TF_WORKSPACE: stage };
-            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} destroy`;
+            $stream.syncWithEnv(env) `terraform -chdir=infra/terraform/environments/${stage} destroy -auto-approve`;
         }))
             .command('lint', 'terraform lint', (argv) => argv, globalHandler(() => {
             const cwd = process.cwd();
@@ -1733,6 +1743,15 @@ let TerraformService = class TerraformService {
         }
         console.log(`✅ Consul server IP: ${consulIP}`);
         return consulIP;
+    }
+    buildDashboardsIfNeeded(stage) {
+        // Build dashboards for prod-runtime before terraform operations
+        if (stage === 'prod-runtime' || stage === Stage.ProdRuntime) {
+            console.log('📊 Building Grafana dashboards...');
+            $stream.sync({
+                cwd: 'infra/terraform/modules/grafana-dashboards'
+            }) `make build`;
+        }
     }
 };
 TerraformService = (0,external_tslib_namespaceObject.__decorate)([
