@@ -14,8 +14,9 @@ import {
   ExpressionUnionField,
   RichTextField,
 } from '@codelab/frontend-presentation-components-form'
+import { hiddenField } from '@codelab/frontend-presentation-components-form/schema'
 import { ITypeKind } from '@codelab/shared-abstract-core'
-import { HiddenField, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 
 import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
@@ -155,13 +156,13 @@ export const unionTypeExpectedSchema = {
         __isTypedProp: {
           default: true,
           type: 'boolean',
-          uniforms: { component: HiddenField },
+          ...hiddenField,
         },
         kind: {
           default: stringType.kind,
           enum: [ITypeKind.PrimitiveType],
           type: 'string',
-          uniforms: { component: HiddenField },
+          ...hiddenField,
         },
         type: {
           const: stringType.id,
@@ -188,15 +189,13 @@ export const unionTypeExpectedSchema = {
         __isTypedProp: {
           default: true,
           type: 'boolean',
-          uniforms: {
-            component: HiddenField,
-          },
+          ...hiddenField,
         },
         kind: {
           default: intType.kind,
           enum: [ITypeKind.PrimitiveType],
           type: 'string',
-          uniforms: { component: HiddenField },
+          ...hiddenField,
         },
         type: {
           const: intType.id,

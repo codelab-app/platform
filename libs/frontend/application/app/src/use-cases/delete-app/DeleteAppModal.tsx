@@ -11,13 +11,12 @@ import { useRouter } from 'next/navigation'
 
 import { useAppService } from '../../services'
 
-export const DeleteAppModal = observer<{ app?: IAppModel }>(({ app }) => {
+export const DeleteAppModal = observer<{ app: IAppModel }>(({ app }) => {
   const router = useRouter()
   const appService = useAppService()
   const closeModal = () => router.push(RoutePaths.App.list())
 
-  const onSubmit = () =>
-    app ? appService.removeMany([app]) : Promise.resolve({})
+  const onSubmit = () => appService.removeMany([app])
 
   const isLoading = !app
 
@@ -38,7 +37,7 @@ export const DeleteAppModal = observer<{ app?: IAppModel }>(({ app }) => {
         schema={emptyJsonSchema}
         successMessage="App deleted successfully"
       >
-        <h4>Are you sure you want to delete app "{app?.name}"?</h4>
+        <h4>Are you sure you want to delete app "{app.name}"?</h4>
       </ModalForm.Form>
     </ModalForm.Modal>
   )

@@ -34,7 +34,7 @@ export const DeleteResourceModal = observer<{ resource: IResourceModel }>(
           onSubmitSuccess={onClose}
           schema={emptyJsonSchema}
         >
-          <h4>Are you sure you want to delete resource {resource.name}"</h4>
+          <h4>Are you sure you want to delete resource "{resource.name}"?</h4>
           <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>

@@ -3,10 +3,10 @@
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  appSchema,
-  hideField,
+  hiddenField,
   idSchema,
   nonEmptyString,
+  refSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
@@ -23,12 +23,12 @@ import { UrlPatternField } from '../../components'
 
 export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
   properties: {
-    ...idSchema(),
-    ...appSchema,
+    ...idSchema,
+    ...refSchema('app', 'App'),
     kind: {
       type: 'string',
       default: IPageKind.Regular,
-      ...hideField,
+      ...hiddenField,
     },
     name: {
       autoFocus: true,

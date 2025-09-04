@@ -10,7 +10,8 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAtomService } from '../../services'
@@ -21,54 +22,44 @@ export const CreateAtomForm = observer<IFormController>(
     const { tagDomainService } = useDomainStore()
     const atomService = useAtomService()
     const { atomDomainService } = useDomainStore()
-    const tagsSelectionOptions = tagDomainService.tagsSelectOptions
+    const tags = tagDomainService.tagsSelectOptions
+    const atoms = atomDomainService.getSelectOptions()
 
+    const schema = useMemo(
+      () => createAtomSchema({ atoms: atoms, tags }),
+      [atoms, tags],
+    )
+
+    const model = {
+      id: v4(),
+    } as ICreateAtomData
     return (
       <Form<ICreateAtomData>
         errorMessage="Error while creating atom"
-        model={
-          {
-            id: v4(),
-          } as ICreateAtomData
-        }
+        model={model}
         onSubmit={atomService.create}
         onSubmitSuccess={onSubmitSuccess}
-        schema={createAtomSchema}
+        schema={schema}
         submitRef={submitRef}
         uiKey={UiKey.AtomFormCreate}
       >
         <AutoFields
           omitFields={[
-            'tags',
-            'requiredParents',
-            'suggestedChildren',
             'externalCssSource',
             'externalJsSource',
             'externalSourceType',
           ]}
         />
+
         <DisplayIfField<ICreateAtomData>
           condition={(context) =>
             context.model.type === IAtomType.ExternalComponent
           }
         >
-          <TextField name="externalCssSource" />
-          <TextField name="externalJsSource" required />
-          <TextField name="externalSourceType" required />
+          <AutoField name="externalCssSource" />
+          <AutoField name="externalJsSource" />
+          <AutoField name="externalSourceType" />
         </DisplayIfField>
-        <SelectField
-          label="Required Parents"
-          name="requiredParents"
-          options={atomDomainService.getSelectOptions()}
-        />
-        <SelectField
-          label="Connect Tag"
-          mode="multiple"
-          name="tags"
-          optionFilterProp="label"
-          options={tagsSelectionOptions}
-          showSearch={true}
-        />
       </Form>
     )
   },

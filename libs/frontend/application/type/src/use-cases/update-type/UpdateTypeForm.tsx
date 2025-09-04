@@ -15,7 +15,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useTypeService } from '../../services'
@@ -111,7 +111,7 @@ export const UpdateTypeForm = observer<UpdateAtomFormProps>((props) => {
         <AutoField label="Language" name="language" />
       </DisplayIfKind>
       <DisplayIfKind kind={ITypeKind.ElementType}>
-        <SelectField label="Element kind" name="elementKind" showSearch />
+        <AutoField name="elementKind" />
       </DisplayIfKind>
 
       <DisplayIf condition={props.showFormControl ?? true}>

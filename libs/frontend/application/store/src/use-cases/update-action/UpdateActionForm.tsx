@@ -2,10 +2,7 @@ import type { IUpdateActionData } from '@codelab/shared-abstract-core'
 
 import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx-context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,
@@ -13,7 +10,8 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
@@ -27,9 +25,19 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
   ({ actionId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const actionService = useActionService()
     const { actionDomainService, resourceDomainService } = useDomainStore()
-    const actionSchema = useActionSchema(updateActionSchema)
-    const { builderService } = useApplicationStore()
+
     const actionToUpdate = actionDomainService.actions.get(actionId)
+    const resources = resourceDomainService.getSelectOption()
+    const actions = actionDomainService.getSelectActionOptions(
+      actionToUpdate!.store.current,
+    )
+
+    const actionSchema = useActionSchema(
+      useMemo(
+        () => updateActionSchema({ actions, resources }),
+        [actions, resources],
+      ),
+    )
 
     const baseModel = {
       id: actionToUpdate?.id,
@@ -72,22 +80,9 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
         </DisplayIf>
 
         <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
-          <SelectField
-            name="resource.id"
-            options={resourceDomainService.getSelectOption()}
-          />
-          <SelectField
-            name="successAction"
-            options={actionDomainService.getSelectActionOptions(
-              actionToUpdate!.store.current,
-            )}
-          />
-          <SelectField
-            name="errorAction"
-            options={actionDomainService.getSelectActionOptions(
-              actionToUpdate!.store.current,
-            )}
-          />
+          <AutoField name="resource" />
+          <AutoField name="successAction" />
+          <AutoField name="errorAction" />
           <ResourceFetchConfigField />
         </DisplayIf>
 

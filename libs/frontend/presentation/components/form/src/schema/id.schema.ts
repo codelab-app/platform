@@ -1,60 +1,12 @@
 import type { IRef } from '@codelab/shared-abstract-core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 
-import { showFieldOnDev } from './show-field-on-dev'
+import { showFieldOnDev } from './show-field-on-dev.schema'
 
-export const idSchema = ({
-  component,
-  disabled = true,
-  extra,
-  label,
-}: {
-  label?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component?: React.FunctionComponent<any>
-  extra?: string
-  disabled?: boolean
-} = {}): PropertiesSchema<IRef> => ({
+export const idSchema: PropertiesSchema<IRef> = {
   id: {
-    extra,
-    type: 'string',
-    ...(label ? { label } : {}),
     ...showFieldOnDev(),
-    disabled,
-    ...(component
-      ? {
-          uniforms: {
-            component,
-          },
-        }
-      : {}),
-  },
-})
-
-export const nullableIdSchema = ({
-  component,
-  disabled = true,
-  help,
-  label,
-}: {
-  label?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component?: React.FunctionComponent<any>
-  help?: string
-  disabled?: boolean
-} = {}): PropertiesSchema<IRef> => ({
-  id: {
-    help,
+    disabled: true,
     type: 'string',
-    ...(label ? { label } : {}),
-    ...showFieldOnDev(),
-    disabled,
-    ...(component
-      ? {
-          uniforms: {
-            component,
-          },
-        }
-      : {}),
   },
-})
+}

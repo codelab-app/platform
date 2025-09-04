@@ -37,7 +37,7 @@ export const DeleteComponentModal = observer<{ component: IComponentModel }>(
           schema={emptyJsonSchema}
         >
           <h4>Are you sure you want to delete component "{component.name}"?</h4>
-          <AutoFields omitFields={['id']} />
+          <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

@@ -8,7 +8,7 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { ITypeKind } from '@codelab/shared-abstract-core'
-import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useTypeService } from '../../services'
@@ -35,14 +35,14 @@ export const CreateTypeForm = ({
     return typeService.create(input)
   }
 
+  const model = {
+    id: v4(),
+  } as ITypeCreateFormData
+
   return (
     <Form<ITypeCreateFormData>
       errorMessage="Error while creating type"
-      model={
-        {
-          id: v4(),
-        } as ITypeCreateFormData
-      }
+      model={model}
       onSubmit={onSubmit}
       onSubmitSuccess={onSubmitSuccess}
       schema={createTypeSchema}
@@ -51,10 +51,10 @@ export const CreateTypeForm = ({
       uiKey={UiKey.TypeFormCreate}
     >
       <AutoFields fields={['name']} />
-      <SelectField name="kind" showSearch />
+      <AutoField name="kind" />
 
       <DisplayIfKind kind={ITypeKind.PrimitiveType}>
-        <SelectField name="primitiveKind" showSearch />
+        <AutoField name="primitiveKind" />
       </DisplayIfKind>
 
       <DisplayIfKind kind={ITypeKind.UnionType}>
@@ -70,11 +70,11 @@ export const CreateTypeForm = ({
       </DisplayIfKind>
 
       <DisplayIfKind kind={ITypeKind.ElementType}>
-        <SelectField label="Element kind" name="elementKind" showSearch />
+        <AutoField name="elementKind" />
       </DisplayIfKind>
 
       <DisplayIfKind kind={ITypeKind.CodeMirrorType}>
-        <AutoField label="Language" name="language" />
+        <AutoField name="language" />
       </DisplayIfKind>
 
       <DisplayIf condition={showFormControl}>

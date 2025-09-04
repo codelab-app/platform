@@ -3,8 +3,8 @@ import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  appSchema,
   idSchema,
+  refSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IPageKind } from '@codelab/shared-abstract-core'
 import { HiddenField, SelectField } from 'uniforms-antd'
@@ -18,8 +18,8 @@ export const schema = (
 ): JSONSchemaType<IPageUpdateFormData> =>
   ({
     properties: {
-      ...idSchema(),
-      ...appSchema,
+      ...idSchema,
+      ...refSchema('app', 'App'),
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
       pageContentContainer: {
         label: '',

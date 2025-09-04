@@ -21,7 +21,7 @@ import { TypeSelect } from '../select-types/TypeSelect'
  */
 export const createTypeSchema: JSONSchemaType<ITypeCreateFormData> = {
   properties: {
-    ...idSchema(),
+    ...idSchema,
     allowedValues: {
       items: {
         properties: {
@@ -49,12 +49,14 @@ export const createTypeSchema: JSONSchemaType<ITypeCreateFormData> = {
     elementKind: {
       enum: Object.values(IElementTypeKind),
       nullable: true,
+      showSearch: true,
       type: 'string',
     },
-    kind: { enum: Object.values(ITypeKind), type: 'string' },
+    kind: { enum: Object.values(ITypeKind), type: 'string', showSearch: true },
     language: {
       enum: Object.values(CodeMirrorLanguage),
       nullable: true,
+      showSearch: true,
       type: 'string',
     },
     name: {

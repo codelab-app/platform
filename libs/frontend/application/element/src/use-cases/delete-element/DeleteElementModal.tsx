@@ -4,16 +4,13 @@ import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
 import type { IElementModel } from '@codelab/frontend-abstract-domain'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
-import type { DeleteElementData } from './delete-element.schema'
-
 import { useElementService } from '../../services'
-import { deleteElementSchema } from './delete-element.schema'
 
 export const DeleteElementModal = observer<{
   element: IElementModel
@@ -21,15 +18,9 @@ export const DeleteElementModal = observer<{
 }>(({ context, element }) => {
   const router = useRouter()
   const elementService = useElementService()
-  const { elementDomainService } = useDomainStore()
   const closeModal = () => elementService.deletePopover.close(router, context)
-  const model: DeleteElementData = { element: { id: element.id } }
 
-  const onSubmit = (data: DeleteElementData) => {
-    const targetElement = elementDomainService.element(data.element.id)
-
-    return elementService.remove(targetElement)
-  }
+  const onSubmit = () => elementService.remove(element)
 
   return (
     <ModalForm.Modal
@@ -39,18 +30,15 @@ export const DeleteElementModal = observer<{
       title={<span className="font-semibold">Delete element</span>}
       uiKey={UiKey.ElementModalDelete}
     >
-      <ModalForm.Form<DeleteElementData>
+      <ModalForm.Form
         errorMessage="Error while deleting element"
-        model={model}
+        model={{}}
         onSubmit={onSubmit}
         onSubmitSuccess={closeModal}
-        schema={deleteElementSchema}
+        schema={emptyJsonSchema}
         successMessage="Element deleted"
       >
-        <h4>
-          Are you sure you want to delete{' '}
-          {element.name ? `the element "${element.name}"` : 'that element'}?
-        </h4>
+        <h4>Are you sure you want to delete the element "{element.name}"?</h4>
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
