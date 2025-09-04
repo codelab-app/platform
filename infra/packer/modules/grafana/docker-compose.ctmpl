@@ -11,7 +11,10 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    command: caddy reverse-proxy --from :80 --to grafana:3000
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    command: caddy reverse-proxy --from grafana.{{ key "config/domain" }} --to grafana:3000
     depends_on:
       - grafana
     restart: unless-stopped
@@ -63,6 +66,10 @@ services:
       retries: 5
 
 volumes:
+  caddy-data:
+    name: caddy-data
+  caddy-config:
+    name: caddy-config
   loki-data:
     name: loki-data
     driver: local

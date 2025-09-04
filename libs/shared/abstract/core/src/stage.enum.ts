@@ -11,6 +11,9 @@ export enum Stage {
   // DigitalOcean remote
   Prod = 'prod',
 
+  // Runtime configuration for prod
+  ProdRuntime = 'prod-runtime',
+
   // Local using secondary port
   Test = 'test',
 }

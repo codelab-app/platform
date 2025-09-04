@@ -43,8 +43,36 @@
         dest: /mnt/grafana_provisioning/dashboards/dashboards.yml
         mode: '0644'
 
-    # Dashboard JSON files will be uploaded via Terraform file provisioner
-    # and Grafana will automatically load them on startup/reload
+    # Install dashboard compilation tools (for use by Terraform later)
+    - name: Install Jsonnet for dashboard compilation
+      apt:
+        name: jsonnet
+        state: present
+        update_cache: yes
+
+    - name: Install Go for jsonnet-bundler
+      apt:
+        name: golang-go
+        state: present
+
+    - name: Install jsonnet-bundler globally
+      shell: |
+        go install -a github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
+        ln -sf /root/go/bin/jb /usr/local/bin/jb
+      args:
+        creates: /usr/local/bin/jb
+
+    - name: Pre-install Grafonnet library in shared location
+      shell: |
+        mkdir -p /opt/grafonnet
+        cd /opt/grafonnet
+        jb init
+        jb install github.com/grafana/grafonnet/gen/grafonnet-v11.0.0@main
+      args:
+        creates: /opt/grafonnet/vendor
+
+    # Note: Actual dashboard compilation and deployment is done by Terraform
+    # These tools are just pre-installed for faster Terraform runs
 
     # Add consul-client.hcl for Grafana service
     - name: Configure Consul client

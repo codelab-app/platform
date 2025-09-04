@@ -192,7 +192,8 @@
       "Bash(doctl compute snapshot list:*)",
       "Bash(doctl compute size list:*)",
       "Bash(infra/packer/scripts/get-latest-snapshot.sh:*)",
-      "Bash(../scripts/get-latest-snapshot.sh:*)"
+      "Bash(../scripts/get-latest-snapshot.sh:*)",
+      "Bash(jsonnet:*)"
     ],
     "deny": []
   },

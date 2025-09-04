@@ -682,6 +682,8 @@ var Stage;
     Stage["Dev"] = "dev";
     // DigitalOcean remote
     Stage["Prod"] = "prod";
+    // Runtime configuration for prod
+    Stage["ProdRuntime"] = "prod-runtime";
     // Local using secondary port
     Stage["Test"] = "test";
 })(Stage || (Stage = {}));
@@ -1600,11 +1602,10 @@ let TerraformService = class TerraformService {
     builder(yargv) {
         return (yargv
             .options({
-            ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
+            ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.ProdRuntime, Stage.Test]),
         })
             .middleware([loadStageMiddleware])
             .command('init', 'terraform init', (argv) => argv, globalHandler(({ stage }) => {
-            // Use `tfswitch` to change to specific versions
             $stream.sync({
                 cwd: `infra/terraform/environments/${stage}`,
             }) `./symlink.sh`;

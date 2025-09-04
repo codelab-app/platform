@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.7.0"
+  required_version = ">= 1.13.0"
 
   required_providers {
     grafana = {
@@ -12,7 +12,7 @@ terraform {
     organization = "codelab-app"
 
     workspaces {
-      name = "prod-grafana-dashboards"
+      name = "prod-runtime"
     }
   }
 }

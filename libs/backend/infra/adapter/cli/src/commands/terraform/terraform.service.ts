@@ -27,7 +27,13 @@ export class TerraformService implements CommandModule<unknown, unknown> {
     return (
       yargv
         .options({
-          ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
+          ...getStageOptions([
+            Stage.Dev,
+            Stage.CI,
+            Stage.Prod,
+            Stage.ProdRuntime,
+            Stage.Test,
+          ]),
         })
         .middleware([loadStageMiddleware])
         .command<StageParam>(
@@ -35,7 +41,6 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform init',
           (argv) => argv,
           globalHandler(({ stage }) => {
-            // Use `tfswitch` to change to specific versions
             $stream.sync({
               cwd: `infra/terraform/environments/${stage}`,
             })`./symlink.sh`

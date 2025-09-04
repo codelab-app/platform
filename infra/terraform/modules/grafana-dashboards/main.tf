@@ -1,5 +1,28 @@
+# Compile Jsonnet dashboards to JSON
+resource "terraform_data" "build_dashboards" {
+  triggers_replace = {
+    # Rebuild when any Jsonnet file changes
+    jsonnet_files = sha256(join("", [
+      for f in fileset("${path.module}/dashboards", "*.jsonnet") : 
+      filesha256("${path.module}/dashboards/${f}")
+    ]))
+    # Also rebuild if Makefile changes
+    makefile = filesha256("${path.module}/Makefile")
+  }
+  
+  provisioner "local-exec" {
+    command = "cd ${path.module} && make build"
+  }
+  
+  provisioner "local-exec" {
+    when    = destroy
+    command = "cd ${path.module} && make clean"
+  }
+}
+
 locals {
-  dashboard_files = fileset("${path.module}/dashboards", "*.json")
+  # Use static file list - we know what files will be generated
+  dashboard_files = fileset("${path.module}/dashboards", "*.gen.json")
 }
 
 # Create folder for organizing dashboards
@@ -26,6 +49,9 @@ resource "grafana_dashboard" "dashboards" {
   
   folder      = grafana_folder.monitoring.id
   config_json = file("${path.module}/dashboards/${each.value}")
+  
+  # Ensure dashboards are built before uploading
+  depends_on = [terraform_data.build_dashboards]
   
   lifecycle {
     ignore_changes = [config_json]  # Prevent unnecessary updates
