@@ -4,6 +4,7 @@ import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData } from '../app/app.data'
+import { elementColA, elementColB, elementColC } from '../builder/builder.data'
 import {
   COMPONENT_PROP_VALUE,
   componentInstance,
@@ -20,7 +21,7 @@ globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request, {
-    atomTypes: [IAtomType.AntDesignTypographyText],
+    atomTypes: [IAtomType.AntDesignTypographyText, IAtomType.AntDesignGridCol],
     componentTypes: [],
   })
 })
@@ -75,6 +76,35 @@ test('should be able to create an instance of the component', async ({
   await expect(page.getBuilderRenderContainer()).toContainText(
     `text ${COMPONENT_PROP_VALUE}`,
   )
+})
+
+test('should be able to delete component elements', async ({
+  componentListPage: page,
+}) => {
+  await page.openComponentBuilder()
+  await page.checkRootElementExists()
+  await page.createElementTree([
+    { ...elementColA, parentElement: 'New Component Root' },
+    { ...elementColB, parentElement: 'New Component Root' },
+    { ...elementColC, parentElement: 'New Component Root' },
+  ])
+
+  const colAElement = page.getTreeElement(elementColA.name, elementColA.atom)
+  const colBElement = page.getTreeElement(elementColB.name, elementColB.atom)
+  const colCElement = page.getTreeElement(elementColC.name, elementColC.atom)
+
+  await expect(colAElement).toBeVisible()
+  await expect(colBElement).toBeVisible()
+  await expect(colCElement).toBeVisible()
+
+  await page.deleteElementByContextMenu(elementColA)
+  await page.deleteElementFromUpdateForm(elementColB)
+  await page.deleteElementFromOverlay(elementColC)
+
+  await expect(colAElement).toBeHidden()
+  await expect(colBElement).toBeHidden()
+  await expect(colCElement).toBeHidden()
+  await expect(page.getNotification()).toBeHidden()
 })
 
 test('should be able to delete component', async ({
