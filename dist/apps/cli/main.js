@@ -1533,27 +1533,49 @@ let PackerService = class PackerService {
      * Clean up old snapshots for given images
      */
     cleanupSnapshots(images, digitaloceanApiToken) {
-        // Get all snapshots once
+        // Get all snapshots with creation date
         const allSnapshots = $.sync({
             verbose: false,
             env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format ID,Name --no-header`;
+        }) `doctl compute snapshot list --format ID,Name,CreatedAt --no-header`;
         const snapshotLines = allSnapshots.stdout
             .trim()
             .split('\n')
             .filter((line) => line);
         // Group snapshots by image type and collect old ones to delete
-        const idsToDelete = images.flatMap((image) => snapshotLines
-            .filter((line) => line.includes(`codelab-${image}-`))
-            .sort((a, b) => b.localeCompare(a)) // Sort by name descending (newest first)
-            .slice(1) // Skip the first (newest) one
-            .map((line) => line.split(/\s+/)[0]));
+        const idsToDelete = images.flatMap((image) => {
+            // Filter snapshots for this image type
+            const imageSnapshots = snapshotLines
+                .filter((line) => line.includes(`codelab-${image}-`))
+                .map((line) => {
+                const parts = line.split(/\s+/);
+                return {
+                    id: parts[0],
+                    name: parts[1],
+                    createdAt: parts.slice(2).join(' '), // Join remaining parts as date
+                };
+            })
+                // Sort by creation date descending (newest first)
+                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            if (imageSnapshots.length > 0) {
+                console.log(`Found ${imageSnapshots.length} snapshots for ${image}:`);
+                console.log(`  Keeping: ${imageSnapshots[0]?.name} (${imageSnapshots[0]?.createdAt})`);
+                if (imageSnapshots.length > 1) {
+                    console.log(`  Deleting: ${imageSnapshots
+                        .slice(1)
+                        .map((snap) => snap.name)
+                        .join(', ')}`);
+                }
+            }
+            // Return IDs of all except the newest
+            return imageSnapshots.slice(1).map((snapshot) => snapshot.id);
+        });
         // Delete all snapshots in a single command
         if (idsToDelete.length > 0) {
             console.log(`Deleting ${idsToDelete.length} old snapshots: ${idsToDelete.join(' ')}`);
             $.sync({
                 env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-            }) `doctl compute snapshot delete ${idsToDelete.join(' ')} --force || true`;
+            }) `doctl compute snapshot delete ${idsToDelete} --force || true`;
         }
         console.log('\nCurrent snapshots:');
         const pattern = images.map((img) => `codelab-${img}-`).join('\\|');
@@ -1733,6 +1755,15 @@ let TerraformService = class TerraformService {
         };
         $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply ${autoApproveFlag}`;
     }
+    buildDashboardsIfNeeded(stage) {
+        // Build dashboards for prod-runtime before terraform operations
+        if (stage === 'prod-runtime' || stage === Stage.ProdRuntime) {
+            console.log('📊 Building Grafana dashboards...');
+            $stream.sync({
+                cwd: 'infra/terraform/modules/grafana-dashboards',
+            }) `make build`;
+        }
+    }
     getConsulServerIP() {
         console.log('🔍 Retrieving Consul server IP address...');
         // Use doctl to get the Consul server's public IP by droplet name
@@ -1743,15 +1774,6 @@ let TerraformService = class TerraformService {
         }
         console.log(`✅ Consul server IP: ${consulIP}`);
         return consulIP;
-    }
-    buildDashboardsIfNeeded(stage) {
-        // Build dashboards for prod-runtime before terraform operations
-        if (stage === 'prod-runtime' || stage === Stage.ProdRuntime) {
-            console.log('📊 Building Grafana dashboards...');
-            $stream.sync({
-                cwd: 'infra/terraform/modules/grafana-dashboards'
-            }) `make build`;
-        }
     }
 };
 TerraformService = (0,external_tslib_namespaceObject.__decorate)([

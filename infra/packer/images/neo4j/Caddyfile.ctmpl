@@ -1,0 +1,3 @@
+neo4j.{{ key "config/domain" }} {
+    reverse_proxy neo4j:7474
+}

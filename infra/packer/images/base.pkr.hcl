@@ -56,7 +56,11 @@ build {
   # Use Ansible for all provisioning
   provisioner "ansible" {
     playbook_file = "base/playbook.yml"
+    ansible_env_vars = [
+      "ANSIBLE_CONFIG=${path.root}/ansible.cfg"
+    ]
     extra_arguments = [
+      "-v",  # Add verbose flag to show config file being used
       "--extra-vars",
       "docker_compose_version=${local.docker_compose_version}",
       "--extra-vars",

@@ -193,7 +193,13 @@
       "Bash(doctl compute size list:*)",
       "Bash(infra/packer/scripts/get-latest-snapshot.sh:*)",
       "Bash(../scripts/get-latest-snapshot.sh:*)",
-      "Bash(jsonnet:*)"
+      "Bash(jsonnet:*)",
+      "Read(/Users/Webber/mitogen/**)",
+      "Bash(ANSIBLE_CONFIG=infra/packer/images/ansible.cfg ansible --version)",
+      "Bash(packer inspect:*)",
+      "Bash(python3:*)",
+      "Read(/Users/Webber/mitogen/mitogen-0.3.27/ansible_mitogen/plugins/strategy/**)",
+      "Bash(ansible-playbook:*)"
     ],
     "deny": []
   },

@@ -9,7 +9,12 @@ services:
   caddy:
     networks:
       - codelab
-    command: caddy reverse-proxy --from neo4j.{{ key "config/domain" }} --to neo4j:7474
+    environment:
+      CADDYFILE: |
+        neo4j.{{ key "config/domain" }} {
+            reverse_proxy neo4j:7474
+        }
+    entrypoint: /bin/sh -c "echo \"$$CADDYFILE\" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
     depends_on:
       - neo4j
 

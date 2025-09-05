@@ -31,14 +31,14 @@ dashboard.new('Docker Logs')
     + var.query.selectionOptions.withIncludeAll(false)
     + var.query.selectionOptions.withMulti(false),
     
-  // Container variable
+  // Container variable  
   var.query.new('container')
     + var.query.generalOptions.withLabel('Container')
     + var.query.queryTypes.withLabelValues('container_name', '{hostname="$droplet"}')
     + var.query.withDatasource('loki', '${datasource}')
     + var.query.withRefresh('time')
     + var.query.withSort('name')
-    + var.query.selectionOptions.withIncludeAll(true)
+    + var.query.selectionOptions.withIncludeAll(true, '.+')
     + var.query.selectionOptions.withMulti(false),
 ])
 
@@ -48,7 +48,7 @@ dashboard.new('Docker Logs')
   logs.new('Docker Logs')
   + logs.queryOptions.withDatasource('loki', '${datasource}')
   + logs.queryOptions.withTargets([
-    g.query.loki.new('${datasource}', '{hostname="$droplet", container_name="$container"}'),
+    g.query.loki.new('${datasource}', '{hostname="$droplet", container_name=~"${container:pipe}"}'),
   ])
   + logs.gridPos.withX(0)
   + logs.gridPos.withY(0)

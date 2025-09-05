@@ -9,7 +9,10 @@ services:
   caddy:
     networks:
       - web
-    command: caddy reverse-proxy --from dev.{{ key "config/domain" }} --to web:{{ key "config/web/port" }}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-config:/config
     depends_on:
       - web
 

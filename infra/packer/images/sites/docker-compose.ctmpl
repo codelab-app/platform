@@ -9,7 +9,12 @@ services:
   caddy:
     networks:
       - sites
-    command: caddy reverse-proxy --from sites.{{ key "config/domain" }} --to sites:{{ key "config/sites/port" }}
+    environment:
+      CADDYFILE: |
+        sites.{{ key "config/domain" }} {
+            reverse_proxy sites:{{ key "config/sites/port" }}
+        }
+    entrypoint: /bin/sh -c "echo \"$$CADDYFILE\" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
     depends_on:
       - sites
 

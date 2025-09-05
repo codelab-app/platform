@@ -15,8 +15,12 @@ build {
 
   # Use Ansible for provisioning
   provisioner "ansible" {
+    ansible_env_vars = [
+      "ANSIBLE_CONFIG=${path.root}/ansible.cfg"
+    ]
     playbook_file = "neo4j/playbook.yml"
     extra_arguments = [
+      "-v",  # Show config file being used
       "--extra-vars",
       "digitalocean_api_token=${var.digitalocean_api_token}",
       "--extra-vars",

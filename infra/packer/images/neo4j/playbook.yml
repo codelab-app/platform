@@ -16,6 +16,21 @@
         src: 'docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
 
+    # Neo4j-specific Caddyfile template
+    - name: Copy Neo4j Caddyfile template
+      copy:
+        src: 'Caddyfile.ctmpl'
+        dest: /etc/consul-template/Caddyfile.ctmpl
+
+    # Neo4j-specific consul-template configuration
+    - name: Copy Neo4j consul-template configuration
+      copy:
+        src: 'docker.consul-template.hcl'
+        dest: /etc/consul-template.d/docker.hcl
+        owner: root
+        group: root
+        mode: '0644'
+
     # Add consul-client.hcl for Neo4j service
     - name: Configure Consul client
       copy:

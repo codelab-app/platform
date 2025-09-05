@@ -9,7 +9,12 @@ services:
   caddy:
     networks:
       - landing
-    command: caddy reverse-proxy --from {{ key "config/domain" }},www.{{ key "config/domain" }} --to landing:{{ key "config/landing/port" }}
+    environment:
+      CADDYFILE: |
+        {{ key "config/domain" }}, www.{{ key "config/domain" }} {
+            reverse_proxy landing:{{ key "config/landing/port" }}
+        }
+    entrypoint: /bin/sh -c "echo \"$$CADDYFILE\" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
     depends_on:
       - landing
 

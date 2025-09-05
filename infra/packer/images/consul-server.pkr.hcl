@@ -19,6 +19,12 @@ build {
   # - Consul UI access from browsers
   # - CLI access for administration
   provisioner "ansible" {
+    ansible_env_vars = [
+      "ANSIBLE_CONFIG=${path.root}/ansible.cfg"
+    ]
     playbook_file = "consul-server/playbook.yml"
+    extra_arguments = [
+      "-v"  # Show config file being used
+    ]
   }
 }
