@@ -17,6 +17,9 @@
     sysctl_file: /etc/sysctl.conf
     reload: yes
 
+# Mask system apt services to permanently disable automatic updates in production
+# Note: These are system services, not our custom services, so masking works fine
+# (no file conflicts since we don't copy these service files)
 - name: Mask apt-daily service
   systemd:
     name: apt-daily.service

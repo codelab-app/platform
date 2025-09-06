@@ -3,6 +3,19 @@
   hosts: default
   become: yes
 
+  pre_tasks:
+    # Wait for cloud-init to complete to avoid apt lock conflicts
+    - name: Wait for cloud-init to complete
+      command: cloud-init status --wait
+      failed_when: false
+      changed_when: false
+
+    # Fix any interrupted package installs
+    - name: Configure dpkg
+      command: dpkg --configure -a
+      failed_when: false
+      changed_when: false
+
   tasks:
     # Add consul-server.hcl for server nodes
     - name: Copy Consul server configuration

@@ -10,45 +10,59 @@
     state: started
     enabled: yes
 
-# Install unmask service for production droplets
-- name: Copy unmask-services systemd service
+# Install service to enable services on first boot
+- name: Copy enable-services systemd service
   copy:
-    src: '../unmask-services.service'
-    dest: /etc/systemd/system/unmask-services.service
+    src: '../enable-services.service'
+    dest: /etc/systemd/system/enable-services.service
     mode: '0644'
 
-- name: Enable unmask-services service
+- name: Enable enable-services service
   systemd:
-    name: unmask-services
+    name: enable-services
     enabled: yes
     daemon_reload: yes
 
 # ============================================================================
-# Mask services to prevent startup during build
-# Services will be unmasked and started by unmask-services on boot
+# Disable services to prevent startup during build
+#
+# Why we use 'enabled: no' instead of 'masked: yes':
+# - Systemd masking creates a symlink from the service file to /dev/null
+# - Our playbooks copy real service files to /etc/systemd/system/ first
+# - Masking fails with "File already exists" because it can't replace the
+#   real file with a symlink
+# - Using 'state: stopped' and 'enabled: no' achieves the same goal without
+#   symlink conflicts
+#
+# Services will be enabled and started by enable-services.service on first boot
 # ============================================================================
 
-- name: Mask Consul service to prevent startup during build
+- name: Stop and disable Consul service during build
   systemd:
     name: consul
-    masked: yes
+    state: stopped
+    enabled: no
 
-- name: Mask Docker login service to prevent startup during build
+- name: Stop and disable Docker login service during build
   systemd:
     name: docker-login
-    masked: yes
+    state: stopped
+    enabled: no
 
-- name: Mask Docker Consul-Template service to prevent startup during build
+- name: Stop and disable Docker Consul-Template service during build
   systemd:
     name: docker-consul-template
-    masked: yes
+    state: stopped
+    enabled: no
 
-- name: Mask Alloy consul-template service to prevent startup during build
+- name: Stop and disable Alloy consul-template service during build
   systemd:
     name: alloy-consul-template
-    masked: yes
+    state: stopped
+    enabled: no
 
-- name: Mask Alloy service to prevent startup during build
+- name: Stop and disable Alloy service during build
   systemd:
     name: alloy
-    masked: yes
+    state: stopped
+    enabled: no

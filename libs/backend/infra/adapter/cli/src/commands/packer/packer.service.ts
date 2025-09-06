@@ -68,12 +68,14 @@ export class PackerService implements CommandModule<unknown, unknown> {
             }
 
             // Build remaining images in parallel
-            this.createImages(
-              otherImages,
-              imageDir,
-              consulEncryptKey,
-              digitaloceanApiToken,
-            )
+            if (otherImages.length > 0) {
+              this.createImages(
+                otherImages,
+                imageDir,
+                consulEncryptKey,
+                digitaloceanApiToken,
+              )
+            }
           } finally {
             cleanup()
           }

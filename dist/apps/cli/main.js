@@ -1441,7 +1441,9 @@ let PackerService = class PackerService {
                     this.createImages([PackerImage.Base], imageDir, consulEncryptKey, digitaloceanApiToken);
                 }
                 // Build remaining images in parallel
-                this.createImages(otherImages, imageDir, consulEncryptKey, digitaloceanApiToken);
+                if (otherImages.length > 0) {
+                    this.createImages(otherImages, imageDir, consulEncryptKey, digitaloceanApiToken);
+                }
             }
             finally {
                 cleanup();

@@ -6,6 +6,19 @@
     digitalocean_api_token: '{{ digitalocean_api_token }}'
     region: "{{ region | default('sgp1') }}"
 
+  pre_tasks:
+    # Wait for cloud-init to complete to avoid apt lock conflicts
+    - name: Wait for cloud-init to complete
+      command: cloud-init status --wait
+      failed_when: false
+      changed_when: false
+
+    # Fix any interrupted package installs
+    - name: Configure dpkg
+      command: dpkg --configure -a
+      failed_when: false
+      changed_when: false
+
   tasks:
     # Web-specific Docker Compose template
     - name: Copy Web Docker Compose template
