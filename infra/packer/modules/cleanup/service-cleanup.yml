@@ -1,0 +1,42 @@
+---
+# Reusable cleanup tasks for service images
+# This should be included at the end of each service playbook
+# to ensure proper machine-id cleanup and deployment readiness
+
+- name: Clean temporary files
+  file:
+    path: '{{ item }}'
+    state: absent
+  loop:
+    - /tmp/*
+    - /var/tmp/*
+  failed_when: false
+
+# Critical: Truncate machine-id for proper first boot detection
+- name: Truncate machine-id for first boot
+  shell: |
+    # Empty the machine-id file (don't delete it)
+    truncate -s 0 /etc/machine-id
+
+    # Handle D-Bus machine-id
+    rm -f /var/lib/dbus/machine-id
+    ln -sf /etc/machine-id /var/lib/dbus/machine-id
+  args:
+    executable: /bin/bash
+
+# Remove SSH host keys (will be regenerated on first boot)
+- name: Remove SSH host keys
+  shell: rm -f /etc/ssh/ssh_host_*
+  failed_when: false
+
+# Clear bash history
+- name: Clear bash history
+  shell: |
+    cat /dev/null > ~/.bash_history
+    history -c || true
+  failed_when: false
+
+# Trim filesystem to minimize snapshot size
+- name: Trim filesystem
+  command: fstrim -av
+  failed_when: false

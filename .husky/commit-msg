@@ -1,1 +1,1 @@
-pnpm cli tasks commitlint --stage=test $1
+task cli -- tasks commitlint --stage=test $1

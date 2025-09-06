@@ -1,0 +1,142 @@
+version: '3'
+
+tasks:
+  # Default task - show available commands
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  # Deployment tasks
+  deploy:
+    desc: Run packer build and terraform apply in prod
+    deps: [packer-build]
+    cmds:
+      - pnpm terraform apply --stage prod
+
+  packer-build:
+    desc: Build Packer images for production
+    cmds:
+      - pnpm cli packer build --stage prod
+
+  terraform-apply:
+    desc: Apply Terraform configuration
+    cmds:
+      - pnpm terraform apply --stage prod
+
+  # Development tasks
+  serve:
+    desc: Serve api and web projects
+    cmds:
+      - NX_TUI=true pnpm exec nx run-many --target=serve --projects=api,web --parallel
+
+  serve-sites:
+    desc: Serve api, web, and sites projects
+    cmds:
+      - NX_TUI=true pnpm exec nx run-many --target=serve --projects=api,web,sites --parallel
+
+  serve-test:
+    desc: Serve in test mode
+    cmds:
+      - NX_TUI=false pnpm exec nx run-many --target=serve --projects=api,web --parallel -c test
+
+  serve-sites-test:
+    desc: Serve all projects in test mode
+    cmds:
+      - NX_TUI=false pnpm exec nx run-many --target=serve --projects=api,web,sites --parallel -c test
+
+  # Build & Test tasks
+  build:
+    desc: Build all projects
+    cmds:
+      - pnpm exec nx run-many --all --target=build
+
+  test:
+    desc: Run all tests
+    cmds:
+      - pnpm exec nx run-many --all --target=test --parallel=1 --runInBand
+
+  test-unit:
+    desc: Run unit tests
+    cmds:
+      - pnpm exec nx run-many --all --target=test -c test.unit --parallel=5
+
+  test-integration:
+    desc: Run integration tests
+    cmds:
+      - pnpm exec nx run-many --all --target=test -c test.integration --parallel=1
+
+  lint:
+    desc: Lint all projects
+    cmds:
+      - pnpm exec nx run-many --all --target=lint --parallel=5
+
+  # E2E Testing
+  e2e:
+    desc: Run E2E tests
+    cmds:
+      - pnpm exec nx e2e-ui web-e2e -c test
+
+  e2e-web:
+    desc: Serve web for E2E testing
+    cmds:
+      - pnpm exec nx serve web -c test
+
+  e2e-api:
+    desc: Serve API for E2E testing
+    cmds:
+      - pnpm exec nx serve api -c test
+
+  # Utility tasks
+  cli:
+    desc: Run CLI commands (use with -- to pass arguments)
+    cmds:
+      - scripts/nx/cli.sh {{.CLI_ARGS}}
+
+  dep-graph:
+    desc: Show dependency graph
+    cmds:
+      - pnpm exec nx dep-graph --watch
+
+  nx-help:
+    desc: Show nx help
+    cmds:
+      - pnpm exec nx help
+
+  nx-clean-cache:
+    desc: Clean Nx cache
+    cmds:
+      - rimraf .nx/cache && mkdir -p .nx/cache
+
+  # Docker tasks
+  docker-up:
+    desc: Start Docker development environment
+    cmds:
+      - scripts/docker/dev/up.sh
+
+  docker-prod-up:
+    desc: Start Docker production environment
+    cmds:
+      - scripts/docker/prod/up.sh
+
+  # Other tasks
+  codegen:
+    desc: Run GraphQL code generation
+    cmds:
+      - pnpm cli tasks graphql-codegen --stage dev
+
+  format:
+    desc: Format code files
+    cmds:
+      - npx prettier --write "./**/*.{graphql,yaml,json,css}"
+      - terraform -chdir=infra/terraform fmt --recursive
+
+  cpack:
+    desc: Pack CircleCI configuration
+    cmds:
+      - scripts/circleci/circleci-pack.sh
+
+  caddy:
+    desc: Run Caddy server
+    cmds:
+      - caddy run --config scripts/caddy/Caddyfile

@@ -1,8 +1,8 @@
-# Find the latest Packer-built sites base image
-data "digitalocean_images" "codelab_sites_base" {
+# Find the latest Packer-built sites image
+data "digitalocean_images" "codelab_sites" {
   filter {
     key      = "name"
-    values   = ["codelab-sites-base"]
+    values   = ["codelab-sites"]
     match_by = "substring"
   }
   filter {
@@ -20,7 +20,7 @@ data "digitalocean_images" "codelab_sites_base" {
 }
 
 resource "digitalocean_droplet" "codelab_sites" {
-  image  = data.digitalocean_images.codelab_sites_base.images[0].id
+  image  = data.digitalocean_images.codelab_sites.images[0].id
   name   = "sites"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb-intel"

@@ -26,6 +26,16 @@
         group: consul
         mode: '0640'
 
+    # Re-enable Consul service for server nodes (was disabled in base image)
+    # The base image disables Consul to prevent it from running during build
+    # But consul-server needs it enabled so it starts automatically on boot
+    # We keep it stopped during build but enable it for systemd to start on boot
+    - name: Enable Consul service for server
+      systemd:
+        name: consul
+        state: stopped # Don't run during Packer build
+        enabled: yes # But enable for auto-start on boot
+
     # Fix permissions for Consul configuration files
     - name: Set Consul configuration permissions
       file:
@@ -34,16 +44,6 @@
         group: consul
         recurse: yes
 
-    # Clean up temporary files
-    - name: Clean temporary files
-      file:
-        path: '{{ item }}'
-        state: absent
-      loop:
-        - /tmp/*
-        - /var/tmp/*
-      failed_when: false
-
-    # Trim filesystem to minimize snapshot size
-    - name: Trim filesystem
-      command: fstrim -av
+    # Run complete cleanup including machine-id truncation
+    - name: Complete service image cleanup
+      include_tasks: ../../modules/cleanup/service-cleanup.yml

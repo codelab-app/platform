@@ -1,8 +1,8 @@
-# Find the latest Packer-built neo4j base image
-data "digitalocean_images" "codelab_neo4j_base" {
+# Find the latest Packer-built neo4j image
+data "digitalocean_images" "codelab_neo4j" {
   filter {
     key      = "name"
-    values   = ["codelab-neo4j-base"]
+    values   = ["codelab-neo4j"]
     match_by = "substring"
   }
   filter {
@@ -20,7 +20,7 @@ data "digitalocean_images" "codelab_neo4j_base" {
 }
 
 resource "digitalocean_droplet" "neo4j" {
-  image  = data.digitalocean_images.codelab_neo4j_base.images[0].id
+  image  = data.digitalocean_images.codelab_neo4j.images[0].id
   name   = "neo4j"
   region = var.digitalocean_region
   size   = "s-1vcpu-2gb-intel"

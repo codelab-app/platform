@@ -65,16 +65,6 @@
         group: consul
         recurse: yes
 
-    # Clean up temporary files
-    - name: Clean temporary files
-      file:
-        path: '{{ item }}'
-        state: absent
-      loop:
-        - /tmp/*
-        - /var/tmp/*
-      failed_when: false
-
-    # Trim filesystem to minimize snapshot size
-    - name: Trim filesystem
-      command: fstrim -av
+    # Run complete cleanup including machine-id truncation
+    - name: Complete service image cleanup
+      include_tasks: ../../modules/cleanup/service-cleanup.yml

@@ -1,8 +1,8 @@
-# Find the latest Packer-built landing base image
-data "digitalocean_images" "codelab_landing_base" {
+# Find the latest Packer-built landing image
+data "digitalocean_images" "codelab_landing" {
   filter {
     key      = "name"
-    values   = ["codelab-landing-base"]
+    values   = ["codelab-landing"]
     match_by = "substring"
   }
   filter {
@@ -20,7 +20,7 @@ data "digitalocean_images" "codelab_landing_base" {
 }
 
 resource "digitalocean_droplet" "codelab_landing" {
-  image  = data.digitalocean_images.codelab_landing_base.images[0].id
+  image  = data.digitalocean_images.codelab_landing.images[0].id
   name   = "landing"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb-intel"

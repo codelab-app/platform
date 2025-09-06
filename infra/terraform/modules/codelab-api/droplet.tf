@@ -2,11 +2,11 @@
  * API Droplet using Packer-built base image
  */
 
-# Find the latest Packer-built API-specific base image
-data "digitalocean_images" "codelab_api_base" {
+# Find the latest Packer-built API-specific image
+data "digitalocean_images" "codelab_api" {
   filter {
     key      = "name"
-    values   = ["codelab-api-base"]
+    values   = ["codelab-api"]
     match_by = "substring"
   }
   filter {
@@ -24,7 +24,7 @@ data "digitalocean_images" "codelab_api_base" {
 }
 
 resource "digitalocean_droplet" "codelab_api" {
-  image  = data.digitalocean_images.codelab_api_base.images[0].id
+  image  = data.digitalocean_images.codelab_api.images[0].id
   name   = "api"
   region = var.digitalocean_region
   size   = "s-1vcpu-1gb-intel"

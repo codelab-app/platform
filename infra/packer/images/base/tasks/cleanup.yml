@@ -35,6 +35,10 @@
     cat /dev/null > ~/.bash_history
     history -c || true
 
+    # Empty machine-id for proper first boot detection
+    # Keep file but make it empty - deleting it can cause boot failures
+    truncate -s 0 /etc/machine-id
+
     # Zero out free space for better compression
     dd if=/dev/zero of=/EMPTY bs=1M 2>/dev/null || true
     rm -f /EMPTY
