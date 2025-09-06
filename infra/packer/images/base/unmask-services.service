@@ -1,0 +1,14 @@
+[Unit]
+Description=Unmask services on production droplet
+After=multi-user.target
+ConditionFirstBoot=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash -c 'systemctl unmask consul docker-login docker-consul-template alloy-consul-template alloy docker-compose && systemctl start consul'
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

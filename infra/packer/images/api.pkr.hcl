@@ -8,6 +8,13 @@ source "digitalocean" "api" {
   snapshot_regions = [var.do_region]
   droplet_name = "packer-codelab-api-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   tags         = ["packer", "api", "service"]
+  
+  # Disable package updates during cloud-init to speed up builds
+  user_data = <<-EOF
+    #cloud-config
+    package_update: false
+    package_upgrade: false
+  EOF
 }
 
 build {

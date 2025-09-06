@@ -14,7 +14,7 @@ services:
     volumes:
       - caddy-data:/data
       - caddy-config:/config
-    command: caddy reverse-proxy --from grafana.{{ key "config/domain" }} --to grafana:3000
+      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
       - grafana
     restart: unless-stopped

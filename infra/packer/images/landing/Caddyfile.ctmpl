@@ -1,3 +1,0 @@
-{{ key "config/domain" }}, www.{{ key "config/domain" }} {
-    reverse_proxy landing:{{ key "config/landing/port" }}
-}

@@ -8,6 +8,13 @@ source "digitalocean" "neo4j" {
   snapshot_regions = [var.do_region]
   droplet_name = "packer-codelab-neo4j-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   tags         = ["packer", "neo4j", "service"]
+  
+  # Disable package updates during cloud-init to speed up builds
+  user_data = <<-EOF
+    #cloud-config
+    package_update: false
+    package_upgrade: false
+  EOF
 }
 
 build {

@@ -1,0 +1,9 @@
+# Static Caddyfile Configuration
+# This is intentionally hardcoded rather than templated for simplicity.
+# The domain rarely changes, and rebuilding the image is acceptable
+# when it does. This eliminates the consul-template dependency and
+# reduces complexity and potential failure points.
+
+sites.codelab.app {
+    reverse_proxy sites:3000
+}

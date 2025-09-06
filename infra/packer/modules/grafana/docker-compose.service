@@ -2,10 +2,6 @@
 Description=Docker Compose Application Service
 Requires=docker.service
 After=docker.service docker-consul-template.service
-# Only start this service in production (not during Packer builds)
-# The /etc/packer_build marker exists during builds and is removed before snapshot
-ConditionPathExists=!/etc/packer_build
-
 [Service]
 Type=oneshot
 RemainAfterExit=yes

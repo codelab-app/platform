@@ -1,11 +1,19 @@
 ---
 # Deploy configuration files
 
+# ============================================================================
+# DigitalOcean Configuration
+# ============================================================================
+
 - name: Configure doctl
   template:
     src: templates/doctl-config.yaml.j2
     dest: /root/.config/doctl/config.yaml
     mode: '0600'
+
+# ============================================================================
+# Consul Configuration
+# ============================================================================
 
 - name: Copy Consul base configuration
   copy:
@@ -25,18 +33,35 @@
     mode: '0640'
   notify: restart consul
 
+# ============================================================================
+# Consul-Template Configurations
+# ============================================================================
+
+# Docker service configuration management via Consul-Template
 - name: Copy Consul-Template configuration
   copy:
     src: '../../modules/consul-base/docker.consul-template.hcl'
     dest: /etc/consul-template/docker.consul-template.hcl
     mode: '0644'
 
-- name: Copy Alloy configuration
+# Alloy (log shipping) configuration management via Consul-Template
+- name: Copy Alloy configuration template
   copy:
-    src: '../../modules/alloy/config.alloy'
-    dest: /etc/alloy/config.alloy
+    src: '../../modules/alloy/config.alloy.ctmpl'
+    dest: /etc/consul-template/config.alloy.ctmpl
     mode: '0644'
 
+- name: Copy Alloy consul-template configuration
+  copy:
+    src: '../../modules/alloy/alloy.consul-template.hcl'
+    dest: /etc/consul-template/alloy.consul-template.hcl
+    mode: '0644'
+
+# ============================================================================
+# Systemd Service Definitions
+# ============================================================================
+
+# Core Services
 - name: Deploy Consul systemd service
   copy:
     src: '../../modules/consul-base/consul.service'
@@ -44,17 +69,11 @@
     mode: '0644'
   notify: reload systemd
 
+# Docker-related Services
 - name: Deploy Docker Consul-Template systemd service
   copy:
     src: '../../modules/docker/docker-consul-template.service'
     dest: /etc/systemd/system/docker-consul-template.service
-    mode: '0644'
-  notify: reload systemd
-
-- name: Deploy Alloy systemd service
-  copy:
-    src: '../../modules/alloy/alloy.service'
-    dest: /etc/systemd/system/alloy.service
     mode: '0644'
   notify: reload systemd
 
@@ -65,9 +84,17 @@
     mode: '0644'
   notify: reload systemd
 
-- name: Deploy remove-packer-marker service for first boot
+# Monitoring/Logging Services (Alloy)
+- name: Deploy Alloy systemd service
   copy:
-    src: files/remove-packer-marker.service
-    dest: /etc/systemd/system/remove-packer-marker.service
+    src: '../../modules/alloy/alloy.service'
+    dest: /etc/systemd/system/alloy.service
+    mode: '0644'
+  notify: reload systemd
+
+- name: Deploy Alloy consul-template systemd service
+  copy:
+    src: '../../modules/alloy/alloy-consul-template.service'
+    dest: /etc/systemd/system/alloy-consul-template.service
     mode: '0644'
   notify: reload systemd

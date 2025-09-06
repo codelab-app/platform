@@ -6,21 +6,39 @@
     digitalocean_api_token: '{{ digitalocean_api_token }}'
     region: "{{ region | default('sgp1') }}"
 
-  tasks:
-    # Prevent services from starting during build
-    - include_tasks: ../shared/tasks/packer-build-start.yml
+  pre_tasks:
+    # Wait for cloud-init to complete
+    - name: Wait for cloud-init to complete
+      command: cloud-init status --wait
+      failed_when: false
+      changed_when: false
 
+    # Fix any interrupted package installs
+    - name: Configure dpkg
+      command: dpkg --configure -a
+      failed_when: false
+      changed_when: false
+
+  tasks:
     # Sites-specific Docker Compose template
     - name: Copy Sites Docker Compose template
       copy:
         src: 'docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
 
-    # Sites-specific Caddyfile template
-    - name: Copy Sites Caddyfile template
+    # Create caddy directory
+    - name: Create caddy directory
+      file:
+        path: /opt/caddy
+        state: directory
+        mode: '0755'
+
+    # Sites-specific static Caddyfile
+    - name: Copy Sites Caddyfile
       copy:
-        src: 'Caddyfile.ctmpl'
-        dest: /etc/consul-template/Caddyfile.ctmpl
+        src: 'Caddyfile'
+        dest: /opt/caddy/Caddyfile
+        mode: '0644'
 
     # Sites-specific consul-template configuration
     - name: Copy Sites consul-template configuration
@@ -78,7 +96,3 @@
     # Trim filesystem to minimize snapshot size
     - name: Trim filesystem
       command: fstrim -av
-
-    # Note: We do NOT remove the packer_build marker here
-    # It needs to stay until after the snapshot to prevent services from starting
-    # It will be removed on first boot in production via cloud-init

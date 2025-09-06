@@ -6,10 +6,20 @@
     digitalocean_api_token: '{{ digitalocean_api_token }}'
     region: "{{ region | default('sgp1') }}"
 
-  tasks:
-    # Prevent services from starting during build
-    - include_tasks: ../shared/tasks/packer-build-start.yml
+  pre_tasks:
+    # Wait for cloud-init to complete
+    - name: Wait for cloud-init to complete
+      command: cloud-init status --wait
+      failed_when: false
+      changed_when: false
 
+    # Fix any interrupted package installs
+    - name: Configure dpkg
+      command: dpkg --configure -a
+      failed_when: false
+      changed_when: false
+
+  tasks:
     # Create volume directories for Grafana/Loki first
     - name: Create monitoring volume directories
       file:
@@ -28,6 +38,20 @@
       copy:
         src: '../../modules/grafana/docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
+
+    # Create caddy directory
+    - name: Create caddy directory
+      file:
+        path: /opt/caddy
+        state: directory
+        mode: '0755'
+
+    # Copy static Caddyfile for HTTPS configuration
+    - name: Copy static Caddyfile
+      copy:
+        src: '../../modules/grafana/Caddyfile'
+        dest: /opt/caddy/Caddyfile
+        mode: '0644'
 
     # Copy Grafana provisioning files
     - name: Copy datasource provisioning
@@ -127,15 +151,17 @@
         dest: /etc/systemd/system/docker-compose.service
         mode: '0644'
 
-    # Enable docker-compose service (but don't start during build)
-    - name: Enable docker-compose service (but don't start)
+    # Reload systemd daemon after adding new service file
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+
+    # Enable and mask docker-compose service (masked services won't start during build)
+    - name: Enable and mask docker-compose service
       systemd:
         name: docker-compose
         enabled: yes
-        state:
-          stopped # Don't start during build - has After=consul.service dependency
-          # which could trigger service startup chains
-        daemon_reload: yes
+        masked: yes
 
     # Service completion message
     - name: Display completion message
@@ -155,7 +181,3 @@
     # Trim filesystem to minimize snapshot size
     - name: Trim filesystem
       command: fstrim -av
-
-    # Note: We do NOT remove the packer_build marker here
-    # It needs to stay until after the snapshot to prevent services from starting
-    # It will be removed on first boot in production via cloud-init

@@ -34,8 +34,9 @@ locals {
 # Use external data source to get the latest base snapshot
 # The script will use DIGITALOCEAN_API_TOKEN from environment
 data "external" "latest_base" {
-  program = ["bash", "-c", "echo \"{\\\"id\\\":\\\"$(doctl compute snapshot list --format ID,Name,CreatedAt --no-header | grep codelab-base | sort -k3 -r | head -1 | awk '{print $1}')\\\"}\""]
+  program = ["bash", "-c", "doctl compute snapshot list --format ID,Name --no-header | grep codelab-base | head -1 | awk '{print $1}' | jq -R '{id: .}'"]
 }
+
 
 locals {
   # Use the latest snapshot ID from external data source

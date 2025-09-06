@@ -9,12 +9,8 @@ services:
   caddy:
     networks:
       - landing
-    environment:
-      CADDYFILE: |
-        {{ key "config/domain" }}, www.{{ key "config/domain" }} {
-            reverse_proxy landing:{{ key "config/landing/port" }}
-        }
-    entrypoint: /bin/sh -c "echo \"$$CADDYFILE\" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
+    volumes:
+      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
       - landing
 

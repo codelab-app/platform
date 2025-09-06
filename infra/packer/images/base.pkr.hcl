@@ -48,6 +48,15 @@ source "digitalocean" "base" {
   ssh_username  = "root"
   snapshot_name = "codelab-base-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   snapshot_regions = [local.region]
+  
+  # Disable package updates during cloud-init to speed up builds
+  # This saves ~3-4 minutes on droplet initialization
+  # Our Ansible playbook will still update packages as needed
+  user_data = <<-EOF
+    #cloud-config
+    package_update: false
+    package_upgrade: false
+  EOF
 }
 
 build {

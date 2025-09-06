@@ -1,23 +1,8 @@
-include:
-  - ../../modules/caddy/docker-compose.caddy.yaml
-
 networks:
   codelab:
     driver: bridge
 
 services:
-  caddy:
-    networks:
-      - codelab
-    environment:
-      CADDYFILE: |
-        neo4j.{{ key "config/domain" }} {
-            reverse_proxy neo4j:7474
-        }
-    entrypoint: /bin/sh -c "echo \"$$CADDYFILE\" > /etc/caddy/Caddyfile && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile"
-    depends_on:
-      - neo4j
-
   neo4j:
     image: neo4j:{{ keyOrDefault "config/neo4j/version" "5.26.3-enterprise" }}
     container_name: neo4j

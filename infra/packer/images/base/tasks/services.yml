@@ -10,37 +10,49 @@
     state: started
     enabled: yes
 
-- name: Enable Consul service (but don't start)
+# Install unmask service for production droplets
+- name: Copy unmask-services systemd service
+  copy:
+    src: '../unmask-services.service'
+    dest: /etc/systemd/system/unmask-services.service
+    mode: '0644'
+
+- name: Enable unmask-services service
+  systemd:
+    name: unmask-services
+    enabled: yes
+    daemon_reload: yes
+
+# ============================================================================
+# Enable and mask services (masked services won't start during build)
+# ============================================================================
+
+- name: Enable Consul service
   systemd:
     name: consul
     enabled: yes
-    state:
-      stopped # Don't start during Packer build - Consul would try to join a
-      # non-existent cluster and hang for 5 minutes during shutdown.
-      # Service will auto-start on first boot in production.
+    masked: yes
 
-- name: Enable Docker login service (but don't start)
+- name: Enable Docker login service
   systemd:
     name: docker-login
     enabled: yes
-    state: stopped # Don't start during build - prevents triggering dependencies
+    masked: yes
 
-- name: Enable Docker Consul-Template service (but don't start)
+- name: Enable Docker Consul-Template service
   systemd:
     name: docker-consul-template
     enabled: yes
-    state:
-      stopped # Don't start during build - has Requires=consul.service which
-      # would trigger Consul to start and cause 5-minute shutdown delay
+    masked: yes
 
-- name: Enable Alloy service (but don't start)
+- name: Enable Alloy consul-template service
+  systemd:
+    name: alloy-consul-template
+    enabled: yes
+    masked: yes
+
+- name: Enable Alloy service
   systemd:
     name: alloy
     enabled: yes
-    state: stopped # Don't start during build - may have service dependencies
-
-- name: Enable remove-packer-marker service for first boot
-  systemd:
-    name: remove-packer-marker
-    enabled: yes
-    state: stopped # Will run once on first boot to remove the marker
+    masked: yes

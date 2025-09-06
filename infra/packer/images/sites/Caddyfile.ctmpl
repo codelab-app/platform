@@ -1,3 +1,0 @@
-sites.{{ key "config/domain" }} {
-    reverse_proxy sites:{{ key "config/sites/port" }}
-}

@@ -1497,21 +1497,13 @@ let PackerService = class PackerService {
             type: 'string',
             default: 'base',
         }), globalHandler(({ digitaloceanApiToken, service }) => {
-            const pattern = `codelab-${service}`;
-            const result = $.sync({
-                verbose: false,
-                env: {
-                    ...process.env,
-                    DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-                },
-            }) `doctl compute snapshot list --format ID,Name,CreatedAt --no-header | grep ${pattern} | sort -k3 -r | head -1 | awk '{print $1}'`;
-            const output = result.stdout.trim();
-            if (!output) {
+            const snapshotId = this.getLatestSnapshot(service, digitaloceanApiToken);
+            if (!snapshotId) {
                 console.error(`Error: No snapshot found for service: ${service}`);
                 process.exit(1);
             }
             // Output JSON format for Packer's external data source
-            console.log(JSON.stringify({ id: output }));
+            console.log(JSON.stringify({ id: snapshotId }));
         }))
             .command('cleanup', 'Clean up old Packer snapshots (keeps only latest)', (argv) => argv.middleware(this.fetchDigitalOceanToken), globalHandler(({ digitaloceanApiToken }) => {
             this.cleanupSnapshots(Object.values(PackerImage), digitaloceanApiToken);
@@ -1533,28 +1525,12 @@ let PackerService = class PackerService {
      * Clean up old snapshots for given images
      */
     cleanupSnapshots(images, digitaloceanApiToken) {
-        // Get all snapshots with creation date
-        const allSnapshots = $.sync({
-            verbose: false,
-            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format ID,Name,CreatedAt --no-header`;
-        const snapshotLines = allSnapshots.stdout
-            .trim()
-            .split('\n')
-            .filter((line) => line);
+        const allSnapshots = this.getAllSnapshots(digitaloceanApiToken);
         // Group snapshots by image type and collect old ones to delete
         const idsToDelete = images.flatMap((image) => {
             // Filter snapshots for this image type
-            const imageSnapshots = snapshotLines
-                .filter((line) => line.includes(`codelab-${image}-`))
-                .map((line) => {
-                const parts = line.split(/\s+/);
-                return {
-                    id: parts[0],
-                    name: parts[1],
-                    createdAt: parts.slice(2).join(' '), // Join remaining parts as date
-                };
-            })
+            const imageSnapshots = allSnapshots
+                .filter((snap) => snap.name.includes(`codelab-${image}-`))
                 // Sort by creation date descending (newest first)
                 .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             if (imageSnapshots.length > 0) {
@@ -1581,7 +1557,7 @@ let PackerService = class PackerService {
         const pattern = images.map((img) => `codelab-${img}-`).join('\\|');
         $.sync({
             env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format Name,Size,CreatedAt | grep "${pattern}" || true`;
+        }) `doctl compute snapshot list --format Name,Size,CreatedAt | (grep "${pattern}" || true)`;
     }
     /**
      * Create Packer images
@@ -1590,6 +1566,37 @@ let PackerService = class PackerService {
         $stream.sync `cd ${imageDir} && packer build -timestamp-ui -only='${images
             .map((img) => `digitalocean.${img}`)
             .join(',')}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
+    }
+    /**
+     * Get all snapshots from DigitalOcean
+     */
+    getAllSnapshots(digitaloceanApiToken) {
+        const result = $.sync({
+            verbose: false,
+            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+        }) `doctl compute snapshot list --format ID,Name,CreatedAt --no-header`;
+        return result.stdout
+            .trim()
+            .split('\n')
+            .filter((line) => line)
+            .map((line) => {
+            const parts = line.split(/\s+/);
+            return {
+                id: parts[0],
+                name: parts[1],
+                createdAt: parts.slice(2).join(' '),
+            };
+        });
+    }
+    /**
+     * Get the latest snapshot for a specific service
+     */
+    getLatestSnapshot(service, digitaloceanApiToken) {
+        const pattern = `codelab-${service}`;
+        const snapshots = this.getAllSnapshots(digitaloceanApiToken)
+            .filter((snap) => snap.name.includes(pattern))
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        return snapshots[0]?.id || null;
     }
 };
 PackerService = (0,external_tslib_namespaceObject.__decorate)([

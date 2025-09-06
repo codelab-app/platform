@@ -159,23 +159,18 @@ export class PackerService implements CommandModule<unknown, unknown> {
             default: 'base',
           }),
         globalHandler(({ digitaloceanApiToken, service }) => {
-          const pattern = `codelab-${service}`
-          const result = $.sync({
-            verbose: false,
-            env: {
-              ...process.env,
-              DIGITALOCEAN_API_TOKEN: digitaloceanApiToken,
-            },
-          })`doctl compute snapshot list --format ID,Name,CreatedAt --no-header | grep ${pattern} | sort -k3 -r | head -1 | awk '{print $1}'`
-          const output = result.stdout.trim()
+          const snapshotId = this.getLatestSnapshot(
+            service,
+            digitaloceanApiToken,
+          )
 
-          if (!output) {
+          if (!snapshotId) {
             console.error(`Error: No snapshot found for service: ${service}`)
             process.exit(1)
           }
 
           // Output JSON format for Packer's external data source
-          console.log(JSON.stringify({ id: output }))
+          console.log(JSON.stringify({ id: snapshotId }))
         }),
       )
       .command<PackerCleanupOptions>(
@@ -212,30 +207,13 @@ export class PackerService implements CommandModule<unknown, unknown> {
     images: Array<PackerImage>,
     digitaloceanApiToken: string,
   ): void {
-    // Get all snapshots with creation date
-    const allSnapshots = $.sync({
-      verbose: false,
-      env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-    })`doctl compute snapshot list --format ID,Name,CreatedAt --no-header`
-
-    const snapshotLines = allSnapshots.stdout
-      .trim()
-      .split('\n')
-      .filter((line) => line)
+    const allSnapshots = this.getAllSnapshots(digitaloceanApiToken)
 
     // Group snapshots by image type and collect old ones to delete
     const idsToDelete = images.flatMap((image) => {
       // Filter snapshots for this image type
-      const imageSnapshots = snapshotLines
-        .filter((line) => line.includes(`codelab-${image}-`))
-        .map((line) => {
-          const parts = line.split(/\s+/)
-          return {
-            id: parts[0]!,
-            name: parts[1]!,
-            createdAt: parts.slice(2).join(' '), // Join remaining parts as date
-          }
-        })
+      const imageSnapshots = allSnapshots
+        .filter((snap) => snap.name.includes(`codelab-${image}-`))
         // Sort by creation date descending (newest first)
         .sort(
           (a, b) =>
@@ -277,7 +255,7 @@ export class PackerService implements CommandModule<unknown, unknown> {
     const pattern = images.map((img) => `codelab-${img}-`).join('\\|')
     $.sync({
       env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-    })`doctl compute snapshot list --format Name,Size,CreatedAt | grep "${pattern}" || true`
+    })`doctl compute snapshot list --format Name,Size,CreatedAt | (grep "${pattern}" || true)`
   }
 
   /**
@@ -311,6 +289,51 @@ export class PackerService implements CommandModule<unknown, unknown> {
       .required()
       .asString()
     args['digitaloceanApiToken'] = digitaloceanApiToken
+  }
+
+  /**
+   * Get all snapshots from DigitalOcean
+   */
+  private getAllSnapshots(digitaloceanApiToken: string): Array<{
+    id: string
+    name: string
+    createdAt: string
+  }> {
+    const result = $.sync({
+      verbose: false,
+      env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
+    })`doctl compute snapshot list --format ID,Name,CreatedAt --no-header`
+
+    return result.stdout
+      .trim()
+      .split('\n')
+      .filter((line) => line)
+      .map((line) => {
+        const parts = line.split(/\s+/)
+        return {
+          id: parts[0]!,
+          name: parts[1]!,
+          createdAt: parts.slice(2).join(' '),
+        }
+      })
+  }
+
+  /**
+   * Get the latest snapshot for a specific service
+   */
+  private getLatestSnapshot(
+    service: string,
+    digitaloceanApiToken: string,
+  ): string | null {
+    const pattern = `codelab-${service}`
+    const snapshots = this.getAllSnapshots(digitaloceanApiToken)
+      .filter((snap) => snap.name.includes(pattern))
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      )
+
+    return snapshots[0]?.id || null
   }
   private readonly packerDir = 'infra/packer'
 }
