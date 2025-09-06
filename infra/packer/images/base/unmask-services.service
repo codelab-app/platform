@@ -6,7 +6,7 @@ ConditionFirstBoot=yes
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash -c 'systemctl unmask consul docker-login docker-consul-template alloy-consul-template alloy docker-compose && systemctl start consul'
+ExecStart=/bin/bash -c 'systemctl unmask consul docker-login docker-consul-template alloy-consul-template alloy docker-compose && systemctl enable consul docker-login docker-consul-template alloy-consul-template alloy && systemctl start consul'
 StandardOutput=journal
 StandardError=journal
 

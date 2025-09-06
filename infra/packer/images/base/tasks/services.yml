@@ -24,35 +24,31 @@
     daemon_reload: yes
 
 # ============================================================================
-# Enable and mask services (masked services won't start during build)
+# Mask services to prevent startup during build
+# Services will be unmasked and started by unmask-services on boot
 # ============================================================================
 
-- name: Enable Consul service
+- name: Mask Consul service to prevent startup during build
   systemd:
     name: consul
-    enabled: yes
     masked: yes
 
-- name: Enable Docker login service
+- name: Mask Docker login service to prevent startup during build
   systemd:
     name: docker-login
-    enabled: yes
     masked: yes
 
-- name: Enable Docker Consul-Template service
+- name: Mask Docker Consul-Template service to prevent startup during build
   systemd:
     name: docker-consul-template
-    enabled: yes
     masked: yes
 
-- name: Enable Alloy consul-template service
+- name: Mask Alloy consul-template service to prevent startup during build
   systemd:
     name: alloy-consul-template
-    enabled: yes
     masked: yes
 
-- name: Enable Alloy service
+- name: Mask Alloy service to prevent startup during build
   systemd:
     name: alloy
-    enabled: yes
     masked: yes

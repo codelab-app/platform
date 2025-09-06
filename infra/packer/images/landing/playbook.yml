@@ -7,11 +7,8 @@
     region: "{{ region | default('sgp1') }}"
 
   pre_tasks:
-    # Wait for cloud-init to complete
-    - name: Wait for cloud-init to complete
-      command: cloud-init status --wait
-      failed_when: false
-      changed_when: false
+    # Skip cloud-init wait in Packer builds to save ~5 minutes
+    # Cloud-init isn't needed during image creation and should run on first boot in production
 
     # Fix any interrupted package installs
     - name: Configure dpkg

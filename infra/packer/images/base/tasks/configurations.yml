@@ -61,14 +61,6 @@
 # Systemd Service Definitions
 # ============================================================================
 
-# Core Services
-- name: Deploy Consul systemd service
-  copy:
-    src: '../../modules/consul-base/consul.service'
-    dest: /etc/systemd/system/consul.service
-    mode: '0644'
-  notify: reload systemd
-
 # Docker-related Services
 - name: Deploy Docker Consul-Template systemd service
   copy:

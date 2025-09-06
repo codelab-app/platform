@@ -7,11 +7,8 @@
     region: "{{ region | default('sgp1') }}"
 
   pre_tasks:
-    # Wait for cloud-init to complete
-    - name: Wait for cloud-init to complete
-      command: cloud-init status --wait
-      failed_when: false
-      changed_when: false
+    # Skip cloud-init wait in Packer builds to save ~5 minutes
+    # Cloud-init isn't needed during image creation and should run on first boot in production
 
     # Fix any interrupted package installs
     - name: Configure dpkg
@@ -36,7 +33,7 @@
     # Grafana-specific Docker Compose template
     - name: Copy Grafana Docker Compose template
       copy:
-        src: '../../modules/grafana/docker-compose.ctmpl'
+        src: 'docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
 
     # Create caddy directory
@@ -49,54 +46,52 @@
     # Copy static Caddyfile for HTTPS configuration
     - name: Copy static Caddyfile
       copy:
-        src: '../../modules/grafana/Caddyfile'
+        src: 'Caddyfile'
         dest: /opt/caddy/Caddyfile
         mode: '0644'
 
     # Copy Grafana provisioning files
     - name: Copy datasource provisioning
       copy:
-        src: '../../modules/grafana/datasources.yml'
+        src: 'datasources.yml'
         dest: /mnt/grafana_provisioning/datasources/datasources.yml
         mode: '0644'
 
     # Copy dashboard provisioning config
     - name: Copy dashboard provisioning config
       copy:
-        src: '../../modules/grafana/dashboards.yml'
+        src: 'dashboards.yml'
         dest: /mnt/grafana_provisioning/dashboards/dashboards.yml
         mode: '0644'
 
-    # Install dashboard compilation tools (for use by Terraform later)
-    - name: Install Jsonnet for dashboard compilation
-      apt:
-        name: jsonnet
-        state: present
-        update_cache: yes
+    # Dashboard compilation tools removed - dashboards are built and uploaded from local machine via Terraform
+    # This saves ~50 seconds of build time and 641MB of disk space
+    # - name: Install Jsonnet for dashboard compilation
+    #   apt:
+    #     name: jsonnet
+    #     state: present
+    #     update_cache: yes
 
-    - name: Install Go for jsonnet-bundler
-      apt:
-        name: golang-go
-        state: present
+    # - name: Install Go for jsonnet-bundler
+    #   apt:
+    #     name: golang-go
+    #     state: present
 
-    - name: Install jsonnet-bundler globally
-      shell: |
-        go install -a github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
-        ln -sf /root/go/bin/jb /usr/local/bin/jb
-      args:
-        creates: /usr/local/bin/jb
+    # - name: Install jsonnet-bundler globally
+    #   shell: |
+    #     go install -a github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
+    #     ln -sf /root/go/bin/jb /usr/local/bin/jb
+    #   args:
+    #     creates: /usr/local/bin/jb
 
-    - name: Pre-install Grafonnet library in shared location
-      shell: |
-        mkdir -p /opt/grafonnet
-        cd /opt/grafonnet
-        jb init
-        jb install github.com/grafana/grafonnet/gen/grafonnet-v11.0.0@main
-      args:
-        creates: /opt/grafonnet/vendor
-
-    # Note: Actual dashboard compilation and deployment is done by Terraform
-    # These tools are just pre-installed for faster Terraform runs
+    # - name: Pre-install Grafonnet library in shared location
+    #   shell: |
+    #     mkdir -p /opt/grafonnet
+    #     cd /opt/grafonnet
+    #     jb init
+    #     jb install github.com/grafana/grafonnet/gen/grafonnet-v11.0.0@main
+    #   args:
+    #     creates: /opt/grafonnet/vendor
 
     # Add consul-client.hcl for Grafana service
     - name: Configure Consul client
@@ -147,7 +142,7 @@
     # Copy docker-compose systemd service
     - name: Copy docker-compose systemd service
       copy:
-        src: '../../modules/grafana/docker-compose.service'
+        src: 'docker-compose.service'
         dest: /etc/systemd/system/docker-compose.service
         mode: '0644'
 
@@ -156,7 +151,7 @@
       systemd:
         daemon_reload: yes
 
-    # Enable and mask docker-compose service (masked services won't start during build)
+    # Enable and mask docker-compose service (will be unmasked on boot)
     - name: Enable and mask docker-compose service
       systemd:
         name: docker-compose

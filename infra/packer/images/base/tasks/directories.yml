@@ -33,6 +33,14 @@
     group: root
     mode: '0755'
 
+- name: Create Consul-Template config directory
+  file:
+    path: /etc/consul-template.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: Create Docker directory
   file:
     path: /root/docker

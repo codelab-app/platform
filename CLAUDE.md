@@ -81,6 +81,7 @@
 ## Research and Information Lookup
 
 - Use Perplexity MCP (`mcp__perplexity__`) whenever you have any question that requires external information
+- Always use perplexity for high level concept and research
 - Use perplexity mcp instead of web search
 - Perplexity provides faster, more summarized results ideal for answering questions
 - Only use web search as a fallback if Perplexity is unavailable or fails
