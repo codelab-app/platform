@@ -16,4 +16,3 @@
   file:
     path: /tmp/cleanup.sh
     state: absent
-# NOTE: fstrim is done in service-cleanup.yml to ensure it's the last operation

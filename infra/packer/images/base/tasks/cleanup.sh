@@ -31,8 +31,17 @@ rm -rf /tmp/* /var/tmp/*
 cat /dev/null > ~/.bash_history
 history -c || true
 
-# NOTE: Machine-id cleanup is done in service-cleanup.sh
-# We don't clean it here because services will regenerate it
+# Clean cloud-init state including machine-id
+# This sets machine-id to "uninitialized\n" for proper first boot detection
+cloud-init clean --seed --logs --machine-id
+
+# Ensure dbus machine-id is linked properly
+rm -f /var/lib/dbus/machine-id
+ln -sf /etc/machine-id /var/lib/dbus/machine-id
+
+# Remove SSH host keys (will be regenerated on first boot)
+# This ensures each instance has unique SSH keys
+rm -f /etc/ssh/ssh_host_*
 
 # Zero out free space for better compression
 dd if=/dev/zero of=/EMPTY bs=1M 2>/dev/null || true
@@ -40,3 +49,7 @@ rm -f /EMPTY
 
 # Sync filesystem
 sync
+
+# Trim filesystem to minimize snapshot size
+# Reduces the final image size by releasing unused blocks
+fstrim -av || true

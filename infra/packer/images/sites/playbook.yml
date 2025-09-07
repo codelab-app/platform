@@ -81,4 +81,4 @@
 
     # Run complete cleanup including machine-id truncation
     - name: Complete service image cleanup
-      include_tasks: ../../modules/cleanup/service-cleanup.yml
+      include_tasks: ../base/tasks/cleanup.yml
