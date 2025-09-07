@@ -12,17 +12,22 @@ tasks:
     desc: Run packer build and terraform apply in prod
     deps: [packer-build]
     cmds:
-      - task: terraform-apply
+      - task: apply
 
   packer-build:
     desc: Build Packer images for production
     cmds:
       - pnpm cli packer build --stage prod
 
-  terraform-apply:
+  apply:
     desc: Apply Terraform configuration
     cmds:
       - pnpm cli terraform apply --stage prod
+
+  apply-runtime:
+    desc: Apply Terraform runtime configuration
+    cmds:
+      - pnpm cli terraform apply --stage prod-runtime
 
   # Development tasks
   serve:

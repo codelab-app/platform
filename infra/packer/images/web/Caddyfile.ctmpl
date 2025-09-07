@@ -1,3 +1,4 @@
 dev.{{ key "config/domain" }} {
-    reverse_proxy web:{{ key "config/web/port" }}
+    # Matches container_name: codelab-web from docker-compose.ctmpl
+    reverse_proxy codelab-web:{{ key "config/web/port" }}
 }

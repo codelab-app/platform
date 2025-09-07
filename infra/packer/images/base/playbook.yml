@@ -59,8 +59,12 @@
       tags: ['configurations']
 
     # Phase 5: Service Management
-    - name: Setup services
-      include_tasks: tasks/services.yml
+    - name: Enable essential services
+      include_tasks: tasks/services-enable.yml
+      tags: ['services']
+
+    - name: Disable services for build
+      include_tasks: tasks/services-disable.yml
       tags: ['services']
 
     # Phase 6: Verification Setup

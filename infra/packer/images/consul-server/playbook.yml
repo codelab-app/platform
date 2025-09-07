@@ -42,7 +42,10 @@
         path: /etc/consul.d
         owner: consul
         group: consul
-        recurse: yes
+
+    # Ensure services are disabled before snapshot
+    - name: Disable services for build
+      include_tasks: ../base/tasks/services-disable.yml
 
     # Run complete cleanup including machine-id truncation
     - name: Complete service image cleanup

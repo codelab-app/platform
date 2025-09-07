@@ -6,7 +6,16 @@ ConditionFirstBoot=yes
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash -c 'systemctl enable consul docker-login docker-consul-template alloy-consul-template alloy verify-first-boot && systemctl start consul verify-first-boot'
+# IMPORTANT: Do NOT add verify-first-boot to the start command below.
+# Both enable-services and verify-first-boot have ConditionFirstBoot=yes and run in parallel.
+# If we try to start verify-first-boot here with 'systemctl start', it creates a deadlock:
+# - systemctl start waits forever for verify-first-boot to start
+# - But if machine-id gets initialized during boot, ConditionFirstBoot becomes false
+# - verify-first-boot can't start, causing enable-services to hang indefinitely
+# Let systemd handle verify-first-boot independently via its own unit file.
+ExecStart=/bin/bash -c 'set -e; \
+  systemctl enable consul docker-login docker-consul-template alloy-consul-template alloy && \
+  systemctl start consul docker-consul-template alloy-consul-template alloy'
 StandardOutput=journal
 StandardError=journal
 

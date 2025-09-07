@@ -127,14 +127,6 @@
         group: consul
         mode: '0750'
 
-    - name: Set Consul files permissions
-      file:
-        path: /etc/consul.d
-        owner: consul
-        group: consul
-        recurse: yes
-        mode: '0640'
-
     # Create docker directory for compose files
     - name: Create docker directory
       file:
@@ -165,6 +157,10 @@
     - name: Display completion message
       debug:
         msg: 'Grafana service image built successfully'
+
+    # Ensure services are disabled before snapshot
+    - name: Disable services for build
+      include_tasks: ../base/tasks/services-disable.yml
 
     # Run complete cleanup including machine-id truncation
     - name: Complete service image cleanup

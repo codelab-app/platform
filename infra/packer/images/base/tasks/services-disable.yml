@@ -1,29 +1,4 @@
 ---
-# Service management
-
-- name: Flush handlers before enabling services
-  meta: flush_handlers
-
-- name: Start and enable Docker service
-  systemd:
-    name: docker
-    state: started
-    enabled: yes
-
-# Install service to enable services on first boot
-- name: Copy enable-services systemd service
-  copy:
-    src: '../enable-services.service'
-    dest: /etc/systemd/system/enable-services.service
-    mode: '0644'
-
-- name: Enable enable-services service
-  systemd:
-    name: enable-services
-    enabled: yes
-    daemon_reload: yes
-
-# ============================================================================
 # Disable services to prevent startup during build
 #
 # Why we use 'enabled: no' instead of 'masked: yes':
@@ -35,7 +10,6 @@
 #   symlink conflicts
 #
 # Services will be enabled and started by enable-services.service on first boot
-# ============================================================================
 
 - name: Stop and disable Consul service during build
   systemd:

@@ -5,5 +5,6 @@
 # reduces complexity and potential failure points.
 
 codelab.app, www.codelab.app {
-    reverse_proxy landing:3000
+    # Matches container_name: codelab-landing from docker-compose.ctmpl
+    reverse_proxy codelab-landing:3000
 }

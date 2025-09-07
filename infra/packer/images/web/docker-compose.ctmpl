@@ -6,16 +6,6 @@ networks:
     driver: bridge
 
 services:
-  caddy:
-    networks:
-      - web
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy-data:/data
-      - caddy-config:/config
-    depends_on:
-      - web
-
   web:
     image: registry.digitalocean.com/codelabapp/web:{{ key "config/docker/web_tag_version" }}
     container_name: codelab-web

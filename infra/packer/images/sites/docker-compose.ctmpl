@@ -6,14 +6,6 @@ networks:
     driver: bridge
 
 services:
-  caddy:
-    networks:
-      - sites
-    volumes:
-      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-    depends_on:
-      - sites
-
   sites:
     image: registry.digitalocean.com/codelabapp/sites:{{ key "config/docker/sites_tag_version" }}
     container_name: codelab-sites

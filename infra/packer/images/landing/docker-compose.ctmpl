@@ -6,14 +6,6 @@ networks:
     driver: bridge
 
 services:
-  caddy:
-    networks:
-      - landing
-    volumes:
-      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-    depends_on:
-      - landing
-
   landing:
     image: registry.digitalocean.com/codelabapp/landing:{{ key "config/docker/landing_tag_version" }}
     container_name: codelab-landing
