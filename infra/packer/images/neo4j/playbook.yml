@@ -26,6 +26,20 @@
         src: 'docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
 
+    # Create Caddy directory for Caddyfile
+    - name: Create caddy directory
+      file:
+        path: /opt/caddy
+        state: directory
+        mode: '0755'
+
+    # Neo4j-specific Caddyfile template
+    - name: Copy Neo4j Caddyfile template
+      copy:
+        src: 'Caddyfile.ctmpl'
+        dest: /etc/consul-template/Caddyfile.ctmpl
+        mode: '0644'
+
     # Neo4j-specific consul-template configuration
     - name: Copy Neo4j consul-template configuration
       copy:

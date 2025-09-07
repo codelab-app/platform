@@ -26,15 +26,18 @@
         src: 'docker-compose.ctmpl'
         dest: /etc/consul-template/docker-compose.ctmpl
 
-    # Set up Caddy module and directories
-    - name: Set up Caddy module
-      include_tasks: ../../modules/caddy/tasks.yml
+    # Create Caddy directory for Caddyfile
+    - name: Create caddy directory
+      file:
+        path: /opt/caddy
+        state: directory
+        mode: '0755'
 
-    # Sites-specific static Caddyfile
-    - name: Copy Sites Caddyfile
+    # Sites-specific Caddyfile template
+    - name: Copy Sites Caddyfile template
       copy:
-        src: 'Caddyfile'
-        dest: /opt/caddy/Caddyfile
+        src: 'Caddyfile.ctmpl'
+        dest: /etc/consul-template/Caddyfile.ctmpl
         mode: '0644'
 
     # Sites-specific consul-template configuration

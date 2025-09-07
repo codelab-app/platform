@@ -3,9 +3,25 @@ networks:
     driver: bridge
 
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    networks:
+      - codelab
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - neo4j
+    restart: unless-stopped
+
   neo4j:
     image: neo4j:{{ keyOrDefault "config/neo4j/version" "5.26.3-enterprise" }}
-    container_name: neo4j
+    container_name: {{ key "config/neo4j/container_name" }}
     networks:
       - codelab
     volumes:
@@ -92,6 +108,8 @@ services:
   {{ end }}
 
 volumes:
+  caddy-data:
+  caddy-config:
   codelab-neo4j:
     name: codelab-neo4j
     driver: local

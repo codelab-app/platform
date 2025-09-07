@@ -1,0 +1,6 @@
+# Caddyfile Configuration Template
+# Container name is pulled from Consul KV: config/landing/container_name
+
+codelab.app, www.codelab.app {
+    reverse_proxy {{ key "config/landing/container_name" }}:{{ key "config/landing/port" }}
+}

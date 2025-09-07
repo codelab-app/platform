@@ -16,6 +16,11 @@ resource "consul_keys" "web_config" {
     value = "3000"
   }
   
+  key {
+    path  = "config/web/container_name"
+    value = "codelab-web"
+  }
+  
   # Web dependencies - API connection
   key {
     path  = "config/web/api_hostname"

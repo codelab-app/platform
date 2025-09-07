@@ -1,4 +1,6 @@
+# Caddyfile Configuration Template
+# Container name is pulled from Consul KV: config/web/container_name
+
 dev.{{ key "config/domain" }} {
-    # Matches container_name: codelab-web from docker-compose.ctmpl
-    reverse_proxy codelab-web:{{ key "config/web/port" }}
+    reverse_proxy {{ key "config/web/container_name" }}:{{ key "config/web/port" }}
 }

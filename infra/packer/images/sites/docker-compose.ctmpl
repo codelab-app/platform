@@ -1,14 +1,27 @@
-include:
-  - ../../modules/caddy/docker-compose.caddy.yaml
-
 networks:
   sites:
     driver: bridge
 
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    networks:
+      - sites
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - sites
+    restart: unless-stopped
+
   sites:
     image: registry.digitalocean.com/codelabapp/sites:{{ key "config/docker/sites_tag_version" }}
-    container_name: codelab-sites
+    container_name: {{ key "config/sites/container_name" }}
     networks:
       - sites
     restart: unless-stopped
@@ -18,3 +31,7 @@ services:
       - NEXT_PUBLIC_WEB_HOST={{ key "config/web/host" }}
       - NEXT_PUBLIC_API_PORT={{ key "config/api/port" }}
       - NEXT_PUBLIC_API_HOSTNAME={{ key "config/api/hostname" }}
+
+volumes:
+  caddy-data:
+  caddy-config:

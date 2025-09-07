@@ -16,3 +16,8 @@ client_addr = "127.0.0.1"
 # This queries the DigitalOcean API for droplets tagged "consul-server" in the specified region
 # The private VPC IP will be automatically discovered and used for joining
 retry_join = ["provider=digitalocean region={{ region }} tag_name=consul-server api_token={{ digitalocean_api_token }}"]
+
+# Retry joining forever - important for when consul-server is still booting
+# This ensures the client will keep trying to connect even if the server takes time to start
+retry_interval = "30s"
+retry_max = 0  # 0 means retry forever

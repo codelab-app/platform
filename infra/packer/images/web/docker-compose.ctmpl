@@ -1,14 +1,27 @@
-include:
-  - ../../modules/caddy/docker-compose.caddy.yaml
-
 networks:
   web:
     driver: bridge
 
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    networks:
+      - web
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - web
+    restart: unless-stopped
+
   web:
     image: registry.digitalocean.com/codelabapp/web:{{ key "config/docker/web_tag_version" }}
-    container_name: codelab-web
+    container_name: {{ key "config/web/container_name" }}
     networks:
       - web
     restart: unless-stopped
@@ -22,3 +35,7 @@ services:
       - AUTH0_DOMAIN={{ key "config/auth0/domain" }}
       - AUTH0_CLIENT_ID={{ key "config/auth0/web_client_id" }}
       - AUTH0_CLIENT_SECRET={{ key "config/auth0/web_client_secret" }}
+
+volumes:
+  caddy-data:
+  caddy-config:

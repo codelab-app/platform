@@ -1565,9 +1565,8 @@ let PackerService = class PackerService {
      * Create Packer images
      */
     createImages(images, imageDir, consulEncryptKey, digitaloceanApiToken) {
-        $stream.sync `cd ${imageDir} && packer build -timestamp-ui -only='${images
-            .map((img) => `digitalocean.${img}`)
-            .join(',')}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
+        const onlyFlag = images.map((img) => `digitalocean.${img}`).join(',');
+        $stream.sync `cd ${imageDir} && packer build -timestamp-ui -only=${onlyFlag} -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
     }
     /**
      * Get all snapshots from DigitalOcean

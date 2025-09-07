@@ -28,7 +28,7 @@ template {
 # Caddyfile template for landing service
 template {
   source = "/etc/consul-template/Caddyfile.ctmpl"
-  destination = "/root/docker/Caddyfile"
+  destination = "/opt/caddy/Caddyfile"
   perms = 0644
   backup = true
   

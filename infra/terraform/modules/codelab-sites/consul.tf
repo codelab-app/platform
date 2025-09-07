@@ -12,6 +12,11 @@ resource "consul_keys" "sites_config" {
   }
   
   key {
+    path  = "config/sites/container_name"
+    value = "codelab-sites"
+  }
+  
+  key {
     path  = "config/sites/web_host"
     value = var.next_public_web_host
   }

@@ -5,5 +5,6 @@
 # reduces complexity and potential failure points.
 
 grafana.codelab.app {
+    # Matches container_name: grafana from docker-compose.ctmpl
     reverse_proxy grafana:3000
 }

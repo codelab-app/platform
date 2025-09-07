@@ -22,6 +22,11 @@ resource "consul_keys" "neo4j_config" {
   }
   
   key {
+    path  = "config/neo4j/container_name"
+    value = "neo4j"
+  }
+  
+  key {
     path  = "config/neo4j/version"
     value = "enterprise"
   }

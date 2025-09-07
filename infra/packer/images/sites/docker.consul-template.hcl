@@ -1,4 +1,4 @@
-# Consul-Template configuration for Neo4j service
+# Consul-Template configuration for Sites service
 
 consul {
   address = "127.0.0.1:8500"
@@ -26,7 +26,7 @@ template {
 # Caddyfile template
 template {
   source = "/etc/consul-template/Caddyfile.ctmpl"
-  destination = "/root/docker/Caddyfile"
+  destination = "/opt/caddy/Caddyfile"
   perms = 0644
   backup = true
   
