@@ -199,7 +199,8 @@
       "Bash(packer inspect:*)",
       "Bash(python3:*)",
       "Read(/Users/Webber/mitogen/mitogen-0.3.27/ansible_mitogen/plugins/strategy/**)",
-      "Bash(ansible-playbook:*)"
+      "Bash(ansible-playbook:*)",
+      "Bash(doctl compute region list:*)"
     ],
     "deny": []
   },
