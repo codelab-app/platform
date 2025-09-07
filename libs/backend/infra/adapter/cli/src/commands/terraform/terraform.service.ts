@@ -210,7 +210,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
     }
     $stream.syncWithEnv(
       env,
-    )`terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`
+    )`terraform -chdir=${tfDir} apply -refresh=true -target=module.consul ${autoApproveFlag}`
   }
 
   private applyTerraform(
@@ -233,7 +233,9 @@ export class TerraformService implements CommandModule<unknown, unknown> {
       ...(tag && { DOCKER_TAG_VERSION: tag }),
       ...(consulAddr && { CONSUL_HTTP_ADDR: consulAddr }),
     }
-    $stream.syncWithEnv(env)`terraform -chdir=${tfDir} apply ${autoApproveFlag}`
+    $stream.syncWithEnv(
+      env,
+    )`terraform -chdir=${tfDir} apply -refresh=true ${autoApproveFlag}`
   }
 
   private buildDashboardsIfNeeded(stage: string) {

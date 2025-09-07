@@ -72,3 +72,7 @@
     # Run complete cleanup including machine-id truncation
     - name: Complete service image cleanup
       include_tasks: ../base/tasks/cleanup.yml
+
+    # Verify system is ready for snapshot
+    - name: Verify system is ready for snapshot
+      include_tasks: ../base/tasks/verify-snapshot.yml

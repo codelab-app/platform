@@ -1749,7 +1749,7 @@ let TerraformService = class TerraformService {
             TF_WORKSPACE: stage,
             ...(tag && { DOCKER_TAG_VERSION: tag }),
         };
-        $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply -target=module.consul ${autoApproveFlag}`;
+        $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply -refresh=true -target=module.consul ${autoApproveFlag}`;
     }
     applyTerraform(stage, tfDir, autoApproveFlag, tag, consulAddr) {
         if (consulAddr) {
@@ -1762,7 +1762,7 @@ let TerraformService = class TerraformService {
             ...(tag && { DOCKER_TAG_VERSION: tag }),
             ...(consulAddr && { CONSUL_HTTP_ADDR: consulAddr }),
         };
-        $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply ${autoApproveFlag}`;
+        $stream.syncWithEnv(env) `terraform -chdir=${tfDir} apply -refresh=true ${autoApproveFlag}`;
     }
     buildDashboardsIfNeeded(stage) {
         // Build dashboards for prod-runtime before terraform operations

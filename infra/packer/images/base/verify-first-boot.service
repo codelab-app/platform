@@ -1,0 +1,14 @@
+[Unit]
+Description=Verify first boot configuration
+After=enable-services.service
+ConditionFirstBoot=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/verify-first-boot.sh
+StandardOutput=journal+console
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target

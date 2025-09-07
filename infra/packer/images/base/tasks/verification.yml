@@ -1,0 +1,26 @@
+---
+# Install first-boot verification system
+
+- name: Copy verify-first-boot script
+  copy:
+    src: '../../../scripts/verify-first-boot.sh'
+    dest: /usr/local/bin/verify-first-boot.sh
+    mode: '0755'
+
+- name: Copy verify-first-boot systemd service
+  copy:
+    src: '../verify-first-boot.service'
+    dest: /etc/systemd/system/verify-first-boot.service
+    mode: '0644'
+
+- name: Enable verify-first-boot service
+  systemd:
+    name: verify-first-boot
+    enabled: yes
+    daemon_reload: yes
+
+- name: Stop and disable verify-first-boot service during build
+  systemd:
+    name: verify-first-boot
+    state: stopped
+    enabled: no

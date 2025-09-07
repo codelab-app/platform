@@ -63,12 +63,22 @@
       include_tasks: tasks/services.yml
       tags: ['services']
 
-    # Phase 6: System Optimization
+    # Phase 6: Verification Setup
+    - name: Setup verification
+      include_tasks: tasks/verification.yml
+      tags: ['verification']
+
+    # Phase 7: System Optimization
     - name: Optimize system
       include_tasks: tasks/optimization.yml
       tags: ['optimization']
 
-    # Phase 7: Cleanup
+    # Phase 8: Cleanup
     - name: Clean system
       include_tasks: tasks/cleanup.yml
       tags: ['cleanup']
+
+    # Phase 9: Verify pre-snapshot state
+    - name: Verify system is ready for snapshot
+      include_tasks: tasks/verify-snapshot.yml
+      tags: ['verify']
