@@ -4,9 +4,9 @@ source "digitalocean" "api" {
   region       = var.do_region
   size         = local.droplet_sizes.small  # Match Terraform deployment size
   ssh_username = "root"
-  snapshot_name = "codelab-api-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-api-${local.timestamp_local}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-api-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  droplet_name = "packer-codelab-api-${local.timestamp_local}"
   tags         = ["packer", "api", "service"]
   
   # Disable package updates during cloud-init to speed up builds

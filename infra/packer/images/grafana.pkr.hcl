@@ -4,9 +4,9 @@ source "digitalocean" "grafana" {
   region       = var.do_region
   size         = local.droplet_sizes.medium  # Grafana/Loki needs more RAM
   ssh_username = "root"
-  snapshot_name = "codelab-grafana-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-grafana-${local.timestamp_local}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-grafana-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  droplet_name = "packer-codelab-grafana-${local.timestamp_local}"
   tags         = ["packer", "grafana", "monitoring", "service"]
   
   # Disable package updates during cloud-init to speed up builds

@@ -5,10 +5,10 @@
   shell: |
     set -e
 
-    # Clean package manager
-    apt-get clean
-    apt-get autoremove -y --purge
-    apt-get autoclean
+    # Clean package manager (can save 200-500MB+ in image size)
+    apt-get clean              # Remove ALL cached packages from /var/cache/apt/archives/
+    apt-get autoremove -y --purge  # Remove orphaned dependencies and their config files
+    apt-get autoclean          # Remove obsolete packages from cache (redundant after clean, but ensures thorough cleanup)
 
     # Remove package lists (will be regenerated on first apt update)
     rm -rf /var/lib/apt/lists/*

@@ -15,6 +15,7 @@
     ]
   },
   "scripts": {
+    "cli": "scripts/nx/cli.sh",
     "update": "nx migrate @nx/workspace",
     "commit": "git-cz",
     "git:prune": "git gc --aggressive --prune=now",

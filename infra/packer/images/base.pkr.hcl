@@ -41,12 +41,12 @@ variable "consul_encrypt_key" {
 
 source "digitalocean" "base" {
   api_token     = var.digitalocean_api_token
-  droplet_name  = "packer-codelab-base-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  droplet_name  = "packer-codelab-base-${local.timestamp_local}"
   image         = "ubuntu-22-04-x64"
   region        = local.region
   size          = local.droplet_sizes.small
   ssh_username  = "root"
-  snapshot_name = "codelab-base-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-base-${local.timestamp_local}"
   snapshot_regions = [local.region]
   
   # Disable package updates during cloud-init to speed up builds

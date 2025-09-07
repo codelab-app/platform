@@ -13,23 +13,24 @@
   failed_when: false
 
 # Critical: Truncate machine-id for proper first boot detection
+# This ensures systemd's ConditionFirstBoot=yes works correctly
+# We truncate instead of delete to avoid boot failures
 - name: Truncate machine-id for first boot
   shell: |
-    # Empty the machine-id file (don't delete it)
     truncate -s 0 /etc/machine-id
-
-    # Handle D-Bus machine-id
     rm -f /var/lib/dbus/machine-id
     ln -sf /etc/machine-id /var/lib/dbus/machine-id
   args:
     executable: /bin/bash
 
 # Remove SSH host keys (will be regenerated on first boot)
+# This ensures each instance has unique SSH keys
 - name: Remove SSH host keys
   shell: rm -f /etc/ssh/ssh_host_*
   failed_when: false
 
 # Clear bash history
+# Removes any sensitive commands from build process
 - name: Clear bash history
   shell: |
     cat /dev/null > ~/.bash_history
@@ -37,6 +38,7 @@
   failed_when: false
 
 # Trim filesystem to minimize snapshot size
+# Reduces the final image size by releasing unused blocks
 - name: Trim filesystem
   command: fstrim -av
   failed_when: false

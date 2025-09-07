@@ -12,7 +12,7 @@ tasks:
     desc: Run packer build and terraform apply in prod
     deps: [packer-build]
     cmds:
-      - pnpm terraform apply --stage prod
+      - task: terraform-apply
 
   packer-build:
     desc: Build Packer images for production
@@ -22,28 +22,36 @@ tasks:
   terraform-apply:
     desc: Apply Terraform configuration
     cmds:
-      - pnpm terraform apply --stage prod
+      - pnpm cli terraform apply --stage prod
 
   # Development tasks
   serve:
     desc: Serve api and web projects
+    env:
+      NX_TUI: true
     cmds:
-      - NX_TUI=true pnpm exec nx run-many --target=serve --projects=api,web --parallel
+      - pnpm exec nx run-many --target=serve --projects=api,web --parallel
 
   serve-sites:
     desc: Serve api, web, and sites projects
+    env:
+      NX_TUI: true
     cmds:
-      - NX_TUI=true pnpm exec nx run-many --target=serve --projects=api,web,sites --parallel
+      - pnpm exec nx run-many --target=serve --projects=api,web,sites --parallel
 
   serve-test:
     desc: Serve in test mode
+    env:
+      NX_TUI: false
     cmds:
-      - NX_TUI=false pnpm exec nx run-many --target=serve --projects=api,web --parallel -c test
+      - pnpm exec nx run-many --target=serve --projects=api,web --parallel -c test
 
   serve-sites-test:
     desc: Serve all projects in test mode
+    env:
+      NX_TUI: false
     cmds:
-      - NX_TUI=false pnpm exec nx run-many --target=serve --projects=api,web,sites --parallel -c test
+      - pnpm exec nx run-many --target=serve --projects=api,web,sites --parallel -c test
 
   # Build & Test tasks
   build:

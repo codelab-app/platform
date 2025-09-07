@@ -4,9 +4,9 @@ source "digitalocean" "neo4j" {
   region       = var.do_region
   size         = local.droplet_sizes.medium  # Neo4j needs more RAM
   ssh_username = "root"
-  snapshot_name = "codelab-neo4j-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-neo4j-${local.timestamp_local}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-neo4j-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  droplet_name = "packer-codelab-neo4j-${local.timestamp_local}"
   tags         = ["packer", "neo4j", "service"]
   
   # Disable package updates during cloud-init to speed up builds

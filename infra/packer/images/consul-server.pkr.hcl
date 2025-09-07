@@ -4,9 +4,9 @@ source "digitalocean" "consul-server" {
   region       = var.do_region
   size         = local.droplet_sizes.small  # Match Terraform deployment size
   ssh_username = "root"
-  snapshot_name = "codelab-consul-server-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  snapshot_name = "codelab-consul-server-${local.timestamp_local}"
   snapshot_regions = [var.do_region]
-  droplet_name = "packer-codelab-consul-server-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  droplet_name = "packer-codelab-consul-server-${local.timestamp_local}"
   tags         = ["packer", "consul", "server"]
 }
 

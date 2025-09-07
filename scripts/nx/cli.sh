@@ -13,7 +13,7 @@
 
 # Skip build on CircleCI
 if [ -z "$CIRCLECI" ]; then
-  nx build cli
+  pnpm exec nx build cli
 fi
 
 # Extract the arguments after "pnpm cli"

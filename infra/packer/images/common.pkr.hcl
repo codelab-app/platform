@@ -29,6 +29,9 @@ locals {
     medium = "s-1vcpu-2gb"      # Neo4j, Grafana (need more RAM)
     large  = "s-2vcpu-4gb"      # Future use for heavy workloads
   }
+  
+  # Generate timestamp in local timezone (UTC+8)
+  timestamp_local = formatdate("YYYY-MM-DD-HHmm", timeadd(timestamp(), "8h"))
 }
 
 # Use external data source to get the latest base snapshot
