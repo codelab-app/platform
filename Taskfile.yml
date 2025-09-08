@@ -29,6 +29,56 @@ tasks:
     cmds:
       - pnpm cli terraform apply --stage prod-runtime
 
+  # Kubernetes tasks
+  k8s-init:
+    desc: Initialize Kubernetes cluster
+    cmds:
+      - pnpm cli k8s init --stage {{.STAGE | default "test"}}
+
+  k8s-deploy:
+    desc: Deploy to Kubernetes cluster
+    cmds:
+      - pnpm cli k8s deploy --stage {{.STAGE | default "test"}} --tag {{.TAG | default "latest"}}
+
+  k8s-migrate:
+    desc: Complete Kubernetes migration (init, deploy, migrate data)
+    cmds:
+      - task: k8s-init
+        vars: { STAGE: '{{.STAGE | default "test"}}' }
+      - task: k8s-deploy
+        vars: { STAGE: '{{.STAGE | default "test"}}' }
+      - pnpm cli k8s migrate --stage {{.STAGE | default "test"}}
+
+  k8s-status:
+    desc: Show Kubernetes cluster status
+    cmds:
+      - pnpm cli k8s status --stage {{.STAGE | default "test"}}
+
+  k8s-logs:
+    desc: View service logs (use SERVICE=api task k8s-logs)
+    cmds:
+      - pnpm cli k8s logs --stage {{.STAGE | default "test"}} --service {{.SERVICE | default "api"}}
+
+  k8s-port-forward:
+    desc: Port forward a service (use SERVICE=api task k8s-port-forward)
+    cmds:
+      - pnpm cli k8s port-forward --stage {{.STAGE | default "test"}} --service {{.SERVICE | default "api"}}
+
+  k8s-scale:
+    desc: Scale a deployment (use SERVICE=web REPLICAS=3 task k8s-scale)
+    cmds:
+      - pnpm cli k8s scale --stage {{.STAGE | default "test"}} --service {{.SERVICE}} --replicas {{.REPLICAS}}
+
+  k8s-rollback:
+    desc: Rollback deployments to previous version
+    cmds:
+      - pnpm cli k8s rollback --stage {{.STAGE | default "test"}}
+
+  k8s-cleanup:
+    desc: Clean up Kubernetes resources
+    cmds:
+      - pnpm cli k8s cleanup --stage {{.STAGE | default "test"}}
+
   # Development tasks
   serve:
     desc: Serve api and web projects

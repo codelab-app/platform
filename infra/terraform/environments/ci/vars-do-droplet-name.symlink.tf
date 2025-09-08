@@ -1,1 +1,0 @@
-../shared/vars-do-droplet-name.tf

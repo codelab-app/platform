@@ -201,7 +201,11 @@
       "Read(/Users/Webber/mitogen/mitogen-0.3.27/ansible_mitogen/plugins/strategy/**)",
       "Bash(ansible-playbook:*)",
       "Bash(doctl compute region list:*)",
-      "Bash(make:*)"
+      "Bash(make:*)",
+      "Bash(kubectl get:*)",
+      "Bash(kubectl describe:*)",
+      "Bash(kubectl apply:*)",
+      "Bash(terraform providers:*)"
     ],
     "deny": []
   },

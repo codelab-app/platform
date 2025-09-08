@@ -1,8 +1,0 @@
----
-# Version configurations
-doctl_version: "{{ doctl_version | default('1.104.0') }}"
-
-# Security configurations (passed from Packer)
-consul_encrypt_key: '{{ consul_encrypt_key }}'
-digitalocean_api_token: '{{ digitalocean_api_token }}'
-region: "{{ region | default('sgp1') }}"

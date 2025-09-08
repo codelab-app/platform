@@ -31,6 +31,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             Stage.Dev,
             Stage.CI,
             Stage.Prod,
+            Stage.ProdKube,
             Stage.ProdRuntime,
             Stage.Test,
           ]),

@@ -1,6 +1,0 @@
-# Caddyfile Configuration Template
-# Container name is pulled from Consul KV: config/web/container_name
-
-dev.{{ key "config/domain" }} {
-    reverse_proxy {{ key "config/web/container_name" }}:{{ key "config/web/port" }}
-}

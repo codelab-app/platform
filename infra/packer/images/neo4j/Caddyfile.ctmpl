@@ -1,6 +1,0 @@
-# Caddyfile Configuration Template
-# Container name is pulled from Consul KV: config/neo4j/container_name
-
-neo4j.{{ key "config/domain" }} {
-    reverse_proxy {{ key "config/neo4j/container_name" }}:7474
-}

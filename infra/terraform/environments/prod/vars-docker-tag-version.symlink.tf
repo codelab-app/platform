@@ -1,1 +1,0 @@
-../shared/vars-docker-tag-version.tf

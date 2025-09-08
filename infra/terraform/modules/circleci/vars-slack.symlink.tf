@@ -1,1 +1,0 @@
-../slack/vars.tf

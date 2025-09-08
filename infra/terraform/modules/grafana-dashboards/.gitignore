@@ -1,6 +1,0 @@
-# Jsonnet dependencies
-vendor/
-jsonnetfile.lock.json
-
-# Generated dashboard files
-dashboards/*.gen.json

@@ -2,7 +2,7 @@ import type { OnModuleInit } from '@nestjs/common'
 
 import {
   DockerService,
-  PackerService,
+  KubernetesService,
   // ScrapeAntdService,
   // ScrapeHtmlService,
   // SeedService,
@@ -19,7 +19,7 @@ import { CommandService } from './command.service'
   providers: [
     CommandService,
     DockerService,
-    PackerService,
+    KubernetesService,
     // SeedService,
     // ScrapeAntdService,
     // ScrapeHtmlService,

@@ -11,6 +11,9 @@ export enum Stage {
   // DigitalOcean remote
   Prod = 'prod',
 
+  // Kubernetes production environment
+  ProdKube = 'prod-kube',
+
   // Runtime configuration for prod
   ProdRuntime = 'prod-runtime',
 

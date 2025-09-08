@@ -1,9 +1,10 @@
-import {
+import type {
   DockerService,
-  PackerService,
+  KubernetesService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
+
 import { Injectable } from '@nestjs/common'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -12,7 +13,7 @@ import { hideBin } from 'yargs/helpers'
 export class CommandService {
   constructor(
     private readonly dockerService: DockerService,
-    private readonly packerService: PackerService,
+    private readonly kubernetesService: KubernetesService,
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     private readonly terraformService: TerraformService,
@@ -57,9 +58,9 @@ export class CommandService {
        */
       .command(this.dockerService)
       /**
-       * Packer - Machine image builder
+       * Kubernetes - Container orchestration
        */
-      .command(this.packerService)
+      .command(this.kubernetesService)
       /**
        * Terraform
        */
