@@ -14,7 +14,7 @@ import { ApiResponse } from '@nestjs/swagger'
 import { Type } from '@sinclair/typebox'
 import { HttpEndpoint } from 'nestjs-typebox'
 
-import type { ElementApplicationService } from './element.application.service'
+import { ElementApplicationService } from './element.application.service'
 
 @Controller('element')
 export class ElementApplicationController {
