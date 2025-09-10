@@ -5,14 +5,12 @@ import type { ITagModel } from '@codelab/frontend-abstract-domain'
 import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { AutoFields, ListField } from 'uniforms-antd'
-
-import type { DeleteTagsData } from './delete-tags.schema'
+import { AutoFields } from 'uniforms-antd'
 
 import { useTagService } from '../../services'
-import { deleteTagsSchema } from './delete-tags.schema'
 
 export const DeleteTagsModal = observer<{ tags: Array<ITagModel> }>(
   ({ tags }) => {
@@ -20,6 +18,8 @@ export const DeleteTagsModal = observer<{ tags: Array<ITagModel> }>(
     const tagService = useTagService()
     const closeModal = () => router.push(RoutePaths.Tag.base())
     const onSubmit = async () => tagService.removeMany(tags)
+
+    const tagsNames = tags.map((tag) => tag.name).join(', ')
 
     return (
       <ModalForm.Modal
@@ -29,18 +29,15 @@ export const DeleteTagsModal = observer<{ tags: Array<ITagModel> }>(
         title={<span className="font-semibold">Delete tags</span>}
         uiKey={UiKey.TagModalDelete}
       >
-        <ModalForm.Form<DeleteTagsData>
+        <ModalForm.Form
           errorMessage="Error while deleting tags"
           model={{ ids: tags.map(({ id }) => id) }}
           onSubmit={onSubmit}
           onSubmitSuccess={closeModal}
-          schema={deleteTagsSchema}
+          schema={emptyJsonSchema}
         >
-          Are you sure you want to delete{' '}
-          {tags.map((tag) => tag.name).join(', ')}
-          ?
-          <AutoFields omitFields={['ids']} />
-          <ListField hidden={true} itemProps={{}} name="ids" />
+          <h4>Are you sure you want to delete "{tagsNames}"?</h4>
+          <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>
     )

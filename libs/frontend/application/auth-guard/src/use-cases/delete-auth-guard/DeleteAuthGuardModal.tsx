@@ -34,8 +34,7 @@ export const DeleteAuthGuardModal = observer<{ authGuard: IAuthGuardModel }>(
           schema={emptyJsonSchema}
         >
           <h4>
-            Are you sure you want to delete auth guard "{authGuard.name}
-            "?
+            Are you sure you want to delete auth guard "{authGuard.name}"?
           </h4>
         </ModalForm.Form>
       </ModalForm.Modal>

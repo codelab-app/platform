@@ -10,7 +10,6 @@ import {
   DOMAIN_EXISTS_ERROR,
 } from '@codelab/frontend-domain-domain/errors'
 import { useErrorNotify } from '@codelab/frontend-infra-context'
-import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -26,15 +25,12 @@ interface CreateDomainModalProps {
 
 export const CreateDomainModal = observer<CreateDomainModalProps>(
   ({ appId }) => {
-    const { userDomainService } = useDomainStore()
     const domainService = useDomainService()
     const router = useRouter()
 
     const model = {
       app: { id: appId },
-      auth0Id: userDomainService.currentUser.auth0Id,
       id: v4(),
-      name: '',
     } as ICreateDomainData
 
     const onSubmit = (data: ICreateDomainData) => {

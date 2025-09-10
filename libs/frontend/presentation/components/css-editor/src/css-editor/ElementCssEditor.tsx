@@ -2,7 +2,6 @@
 
 import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 
-import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend-abstract-domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useLoading } from '@codelab/frontend-application-shared-services/loading'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
@@ -27,6 +26,8 @@ const Label = styled.span`
 export interface ElementCssEditorInternalProps {
   runtimeElement: IRuntimeElementModel
 }
+
+const CSS_AUTOSAVE_TIMEOUT = 1000
 
 /*
   TODO: later

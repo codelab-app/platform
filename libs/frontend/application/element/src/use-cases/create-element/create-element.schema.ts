@@ -1,12 +1,15 @@
 'use client'
 
-import type { IElementDto } from '@codelab/shared-abstract-core'
-import type { JSONSchemaType } from 'ajv'
+import type { ICreateElementSchemaBuilder } from '@codelab/frontend-abstract-domain'
 
+import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
 import {
+  hiddenField,
   idSchema,
+  maybeRefSchema,
+  multiSelectFieldSchema,
   nonEmptyString,
-  showFieldOnDev,
+  selectFieldSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
@@ -14,147 +17,117 @@ import {
   requiredMsg,
   titleCasePatternMsg,
 } from '@codelab/frontend-shared-utils'
-import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
-import { SelectField } from 'uniforms-antd'
+import {
+  ICodeMirrorLanguage,
+  IElementRenderTypeKind,
+} from '@codelab/shared-abstract-core'
 
-export type ICreateElementDto = Pick<
-  IElementDto,
-  | 'id'
-  | 'name'
-  | 'parentElement'
-  | 'postRenderActions'
-  | 'preRenderActions'
-  | 'props'
-  | 'renderType'
-  | 'style'
-  | 'tailwindClassNames'
->
+import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
+import { RenderTypeField } from '../../components/render-type-field'
 
-export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
-  properties: {
-    ...idSchema(),
-    name: {
-      ...nonEmptyString,
-      ...titleCaseValidation,
+export const createElementSchema: ICreateElementSchemaBuilder = ({
+  actions,
+  elements,
+  selectedElement,
+}) => {
+  const parentElement = selectFieldSchema('parentElement', 'Parent element', {
+    options: elements,
+    extra: `only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`,
+  })
+
+  const preRenderActions = multiSelectFieldSchema(
+    'preRenderActions',
+    'Pre Render action',
+    {
+      options: actions,
     },
-    style: {
-      nullable: true,
-      type: 'string',
+  )
+
+  const postRenderActions = multiSelectFieldSchema(
+    'postRenderActions',
+    'Post Render action',
+    {
+      options: actions,
     },
-    tailwindClassNames: {
-      nullable: true,
-      type: 'array',
-      items: {
+  )
+
+  const propsApi = maybeRefSchema('api', 'API')
+
+  return {
+    properties: {
+      ...idSchema,
+      ...parentElement,
+      renderType: {
+        label: 'Render Type',
+        properties: {
+          id: {
+            type: 'string',
+          },
+          __typename: {
+            enum: [
+              IElementRenderTypeKind.Component,
+              IElementRenderTypeKind.Atom,
+            ],
+            type: 'string',
+          },
+        },
+        required: ['id'],
+        type: 'object',
+        uniforms: {
+          component: RenderTypeField,
+          parentComponent: selectedElement.closestContainerComponent,
+          parentElement: selectedElement,
+        },
+      },
+      name: {
+        ...nonEmptyString,
+        ...titleCaseValidation,
+        uniforms: {
+          component: AutoComputedElementNameField,
+        },
+      },
+      props: {
+        label: '',
+        properties: {
+          ...idSchema,
+          ...propsApi,
+          data: {
+            label: 'Props Data',
+            type: 'string',
+            uniforms: {
+              component: CodeMirrorField,
+              language: ICodeMirrorLanguage.Json,
+            },
+          },
+        },
+        type: 'object',
+        required: ['id'],
+      },
+      style: {
+        nullable: true,
         type: 'string',
+        ...hiddenField,
       },
-    },
-    parentElement: {
-      nullable: true,
-      properties: {
-        ...idSchema({
-          component: SelectField,
-          disabled: false,
-          label: 'Parent element',
-        }),
-      },
-      required: ['id'],
-      type: 'object',
-    },
-    postRenderActions: {
-      nullable: true,
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          ...idSchema({
-            disabled: false,
-            component: SelectField,
-            label: 'Post Render action',
-          }),
-        },
-        required: [],
-      },
-    },
-    preRenderActions: {
-      nullable: true,
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          ...idSchema({
-            disabled: false,
-            component: SelectField,
-            label: 'Pre Render action',
-          }),
-        },
-        required: [],
-      },
-    },
-    props: {
-      label: '',
-      properties: {
-        ...idSchema(),
-        api: {
-          type: 'object',
-          properties: {
-            id: {
-              disabled: true,
-              type: 'string',
-              ...showFieldOnDev(),
-            },
-          },
-          required: ['id'],
-          nullable: true,
-        },
-        data: {
-          label: 'Props Data',
+      tailwindClassNames: {
+        nullable: true,
+        type: 'array',
+        items: {
           type: 'string',
-          // TODO: add json validation
         },
+        ...hiddenField,
       },
-      type: 'object',
-      required: ['id'],
+      ...preRenderActions,
+      ...postRenderActions,
     },
-    renderType: {
-      label: 'Render Type',
-      oneOf: [
-        {
-          properties: {
-            id: {
-              type: 'string',
-            },
-            __typename: {
-              enum: [IElementRenderTypeKind.Component],
-              type: 'string',
-            },
-          },
-          required: ['id'],
-          type: 'object',
-        },
-        {
-          properties: {
-            id: {
-              type: 'string',
-            },
-            __typename: {
-              enum: [IElementRenderTypeKind.Atom],
-              type: 'string',
-            },
-          },
-          required: ['id'],
-          type: 'object',
-        },
-      ],
+    errors: {
+      name: {
+        required: requiredMsg('Element name'),
+        minLength: minLengthMsg('Element name', 1),
+        pattern: titleCasePatternMsg('Element name'),
+      },
     },
-  },
-  errors: {
-    name: {
-      required: requiredMsg('Element name'),
-      minLength: minLengthMsg('Element name', 1),
-      pattern: titleCasePatternMsg('Element name'),
-    },
-  },
-  required: ['name', 'id'],
-  title: 'Create Element Input',
-  type: 'object',
+    required: ['name', 'id'],
+    title: 'Create Element Input',
+    type: 'object',
+  } as const
 }

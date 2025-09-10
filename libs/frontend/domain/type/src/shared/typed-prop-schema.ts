@@ -5,8 +5,8 @@ import {
   type ITypeTransformContext,
   type JsonSchema,
 } from '@codelab/frontend-abstract-domain'
+import { hiddenField } from '@codelab/frontend-presentation-components-form/schema'
 import { GeneralValidationRules } from '@codelab/shared-abstract-core'
-import { HiddenField } from 'uniforms-antd'
 
 export const typedPropSchema = (
   type: ITypeModel,
@@ -20,19 +20,19 @@ export const typedPropSchema = (
       __isTypedProp: {
         default: true,
         type: 'boolean',
-        uniforms: { component: HiddenField },
+        ...hiddenField,
       },
       kind: {
         default: kind,
         enum: [kind],
         type: 'string',
-        uniforms: { component: HiddenField },
+        ...hiddenField,
       },
       type: {
         default: id,
         enum: [id],
         type: 'string',
-        uniforms: { component: HiddenField },
+        ...hiddenField,
       },
       value: {
         label: '',

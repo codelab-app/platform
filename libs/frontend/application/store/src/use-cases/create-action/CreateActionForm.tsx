@@ -16,7 +16,8 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { HttpMethod, IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useActionService } from '../../services'
@@ -39,11 +40,19 @@ export const CreateActionForm = observer<CreateActionFormProps>(
     const { actionDomainService, resourceDomainService, storeDomainService } =
       useDomainStore()
 
-    const actionSchema = useActionSchema(createActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
     const store = selectedNode?.runtimeStore.store.current
+    const actions = actionDomainService.getSelectActionOptions(store!)
     const onSubmit = actionService.create
+
+    const resources = resourceDomainService.getSelectOption()
+    const schema = useActionSchema(
+      useMemo(
+        () => createActionSchema({ resources, actions }),
+        [resources, actions],
+      ),
+    )
 
     const model = {
       code: CODE_ACTION,
@@ -74,7 +83,7 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         model={model}
         onSubmit={onSubmit}
         onSubmitSuccess={onSubmitSuccess}
-        schema={actionSchema}
+        schema={schema}
         submitRef={submitRef}
         uiKey={UiKey.ActionFormCreate}
       >
@@ -99,18 +108,9 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <SelectField
-            name="resource.id"
-            options={resourceDomainService.getSelectOption()}
-          />
-          <SelectField
-            name="successAction"
-            options={actionDomainService.getSelectActionOptions(store!)}
-          />
-          <SelectField
-            name="errorAction"
-            options={actionDomainService.getSelectActionOptions(store!)}
-          />
+          <AutoField name="resource" />
+          <AutoField name="successAction" />
+          <AutoField name="errorAction" />
           <ResourceFetchConfigField />
         </DisplayIfField>
 

@@ -7,8 +7,8 @@ import { UiKey } from '@codelab/frontend-abstract-types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { useEffect, useRef } from 'react'
-import { AutoField } from 'uniforms-antd'
+import { useEffect, useMemo, useRef } from 'react'
+import { AutoFields } from 'uniforms-antd'
 
 import { useElementService } from '../../services'
 import { moveElementSchema } from './move-element.schema'
@@ -67,6 +67,29 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       return Promise.resolve()
     }
 
+    const parentElements = elementDomainService.getSelectOptions(
+      element,
+      IElementTypeKind.ExcludeDescendantsElements,
+      [element.id],
+    )
+
+    const prevSiblingElements = element.parentElement?.current
+      ? elementDomainService.getSelectOptions(
+          element,
+          IElementTypeKind.ExcludeDescendantsElements,
+          [element.id, element.closestContainerNode.rootElement.id],
+        )
+      : []
+
+    const schema = useMemo(
+      () =>
+        moveElementSchema({
+          parentElements,
+          prevSiblingElements,
+        }),
+      [parentElements, prevSiblingElements],
+    )
+
     return (
       <div key={element.id}>
         <MoveElementAutoForm<MoveData>
@@ -74,30 +97,10 @@ export const MoveElementForm = observer<MoveElementFormProps>(
           errorMessage="Error while moving element"
           model={model as MoveData}
           onSubmit={onSubmit}
-          schema={moveElementSchema}
+          schema={schema}
           uiKey={UiKey.ElementFormMove}
         >
-          <AutoField
-            allowClear={false}
-            name="parentElement.id"
-            options={elementDomainService.getSelectOptions(
-              element,
-              IElementTypeKind.ExcludeDescendantsElements,
-              [element.id],
-            )}
-          />
-          <AutoField
-            name="prevSibling.id"
-            options={
-              element.parentElement?.current
-                ? elementDomainService.getSelectOptions(
-                    element,
-                    IElementTypeKind.ExcludeDescendantsElements,
-                    [element.id, element.closestContainerNode.rootElement.id],
-                  )
-                : []
-            }
-          />
+          <AutoFields />
         </MoveElementAutoForm>
       </div>
     )

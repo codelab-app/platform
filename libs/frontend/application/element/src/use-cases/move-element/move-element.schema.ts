@@ -1,37 +1,29 @@
 'use client'
 
-import type { MoveData } from '@codelab/frontend-abstract-domain'
-import type { JSONSchemaType } from 'ajv'
+import type { IMoveElementSchemaBuilder } from '@codelab/frontend-abstract-domain'
 
-import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
-import { SelectField } from 'uniforms-antd'
+import { selectFieldSchema } from '@codelab/frontend-presentation-components-form/schema'
 
-export const moveElementSchema: JSONSchemaType<MoveData> = {
-  properties: {
-    parentElement: {
-      properties: {
-        ...idSchema({
-          label: 'Parent Element',
-          component: SelectField,
-          disabled: false,
-        }),
-      },
-      required: [],
-      type: 'object',
+export const moveElementSchema: IMoveElementSchemaBuilder = ({
+  parentElements,
+  prevSiblingElements,
+}) => {
+  const parentElement = selectFieldSchema('parentElement', 'Parent Element', {
+    options: parentElements,
+    allowClear: false,
+  })
+
+  const prevSibling = selectFieldSchema('prevSibling', 'Prev Sibling', {
+    options: prevSiblingElements,
+  })
+
+  return {
+    properties: {
+      ...parentElement,
+      ...prevSibling,
     },
-    prevSibling: {
-      properties: {
-        ...idSchema({
-          disabled: false,
-          component: SelectField,
-          label: 'Prev Sibling',
-        }),
-      },
-      required: [],
-      type: 'object',
-    },
-  },
-  required: ['parentElement', 'prevSibling'],
-  title: 'Update Element Input',
-  type: 'object',
-} as const
+    required: ['parentElement', 'prevSibling'],
+    title: 'Update Element Input',
+    type: 'object',
+  } as const
+}
