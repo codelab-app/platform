@@ -1,10 +1,14 @@
-import type { IUpdateBaseElementData } from '@codelab/frontend-abstract-domain'
-import type { JSONSchemaType } from 'ajv'
+import type { IUpdateElementSchemaBuilder } from '@codelab/frontend-abstract-domain'
 
-import { ExpressionAutoCompleteField } from '@codelab/frontend-presentation-components-form'
+import {
+  CodeMirrorField,
+  ExpressionAutoCompleteField,
+} from '@codelab/frontend-presentation-components-form'
 import {
   idSchema,
+  multiSelectFieldSchema,
   nonEmptyString,
+  selectFieldSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
@@ -13,156 +17,127 @@ import {
   titleCasePatternMsg,
 } from '@codelab/frontend-shared-utils'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
-import { SelectField } from 'uniforms-antd'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 
-export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
-  properties: {
-    ...idSchema,
-    name: {
-      autoFocus: true,
-      ...nonEmptyString,
-      ...titleCaseValidation,
+import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
+import { RenderTypeField } from '../../components/render-type-field'
+
+export const updateElementSchema: IUpdateElementSchemaBuilder = ({
+  actions,
+  components,
+  element,
+  elements,
+  renderIfAutoComplete,
+}) => {
+  const preRenderActions = multiSelectFieldSchema(
+    'preRenderActions',
+    'Pre Render action',
+    {
+      options: actions,
     },
-    tailwindClassNames: {
-      nullable: true,
-      type: 'array',
-      items: {
+  )
+
+  const postRenderActions = multiSelectFieldSchema(
+    'postRenderActions',
+    'Post Render action',
+    {
+      options: actions,
+    },
+  )
+
+  const childMapperComponent = selectFieldSchema(
+    'childMapperComponent',
+    'Component',
+    {
+      options: components,
+      extra: 'The component to render based on the length of the data source',
+    },
+  )
+
+  const childMapperPreviousSibling = selectFieldSchema(
+    'childMapperPreviousSibling',
+    'Render next to',
+    {
+      options: elements,
+      extra: 'Component instances will be rendered next to this element',
+    },
+  )
+
+  return {
+    properties: {
+      ...idSchema,
+      name: {
+        autoFocus: true,
+        ...nonEmptyString,
+        ...titleCaseValidation,
+        uniforms: { component: AutoComputedElementNameField },
+      },
+      tailwindClassNames: {
+        nullable: true,
+        type: 'array',
+        items: {
+          type: 'string',
+        },
+      },
+      ...preRenderActions,
+      ...postRenderActions,
+      ...childMapperComponent,
+      ...childMapperPreviousSibling,
+      childMapperPropKey: {
+        label: 'Prop Key',
+        nullable: true,
+        type: 'string',
+        uniforms: { component: ExpressionAutoCompleteField },
+        extra:
+          'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
+      },
+      renderForEachPropKey: {
+        label: 'Render for each',
+        nullable: true,
         type: 'string',
       },
-    },
-    postRenderActions: {
-      nullable: true,
-      type: 'array',
-      items: {
-        type: 'object',
+      renderIfExpression: {
+        label: 'Render if',
+        nullable: true,
+        type: 'string',
+        uniforms: {
+          component: CodeMirrorField,
+          language: CodeMirrorLanguage.Javascript,
+          customOptions: renderIfAutoComplete,
+        },
+      },
+      renderType: {
+        label: 'Render Type',
         properties: {
-          ...idSchema({
-            uniforms: { component: SelectField },
-            label: 'Post Render action',
-          }),
+          id: {
+            type: 'string',
+          },
+          __typename: {
+            enum: [
+              IElementRenderTypeKind.Component,
+              IElementRenderTypeKind.Atom,
+            ],
+            type: 'string',
+          },
         },
-        required: [],
-      },
-    },
-    preRenderActions: {
-      nullable: true,
-      type: 'array',
-      items: {
+        uniforms: {
+          component: RenderTypeField,
+          parentComponent: element.closestContainerComponent,
+          parentElement: element.parentElement?.current,
+        },
+        required: ['id'],
         type: 'object',
-        properties: {
-          ...idSchema({
-            uniforms: { component: SelectField },
-            label: 'Pre Render action',
-          }),
-        },
-        required: [],
       },
     },
-    childMapperComponent: {
-      nullable: true,
-      properties: {
-        ...idSchema({
-          disabled: false,
-          label: 'Component',
-          uniforms: { component: SelectField },
-          extra:
-            'The component to render based on the length of the data source',
-        }),
+    errors: {
+      name: {
+        required: requiredMsg('Element name'),
+        minLength: minLengthMsg('Element name', 1),
+        pattern: titleCasePatternMsg('Element name'),
       },
-      required: [],
-      type: 'object',
     },
-    childMapperPreviousSibling: {
-      nullable: true,
-      properties: {
-        ...idSchema({
-          disabled: false,
-          uniforms: { component: SelectField },
-          label: 'Render next to',
-          extra: 'Component instances will be rendered next to this element',
-        }),
-        // extra: 'testing testing testing',
-      },
-      required: [],
-      type: 'object',
-    },
-    childMapperPropKey: {
-      label: 'Prop Key',
-      nullable: true,
-      type: 'string',
-      uniforms: {
-        component: ExpressionAutoCompleteField,
-      },
-      extra:
-        'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
-    },
-    renderForEachPropKey: {
-      label: 'Render for each',
-      nullable: true,
-      type: 'string',
-    },
-    renderIfExpression: {
-      label: 'Render if',
-      nullable: true,
-      type: 'string',
-    },
-    renderType: {
-      label: 'Render Type',
-      oneOf: [
-        {
-          properties: {
-            id: {
-              type: 'string',
-            },
-            __typename: {
-              enum: [IElementRenderTypeKind.Component],
-              type: 'string',
-            },
-          },
-          required: ['id'],
-          type: 'object',
-        },
-        {
-          properties: {
-            id: {
-              type: 'string',
-            },
-            __typename: {
-              enum: [IElementRenderTypeKind.Atom],
-              type: 'string',
-            },
-          },
-          required: ['id'],
-          type: 'object',
-        },
-      ],
-    },
-    // renderType: {
-    //   label: 'Render Type',
-    //   properties: {
-    //     id: {
-    //       type: 'string',
-    //     },
-    //     __typename: {
-    //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //       enum: Object.values(IElementRenderTypeKind),
-    //       nullable: true,
-    //       label: 'Render Type',
-    //       type: 'string',
-    //     },
-    //   },
-    //   required: ['id'],
-    //   type: 'object',
-    // },
-  },
-  errors: {
-    name: {
-      required: requiredMsg('Element name'),
-      minLength: minLengthMsg('Element name', 1),
-      pattern: titleCasePatternMsg('Element name'),
-    },
-  },
-  required: ['name', 'renderType'],
-  title: 'Update Element Input',
-  type: 'object',
-} as const
+    required: ['name', 'renderType'],
+    title: 'Update Element Input',
+    type: 'object',
+  }
+}

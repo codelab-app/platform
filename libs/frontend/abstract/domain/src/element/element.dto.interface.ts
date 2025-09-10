@@ -6,7 +6,9 @@ import type {
   ICreateElementData,
   IElementDto,
 } from '@codelab/shared-abstract-core'
+import type { Completion } from '@codemirror/autocomplete'
 
+import type { MoveData } from '../builder'
 import type { IElementModel } from './element.model.interface'
 
 export type IUpdateElementData = Pick<
@@ -41,7 +43,19 @@ export type ICreateElementSchemaBuilder = SchemaBuilder<
 
 export type IUpdateElementSchemaBuilder = SchemaBuilder<
   {
+    element: IElementModel
     elements: Array<SelectOption>
+    actions: Array<SelectOption>
+    components: Array<SelectOption>
+    renderIfAutoComplete: Array<Completion>
   },
-  IUpdateElementData
+  IUpdateBaseElementData
+>
+
+export type IMoveElementSchemaBuilder = SchemaBuilder<
+  {
+    parentElements: Array<SelectOption>
+    prevSiblingElements: Array<SelectOption>
+  },
+  MoveData
 >

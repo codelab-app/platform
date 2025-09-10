@@ -11,19 +11,14 @@ import {
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
-import {
-  CodeMirrorField,
-  Form,
-} from '@codelab/frontend-presentation-components-form'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared-abstract-core'
-import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
 
@@ -76,9 +71,6 @@ export const UpdateElementForm = observer(
       expandedFields.push('childMapper')
     }
 
-    const runtimeProps = runtimeElement.runtimeProps
-    const customOptions = createAutoCompleteOptions(runtimeProps.runtimeContext)
-
     // const codeMirrorField = useCustomCompareMemo(
     //   CodeMirrorField,
     //   [customOptions],
@@ -87,34 +79,15 @@ export const UpdateElementForm = observer(
 
     const collapseItems = [
       {
-        children: (
-          <AutoField
-            component={CodeMirrorField}
-            customOptions={customOptions}
-            language={CodeMirrorLanguage.Javascript}
-            name="renderIfExpression"
-          />
-        ),
+        children: <AutoField name="renderIfExpression" />,
         key: 'renderCondition',
         label: 'Render Condition',
       },
       {
         children: (
           <>
-            <AutoField
-              name="preRenderActions"
-              options={actionDomainService.getSelectActionOptions(
-                store,
-                providerStore,
-              )}
-            />
-            <AutoField
-              name="postRenderActions"
-              options={actionDomainService.getSelectActionOptions(
-                store,
-                providerStore,
-              )}
-            />
+            <AutoField name="preRenderActions" />
+            <AutoField name="postRenderActions" />
           </>
         ),
         key: 'actions',
@@ -127,23 +100,9 @@ export const UpdateElementForm = observer(
         children: (
           // We don't want a composite field since there is no top level name to nest under
           <>
-            <AutoField
-              name="childMapperComponent.id"
-              options={componentDomainService.getSelectOptions(
-                element.closestContainerComponent,
-              )}
-            />
-            <AutoField
-              name="childMapperPropKey"
-              options={runtimeElement.propKeyAutoCompleteOptions}
-            />
-            <AutoField
-              name="childMapperPreviousSibling.id"
-              options={elementDomainService.getSelectOptions(
-                element,
-                IElementTypeKind.ChildrenOnly,
-              )}
-            />
+            <AutoField name="childMapperComponent.id" />
+            <AutoField name="childMapperPropKey" />
+            <AutoField name="childMapperPreviousSibling.id" />
           </>
         ),
         key: 'childMapper',
@@ -154,6 +113,38 @@ export const UpdateElementForm = observer(
     // Form should be the source of the update we don't want to send those changes back
     const model = useMemo(() => element.toJson, [])
 
+    const runtimeProps = runtimeElement.runtimeProps
+
+    const renderIfAutoComplete = createAutoCompleteOptions(
+      runtimeProps.runtimeContext,
+    )
+
+    const actions = actionDomainService.getSelectActionOptions(
+      store,
+      providerStore,
+    )
+
+    const components = componentDomainService.getSelectOptions(
+      element.closestContainerComponent,
+    )
+
+    const elements = elementDomainService.getSelectOptions(
+      element,
+      IElementTypeKind.ChildrenOnly,
+    )
+
+    const schema = useMemo(
+      () =>
+        updateElementSchema({
+          renderIfAutoComplete,
+          actions,
+          components,
+          elements,
+          element,
+        }),
+      [components, elements, element, renderIfAutoComplete, actions],
+    )
+
     return (
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
@@ -161,15 +152,10 @@ export const UpdateElementForm = observer(
           errorMessage="Error while updating element"
           model={model}
           onSubmit={onSubmit}
-          schema={updateElementSchema}
+          schema={schema}
           uiKey={UiKey.ElementFormUpdate}
         >
           <AutoComputedElementNameField label="Name" name="name" />
-          <RenderTypeField
-            name="renderType"
-            parentComponent={element.closestContainerComponent}
-            parentElement={element.parentElement?.current}
-          />
           <AutoFields
             omitFields={[
               'childMapperComponent',
