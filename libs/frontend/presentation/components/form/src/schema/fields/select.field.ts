@@ -1,16 +1,14 @@
-import type { SelectOption } from '@codelab/frontend-abstract-types'
-import type { SelectProps } from 'antd'
+import type { FormItemProps } from 'antd'
+import type { SelectFieldProps } from 'uniforms-antd'
 
 import { SelectField } from 'uniforms-antd'
 
 export const selectField = (
-  options: Array<SelectOption>,
-  mode?: SelectProps['mode'],
+  props: Partial<SelectFieldProps & FormItemProps>,
 ) => ({
   uniforms: {
+    ...props,
     component: SelectField,
-    options,
-    mode,
     optionFilterProp: 'label',
     showSearch: true,
   },

@@ -1,33 +1,47 @@
-import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type { IRef } from '@codelab/shared-abstract-core'
-import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
-import type { SelectProps } from 'antd'
+import type { JSONSchemaType } from 'ajv'
 
 import { selectField } from './fields'
 
 export const selectFieldSchema = <T extends string>(
-  key: string,
+  key: T,
   label: string,
-  options: Array<SelectOption>,
-  mode?: SelectProps['mode'],
-) => {
-  const properties = {
+  props: Parameters<typeof selectField>[0],
+) =>
+  ({
     [key]: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
           label,
-          ...selectField(options, mode),
+          ...selectField(props),
         },
       },
       required: ['id'],
       label: '',
     },
-    // Cannot use [key: string], otherwise json schema spread won't work
-  }
+  } as JSONSchemaType<IRef>['properties'])
 
-  return properties as unknown as PropertiesSchema<{
-    [P in T]: IRef
-  }>
-}
+export const multiSelectFieldSchema = <T extends string>(
+  key: T,
+  label: string,
+  props: Parameters<typeof selectField>[0],
+) =>
+  ({
+    [key]: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            label,
+            ...selectField(props),
+          },
+        },
+        required: ['id'],
+        label: '',
+      },
+    },
+  } as JSONSchemaType<Array<IRef>>['properties'])

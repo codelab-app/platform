@@ -1,7 +1,7 @@
 'use client'
 
+import type { ICreateElementData } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
-import type { IElementDto } from '@codelab/shared-abstract-core'
 
 import { isRuntimeElement } from '@codelab/frontend-abstract-application'
 import { isPage } from '@codelab/frontend-abstract-domain'
@@ -17,13 +17,10 @@ import {
   IElementTypeKind,
 } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { useMemo } from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
-import type { ICreateElementDto } from './create-element.schema'
-
-import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services/element.service'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
 import { createElementSchema } from './create-element.schema'
@@ -66,7 +63,7 @@ export const CreateElementForm = observer<IFormController>((props) => {
     ? selectedElement.closestContainerNode.providerPage?.store.current
     : undefined
 
-  const onSubmit = (data: IElementDto) => {
+  const onSubmit = (data: ICreateElementData) => {
     const isValidParent = validateParentForCreate(
       data.renderType.id,
       data.parentElement?.id,
@@ -105,64 +102,42 @@ export const CreateElementForm = observer<IFormController>((props) => {
       __typename: IElementRenderTypeKind.Atom,
       id: atomDomainService.defaultRenderType.id,
     },
-  }
+  } as ICreateElementData
+
+  const elements = elementDomainService.getSelectOptions(
+    selectedElement,
+    IElementTypeKind.AllElements,
+    [model.id],
+  )
+
+  const actions = actionDomainService.getSelectActionOptions(
+    store,
+    providerStore,
+  )
+
+  const schema = useMemo(
+    () =>
+      createElementSchema({
+        selectedElement,
+        elements,
+        actions,
+      }),
+    [elements, actions, selectedElement],
+  )
 
   return (
-    <Form<ICreateElementDto>
+    <Form<ICreateElementData>
       cssString="position: relative;"
       errorMessage="Error while creating element"
       model={model}
       onSubmit={onSubmit}
       onSubmitSuccess={onSubmitSuccess}
-      schema={createElementSchema}
+      schema={schema}
       submitRef={submitRef}
       successMessage="Element created successfully"
       uiKey={UiKey.ElementFormCreate}
     >
-      <AutoFields
-        omitFields={[
-          'id',
-          'parentElement',
-          'style',
-          'propsData',
-          'preRenderActions',
-          'postRenderActions',
-          'renderType',
-          'name',
-          'props',
-          'tailwindClassNames',
-        ]}
-      />
-      <AutoField name="props.data" />
-      <AutoField
-        extra={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
-        name="parentElement.id"
-        options={elementDomainService.getSelectOptions(
-          selectedElement,
-          IElementTypeKind.AllElements,
-          [model.id],
-        )}
-      />
-      <RenderTypeField
-        name="renderType"
-        parentComponent={selectedElement.closestContainerComponent}
-        parentElement={selectedElement}
-      />
-      <AutoField
-        name="preRenderActions"
-        options={actionDomainService.getSelectActionOptions(
-          store,
-          providerStore,
-        )}
-      />
-      <AutoField
-        name="postRenderActions"
-        options={actionDomainService.getSelectActionOptions(
-          store,
-          providerStore,
-        )}
-      />
-      <AutoComputedElementNameField label="Name" name="name" />
+      <AutoFields />
     </Form>
   )
 })

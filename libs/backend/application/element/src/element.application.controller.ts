@@ -1,7 +1,6 @@
-import {
-  CreateElementDataSchema,
-  type ICreateElementData,
-} from '@codelab/shared-abstract-core'
+import type { ICreateElementData } from '@codelab/shared-abstract-core'
+
+import { CreateElementDataSchema } from '@codelab/shared-abstract-core'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -14,7 +13,7 @@ import { ApiResponse } from '@nestjs/swagger'
 import { Type } from '@sinclair/typebox'
 import { HttpEndpoint } from 'nestjs-typebox'
 
-import { ElementApplicationService } from './element.application.service'
+import type { ElementApplicationService } from './element.application.service'
 
 @Controller('element')
 export class ElementApplicationController {
