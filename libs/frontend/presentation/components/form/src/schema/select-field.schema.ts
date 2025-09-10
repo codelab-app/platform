@@ -37,7 +37,10 @@ export const multiSelectFieldSchema = <T extends string>(
           id: {
             type: 'string',
             label,
-            ...selectField(props),
+            ...selectField({
+              ...props,
+              mode: 'multiple',
+            }),
           },
         },
         required: ['id'],

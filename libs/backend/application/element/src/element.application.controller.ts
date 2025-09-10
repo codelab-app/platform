@@ -1,6 +1,7 @@
-import type { ICreateElementData } from '@codelab/shared-abstract-core'
-
-import { CreateElementDataSchema } from '@codelab/shared-abstract-core'
+import {
+  CreateElementDataSchema,
+  type ICreateElementData,
+} from '@codelab/shared-abstract-core'
 import {
   Body,
   ClassSerializerInterceptor,

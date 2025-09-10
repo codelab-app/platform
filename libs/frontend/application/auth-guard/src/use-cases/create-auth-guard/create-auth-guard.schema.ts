@@ -9,7 +9,7 @@ import {
 import {
   idSchema,
   nonEmptyString,
-  ownerSchema,
+  refSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { HttpMethod, HttpResponseType } from '@codelab/shared-abstract-core'
@@ -23,7 +23,7 @@ export const createAuthGuardSchema: ICreateAuthGuardSchemaBuilder = ({
   ({
     properties: {
       ...idSchema,
-      ...ownerSchema,
+      ...refSchema('owner', 'Owner'),
       name: {
         autoFocus: true,
         ...nonEmptyString,

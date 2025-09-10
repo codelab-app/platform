@@ -8,6 +8,7 @@ import { filterNotHookType } from '@codelab/frontend-abstract-domain'
 import {
   cdnEsmValidation,
   idSchema,
+  multiSelectFieldSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IAtomType } from '@codelab/shared-abstract-core'
@@ -15,9 +16,29 @@ import { SelectField } from 'uniforms-antd'
 
 export const createAtomSchema: ICreateAtomSchemaBuilder = ({
   atoms,
-  tags,
+  tagsOptions,
 }): JSONSchemaType<ICreateAtomData> => {
   const atomTypes = Object.values(IAtomType).filter(filterNotHookType)
+
+  const tags = multiSelectFieldSchema('tags', 'Connect Tag', {
+    options: tagsOptions,
+  })
+
+  const requiredParents = multiSelectFieldSchema(
+    'requiredParents',
+    'Required Parents',
+    {
+      options: atoms,
+    },
+  )
+
+  const suggestedChildren = multiSelectFieldSchema(
+    'suggestedChildren',
+    'Suggested Children',
+    {
+      options: atoms,
+    },
+  )
 
   return {
     title: 'Create Atom',
@@ -45,68 +66,9 @@ export const createAtomSchema: ICreateAtomSchemaBuilder = ({
       //     component: () => null,
       //   },
       // },
-      tags: {
-        items: {
-          properties: {
-            ...idSchema({
-              label: 'Connect Tag',
-              uniforms: {
-                component: SelectField,
-                mode: 'multiple',
-                optionFilterProp: 'label',
-                options: tags,
-                showSearch: true,
-              },
-            }),
-          },
-          required: ['id'],
-          type: 'object',
-        },
-        nullable: true,
-        showSearch: true,
-        type: 'array',
-      },
-      requiredParents: {
-        items: {
-          type: 'object',
-          properties: {
-            ...idSchema({
-              label: 'Required Parents',
-              disabled: false,
-              uniforms: {
-                component: SelectField,
-                options: atoms,
-              },
-            }),
-          },
-          required: ['id'],
-        },
-        nullable: true,
-        showSearch: true,
-        type: 'array',
-      },
-      suggestedChildren: {
-        items: {
-          type: 'object',
-          properties: {
-            ...idSchema({
-              label: 'Suggested Children',
-              disabled: false,
-              uniforms: {
-                component: SelectField,
-                mode: 'multiple',
-                optionFilterProp: 'label',
-                options: atoms,
-                showSearch: true,
-              },
-            }),
-          },
-          required: ['id'],
-        },
-        nullable: true,
-        showSearch: true,
-        type: 'array',
-      },
+      ...tags,
+      ...requiredParents,
+      ...suggestedChildren,
       externalCssSource: {
         nullable: true,
         ...nonEmptyString,

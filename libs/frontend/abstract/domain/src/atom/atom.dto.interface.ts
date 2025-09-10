@@ -24,7 +24,7 @@ export type IUpdateAtomData = Static<typeof UpdateAtomDataSchema>
 export const CreateAtomDataSchema = Type.Omit(UpdateAtomDataSchema, ['api'])
 
 export type ICreateAtomSchemaBuilder = SchemaBuilder<
-  { tags: Array<SelectOption>; atoms: Array<SelectOption> },
+  { tagsOptions: Array<SelectOption>; atoms: Array<SelectOption> },
   ICreateAtomData
 >
 
