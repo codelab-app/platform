@@ -1591,267 +1591,6 @@ KubernetesService = (0,external_tslib_namespaceObject.__decorate)([
 ], KubernetesService);
 
 
-;// ../../libs/backend/infra/adapter/cli/src/commands/packer/packer.types.ts
-var PackerImage;
-(function (PackerImage) {
-    PackerImage["Api"] = "api";
-    PackerImage["Base"] = "base";
-    PackerImage["ConsulServer"] = "consul-server";
-    PackerImage["Grafana"] = "grafana";
-    PackerImage["Landing"] = "landing";
-    PackerImage["Neo4j"] = "neo4j";
-    PackerImage["Sites"] = "sites";
-    PackerImage["Web"] = "web";
-})(PackerImage || (PackerImage = {}));
-
-;// ../../libs/backend/infra/adapter/cli/src/commands/packer/packer.service.ts
-
-
-
-
-
-
-let PackerService = class PackerService {
-    constructor() {
-        Object.defineProperty(this, "command", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'packer'
-        });
-        Object.defineProperty(this, "describe", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'Packer commands for building machine images'
-        });
-        // Reusable middleware functions
-        Object.defineProperty(this, "fetchConsulEncryptKey", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: (args) => {
-                console.log('Fetching CONSUL_ENCRYPT_KEY from prod-packer workspace...');
-                const result = $.sync({
-                    cwd: 'infra/terraform/environments/prod-packer',
-                }) `terraform output -raw consul_encrypt_key`;
-                args['consulEncryptKey'] = result.stdout.trim();
-                console.log('✓ CONSUL_ENCRYPT_KEY fetched successfully');
-            }
-        });
-        Object.defineProperty(this, "fetchDigitalOceanToken", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: (args) => {
-                const digitaloceanApiToken = (0,external_env_var_namespaceObject.get)('DIGITALOCEAN_API_TOKEN')
-                    .required()
-                    .asString();
-                args['digitaloceanApiToken'] = digitaloceanApiToken;
-            }
-        });
-        Object.defineProperty(this, "packerDir", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'infra/packer'
-        });
-        this.builder = this.builder.bind(this);
-    }
-    builder(yargv) {
-        return yargv
-            .command('build [images..]', 'Build Packer images', (argv) => argv
-            .middleware(this.fetchDigitalOceanToken)
-            .middleware(this.fetchConsulEncryptKey)
-            .positional('images', {
-            describe: 'Images to build (defaults to all)',
-            type: 'string',
-            array: true,
-            choices: Object.values(PackerImage),
-            default: Object.values(PackerImage),
-        }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-            const imageDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images');
-            // Set up cleanup handler for Ctrl+C
-            const cleanup = () => {
-                this.cleanupDroplets(digitaloceanApiToken);
-                this.cleanupSnapshots(images, digitaloceanApiToken);
-            };
-            try {
-                $stream.sync `cd ${imageDir} && packer init .`;
-                // Check if base image is in the list and needs to be built first
-                const hasBase = images.includes(PackerImage.Base);
-                const otherImages = images.filter((img) => img !== PackerImage.Base);
-                if (hasBase) {
-                    // Build base image first
-                    console.log('Building base image first...');
-                    this.createImages([PackerImage.Base], imageDir, consulEncryptKey, digitaloceanApiToken);
-                }
-                // Build remaining images in parallel
-                if (otherImages.length > 0) {
-                    this.createImages(otherImages, imageDir, consulEncryptKey, digitaloceanApiToken);
-                }
-            }
-            finally {
-                cleanup();
-            }
-        }))
-            .command('validate [images..]', 'Validate Packer templates', (argv) => argv
-            .middleware(this.fetchDigitalOceanToken)
-            .middleware(this.fetchConsulEncryptKey)
-            .positional('images', {
-            describe: 'Images to validate (defaults to all)',
-            type: 'string',
-            array: true,
-            choices: Object.values(PackerImage),
-            default: Object.values(PackerImage),
-        }), globalHandler(({ consulEncryptKey, digitaloceanApiToken, images }) => {
-            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images');
-            // Initialize once for all validations
-            $stream.sync({ cwd: servicesDir }) `packer init .`;
-            // Build the -only flag for validation
-            const onlyFlags = images
-                .map((image) => {
-                return `digitalocean.${image}`;
-            })
-                .join(',');
-            console.log(`Validating ${images.length} image(s)...`);
-            // Validate all requested images at once
-            $stream.sync `cd ${servicesDir} && packer validate -timestamp-ui -only='${onlyFlags}' -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
-        }))
-            .command('list-images', 'List Packer-built images in DigitalOcean', (argv) => argv, globalHandler(() => {
-            $stream.sync `doctl compute image list --public=false | grep "codelab-.*-base"`;
-        }))
-            .command('init', 'Initialize Packer configuration', (argv) => argv, globalHandler(() => {
-            // Initialize the images directory
-            const servicesDir = (0,external_path_namespaceObject.join)(this.packerDir, 'images');
-            $stream.sync({ cwd: servicesDir }) `packer init .`;
-        }))
-            .command('fmt', 'Format Packer configuration files', (argv) => argv.options({
-            check: {
-                describe: 'Check if files are formatted (exit 1 if not)',
-                type: 'boolean',
-                default: false,
-            },
-        }), globalHandler(({ check }) => {
-            if (check) {
-                $stream.sync `packer fmt -check ${this.packerDir}`;
-            }
-            else {
-                $stream.sync `packer fmt ${this.packerDir}`;
-            }
-        }))
-            .command('get-latest-snapshot', 'Get the latest snapshot ID', (argv) => argv.middleware(this.fetchDigitalOceanToken).option('service', {
-            describe: 'Service name (default: base)',
-            type: 'string',
-            default: 'base',
-        }), globalHandler(({ digitaloceanApiToken, service }) => {
-            const snapshotId = this.getLatestSnapshot(service, digitaloceanApiToken);
-            if (!snapshotId) {
-                console.error(`Error: No snapshot found for service: ${service}`);
-                process.exit(1);
-            }
-            // Output JSON format for Packer's external data source
-            console.log(JSON.stringify({ id: snapshotId }));
-        }))
-            .command('cleanup', 'Clean up old Packer snapshots (keeps only latest)', (argv) => argv.middleware(this.fetchDigitalOceanToken), globalHandler(({ digitaloceanApiToken }) => {
-            this.cleanupSnapshots(Object.values(PackerImage), digitaloceanApiToken);
-        }))
-            .demandCommand(1, 'Please provide a command');
-    }
-    handler(_args) {
-        // Handler implementation if needed
-    }
-    /**
-     * Clean up Packer droplets
-     */
-    cleanupDroplets(digitaloceanApiToken) {
-        $.sync({
-            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute droplet list --format ID,Name --no-header | grep "packer-" | awk '{print $1}' | xargs -I {} doctl compute droplet delete {} --force 2>/dev/null || true`;
-    }
-    /**
-     * Clean up old snapshots for given images
-     */
-    cleanupSnapshots(images, digitaloceanApiToken) {
-        const allSnapshots = this.getAllSnapshots(digitaloceanApiToken);
-        // Group snapshots by image type and collect old ones to delete
-        const idsToDelete = images.flatMap((image) => {
-            // Filter snapshots for this image type
-            const imageSnapshots = allSnapshots
-                .filter((snap) => snap.name.includes(`codelab-${image}-`))
-                // Sort by creation date descending (newest first)
-                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-            if (imageSnapshots.length > 0) {
-                console.log(`Found ${imageSnapshots.length} snapshots for ${image}:`);
-                console.log(`  Keeping: ${imageSnapshots[0]?.name} (${imageSnapshots[0]?.createdAt})`);
-                if (imageSnapshots.length > 1) {
-                    console.log(`  Deleting: ${imageSnapshots
-                        .slice(1)
-                        .map((snap) => snap.name)
-                        .join(', ')}`);
-                }
-            }
-            // Return IDs of all except the newest
-            return imageSnapshots.slice(1).map((snapshot) => snapshot.id);
-        });
-        // Delete all snapshots in a single command
-        if (idsToDelete.length > 0) {
-            console.log(`Deleting ${idsToDelete.length} old snapshots: ${idsToDelete.join(' ')}`);
-            $.sync({
-                env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-            }) `doctl compute snapshot delete ${idsToDelete} --force || true`;
-        }
-        console.log('\nCurrent snapshots:');
-        const pattern = images.map((img) => `codelab-${img}-`).join('\\|');
-        $.sync({
-            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format Name,Size,CreatedAt | (grep "${pattern}" || true)`;
-    }
-    /**
-     * Create Packer images
-     */
-    createImages(images, imageDir, consulEncryptKey, digitaloceanApiToken) {
-        const onlyFlag = images.map((img) => `digitalocean.${img}`).join(',');
-        $stream.sync `cd ${imageDir} && packer build -timestamp-ui -only=${onlyFlag} -var digitalocean_api_token=${digitaloceanApiToken} -var consul_encrypt_key=${consulEncryptKey} .`;
-    }
-    /**
-     * Get all snapshots from DigitalOcean
-     */
-    getAllSnapshots(digitaloceanApiToken) {
-        const result = $.sync({
-            verbose: false,
-            env: { ...process.env, DIGITALOCEAN_API_TOKEN: digitaloceanApiToken },
-        }) `doctl compute snapshot list --format ID,Name,CreatedAt --no-header`;
-        return result.stdout
-            .trim()
-            .split('\n')
-            .filter((line) => line)
-            .map((line) => {
-            const parts = line.split(/\s+/);
-            return {
-                id: parts[0],
-                name: parts[1],
-                createdAt: parts.slice(2).join(' '),
-            };
-        });
-    }
-    /**
-     * Get the latest snapshot for a specific service
-     */
-    getLatestSnapshot(service, digitaloceanApiToken) {
-        const pattern = `codelab-${service}`;
-        const snapshots = this.getAllSnapshots(digitaloceanApiToken)
-            .filter((snap) => snap.name.includes(pattern))
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        return snapshots[0]?.id || null;
-    }
-};
-PackerService = (0,external_tslib_namespaceObject.__decorate)([
-    (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
-], PackerService);
-
-
 ;// ../../libs/backend/infra/adapter/cli/src/commands/terraform/terraform.service.ts
 
 
@@ -2332,7 +2071,7 @@ const helpers_namespaceObject = require("yargs/helpers");
 
 
 let CommandService = class CommandService {
-    constructor(dockerService, kubernetesService, packerService, 
+    constructor(dockerService, kubernetesService, 
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     terraformService, taskService) {
@@ -2347,12 +2086,6 @@ let CommandService = class CommandService {
             configurable: true,
             writable: true,
             value: kubernetesService
-        });
-        Object.defineProperty(this, "packerService", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: packerService
         });
         Object.defineProperty(this, "terraformService", {
             enumerable: true,
@@ -2407,10 +2140,6 @@ let CommandService = class CommandService {
              */
             .command(this.kubernetesService)
             /**
-             * Packer - Machine image builder
-             */
-            .command(this.packerService)
-            /**
              * Terraform
              */
             .command(this.terraformService)
@@ -2424,7 +2153,7 @@ let CommandService = class CommandService {
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [Object, Object, Object, Object, Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [Object, Object, Object, Object])
 ], CommandService);
 
 
@@ -2455,7 +2184,6 @@ CommandModule = (0,external_tslib_namespaceObject.__decorate)([
             CommandService,
             DockerService,
             KubernetesService,
-            PackerService,
             // SeedService,
             // ScrapeAntdService,
             // ScrapeHtmlService,

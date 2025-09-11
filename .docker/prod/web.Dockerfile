@@ -102,7 +102,14 @@ RUN echo "=== Environment Variables ===" && \
     echo "=== Extracting cache miss information ===" && \
     grep -E "computation hash|cache miss|inputs changed|Hash mismatch|File changed|Cache key|NX Cloud" build.log || true && \
     echo "=== Checking local cache entries ===" && \
-    ls -la .nx/cache 2>/dev/null | head -20 || true || \
+    ls -la .nx/cache 2>/dev/null | head -20 || true && \
+    echo "=== Build Output Check ===" && \
+    echo "Checking if dist/apps/web exists:" && \
+    ls -la dist/apps/ 2>/dev/null || echo "dist/apps does not exist" && \
+    echo "Checking if dist/apps/web/.next exists:" && \
+    ls -la dist/apps/web/.next 2>/dev/null || echo "dist/apps/web/.next does not exist" && \
+    echo "Full dist structure:" && \
+    find dist -type d -maxdepth 3 2>/dev/null || echo "dist directory structure not found" || \
     (echo "Build failed, checking Nx report..." && \
      cat node_modules/.cache/nx/d/daemon.log 2>/dev/null || true && \
      cat .nx/report.json 2>/dev/null || true && \
