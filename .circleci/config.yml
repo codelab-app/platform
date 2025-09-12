@@ -672,11 +672,6 @@ jobs:
     steps:
       - checkout
       - setup-env
-      - install-nvm
-      - install-pnpm
-      - install-packages
-      - install-terraform
-      - install-doctl
       - install-docker-cli
       - login-docker
       - persist_to_workspace:

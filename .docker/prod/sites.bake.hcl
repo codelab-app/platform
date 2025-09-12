@@ -1,10 +1,10 @@
 # Sites service specific bake configuration
 # Import base configuration
+import "./base.bake.hcl"
+
 group "default" {
   targets = ["sites"]
 }
-
-import "./base.bake.hcl"
 
 # Sites-specific variables  
 variable "NEXT_PUBLIC_SUPABASE_URL" {}

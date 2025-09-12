@@ -1,10 +1,10 @@
 # Landing service specific bake configuration
 # Import base configuration
+import "./base.bake.hcl"
+
 group "default" {
   targets = ["landing"]
 }
-
-import "./base.bake.hcl"
 
 # Landing-specific variables
 variable "NEXT_PUBLIC_SUPABASE_URL" {}

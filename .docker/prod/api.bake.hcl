@@ -1,10 +1,10 @@
 # API service specific bake configuration
 # Import base configuration
+import "./base.bake.hcl"
+
 group "default" {
   targets = ["api"]
 }
-
-import "./base.bake.hcl"
 
 target "api" {
   inherits = ["base"]

@@ -1,10 +1,10 @@
 # Web service specific bake configuration
 # Import base configuration
+import "./base.bake.hcl"
+
 group "default" {
   targets = ["web"]
 }
-
-import "./base.bake.hcl"
 
 # Web-specific variables
 variable "AUTH0_SECRET" {}
