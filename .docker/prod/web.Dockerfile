@@ -71,25 +71,49 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Enable Nx Cloud for caching
 ENV NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
 
-# Disable Nx daemon in Docker builds
-ENV NX_DAEMON=false
+# Enable maximum Nx debug logging to diagnose cache issues
+# This will show computation hash, cache miss reasons, and inputs changed
+ENV NX_VERBOSE_LOGGING=true
 ENV NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT=0
-# Set cache directory
+ENV NX_DAEMON=false
+# Add more detailed cache debugging
 ENV NX_CACHE_DIRECTORY=/usr/src/codelab/.nx/cache
+ENV NX_CLOUD_DEBUG=true
+# This helps show what's being included in the hash computation
+ENV NX_PERF_LOGGING=true
 
 WORKDIR /usr/src/codelab
 
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
-# Build the application
-RUN echo "=== Building web application ===" && \
-    pnpm nx build web && \
+# Run with additional debugging flags
+# First, let's see what Nx thinks the inputs are
+RUN echo "=== Environment Variables ===" && \
+    env | grep -E "^(NEXT_PUBLIC_|NODE_ENV|NX_)" | sort && \
+    echo "=== Checking Nx inputs ===" && \
+    pnpm nx show project web --json | jq '.targets.build.inputs' && \
+    echo "=== Computing hash for web:build ===" && \
+    pnpm nx hash web:build --verbose && \
+    echo "=== Checking affected projects ===" && \
+    pnpm nx affected:graph --target=build --verbose && \
+    echo "=== Running build with maximum cache debugging ===" && \
+    pnpm nx build web --verbose --skip-nx-cache=false 2>&1 | tee build.log && \
+    echo "=== Extracting cache miss information ===" && \
+    grep -E "computation hash|cache miss|inputs changed|Hash mismatch|File changed|Cache key|NX Cloud" build.log || true && \
+    echo "=== Checking local cache entries ===" && \
+    ls -la .nx/cache 2>/dev/null | head -20 || true && \
     echo "=== Build Output Check ===" && \
     echo "Checking if dist/apps/web exists:" && \
-    ls -la dist/apps/web 2>/dev/null || echo "dist/apps/web does not exist" && \
-    echo "Checking .next directory:" && \
-    ls -la dist/apps/web/.next 2>/dev/null || echo ".next directory not found"
+    ls -la dist/apps/ 2>/dev/null || echo "dist/apps does not exist" && \
+    echo "Checking if dist/apps/web/.next exists:" && \
+    ls -la dist/apps/web/.next 2>/dev/null || echo "dist/apps/web/.next does not exist" && \
+    echo "Full dist structure:" && \
+    find dist -type d -maxdepth 3 2>/dev/null || echo "dist directory structure not found" || \
+    (echo "Build failed, checking Nx report..." && \
+     cat node_modules/.cache/nx/d/daemon.log 2>/dev/null || true && \
+     cat .nx/report.json 2>/dev/null || true && \
+     exit 1)
 
 #
 # (2) Prod

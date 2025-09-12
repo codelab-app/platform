@@ -84,7 +84,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # NX cache doesn't take into account environment variables
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
-RUN pnpm nx build landing
+RUN pnpm nx build landing --verbose
 
 #
 # (2) Prod
