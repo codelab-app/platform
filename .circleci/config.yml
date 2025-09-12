@@ -448,13 +448,7 @@ jobs:
             docker buildx inspect --bootstrap
           name: Setup Docker Buildx
       - run:
-          command: |
-            # Debug: Check if AUTH0 variables are available in environment
-            echo "Checking AUTH0 environment variables..."
-            echo "AUTH0_DOMAIN is: ${AUTH0_DOMAIN:-(not set)}"
-            echo "AUTH0_CLIENT_ID is: ${AUTH0_CLIENT_ID:-(not set)}"
-            # Run bake with environment variables
-            docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/web.bake.hcl --push --progress=plain
+          command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/web.bake.hcl --push --progress=plain
           name: Build and Push Web Docker Image
   e2e:
     environment:
