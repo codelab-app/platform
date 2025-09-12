@@ -22,7 +22,8 @@
     "prepare": "husky",
     "knip": "knip",
     "aider": "node scripts/aider/run.js",
-    "browser-tools": "npx @agentdeskai/browser-tools-server@latest"
+    "browser-tools": "npx @agentdeskai/browser-tools-server@latest",
+    "cpack": "./scripts/circleci/circleci-pack.sh"
   },
   "private": true,
   "validate-branch-name": {

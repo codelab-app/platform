@@ -986,14 +986,14 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
       - tf-plan:
           filters:
             branches:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           name: tf-plan-ci
           requires:
             - setup-infra-workspace
@@ -1004,7 +1004,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           name: tf-apply-ci
           requires:
             - tf-plan-ci
@@ -1017,7 +1017,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - setup-infra-workspace
       - docker-api:
@@ -1028,7 +1028,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - setup-infra-workspace
       - docker-sites:
@@ -1039,7 +1039,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - setup-infra-workspace
       - docker-landing:
@@ -1050,7 +1050,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - setup-infra-workspace
       - tf-plan:
@@ -1059,7 +1059,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - docker-web
             - docker-api
@@ -1072,7 +1072,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - tf-plan
           type: approval
@@ -1082,7 +1082,7 @@ workflows:
               only:
                 - staging
             tags:
-              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - hold-apply
           stage: prod
