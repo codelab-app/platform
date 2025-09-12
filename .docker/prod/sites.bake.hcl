@@ -3,10 +3,16 @@ group "default" {
   targets = ["sites"]
 }
 
-# Sites-specific variables  
+# Sites-specific variables
 variable "NEXT_PUBLIC_SUPABASE_URL" {}
 variable "NEXT_PUBLIC_SUPABASE_KEY" {}
 variable "SUPABASE_DB_PASS" {}
+
+# Web-specific variables
+variable "AUTH0_SECRET" {}
+variable "AUTH0_DOMAIN" {}
+variable "AUTH0_CLIENT_ID" {}
+variable "AUTH0_CLIENT_SECRET" {}
 
 target "sites" {
   inherits = ["base"]
