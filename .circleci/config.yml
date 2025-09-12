@@ -672,10 +672,12 @@ jobs:
           name: Push Docker Image
   setup-infra-workspace:
     executor: docker-node-amd64
-    resource_class: medium
+    resource_class: large
     steps:
       - checkout
       - setup-env
+      - install-pnpm
+      - install-packages
       - login-docker
       - persist_to_workspace:
           paths:
