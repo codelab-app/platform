@@ -405,7 +405,7 @@ jobs:
           docker_layer_caching: true
       - install-docker-cli
       - run:
-          command: docker buildx bake --file .docker/prod/api.bake.hcl --push --progress=plain
+          command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/api.bake.hcl --push --progress=plain
           name: Build and Push API Docker Image
   docker-landing:
     environment:
@@ -418,7 +418,7 @@ jobs:
           docker_layer_caching: true
       - install-docker-cli
       - run:
-          command: docker buildx bake --file .docker/prod/landing.bake.hcl --push --progress=plain
+          command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/landing.bake.hcl --push --progress=plain
           name: Build and Push Landing Docker Image
   docker-sites:
     environment:
@@ -431,7 +431,7 @@ jobs:
           docker_layer_caching: true
       - install-docker-cli
       - run:
-          command: docker buildx bake --file .docker/prod/sites.bake.hcl --push --progress=plain
+          command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/sites.bake.hcl --push --progress=plain
           name: Build and Push Sites Docker Image
   docker-web:
     environment:
@@ -444,7 +444,7 @@ jobs:
           docker_layer_caching: true
       - install-docker-cli
       - run:
-          command: docker buildx bake --file .docker/prod/web.bake.hcl --push --progress=plain
+          command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/web.bake.hcl --push --progress=plain
           name: Build and Push Web Docker Image
   e2e:
     environment:

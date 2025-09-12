@@ -1,7 +1,4 @@
 # Sites service specific bake configuration
-# Import base configuration
-import "./base.bake.hcl"
-
 group "default" {
   targets = ["sites"]
 }

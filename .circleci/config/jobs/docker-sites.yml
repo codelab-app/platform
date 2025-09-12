@@ -14,4 +14,4 @@ steps:
   # Build for AMD64 architecture since DigitalOcean Kubernetes only supports AMD64 nodes, not ARM
   - run:
       name: 'Build and Push Sites Docker Image'
-      command: docker buildx bake --file .docker/prod/sites.bake.hcl --push --progress=plain
+      command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/sites.bake.hcl --push --progress=plain
