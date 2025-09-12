@@ -1,4 +1,4 @@
-executor: docker-node-x86
+executor: docker-browser-amd64
 
 resource_class: medium
 

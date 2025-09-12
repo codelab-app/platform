@@ -336,6 +336,12 @@ commands:
           working_directory: .docker/cypher/scripts
 environment: null
 executors:
+  docker-browser-amd64:
+    docker:
+      - image: cimg/node:22.14.0-browsers
+  docker-node-amd64:
+    docker:
+      - image: cimg/node:22.14.0
   docker-node-arm64:
     docker:
       - image: node:22
@@ -348,9 +354,6 @@ executors:
           NEO4J_PLUGINS: '["apoc"]'
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.3-enterprise
-  docker-node-x86:
-    docker:
-      - image: cimg/node:22.14.0-browsers
 jobs:
   build-nx-apps:
     environment:
@@ -397,52 +400,53 @@ jobs:
           command: pnpm cli tasks workspace-codegen --stage ci
           name: Check Generate Workspace
   docker-api:
-    executor: docker-node-arm64
-    resource_class: arm.medium
+    executor: docker-node-amd64
+    resource_class: medium
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
-      - install-docker-cli
       - run:
           command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/api.bake.hcl --push --progress=plain
           name: Build and Push API Docker Image
   docker-landing:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node-arm64
-    resource_class: arm.large
+    executor: docker-node-amd64
+    resource_class: large
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
-      - install-docker-cli
       - run:
           command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/landing.bake.hcl --push --progress=plain
           name: Build and Push Landing Docker Image
   docker-sites:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node-arm64
-    resource_class: arm.large
+    executor: docker-node-amd64
+    resource_class: large
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
-      - install-docker-cli
       - run:
           command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/sites.bake.hcl --push --progress=plain
           name: Build and Push Sites Docker Image
   docker-web:
     environment:
       NODE_OPTIONS: --max-old-space-size=6144
-    executor: docker-node-arm64
-    resource_class: arm.large
+    executor: docker-node-amd64
+    resource_class: large
     steps:
       - restore-workspace
       - setup_remote_docker:
           docker_layer_caching: true
-      - install-docker-cli
+      - run:
+          command: |
+            docker buildx create --name mybuilder --use
+            docker buildx inspect --bootstrap
+          name: Setup Docker Buildx
       - run:
           command: docker buildx bake --file .docker/prod/base.bake.hcl --file .docker/prod/web.bake.hcl --push --progress=plain
           name: Build and Push Web Docker Image
@@ -566,7 +570,7 @@ jobs:
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
-    executor: docker-node-x86
+    executor: docker-browser-amd64
     resource_class: medium
     steps:
       - swissknife/wait_for_job:
@@ -576,7 +580,7 @@ jobs:
           event: fail
           template: basic_fail_1
   notify-success:
-    executor: docker-node-x86
+    executor: docker-browser-amd64
     resource_class: medium
     steps:
       - slack/notify:
@@ -667,12 +671,11 @@ jobs:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
   setup-infra-workspace:
-    executor: docker-node-arm64
-    resource_class: arm.large
+    executor: docker-node-amd64
+    resource_class: large
     steps:
       - checkout
       - setup-env
-      - install-docker-cli
       - login-docker
       - persist_to_workspace:
           paths:

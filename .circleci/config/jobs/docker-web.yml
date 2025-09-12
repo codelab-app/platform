@@ -1,6 +1,6 @@
-executor: docker-node-arm64
+executor: docker-node-amd64
 
-resource_class: arm.large
+resource_class: large
 
 environment:
   NODE_OPTIONS: --max-old-space-size=6144
@@ -10,7 +10,11 @@ steps:
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
   - setup_remote_docker:
       docker_layer_caching: true
-  - install-docker-cli
+  - run:
+      name: Setup Docker Buildx
+      command: |
+        docker buildx create --name mybuilder --use
+        docker buildx inspect --bootstrap
   # Build for AMD64 architecture since DigitalOcean Kubernetes only supports AMD64 nodes, not ARM
   - run:
       name: 'Build and Push Web Docker Image'

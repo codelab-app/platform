@@ -1,0 +1,4 @@
+# AMD64 Docker executor with browser tools for E2E testing
+# Includes Chrome, Firefox, and other browser testing utilities
+docker:
+  - image: cimg/node:22.14.0-browsers

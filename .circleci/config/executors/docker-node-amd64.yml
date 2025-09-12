@@ -1,0 +1,4 @@
+# AMD64 Docker executor for running Docker builds
+# Uses CircleCI convenience image with Docker tools pre-installed
+docker:
+  - image: cimg/node:22.14.0

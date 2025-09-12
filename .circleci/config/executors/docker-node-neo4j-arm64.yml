@@ -1,3 +1,4 @@
+# ARM64 Docker executor with Neo4j database for testing
 # Docker containers work on a merged networking stack, the second container should make it available in localhost
 # https://discuss.circleci.com/t/whats-the-docker-hostname-for-the-second-container/20101
 docker:

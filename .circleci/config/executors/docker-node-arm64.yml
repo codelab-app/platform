@@ -1,2 +1,4 @@
+# ARM64 Docker executor for general CI tasks
+# Uses standard Node.js image, but need to install docker separately
 docker:
   - image: node:22
