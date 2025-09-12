@@ -6,8 +6,8 @@ steps:
   - restore_cache:
       name: 'Restore pnpm Package Cache'
       keys:
-        - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-        - pnpm-cache
+        - pnpm-cache-v2-{{ checksum "pnpm-lock.yaml" }}
+        - pnpm-cache-v2
   # Need to bust cache manually by updating lock file
   # - run:
   #     name: 'Prune pnpm store'
@@ -19,7 +19,7 @@ steps:
       command: pnpm install --frozen-lockfile
   - save_cache:
       name: 'Save pnpm Cache'
-      key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+      key: pnpm-cache-v2-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - ~/.pnpm-store
   - run:

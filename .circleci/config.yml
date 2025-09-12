@@ -129,14 +129,14 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-            - pnpm-cache
+            - pnpm-cache-v2-{{ checksum "pnpm-lock.yaml" }}
+            - pnpm-cache-v2
           name: Restore pnpm Package Cache
       - run:
           command: pnpm install --frozen-lockfile
           name: Install NPM Packages
       - save_cache:
-          key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+          key: pnpm-cache-v2-{{ checksum "pnpm-lock.yaml" }}
           name: Save pnpm Cache
           paths:
             - ~/.pnpm-store
