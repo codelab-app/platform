@@ -10,6 +10,7 @@ steps:
     # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
   - setup_remote_docker:
       docker_layer_caching: true
+  - install-docker-cli
   # Use Makefile for building and pushing Docker images
   - run:
       name: 'Build and Push Landing Docker Image'

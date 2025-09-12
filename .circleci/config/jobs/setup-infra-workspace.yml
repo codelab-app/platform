@@ -13,6 +13,5 @@ steps:
 
   - persist_to_workspace:
       root: ~/
-      # Persists the docker login
       paths:
         - .docker/config.json
