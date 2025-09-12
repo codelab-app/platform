@@ -1,5 +1,5 @@
 executor: docker-node-amd64
-resource_class: large
+resource_class: medium
 steps:
   - checkout
   - setup-env
