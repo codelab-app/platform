@@ -2,6 +2,10 @@
 # Usage: docker buildx bake api
 #        docker buildx bake --push api
 #        docker buildx bake --push all
+#
+# IMPORTANT: DigitalOcean Kubernetes only supports AMD64 architecture, not ARM.
+# When building on ARM machines (M1/M2 Macs), use: --set *.platform=linux/amd64
+# Example: docker buildx bake --push web --set *.platform=linux/amd64
 
 variable "REGISTRY" {
   default = "registry.digitalocean.com/codelabapp"

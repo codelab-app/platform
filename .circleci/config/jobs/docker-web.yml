@@ -11,7 +11,7 @@ steps:
   - setup_remote_docker:
       docker_layer_caching: true
   - install-docker-cli
-  # Use Makefile for building and pushing Docker images
+  # Build for AMD64 architecture since DigitalOcean Kubernetes only supports AMD64 nodes, not ARM
   - run:
       name: 'Build and Push Web Docker Image'
-      command: docker buildx bake --file .docker/docker-bake.hcl --push web
+      command: docker buildx bake --file .docker/docker-bake.hcl --push web --progress=plain --set web.platform=linux/amd64
