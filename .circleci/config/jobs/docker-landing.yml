@@ -14,4 +14,4 @@ steps:
   # Build for AMD64 architecture since DigitalOcean Kubernetes only supports AMD64 nodes, not ARM
   - run:
       name: 'Build and Push Landing Docker Image'
-      command: docker buildx bake --file .docker/docker-bake.hcl --push landing --progress=plain --set landing.platform=linux/amd64
+      command: docker buildx bake --file .docker/prod/landing.bake.hcl --push --progress=plain
