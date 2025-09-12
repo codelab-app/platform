@@ -51,11 +51,9 @@ fi
 #
 if [ -n "$CIRCLE_TAG" ]; then
   echo "export DOCKER_TAG_VERSION=$CIRCLE_TAG" >> $BASH_ENV
-  echo "export TF_VAR_DOCKER_TAG_VERSION=$CIRCLE_TAG" >> $BASH_ENV
   echo "[env.sh] Set DOCKER_TAG_VERSION=$CIRCLE_TAG"
 else
   echo "export DOCKER_TAG_VERSION=latest" >> $BASH_ENV
-  echo "export TF_VAR_DOCKER_TAG_VERSION=latest" >> $BASH_ENV
   echo "[env.sh] No CIRCLE_TAG found, using DOCKER_TAG_VERSION=latest"
 fi
 

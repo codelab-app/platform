@@ -8,6 +8,7 @@ steps:
   - install-packages
   - install-terraform
   - install-doctl
+  - install-docker-cli
   - login-docker
 
   - persist_to_workspace:

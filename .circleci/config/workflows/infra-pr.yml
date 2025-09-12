@@ -16,28 +16,28 @@ jobs:
             - staging
         tags:
           only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-  - tf-plan:
-      name: 'tf-plan-ci'
-      filters:
-        branches:
-          only:
-            - staging
-        tags:
-          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-      stage: ci
-      requires:
-        - setup-infra-workspace
-  - tf-apply:
-      name: 'tf-apply-ci'
-      filters:
-        branches:
-          only:
-            - staging
-        tags:
-          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-      stage: ci
-      requires:
-        - tf-plan-ci
+  # - tf-plan:
+  #     name: 'tf-plan-ci'
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
+  #       tags:
+  #         only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+  #     stage: ci
+  #     requires:
+  #       - setup-infra-workspace
+  # - tf-apply:
+  #     name: 'tf-apply-ci'
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
+  #       tags:
+  #         only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+  #     stage: ci
+  #     requires:
+  #       - tf-plan-ci
   # - packer-image:
   #     context:
   #       - prod
@@ -91,36 +91,36 @@ jobs:
         - prod
       requires:
         - setup-infra-workspace
-  - tf-plan:
-      filters:
-        branches:
-          only:
-            - staging
-        tags:
-          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-      stage: prod
-      requires:
-        - docker-web
-        - docker-api
-        - docker-sites
-        - docker-landing
-  - hold-apply:
-      filters:
-        branches:
-          only:
-            - staging
-        tags:
-          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-      type: approval
-      requires:
-        - tf-plan
-  - tf-apply:
-      filters:
-        branches:
-          only:
-            - staging
-        tags:
-          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-      stage: prod
-      requires:
-        - hold-apply
+  # - tf-plan:
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
+  #       tags:
+  #         only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+  #     stage: prod
+  #     requires:
+  #       - docker-web
+  #       - docker-api
+  #       - docker-sites
+  #       - docker-landing
+  # - hold-apply:
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
+  #       tags:
+  #         only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+  #     type: approval
+  #     requires:
+  #       - tf-plan
+  # - tf-apply:
+  #     filters:
+  #       branches:
+  #         only:
+  #           - staging
+  #       tags:
+  #         only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+  #     stage: prod
+  #     requires:
+  #       - hold-apply

@@ -60,6 +60,20 @@ commands:
 
             apt-get install -y neo4j cypher-shell
           name: Install Cypher Shell
+  install-docker-cli:
+    description: Install Docker CLI
+    steps:
+      - run:
+          command: |
+            apt-get update
+            apt-get install -y ca-certificates curl
+            install -m 0755 -d /etc/apt/keyrings
+            curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+            chmod a+r /etc/apt/keyrings/docker.asc
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+            apt-get update
+            apt-get install -y docker-ce-cli docker-buildx-plugin
+          name: Install Docker CLI
   install-doctl:
     description: Install DigitalOcean CLI (doctl)
     steps:
@@ -659,6 +673,7 @@ jobs:
       - install-packages
       - install-terraform
       - install-doctl
+      - install-docker-cli
       - login-docker
       - persist_to_workspace:
           paths:
@@ -987,28 +1002,6 @@ workflows:
                 - staging
             tags:
               only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-      - tf-plan:
-          filters:
-            branches:
-              only:
-                - staging
-            tags:
-              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-          name: tf-plan-ci
-          requires:
-            - setup-infra-workspace
-          stage: ci
-      - tf-apply:
-          filters:
-            branches:
-              only:
-                - staging
-            tags:
-              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-          name: tf-apply-ci
-          requires:
-            - tf-plan-ci
-          stage: ci
       - docker-web:
           context:
             - prod
@@ -1053,37 +1046,4 @@ workflows:
               only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - setup-infra-workspace
-      - tf-plan:
-          filters:
-            branches:
-              only:
-                - staging
-            tags:
-              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-          requires:
-            - docker-web
-            - docker-api
-            - docker-sites
-            - docker-landing
-          stage: prod
-      - hold-apply:
-          filters:
-            branches:
-              only:
-                - staging
-            tags:
-              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-          requires:
-            - tf-plan
-          type: approval
-      - tf-apply:
-          filters:
-            branches:
-              only:
-                - staging
-            tags:
-              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
-          requires:
-            - hold-apply
-          stage: prod
 working_directory: ~/project
