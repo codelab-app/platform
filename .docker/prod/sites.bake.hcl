@@ -8,7 +8,7 @@ variable "NEXT_PUBLIC_SUPABASE_URL" {}
 variable "NEXT_PUBLIC_SUPABASE_KEY" {}
 variable "SUPABASE_DB_PASS" {}
 
-# Web-specific variables
+# Auth0 variables (needed for sites)
 variable "AUTH0_SECRET" {}
 variable "AUTH0_DOMAIN" {}
 variable "AUTH0_CLIENT_ID" {}
@@ -28,5 +28,9 @@ target "sites" {
     NEXT_PUBLIC_WEB_HOST = "${NEXT_PUBLIC_WEB_HOST}"
     SUPABASE_DB_PASS = "${SUPABASE_DB_PASS}"
     NX_CLOUD_ACCESS_TOKEN = "${NX_CLOUD_ACCESS_TOKEN}"
+    AUTH0_SECRET = "${AUTH0_SECRET}"
+    AUTH0_DOMAIN = "${AUTH0_DOMAIN}"
+    AUTH0_CLIENT_ID = "${AUTH0_CLIENT_ID}"
+    AUTH0_CLIENT_SECRET = "${AUTH0_CLIENT_SECRET}"
   }
 }
