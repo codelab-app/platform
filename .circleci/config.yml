@@ -544,7 +544,7 @@ jobs:
           name: Install doctl and kubectl
       - run:
           command: |
-            doctl auth init -t $DIGITALOCEAN_TOKEN
+            doctl auth init -t ${DIGITALOCEAN_TOKEN}
             doctl kubernetes cluster kubeconfig save << parameters.cluster >>
           name: Configure kubectl
       - run:
