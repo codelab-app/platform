@@ -521,46 +521,19 @@ jobs:
           path: tmp/reports/e2e/junit
   flux-reconcile:
     executor: docker-node-amd64
-    parameters:
-      cluster:
-        default: k8s-cluster-production
-        type: string
-      namespace:
-        default: flux-system
-        type: string
     resource_class: small
     steps:
       - run:
-          command: |
-            # Install doctl
-            cd ~
-            wget https://github.com/digitalocean/doctl/releases/download/v1.104.0/doctl-1.104.0-linux-amd64.tar.gz
-            tar xf ~/doctl-1.104.0-linux-amd64.tar.gz
-            sudo mv ~/doctl /usr/local/bin
-
-            # Install kubectl
-            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-          name: Install doctl and kubectl
-      - run:
-          command: |
-            doctl auth init -t ${DIGITALOCEAN_TOKEN}
-            doctl kubernetes cluster kubeconfig save << parameters.cluster >>
-          name: Configure kubectl
-      - run:
           command: |-
-            # Reconcile all Flux Kustomizations to pull latest images
-            kubectl annotate --overwrite -n << parameters.namespace >> kustomizations.kustomize.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
+            # Trigger Flux webhook to reconcile
+            curl -X POST ${FLUX_WEBHOOK_URL} \
+              -H "Content-Type: application/json" \
+              -d '{"action": "reconcile"}' \
+              --fail \
+              --show-error
 
-            # Reconcile all HelmReleases
-            kubectl annotate --overwrite -n << parameters.namespace >> helmreleases.helm.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-            # Reconcile image repositories to scan for new tags
-            kubectl annotate --overwrite -n << parameters.namespace >> imagerepositories.image.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-            # Reconcile image update automations
-            kubectl annotate --overwrite -n << parameters.namespace >> imageupdateautomations.image.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
-          name: Trigger Flux reconciliation
+            echo "Flux webhook triggered successfully"
+          name: Trigger Flux reconciliation via webhook
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>

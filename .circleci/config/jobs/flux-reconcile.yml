@@ -2,45 +2,15 @@ executor: docker-node-amd64
 
 resource_class: small
 
-parameters:
-  cluster:
-    type: string
-    default: "k8s-cluster-production"
-  namespace:
-    type: string
-    default: "flux-system"
-
 steps:
   - run:
-      name: Install doctl and kubectl
+      name: Trigger Flux reconciliation via webhook
       command: |
-        # Install doctl
-        cd ~
-        wget https://github.com/digitalocean/doctl/releases/download/v1.104.0/doctl-1.104.0-linux-amd64.tar.gz
-        tar xf ~/doctl-1.104.0-linux-amd64.tar.gz
-        sudo mv ~/doctl /usr/local/bin
+        # Trigger Flux webhook to reconcile
+        curl -X POST ${FLUX_WEBHOOK_URL} \
+          -H "Content-Type: application/json" \
+          -d '{"action": "reconcile"}' \
+          --fail \
+          --show-error
 
-        # Install kubectl
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-  - run:
-      name: Configure kubectl
-      command: |
-        doctl auth init -t ${DIGITALOCEAN_TOKEN}
-        doctl kubernetes cluster kubeconfig save << parameters.cluster >>
-
-  - run:
-      name: Trigger Flux reconciliation
-      command: |
-        # Reconcile all Flux Kustomizations to pull latest images
-        kubectl annotate --overwrite -n << parameters.namespace >> kustomizations.kustomize.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-        # Reconcile all HelmReleases
-        kubectl annotate --overwrite -n << parameters.namespace >> helmreleases.helm.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-        # Reconcile image repositories to scan for new tags
-        kubectl annotate --overwrite -n << parameters.namespace >> imagerepositories.image.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-        # Reconcile image update automations
-        kubectl annotate --overwrite -n << parameters.namespace >> imageupdateautomations.image.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
+        echo "Flux webhook triggered successfully"
