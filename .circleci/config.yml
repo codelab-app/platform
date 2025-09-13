@@ -519,6 +519,48 @@ jobs:
           path: tmp/reports/e2e
       - store_test_results:
           path: tmp/reports/e2e/junit
+  flux-reconcile:
+    executor: docker-node-amd64
+    parameters:
+      cluster:
+        default: k8s-cluster-production
+        type: string
+      namespace:
+        default: flux-system
+        type: string
+    resource_class: small
+    steps:
+      - run:
+          command: |
+            # Install doctl
+            cd ~
+            wget https://github.com/digitalocean/doctl/releases/download/v1.104.0/doctl-1.104.0-linux-amd64.tar.gz
+            tar xf ~/doctl-1.104.0-linux-amd64.tar.gz
+            sudo mv ~/doctl /usr/local/bin
+
+            # Install kubectl
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          name: Install doctl and kubectl
+      - run:
+          command: |
+            doctl auth init -t $DIGITALOCEAN_TOKEN
+            doctl kubernetes cluster kubeconfig save << parameters.cluster >>
+          name: Configure kubectl
+      - run:
+          command: |-
+            # Reconcile all Flux Kustomizations to pull latest images
+            kubectl annotate --overwrite -n << parameters.namespace >> kustomizations.kustomize.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
+
+            # Reconcile all HelmReleases
+            kubectl annotate --overwrite -n << parameters.namespace >> helmreleases.helm.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
+
+            # Reconcile image repositories to scan for new tags
+            kubectl annotate --overwrite -n << parameters.namespace >> imagerepositories.image.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
+
+            # Reconcile image update automations
+            kubectl annotate --overwrite -n << parameters.namespace >> imageupdateautomations.image.toolkit.fluxcd.io --all reconcile.fluxcd.io/requestedAt="$(date +%s)"
+          name: Trigger Flux reconciliation
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
@@ -1050,4 +1092,18 @@ workflows:
               only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
           requires:
             - setup-infra-workspace
+      - flux-reconcile:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+            tags:
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+          requires:
+            - docker-web
+            - docker-api
+            - docker-sites
+            - docker-landing
 working_directory: ~/project
