@@ -7,9 +7,9 @@ steps:
       name: Trigger Flux reconciliation via webhook
       command: |
         # Trigger Flux webhook to reconcile
-        curl -X POST ${FLUX_WEBHOOK_URL} \
-          -H "Content-Type: application/json" \
-          -d '{"action": "reconcile"}' \
+        curl -X POST \
+          -H "Host: flux.codelab.app" \
+          http://159.89.243.147/hook/32f81c88f9f3c3d35c4cfb394757bb2fa3feaf2fc87f95a66156ce17d20e292b \
           --fail \
           --show-error
 
