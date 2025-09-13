@@ -27,7 +27,7 @@ steps:
   - run:
       name: Configure kubectl
       command: |
-        doctl auth init -t $DIGITALOCEAN_TOKEN
+        doctl auth init -t ${DIGITALOCEAN_TOKEN}
         doctl kubernetes cluster kubeconfig save << parameters.cluster >>
 
   - run:
