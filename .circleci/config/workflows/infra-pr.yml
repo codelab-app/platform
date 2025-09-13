@@ -1,5 +1,56 @@
 # This runs on staging branch and version tags
 jobs:
+  - setup-infra-workspace:
+      filters:
+        branches:
+          only:
+            - staging
+        tags:
+          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+  - docker-web:
+      filters:
+        branches:
+          only:
+            - staging
+        tags:
+          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-api:
+      filters:
+        branches:
+          only:
+            - staging
+        tags:
+          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-sites:
+      filters:
+        branches:
+          only:
+            - staging
+        tags:
+          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
+  - docker-landing:
+      filters:
+        branches:
+          only:
+            - staging
+        tags:
+          only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+      context:
+        - prod
+      requires:
+        - setup-infra-workspace
   - flux-reconcile:
       filters:
         branches:
@@ -9,3 +60,8 @@ jobs:
           only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
       context:
         - prod
+      requires:
+        - docker-web
+        - docker-api
+        - docker-sites
+        - docker-landing

@@ -1014,6 +1014,57 @@ workflows:
             - e2e
   infra-pr:
     jobs:
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - staging
+            tags:
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+            tags:
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+            tags:
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+          requires:
+            - setup-infra-workspace
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+            tags:
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+            tags:
+              only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+          requires:
+            - setup-infra-workspace
       - flux-reconcile:
           context:
             - prod
@@ -1023,4 +1074,9 @@ workflows:
                 - staging
             tags:
               only: /^([0-9]+\.[0-9]+\.[0-9]+|latest)$/
+          requires:
+            - docker-web
+            - docker-api
+            - docker-sites
+            - docker-landing
 working_directory: ~/project
