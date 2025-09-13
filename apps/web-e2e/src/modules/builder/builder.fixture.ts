@@ -75,11 +75,14 @@ export class BuilderPage extends BasePage {
 
   async clickModalConfirmButton() {
     const modal = this.getDialog()
-    const button = this.getButton({ key: UiKey.ButtonConfirmation })
+    const button = this.getButton(
+      { key: UiKey.ButtonConfirmation },
+      { locator: modal },
+    )
 
-    await expect(this.getDialog()).toBeVisible()
+    await expect(modal).toBeVisible()
 
-    await modal.locator(button).click()
+    await button.click()
   }
 
   /**
@@ -165,6 +168,7 @@ export class BuilderPage extends BasePage {
   async deleteElementFromUpdateForm(element: ICreateElementSeedData) {
     return test.step('deleteElementFromUpdateForm', async () => {
       await this.selectTreeElement(element)
+      await this.openNodeTab()
       await expect(this.getSpinner()).toBeHidden()
       await this.getConfigPane()
         .locator(this.page.getByRole('button', { name: 'Delete' }))
@@ -248,6 +252,19 @@ export class BuilderPage extends BasePage {
     })
   }
 
+  async openNodeTab() {
+    return test.step('openPropsTab', async () => {
+      const nodeTab = this.page.locator(
+        `[data-node-key="${IConfigPaneTab.Node}"]`,
+      )
+
+      await nodeTab.click()
+
+      await expect(nodeTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+      await expect(this.getSpinner()).toBeHidden()
+    })
+  }
+
   async openPreview() {
     return test.step('openPreview', async () => {
       const openPreviewButton = this.page
@@ -267,13 +284,13 @@ export class BuilderPage extends BasePage {
 
   async openPropsTab() {
     return test.step('openPropsTab', async () => {
-      const cssTab = this.page.locator(
+      const propsTab = this.page.locator(
         `[data-node-key="${IConfigPaneTab.Props}"]`,
       )
 
-      await cssTab.click()
+      await propsTab.click()
 
-      await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+      await expect(propsTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
       await expect(this.getSpinner()).toBeHidden()
     })
   }
